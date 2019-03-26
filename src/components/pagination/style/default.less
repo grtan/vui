@@ -1,0 +1,72 @@
+@import "../../../assets/style/base";
+
+html:not([@{skin-attr}]) {
+  .vui-pagination {
+    display: inline-block;
+    color: #333;
+    font-size: 14px;
+    line-height: 26px;
+    text-align: center;
+    user-select: none;
+
+    & li:not(&-disabled), input {
+      border: 1px solid #e5e5e5;
+    }
+
+    &-btn:extend(& li:not(&-disabled)) {
+      display: inline-block;
+      margin-left: 6px;
+      min-width: 64px;
+      &:first-of-type,
+      &:nth-of-type(4) {
+        margin-left: 0;
+      }
+    }
+
+    ul {
+      list-style-type: none;
+      display: inline-block;
+      margin: 0;
+      padding: 0;
+    }
+
+    li {
+      display: inline-block;
+      box-sizing: border-box;
+      margin-left: 6px;
+      padding: 0 5px;
+      min-width: 28px;
+      cursor: pointer;
+    }
+
+    &-prompt {
+      margin: 0 15px;
+    }
+
+    input {
+      margin: 0 5px;
+      padding: 0 5px;
+      width: 40px;
+      height: 26px;
+      line-height: inherit;
+      text-align: center;
+      outline: none;
+    }
+
+    & li&-active,
+    & li:not(&-disabled):hover,
+    &-btn:not(&-disabled):hover {
+      color: #000;
+      border-color: #000;
+    }
+
+    &-disabled,
+    &-active {
+      cursor: not-allowed !important;
+    }
+
+    &-btn&-disabled {
+      color: #ccc;
+    }
+  }
+}

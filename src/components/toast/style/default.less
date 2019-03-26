@@ -1,0 +1,41 @@
+@import "../../../assets/style/base";
+
+@name: vui-toast;
+
+html:not([@{skin-attr}]) {
+  .@{name} {
+    > div > div {
+      position: fixed;
+      z-index: 99999;
+      left: 50%;
+      top: 50%;
+      padding: .5em .7em;
+      width: auto;
+      max-width: 60%;
+      color: #fff;
+      font-size: .4rem;
+      border-radius: .33em;
+      background: rgba(0, 0, 0, .6);
+      transform: translate(-50%, -50%);
+      transition-property: opacity;
+
+      &[direction=top] {
+        top: 10%;
+        bottom: auto;
+      }
+
+      &[direction=bottom] {
+        top: auto;
+        bottom: 10%;
+      }
+    }
+  }
+
+  &[@{pc-attr}] {
+    .@{name} {
+      > div > div {
+        font-size: 16px;
+      }
+    }
+  }
+}
