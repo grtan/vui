@@ -10,7 +10,9 @@ import {
   ToastPlugin
 } from '@vivo/vivo-ui'
 import { PToast, PDialog } from 'vui'
+import TouchEmulator from 'hammer-touchemulator'
 
+TouchEmulator()
 Vue.use(ToastPlugin)
 Vue.use(PToast)
 Vue.use(PDialog)
