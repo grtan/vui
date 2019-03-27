@@ -10,7 +10,7 @@ html:not([@{skin-attr}]) {
     &-right {
       writing-mode: vertical-lr;
       width: 100%;
-      .vui-load-more-content {
+      .@{name}-content {
         writing-mode: horizontal-tb;
         min-width: 100%;
       }
@@ -34,12 +34,12 @@ html:not([@{skin-attr}]) {
       }
     }
 
-    &-top &-content,
-    &-bottom &-content {
+    &-top .@{name}-content,
+    &-bottom .@{name}-content {
       min-height: 100%;
     }
 
-    &-bottom &-loading > div {
+    &-bottom .@{name}-loading > div {
       top: auto;
       bottom: 0;
     }

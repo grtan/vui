@@ -1,7 +1,9 @@
 @import "../../../assets/style/base";
 
+@name: vui-pagination;
+
 html:not([@{skin-attr}]) {
-  .vui-pagination {
+  .@{name} {
     display: inline-block;
     color: #333;
     font-size: 14px;
@@ -9,11 +11,11 @@ html:not([@{skin-attr}]) {
     text-align: center;
     user-select: none;
 
-    & li:not(&-disabled), input {
+    li:not(.@{name}-disabled), input {
       border: 1px solid #e5e5e5;
     }
 
-    &-btn:extend(& li:not(&-disabled)) {
+    &-btn:extend(& li:not(.@{name}-disabled)) {
       display: inline-block;
       margin-left: 6px;
       min-width: 64px;
@@ -53,9 +55,9 @@ html:not([@{skin-attr}]) {
       outline: none;
     }
 
-    & li&-active,
-    & li:not(&-disabled):hover,
-    &-btn:not(&-disabled):hover {
+    li.@{name}-active,
+    li:not(.@{name}-disabled):hover,
+    &-btn:not(.@{name}-disabled):hover {
       color: #000;
       border-color: #000;
     }
@@ -65,7 +67,7 @@ html:not([@{skin-attr}]) {
       cursor: not-allowed !important;
     }
 
-    &-btn&-disabled {
+    &-btn.@{name}-disabled {
       color: #ccc;
     }
   }

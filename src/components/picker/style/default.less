@@ -29,6 +29,12 @@ html:not([@{skin-attr}]) {
     &-labels {
       flex: none;
       border-bottom: 1px solid #d0d0d0;
+
+      > li {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
     }
 
     &-labels > li,
@@ -37,17 +43,11 @@ html:not([@{skin-attr}]) {
       width: 0;
     }
 
-    &-labels > li {
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
     &-content {
       flex: auto;
       position: relative;
 
-      ::before {
+      &::before {
         content: "";
         position: absolute;
         left: 0;
@@ -76,7 +76,7 @@ html:not([@{skin-attr}]) {
         justify-content: center;
         height: 100%;
 
-        ::before {
+        &::before {
           content: attr(data-value);
           white-space: nowrap;
           overflow: hidden;
@@ -86,7 +86,7 @@ html:not([@{skin-attr}]) {
     }
 
     /*3D样式*/
-    &-enable3d &-column {
+    &-enable3d .@{name}-column {
       perspective: 2000px;
 
       ul {
