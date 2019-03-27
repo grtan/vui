@@ -1,0 +1,41 @@
+@charset "utf-8"
+
+// 所有尺寸统一缩小成一半
+
+$size-1: 1.5rem
+$size-2: 1.25rem
+$size-3: 1rem
+$size-4: .75rem
+$size-5: .625rem
+$size-6: .5rem
+$size-7: .375rem
+
+$icon-dimensions: .75rem
+$icon-dimensions-small: .5rem
+$icon-dimensions-medium: 1rem
+$icon-dimensions-large: 1.5rem
+
+$box-padding: .625rem
+
+@import "../../../node_modules/bulma/bulma.sass"
+
+body
+  font-size: .5rem
+
+.field
+  &:not(:last-child)
+    margin-bottom: 0.375rem
+
+.field-label
+  +mobile
+    margin-bottom: 0.25rem
+
+.radio
+  & + .radio
+    margin-left: 0.25em
+
+.level
+  &.is-mobile
+    .level-item
+      &:not(:last-child)
+        margin-right: 0.375rem

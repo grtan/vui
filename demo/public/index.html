@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="screen-orientation" content="portrait">
+  <meta name="x5-orientation" content="portrait">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="keywords" content="">
+  <meta name="description" content="">
+  <meta http-equiv="Cache-control" content="max-age=60">
+  <meta name="viewport" id="WebViewport"
+        content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
+  <title>
+    demo
+  </title>
+  <script inline src="./public/ignore/pageScale.js"></script>
+  <link rel="stylesheet" href="//at.alicdn.com/t/font_965235_9ol6gf6io4b.css">
+</head>
+
+<body>
+<div id="app"></div>
+</body>
+<% if(htmlWebpackPlugin.options.useDebug){ %>
+<script>
+  (function () {
+    var script = document.createElement('script')
+    script.src = '//cdn.jsdelivr.net/npm/eruda'
+    document.body.appendChild(script)
+    script.onload = function () {
+      eruda.init()
+    }
+  })()
+
+</script>
+<%}%>
+
+</html>

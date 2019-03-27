@@ -1,0 +1,65 @@
+{
+  "name": "demo",
+  "version": "1.0.1",
+  "description": "A vivo Vue.js project",
+  "author": "tanxin <tanxin@bbktel.com>",
+  "private": true,
+  "scripts": {
+    "dev": "vue-cli-service serve & yarn run css-watch",
+    "build": "vue-cli-service build",
+    "testServer": "cross-env NODE_ENV=testServer yarn build",
+    "serve": "PORT=9999 node serve",
+    "prod": "yarn build && gulp",
+    "lint": "vue-cli-service lint --max-warnings=0",
+    "css-build": "node-sass --omit-source-map-url src/assets/style/my-bulma.sass src/assets/style/my-bulma.css",
+    "css-watch": "yarn run css-build --watch"
+  },
+  "dependencies": {
+    "@vivo/vivo-ui": "^1.0.0",
+    "@vivo/vivojsbridge": "^1.0.2",
+    "axios": "^0.18.0",
+    "js-cookie": "^2.2.0",
+    "vue": "^2.5.17",
+    "vue-router": "^3.0.1",
+    "vuex": "^3.0.1",
+    "vuex-router-sync": "^5.0.0"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "^3.0.1",
+    "@vue/cli-plugin-eslint": "^3.0.1",
+    "@vue/cli-service": "^3.0.1",
+    "@vue/eslint-config-standard": "^3.0.1",
+    "babel-plugin-import": "^1.11.0",
+    "babel-plugin-lib-import": "^1.1.0",
+    "bulma": "^0.7.4",
+    "cross-env": "5.1.1",
+    "express": "^4.16.3",
+    "filemanager-webpack-plugin": "^2.0.4",
+    "gulp": "^3.9.1",
+    "gulp-md5-plus": "^1.0.3",
+    "gulp-zip": "^4.2.0",
+    "html-webpack-inline-plugin": "^0.0.4",
+    "http-proxy-middleware": "^0.19.0",
+    "ip": "^1.1.5",
+    "less": "^3.0.4",
+    "less-loader": "^4.1.0",
+    "lint-staged": "^7.2.2",
+    "node-sass": "^4.11.0",
+    "postcss-vivo-px2rem": "0.0.4",
+    "towebp-webpack-plugin": "^1.2.5",
+    "vue-template-compiler": "^2.5.17"
+  },
+  "gitHooks": {
+    "pre-commit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.js": [
+      "vue-cli-service lint",
+      "git add"
+    ],
+    "*.vue": [
+      "vue-cli-service lint",
+      "git add"
+    ]
+  }
+}
