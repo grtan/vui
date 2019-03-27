@@ -19,7 +19,7 @@ const pluginOptions = {
   // 本地ip
   host: ip.address(),
   // 定义端口
-  port: 9999,
+  port: 9001,
   // 登录的地址，需要一个client_id
   loginPath: 'https://passport.vivo.com.cn/v3/web/login/authorize?client_id={client_id}',
   // 埋点上报的地址

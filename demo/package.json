@@ -8,7 +8,7 @@
     "dev": "vue-cli-service serve & yarn run css-watch",
     "build": "vue-cli-service build",
     "testServer": "cross-env NODE_ENV=testServer yarn build",
-    "serve": "PORT=9999 node serve",
+    "serve": "PORT=9001 node serve",
     "prod": "yarn build && gulp",
     "lint": "vue-cli-service lint --max-warnings=0",
     "css-build": "node-sass --omit-source-map-url src/assets/style/my-bulma.sass src/assets/style/my-bulma.css",
