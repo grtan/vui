@@ -29,7 +29,7 @@ export default {
       },
       render () {
         return (
-          <toast ref="toast" class="vui-toast-plugin" {...{
+          <toast ref='toast' class='vui-toast-plugin' {...{
             props: {
               className: this.className,
               time: this.time,
@@ -41,7 +41,7 @@ export default {
               domProps: {
                 innerHTML: this.slot
               }
-            }}></div>
+            }} />
           </toast>
         )
       }

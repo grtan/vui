@@ -35,7 +35,7 @@
     },
     render () {
       return (
-        <div class="vui-toast">{
+        <div class='vui-toast'>{
           this.list.map(item => (
             <cutover appear {...{
               scopedSlots: {

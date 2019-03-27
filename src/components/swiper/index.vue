@@ -224,8 +224,8 @@
         }
 
         if ([].slice.call(event.changedTouches).some(touch => {
-            return touch.identifier === this.touchId
-          })) { // 同一个触点移除了
+          return touch.identifier === this.touchId
+        })) { // 同一个触点移除了
           let offset = this.pos - parseInt(this.pos)
           let pos
 

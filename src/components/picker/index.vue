@@ -220,8 +220,8 @@
       },
       touchend (event) {
         if ([].slice.call(event.changedTouches).some(touch => {
-            return touch.identifier === this.touchId
-          })) { // 同一个触点移除了
+          return touch.identifier === this.touchId
+        })) { // 同一个触点移除了
           const prev = this.offsets[this.scrollingIndex]
           const length = this.columns[this.scrollingIndex].length
           let offset = (this.speed > 0 ? 1 : -1) * Math.pow(Math.abs(this.speed), 0.7) // 缓冲变化量

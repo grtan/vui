@@ -32,7 +32,7 @@ export default {
                   domProps: {
                     innerHTML: this.slot
                   }
-                }}></div>
+                }} />
               </vui-dialog>
             )
           },

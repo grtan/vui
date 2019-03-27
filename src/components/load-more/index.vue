@@ -287,8 +287,8 @@
       },
       touchend (event) {
         if ([].slice.call(event.changedTouches).some(touch => {
-            return touch.identifier === this.touchId
-          })) { // 最开始引起滑动的那个触点移除了
+          return touch.identifier === this.touchId
+        })) { // 最开始引起滑动的那个触点移除了
           this.touchId = undefined
           this.disabled = undefined
 
