@@ -1,0 +1,7 @@
+demo
+docs
+src
+/.*/**
+/.*
+/*.js
+/*.html
