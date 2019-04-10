@@ -9,9 +9,11 @@
 
 * 组件
 
+  * [button 按钮](src/components/button/)
   * [city-picker 省市区选择器](src/components/city-picker/)
   * [cutover 元素切换动画](src/components/cutover/)
   * [dialog 对话框](src/components/dialog/)
+  * [icon 图标](src/components/icon/)
   * [layer 蒙层](src/components/layer/)
   * [load-more 加载更多](src/components/load-more/)
   * [pagination 分页](src/components/pagination/)

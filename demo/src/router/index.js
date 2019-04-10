@@ -13,6 +13,22 @@ let router = new Router({
     component: () =>
       import(/* webpackChunkName: "home" */ '@/views/Index/Index.vue')
   }, {
+    name: 'button',
+    path: '/components/button',
+    meta: {
+      title: 'button 按钮'
+    },
+    component: () =>
+      import(/* webpackChunkName: "button" */ '@/views/components/button/index.vue')
+  }, {
+    name: 'icon',
+    path: '/components/icon',
+    meta: {
+      title: 'icon 图标'
+    },
+    component: () =>
+      import(/* webpackChunkName: "icon" */ '@/views/components/icon/index.vue')
+  }, {
     name: 'layer',
     path: '/components/layer',
     meta: {

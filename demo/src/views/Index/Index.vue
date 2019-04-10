@@ -50,6 +50,24 @@
         demos: [{
           category: '组件',
           list: [{
+            category: '基础',
+            list: [{
+              name: 'button 按钮',
+              routeName: 'button'
+            }, {
+              name: 'icon 图标',
+              routeName: 'icon'
+            }]
+          }, {
+            category: '导航',
+            list: [{
+              name: 'header 导航栏',
+              routeName: 'header'
+            }, {
+              name: 'tab 标签',
+              routeName: 'tab'
+            }]
+          }, {
             category: '布局',
             list: [{
               name: 'layer 蒙层',

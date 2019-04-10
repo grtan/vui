@@ -7,8 +7,8 @@
 **整体引入**
 
 ```
-<link rel="stylesheet" href="xx/vivo-ui/dist/lib.min.css">
-<script src="xx/vivo-ui/dist/lib.min.js"></script>
+<link rel="stylesheet" href="xx/vivo-ui/dist/vui.min.css">
+<script src="xx/vivo-ui/dist/vui.min.js"></script>
 ```
 
 **按需加载**
