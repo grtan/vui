@@ -1,0 +1,98 @@
+// 点击效果
+@click-opacity: .3;
+@click-transition-duration: .2s;
+
+// 禁用效果
+@disabled-opacity: .3;
+
+// 背景色
+@bg-color: #fff;
+
+// 字体大小
+@title-font-size: 72px; // 主标题
+@title-secondary-font-size: 51px; // 次标题
+@title-sub-font-size: 36px; // 子标题
+@list-font-size: @title-secondary-font-size; // 列表
+@content-font-size: 45px; // 内容
+@btn-font-size: @title-secondary-font-size; // 按钮
+
+// 图标
+@icon-area-size: 138px;
+@icon-font-size: 72px;
+
+// 单个输入框
+@input-placeholder-color: #d0d0d0;
+@input-placeholder-font-size: 45px;
+@input-color: #000;
+@input-font-size: @input-placeholder-font-size;
+@input-line-height: 90px;
+@input-border-width: 3px;
+@input-border-color: #DEDEDE;
+@input-no-icon-border-radius: 24px;
+@input-bg: #F8F8F8;
+@input-disabled-bg: #EDEDED;
+@input-btn-color: #456fff; // 输入框旁边按钮
+@input-btn-font-size: 51px;
+// 多个输入框（表单）
+@input-multi-label-color: #000;
+@input-multi-label-font-size: @input-btn-font-size;
+@input-multi-placeholder-color: @input-placeholder-color;
+@input-multi-placeholder-font-size: @input-btn-font-size;
+@input-multi-color: @input-color;
+@input-multi-font-size: @input-btn-font-size;
+
+// tab
+@tab-header-color: #aaa; // 标题栏tab
+@tab-header-font-size: 51px;
+@tab-color: @tab-header-color; // 内容区tab
+@tab-selected-color: #456fff;
+@tab-font-size: 45px;
+@tab-footer-icon-color: #333; // 底部带图标tab
+@tab-footer-icon-font-size: 33px;
+@tab-footer-color: @tab-selected-color; // 底部纯文字tab
+@tab-footer-font-size: @tab-font-size;
+@tab-underline-width: 80%; // 文字底部线条
+@tab-underline-height: 9px;
+
+// 按钮
+@btn-primary-color: #fff;
+@btn-primary-bg: linear-gradient(110deg, #418EFF, #4566FF);
+@btn-default-color: #456FFF;
+@btn-danger-color: #F41222;
+@btn-border-width: 3px; // 边框尺寸
+@btn-border-radius: 12px; // 圆角
+@btn-font-size: 45px; // 非内联大按钮
+@btn-line-height: 114px;
+@btn-inline-font-size: 36px; // 内联小按钮
+@btn-inline-line-height: 66px;
+
+// 弹框
+@popup-width: 984px; // 竖屏宽度
+@popup-width-landscape: 1200px; // 横屏宽度
+@popup-width-prompt: 720px; // loading、进度等提示性弹窗宽度
+@popup-radius: 48px; // 圆角
+@popup-title-color: #000; // 标题
+@popup-title-font-size: 51px;
+@popup-content-color: @popup-title-color; // 内容
+@popup-content-font-size: 45px;
+@popup-prompt-color: #818181; // 提示
+@popup-prompt-font-size: 36px;
+@popup-menu-color: @popup-title-color; // 纯文字菜单
+@popup-menu-font-size: @popup-title-font-size;
+@popup-menu-icon-color: #666; // 图标菜单下文字
+@popup-menu-icon-font-size: @popup-content-font-size;
+@popup-btn-color: #456fff; // 按钮
+@popup-btn-font-size: @popup-title-font-size;
+@popup-scroll-selected-color: @popup-btn-color; // 滚动picker
+@popup-scroll-selected-font-size: 72px;
+@popup-tab-color: #aaa; // tab
+@popup-tab-selected-color: @popup-btn-color;
+@popup-tab-font-size: 42px;
+@popup-label-color: @popup-prompt-color; // 输入框label
+@popup-label-font-size: @popup-content-font-size;
+@popup-placeholder-color: #acacac; // placeholder
+@popup-placeholder-font-size: @popup-content-font-size;
+@popup-input-color: @popup-title-color; // input
+@popup-input-font-size: @popup-content-font-size;
+@popup-icon-color: @popup-title-color; // 分享弹框的图标下字体
+@popup-icon-font-size: 33px;

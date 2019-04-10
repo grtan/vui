@@ -1,0 +1,172 @@
+@import "index";
+
+// 图标
+.icon() {
+  display: inline-block;
+  width: @icon-area-size;
+  //font-size: 0;
+  line-height: @icon-area-size;
+  text-align: center;
+
+  &::before {
+    content: attr(data-icon);
+    //vertical-align: middle;
+    font-size: @icon-font-size;
+    .click();
+  }
+}
+
+// 输入框
+.input(@type) {
+  // 常规搜索框，作用在input父元素上
+  .type(icon) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: @input-bg;
+    border: @input-border-width solid @input-border-color;
+    border-radius: (@input-line-height + 2 * @input-border-width) / 2;
+
+    input {
+      flex-grow: 1;
+      padding: 0;
+      color: @input-color;
+      font-size: @input-font-size;
+      line-height: @input-line-height;
+
+      &::placeholder {
+        color: @input-placeholder-color;
+        font-size: @input-placeholder-font-size;
+      }
+    }
+
+    :not(input) {
+      margin: 0 (@input-line-height - @icon-font-size) / 2;
+    }
+  }
+
+  // 常规单个输入框，作用在input元素上
+  .type(no-icon) {
+    padding: 0 39px;
+    color: @input-color;
+    font-size: @input-font-size;
+    line-height: @input-line-height;
+    background: @input-bg;
+    border: @input-border-width solid @input-border-color;
+    border-radius: @input-no-icon-border-radius;
+  }
+
+  // form表单中的输入框，作用在input父元素上
+  .type(multi) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    input {
+      padding: 0;
+      color: @input-multi-color;
+      font-size: @input-multi-font-size;
+
+      &::placeholder {
+        color: @input-multi-placeholder-color;
+        font-size: @input-multi-placeholder-font-size;
+      }
+    }
+
+    :not(input) {
+      margin-left: (@input-line-height - @icon-font-size) / 2;
+    }
+  }
+
+  .type(@type)
+}
+
+// tab底部线
+.tab-underline() {
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: @tab-underline-width;
+    height: @tab-underline-height;
+    background: currentColor;
+    border-radius: @tab-underline-height / 2;
+  }
+}
+
+// 按钮
+.btn(@style: no-inline, @type: default, @shape: semicircle) {
+  // 大按钮
+  .style(no-inline) {
+    display: block;
+    font-size: @btn-font-size;
+    line-height: @btn-line-height;
+    //border-radius: (@btn-line-height + 2 * @btn-border-width) / 2;
+  }
+
+  // 内联小按钮
+  .style(inline) {
+    display: inline-block;
+    font-size: @btn-inline-font-size;
+    line-height: @btn-inline-line-height;
+    //border-radius: (@btn-inline-line-height + 2 * @btn-border-width) / 2;
+  }
+
+  .type(primary) {
+    color: @btn-primary-color;
+    line-height: (if(@style=no-inline, @btn-line-height, @btn-inline-line-height) + 2 * @btn-border-width);
+    border-width: 0;
+    background: @btn-primary-bg;
+  }
+
+  .type(default) {
+    color: @btn-default-color;
+    border-width: @btn-border-width;
+    border-style: solid;
+  }
+
+  .type(danger) {
+    color: @btn-danger-color;
+    border-width: @btn-border-width;
+    border-style: solid;
+  }
+
+  // 普通圆角
+  .shape(@shape) when (@shape = round) {
+    border-radius: @btn-border-radius;
+  }
+
+  // 半圆的圆角
+  .shape(@shape) when (@shape = semicircle) {
+    border-radius: ($line-height + 2 * $border-width) / 2;
+  }
+
+  .style(@style);
+  .type(@type);
+  .shape(@shape);
+  .click();
+  box-sizing: border-box;
+  text-align: center;
+  padding: 0 ($line-height + 2 * $border-width) / 2;
+  min-width: ($line-height + 2 * $border-width) / 2 + 3 * $font-size;
+}
+
+// 点击
+.click(@opacity: @click-opacity, @duration: @click-transition-duration) {
+  & {
+    transition-duration: @duration;
+
+    &:active {
+      opacity: @opacity;
+    }
+  }
+}
+
+// 禁用
+.disabled(@opacity: @disabled-opacity) {
+  opacity: @opacity;
+}

@@ -6,6 +6,7 @@ const gulpModifyFile = require('gulp-modify-file')
 const gulpRename = require('gulp-rename')
 const gulpLess = require('gulp-less')
 const gulpCleanCss = require('gulp-clean-css')
+const gulpPxtorem = require('gulp-pxtorem')
 const gulpUglify = require('gulp-uglify')
 const gulpBase64 = require('gulp-base64')
 const gulpBase64Img = require('gulp-base64-img')
@@ -19,6 +20,8 @@ const rollupUrl = require('rollup-plugin-url')
 const rollupBabel = require('rollup-plugin-babel')
 const rollupVue = require('rollup-plugin-vue')
 const autoprefixer = require('autoprefixer')
+const postcssPxtorem = require('postcss-pxtorem')
+const postcssPlugins = require('./postcss.config').plugins
 const src = path.join(__dirname, 'src') // src目录路径
 const srcDirName = 'src' // src目录名
 const libDirName = 'lib' // lib目录名
@@ -39,7 +42,7 @@ async function createDistJs (cb) {
           style: 'less'
         },
         style: {
-          postcssPlugins: [autoprefixer(require('./postcss.config').plugins.autoprefixer)]
+          postcssPlugins: [autoprefixer(postcssPlugins.autoprefixer), postcssPxtorem(postcssPlugins.pxtorem)]
         },
         template: {
           isProduction: true
@@ -92,9 +95,10 @@ function createDistCss (cb) {
     .pipe(gulpLess({
       rewriteUrls: 'all', // url路径相对被引入的less而不相对entry less
       plugins: [
-        new lessAutoPrefix(require('./postcss.config').plugins.autoprefixer)
+        new lessAutoPrefix(postcssPlugins.autoprefixer)
       ]
     }))
+    .pipe(gulpPxtorem(postcssPlugins.pxtorem))
     .pipe(gulpBase64({  // 将url文件转成base64
       maxImageSize: Number.MAX_VALUE
     }))
@@ -134,7 +138,7 @@ async function compile (file) {
   //     rollupCommonjs(),
   //     rollupVue({
   //       style: {
-  //         postcssPlugins: [autoprefixer(require('./postcss.config').plugins.autoprefixer), postcssClean()]
+  //         postcssPlugins: [autoprefixer(postcssPlugins.autoprefixer), postcssClean()]
   //       },
   //       template: {
   //         isProduction: true
@@ -186,7 +190,7 @@ async function compile (file) {
           style: 'less'
         },
         style: {
-          postcssPlugins: [autoprefixer(require('./postcss.config').plugins.autoprefixer)]
+          postcssPlugins: [autoprefixer(postcssPlugins.autoprefixer), postcssPxtorem(postcssPlugins.pxtorem)]
         },
         template: {
           isProduction: true
@@ -255,16 +259,17 @@ function compileStyle (cb) {
     .pipe(gulpLess({
       rewriteUrls: 'all', // url路径相对被引入的less而不相对entry less
       plugins: [
-        new lessAutoPrefix(require('./postcss.config').plugins.autoprefixer),
+        new lessAutoPrefix(postcssPlugins.autoprefixer),
         new lessCleanCSS()
       ]
     }))
+    .pipe(gulpPxtorem(postcssPlugins.pxtorem))
     .pipe(gulpBase64({  // 将url文件转成base64
       maxImageSize: Number.MAX_VALUE
     }))
     .pipe(gulpModifyFile((content, pt) => {
       // 使用tools/add-style来添加样式
-      return `import addStyle from '${path.relative(path.dirname(pt), path.join(src, 'tools/add-style/index'))}'\n\naddStyle('${content}')`
+      return `import addStyle from '${path.relative(path.dirname(pt), path.join(src, 'tools/add-style/index'))}'\n\naddStyle(\`${content}\`)`
     }))
     .pipe(gulpRename({
       extname: '.js'
