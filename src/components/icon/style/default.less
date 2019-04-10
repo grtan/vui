@@ -1,0 +1,38 @@
+@import "../../../assets/style/base";
+@import "../../../assets/style/default/mixin";
+
+html:not([@{skin-attr}]) {
+  @name: ~"@{lib-name}-icon";
+  @type: ~"@{lib-name}-type";
+  @disabled: ~"@{lib-name}-disabled";
+  @font-family: ~"@{lib-name}-iconfont";
+
+  @font-face {
+    font-family: @font-family;  /* project id 965235 */
+    src: url("default/iconfont.eot");
+    src: url("default/iconfont.eot?#iefix") format("embedded-opentype"),
+    url("default/iconfont.woff2") format("woff2"),
+    url("default/iconfont.woff") format("woff"),
+    url("default/iconfont.ttf") format("truetype"),
+    url("default/iconfont.svg#iconfont") format("svg");
+  }
+
+  .@{name} {
+    display: inline-block;
+    width: @icon-area-size;
+    font-size: 0;
+    line-height: @icon-area-size;
+    text-align: center;
+    .click();
+
+    &[@{disabled}] {
+      .disabled();
+    }
+
+    &::before {
+      content: attr(@type);
+      vertical-align: middle;
+      font: normal @icon-font-size @font-family;
+    }
+  }
+}
