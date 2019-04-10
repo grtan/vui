@@ -61,20 +61,14 @@
           }, {
             category: '导航',
             list: [{
-              name: 'header 导航栏',
-              routeName: 'header'
+              name: 'navbar 导航栏',
+              routeName: 'navbar'
             }, {
-              name: 'tab 标签',
+              name: 'tab 标签栏',
               routeName: 'tab'
-            }]
-          }, {
-            category: '布局',
-            list: [{
-              name: 'layer 蒙层',
-              routeName: 'layer'
             }, {
-              name: 'popup 弹层',
-              routeName: 'popup'
+              name: 'pagination 分页',
+              routeName: 'pagination'
             }]
           }, {
             category: '反馈',
@@ -93,15 +87,15 @@
             }, {
               name: 'collapse 折叠面板',
               routeName: 'collapse'
+            }, {
+              name: 'layer 蒙层',
+              routeName: 'layer'
+            }, {
+              name: 'popup 弹层',
+              routeName: 'popup'
             }]
           }, {
-            category: '过渡',
-            list: [{
-              name: 'cutover 元素切换',
-              routeName: 'cutover'
-            }]
-          }, {
-            category: '输入',
+            category: '数据输入',
             list: [{
               name: 'picker 滚动选择器',
               routeName: 'picker'
@@ -111,16 +105,34 @@
             }, {
               name: 'city-picker 省市区选择',
               routeName: 'city-picker'
+            }]
+          }, {
+            category: '数据展示',
+            list: [{
+              name: 'swiper 轮播',
+              routeName: 'swiper'
             }, {
+              name: 'load-more 加载更多',
+              routeName: 'load-more'
+            }]
+          }, {
+            category: '表单',
+            list: [{
               name: 'switch 开关',
               routeName: 'switch'
             }]
           }, {
-            category: '滚动',
+            category: '过渡',
             list: [{
-              name: 'load-more 加载更多',
-              routeName: 'load-more'
+              name: 'cutover 元素切换',
+              routeName: 'cutover'
+            }, {
+              name: 'timer 计时器',
+              routeName: 'timer'
             }]
+          }, {
+            category: '其他',
+            list: []
           }]
         }, {
           category: '指令',

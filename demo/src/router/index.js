@@ -21,6 +21,14 @@ let router = new Router({
     component: () =>
       import(/* webpackChunkName: "button" */ '@/views/components/button/index.vue')
   }, {
+    name: 'navbar',
+    path: '/components/navbar',
+    meta: {
+      title: 'navbar 导航栏'
+    },
+    component: () =>
+      import(/* webpackChunkName: "navbar" */ '@/views/components/navbar/index.vue')
+  }, {
     name: 'icon',
     path: '/components/icon',
     meta: {
