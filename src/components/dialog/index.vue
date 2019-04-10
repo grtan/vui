@@ -9,9 +9,9 @@
       </div>
       <div class="vui-dialog-footer" v-if="btns.length">
         <template v-for="(btn,index) in btns">
-                    <span :class="{[`vui-dialog-${btn.type}`]:btn.type}"
-                          :style="{width:`${btns.length>1?90/btns.length:100}%`}"
-                          @click="$emit('btn-click',index)">{{btn.text}}</span>
+          <span :class="{[`vui-dialog-${btn.type}`]:btn.type}"
+                :style="{width:`${btns.length>1?90/btns.length:100}%`}"
+                @click="$emit('btn-click',index)">{{btn.text}}</span>
           {{' '}}
         </template>
       </div>
