@@ -27,12 +27,13 @@
     </div>
     <div class="field is-horizontal">
       <div class="field-label">
-        <label class="label">点击关闭按钮或者back关闭</label>
+        <label class="label">点击关闭按钮或者back时是否阻止关闭</label>
       </div>
       <div class="field-body">
         <div class="field is-narrow">
           <div class="control">
-            <label class="checkbox"><input type="checkbox" name="autoClose" v-model="autoClose">{{autoClose}}</label>
+            <label class="checkbox"><input type="checkbox" name="preventClose"
+                                           v-model="preventClose">{{preventClose}}</label>
           </div>
         </div>
       </div>
@@ -41,9 +42,10 @@
       <a class="button is-primary is-fullwidth is-rounded" @click="show=true">以组件形式显示</a>
       <a class="button is-primary is-fullwidth is-rounded" @click="showPlugin">以插件形式显示</a>
     </div>
-    <v-dialog v-model="show" :close="close" :autoClose="autoClose" :title="title" @btn-click="onBtnClick">
+    <vui-dialog v-model="show" :duration="280" :close="close" :prevent-close="preventClose" :title="title"
+              @btn-click="onBtnClick">
       巴厘岛，印度尼西亚岛屿，位于爪哇岛东部，面积5620平方公里，岛上热带植被茂密，是举世闻名的旅游岛。
-    </v-dialog>
+    </vui-dialog>
   </div>
 </template>
 
@@ -77,13 +79,13 @@
 
   export default {
     components: {
-      VDialog: Dialog
+      VuiDialog: Dialog
     },
     data () {
       return {
         show: false,
         close: true,
-        autoClose: true,
+        preventClose: false,
         showTitle: true
       }
     },
@@ -94,16 +96,23 @@
     },
     methods: {
       onBtnClick (type) {
-        this.show = false
-        type > -1 && this.$vui.toast.show({
-          slot: `点击了第${type + 1}个按钮`,
-          position: 'bottom'
-        })
+        if (type > -1) {
+          this.show = false
+          this.$vui.toast.show({
+            slot: `点击了第${type + 1}个按钮`,
+            position: 'bottom'
+          })
+        } else if (this.preventClose) {
+          this.$vui.toast.show({
+            slot: '阻止关闭',
+            position: 'bottom'
+          })
+        }
       },
       showPlugin () {
         this.$vui.dialog.show({
           close: this.close,
-          autoClose: this.autoClose,
+          preventClose: this.preventClose,
           title: this.showTitle ? '长滩岛' : '',
           slot: '长滩岛（Boracay）是菲律宾中部的一座岛屿，属于西米沙鄢群岛，位于班乃岛西北2公里，是菲律宾的旅游胜地之一。',
           callback: (type, close) => {

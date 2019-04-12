@@ -12,7 +12,7 @@
         * [button 按钮](src/components/button/)
         * [icon 图标](src/components/icon/)
     * 导航
-        * [navbar 分页](src/components/navbar/)
+        * [navbar 导航栏](src/components/navbar/)
         * [pagination 分页](src/components/pagination/)
     * 反馈
         * [toast 提示](src/components/toast/)
