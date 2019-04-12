@@ -94,7 +94,10 @@
           }
         }
 
-        this.$emit('click', this.preventClose)
+        // 确保history.forward()真正执行完成
+        setTimeout(() => {
+          this.$emit('click', this.preventClose)
+        }, 50)
       },
       onpopstate ({state}) {
         if (!state || !state.vuiLayer) {
@@ -105,8 +108,11 @@
           } else {
             window.history.forward()
           }
-          // 外部主动关闭及click关闭不触发事件
-          this.value && !this.clicked && this.$emit('back', this.preventClose)
+          // 非外部主动关闭且非click关闭
+          this.value && !this.clicked && setTimeout(() => {
+            // 确保history.forward()真正执行完成
+            this.$emit('back', this.preventClose)
+          }, 50)
           this.clicked = false
         }
       },

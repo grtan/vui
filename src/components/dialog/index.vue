@@ -1,44 +1,51 @@
 <template>
-  <layer class="vui-dialog" :value="value" :click-close="false"
-         :prevent-close="!autoClose" @back="onBack" v-bind="$attrs" v-on="$listeners">
-    <div class="vui-dialog-box">
-      <span class="vui-dialog-close" v-if="close" @click="onClose"></span>
-      <p class="vui-dialog-title" v-if="title">{{title}}</p>
-      <div class="vui-dialog-content">
-        <slot></slot>
-      </div>
-      <div class="vui-dialog-footer" v-if="btns.length">
-        <template v-for="(btn,index) in btns">
-          <span :class="{[`vui-dialog-${btn.type}`]:btn.type}"
-                :style="{width:`${btns.length>1?90/btns.length:100}%`}"
-                @click="$emit('btn-click',index)">{{btn.text}}</span>
-          {{' '}}
-        </template>
-      </div>
+  <transition :duration="duration">
+    <div class="vui-dialog" v-show="value">
+      <layer :value="value" :duration="duration" v-bind="$attrs" v-on="$listeners" :click-close="false"
+             @back="onBack"></layer>
+      <cutover type="dialog" :duration="duration" v-bind="$attrs">
+        <div class="vui-dialog-box" slot-scope="slot" :style="slot.styleObj" v-show="value">
+          <icon v-if="close" type="e66c" @click="onClose"></icon>
+          <div class="vui-dialog-title" v-if="title">{{title}}</div>
+          <div class="vui-dialog-content">
+            <slot></slot>
+          </div>
+          <div class="vui-dialog-footer" v-if="btns.length">
+            <template v-for="(text,index) in btns">
+              <span v-if="index"></span>
+              <a @click="$emit('btn-click',index)">{{text}}</a>
+            </template>
+          </div>
+        </div>
+      </cutover>
     </div>
-  </layer>
+  </transition>
 </template>
 
 <script>
   import Layer from '../layer/index.vue'
+  import Cutover from '../cutover/index.vue'
+  import Icon from '../icon/index.vue'
 
   export default {
     name: 'vui-dialog',
     components: {
-      Layer
+      Layer,
+      Cutover,
+      Icon
     },
     props: {
       value: {
         type: Boolean,
         default: false
       },
+      duration: {
+        type: Number,
+        default: 285
+      },
       close: { // 右上角是否有关闭按钮
         type: Boolean,
         default: false
-      },
-      autoClose: { // 点击关闭按钮或者后退是否自动关闭
-        type: Boolean,
-        default: true
       },
       title: {
         type: String,
@@ -47,12 +54,7 @@
       btns: {
         type: Array,
         default () {
-          return [{
-            text: '取消'
-          }, {
-            text: '确定',
-            type: 'primary' // 主按钮，颜色不一样
-          }]
+          return ['取消', '确定']
         }
       }
     },

@@ -1,127 +1,81 @@
 @import "../../../assets/style/base";
-
-@name: vui-dialog;
+@import "../../../assets/style/default/mixin";
 
 html:not([@{skin-attr}]) {
+  @name: ~"@{lib-name}-dialog";
+  @cutover: ~"@{lib-name}-cutover";
+
   .@{name} {
+    .@{cutover} {
+      position: relative;
+      z-index: 0;
+
+      // 过渡效果
+      &-dialog {
+        &-enter,
+        &-leave-active {
+          bottom: 0;
+          transform: translateY(100%);
+        }
+
+        //&-enter-active {
+        //  transition-timing-function: cubic-bezier(.28, .85, .36, 1);
+        //}
+        //
+        //&-leave-active {
+        //  transition-timing-function: cubic-bezier(.4, 0, 1, 1);
+        //}
+      }
+    }
+
     &-box {
       position: fixed;
       left: 50%;
-      top: 50%;
-      padding: .6rem .5rem .5rem;
-      min-width: 60%;
-      line-height: normal;
+      bottom: @dialog-bottom;
+      box-sizing: border-box;
+      margin-left: -@dialog-width / 2;
+      padding: @dialog-padding;
+      width: @dialog-width;
       text-align: center;
-      background: #fff;
-      border-radius: .1rem;
-      transform: translate(-50%, -50%);
+      background: @dialog-bg;
+      border-radius: @dialog-radius;
     }
 
-    &-close {
+    .@{lib-name}-icon {
       position: absolute;
-      right: .24rem;
-      top: .24rem;
-      width: .5rem;
-      height: .5rem;
-
-      &::before,
-      &::after {
-        content: "";
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 50%;
-        height: .04rem;
-        transform: translateY(-50%) rotate(45deg);
-        background: #aaa;
-      }
-
-      &::after {
-        transform: translateY(-50%) rotate(-45deg);
-      }
+      right: 0;
+      top: 0;
     }
 
     &-title {
-      margin: 0 0 .6em;
-      color: #000;
-      font-size: .5rem;
+      padding: @dialog-title-padding;
+      color: @dialog-title-color;
+      font-size: @dialog-title-font-size;
     }
 
     &-content {
-      padding: .48em 0;
-      color: #666;
-      font-size: .42rem;
+      padding: @dialog-content-padding;
+      color: @dialog-content-color;
+      font-size: @dialog-content-font-size;
+      text-align: justify;
     }
 
     &-footer {
-      padding-top: .4rem;
-      font-size: 0;
-      text-align: justify;
+      display: flex;
+      padding: @dialog-footer-padding;
 
-      &::after {
-        content: "";
-        display: inline-block;
-        width: 100%;
+      a {
+        flex: 1 1 0;
+        color: @dialog-btn-color;
+        font-size: @dialog-btn-font-size;
+        line-height: @dialog-btn-line-height;
+        .a();
+        .click();
       }
 
-      > span {
-        display: inline-block;
-        box-sizing: border-box;
-        color: #aaa;
-        font-size: .38rem;
-        line-height: 2.1;
-        text-align: center;
-        border-radius: .08rem;
-        border: .03rem solid #c1c1c1;
-      }
-
-      > .@{name}-primary {
-        color: #fff;
-        border-color: #ff7b2c;
-        background: #ff7b2c;
-      }
-    }
-  }
-
-  /*pc样式*/
-  &[@{pc-attr}] {
-    .@{name} {
-      &-box {
-        padding: 30px 25px 25px;
-        min-width: 300px;
-        border-radius: 5px;
-      }
-
-      &-close {
-        right: 18px;
-        top: 18px;
-        width: 22px;
-        height: 22px;
-        cursor: pointer;
-
-        ::before,
-        ::after {
-          height: 2px;
-        }
-      }
-
-      &-title {
-        font-size: 20px;
-      }
-
-      &-content {
-        font-size: 16px;
-      }
-
-      &-footer {
-        padding-top: 16px;
-
-        > span {
-          cursor: pointer;
-          font-size: 16px;
-          border-radius: 3px;
-          border-width: 1px;
-        }
+      span {
+        width: @dialog-separate-width;
+        background: @dialog-separate-bg;
       }
     }
   }

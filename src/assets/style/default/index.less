@@ -5,9 +5,6 @@
 // 禁用效果
 @disabled-opacity: .3;
 
-// 背景色
-@bg-color: #fff;
-
 // 字体大小
 @title-font-size: 72px; // 主标题
 @title-secondary-font-size: 51px; // 次标题
@@ -66,33 +63,44 @@
 @btn-inline-font-size: 36px; // 内联小按钮
 @btn-inline-line-height: 66px;
 
-// 弹框
-@popup-width: 984px; // 竖屏宽度
-@popup-width-landscape: 1200px; // 横屏宽度
+// 对话框
+@dialog-bg: #fff; // 背景
+@dialog-bottom: 100px; // 距离底部距离
+@dialog-padding: 60px 48px 48px;
+@dialog-width: 984px; // 竖屏宽度
+@dialog-radius: 48px; // 圆角
+@dialog-title-padding: 0 0 6px 0; // 标题
+@dialog-title-color: #000;
+@dialog-title-font-size: 51px;
+@dialog-title-line-height: 60px;
+@dialog-content-padding: 30px 0 0 0; // 内容
+@dialog-content-color: @dialog-title-color;
+@dialog-content-font-size: 45px;
+@dialog-content-line-height: 48px;
+@dialog-footer-padding: 48px 0 0; // footer
+@dialog-separate-width: 3px; // 分隔线
+@dialog-separate-bg: #F2F2F2;
+@dialog-btn-color: #456fff; // 按钮
+@dialog-btn-font-size: @dialog-title-font-size;
+@dialog-btn-line-height: @dialog-title-line-height;
+
 @popup-width-prompt: 720px; // loading、进度等提示性弹窗宽度
-@popup-radius: 48px; // 圆角
-@popup-title-color: #000; // 标题
-@popup-title-font-size: 51px;
-@popup-content-color: @popup-title-color; // 内容
-@popup-content-font-size: 45px;
 @popup-prompt-color: #818181; // 提示
 @popup-prompt-font-size: 36px;
-@popup-menu-color: @popup-title-color; // 纯文字菜单
-@popup-menu-font-size: @popup-title-font-size;
+@popup-menu-color: @dialog-title-color; // 纯文字菜单
+@popup-menu-font-size: @dialog-title-font-size;
 @popup-menu-icon-color: #666; // 图标菜单下文字
-@popup-menu-icon-font-size: @popup-content-font-size;
-@popup-btn-color: #456fff; // 按钮
-@popup-btn-font-size: @popup-title-font-size;
-@popup-scroll-selected-color: @popup-btn-color; // 滚动picker
+@popup-menu-icon-font-size: @dialog-content-font-size;
+@popup-scroll-selected-color: @dialog-btn-color; // 滚动picker
 @popup-scroll-selected-font-size: 72px;
 @popup-tab-color: #aaa; // tab
-@popup-tab-selected-color: @popup-btn-color;
+@popup-tab-selected-color: @dialog-btn-color;
 @popup-tab-font-size: 42px;
 @popup-label-color: @popup-prompt-color; // 输入框label
-@popup-label-font-size: @popup-content-font-size;
+@popup-label-font-size: @dialog-content-font-size;
 @popup-placeholder-color: #acacac; // placeholder
-@popup-placeholder-font-size: @popup-content-font-size;
-@popup-input-color: @popup-title-color; // input
-@popup-input-font-size: @popup-content-font-size;
-@popup-icon-color: @popup-title-color; // 分享弹框的图标下字体
+@popup-placeholder-font-size: @dialog-content-font-size;
+@popup-input-color: @dialog-title-color; // input
+@popup-input-font-size: @dialog-content-font-size;
+@popup-icon-color: @dialog-title-color; // 分享弹框的图标下字体
 @popup-icon-font-size: 33px;

@@ -1,21 +1,5 @@
 @import "index";
 
-// 图标
-.icon() {
-  display: inline-block;
-  width: @icon-area-size;
-  //font-size: 0;
-  line-height: @icon-area-size;
-  text-align: center;
-
-  &::before {
-    content: attr(data-icon);
-    //vertical-align: middle;
-    font-size: @icon-font-size;
-    .click();
-  }
-}
-
 // 输入框
 .input(@type) {
   // 常规搜索框，作用在input父元素上
@@ -98,61 +82,9 @@
   }
 }
 
-// 按钮
-.btn(@style: no-inline, @type: default, @shape: semicircle) {
-  // 大按钮
-  .style(no-inline) {
-    display: block;
-    font-size: @btn-font-size;
-    line-height: @btn-line-height;
-    //border-radius: (@btn-line-height + 2 * @btn-border-width) / 2;
-  }
-
-  // 内联小按钮
-  .style(inline) {
-    display: inline-block;
-    font-size: @btn-inline-font-size;
-    line-height: @btn-inline-line-height;
-    //border-radius: (@btn-inline-line-height + 2 * @btn-border-width) / 2;
-  }
-
-  .type(primary) {
-    color: @btn-primary-color;
-    line-height: (if(@style=no-inline, @btn-line-height, @btn-inline-line-height) + 2 * @btn-border-width);
-    border-width: 0;
-    background: @btn-primary-bg;
-  }
-
-  .type(default) {
-    color: @btn-default-color;
-    border-width: @btn-border-width;
-    border-style: solid;
-  }
-
-  .type(danger) {
-    color: @btn-danger-color;
-    border-width: @btn-border-width;
-    border-style: solid;
-  }
-
-  // 普通圆角
-  .shape(@shape) when (@shape = round) {
-    border-radius: @btn-border-radius;
-  }
-
-  // 半圆的圆角
-  .shape(@shape) when (@shape = semicircle) {
-    border-radius: ($line-height + 2 * $border-width) / 2;
-  }
-
-  .style(@style);
-  .type(@type);
-  .shape(@shape);
-  .click();
-  box-sizing: border-box;
-  text-align: center;
-  padding: 0 ($line-height + 2 * $border-width) / 2;
-  min-width: ($line-height + 2 * $border-width) / 2 + 3 * $font-size;
+// 链接
+.a() {
+  -webkit-tap-highlight-color: transparent;
 }
 
 // 点击

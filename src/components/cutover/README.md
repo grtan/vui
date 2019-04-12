@@ -46,20 +46,20 @@ export default {
   transition-property: opacity, transform;
 }
 
-.vui-cutover:not(.vui-cutover-back) .vui-cutover-my-enter {
+.vui-cutover:not([vui-back]) .vui-cutover-my-enter {
   transform: translate3d(100%, 0, 0);
 }
 
-.vui-cutover:not(.vui-cutover-back) .vui-cutover-my-leave-active {
+.vui-cutover:not([vui-back]) .vui-cutover-my-leave-active {
   opacity: .5;
 }
 
-/*checkBack为true时，返回时会在组件根元素应用.vui-cutover-back样式*/
-.vui-cutover-back .vui-cutover-my-enter {
+/*checkBack为true时，返回时会在组件根元素应用vui-back属性*/
+.vui-cutover[vui-back] .vui-cutover-my-enter {
   opacity: .5;
 }
 
-.vui-cutover-back .vui-cutover-my-leave-active {
+.vui-cutover[vui-back] .vui-cutover-my-leave-active {
   position: relative;
   z-index: 1;
   transform: translate3d(100%, 0, 0);

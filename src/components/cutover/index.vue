@@ -1,5 +1,5 @@
 <template>
-  <div :class="['vui-cutover',{'vui-cutover-back':back}]">
+  <div class="vui-cutover" :vui-back="back">
     <transition :name="`vui-cutover-${type}`" v-bind="$attrs">
       <slot :style-obj="styleObj"></slot>
     </transition>
@@ -7,7 +7,12 @@
 </template>
 
 <style lang="less">
-  .vui-cutover {
+  @import "../../assets/style/base";
+
+  @name: ~"@{lib-name}-cutover";
+  @back: ~"@{lib-name}-back";
+
+  .@{name} {
     overflow: hidden;
 
     > * {
@@ -26,71 +31,85 @@
     }
 
     /*fade效果*/
-    &-fade-enter-active,
-    &-fade-leave-active {
-      /*必须指定property，防止过渡margin-left*/
-      transition-property: opacity;
-    }
+    &-fade {
+      &-enter-active,
+      &-leave-active {
+        /*必须指定property，防止过渡margin-left*/
+        transition-property: opacity;
+      }
 
-    &-fade-enter,
-    &-fade-leave-active {
-      opacity: 0;
+      &-enter,
+      &-leave-active {
+        opacity: 0;
+      }
     }
 
     /*cover效果*/
-    &-cover-enter-active,
-    &-cover-leave-active {
-      transition-property: opacity, transform;
-    }
+    &-cover {
+      &-enter-active,
+      &-leave-active {
+        transition-property: opacity, transform;
+      }
 
-    &:not(&-back) &-cover-enter {
-      transform: translate3d(100%, 0, 0);
-    }
+      .@{name}:not([@{back}]) &-enter {
+        transform: translate3d(100%, 0, 0);
+      }
 
-    &:not(&-back) &-cover-leave-active {
-      opacity: .5;
-    }
+      .@{name}:not([@{back}]) &-leave-active {
+        opacity: .5;
+      }
 
-    &-back &-cover-enter {
-      opacity: .5;
-    }
+      .@{name}[@{back}] &-enter {
+        opacity: .5;
+      }
 
-    &-back &-cover-leave-active {
-      position: relative;
-      z-index: 1;
-      transform: translate3d(100%, 0, 0);
+      .@{name}[@{back}] &-leave-active {
+        position: relative;
+        z-index: 1;
+        transform: translate3d(100%, 0, 0);
+      }
     }
 
     /*popup效果*/
-    &-popup-up-enter-active,
-    &-popup-up-leave-active,
-    &-popup-down-enter-active,
-    &-popup-down-leave-active,
-    &-popup-left-enter-active,
-    &-popup-left-leave-active,
-    &-popup-right-enter-active,
-    &-popup-right-leave-active {
-      transition-property: transform;
-    }
+    &-popup {
+      &-up-enter-active,
+      &-up-leave-active,
+      &-down-enter-active,
+      &-down-leave-active,
+      &-left-enter-active,
+      &-left-leave-active,
+      &-right-enter-active,
+      &-right-leave-active {
+        transition-property: transform;
+      }
 
-    &-popup-up-enter,
-    &-popup-up-leave-active {
-      transform: translateY(100%);
-    }
+      &-up {
+        &-enter,
+        &-leave-active {
+          transform: translateY(100%);
+        }
+      }
 
-    &-popup-down-enter,
-    &-popup-down-leave-active {
-      transform: translateY(-100%);
-    }
+      &-down {
+        &-enter,
+        &-leave-active {
+          transform: translateY(-100%);
+        }
+      }
 
-    &-popup-left-enter,
-    &-popup-left-leave-active {
-      transform: translateX(100%);
-    }
+      &-left {
+        &-enter,
+        &-leave-active {
+          transform: translateX(100%);
+        }
+      }
 
-    &-popup-right-enter,
-    &-popup-right-leave-active {
-      transform: translateX(-100%);
+      &-right {
+        &-enter,
+        &-leave-active {
+          transform: translateX(-100%);
+        }
+      }
     }
   }
 </style>

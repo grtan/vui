@@ -1,33 +1,24 @@
-# dialog 淡入淡出
+# dialog 对话框
 
 > dialog是一个对话框组件
 
 ## 使用方法
 
 ```
-<button @click="show=true">显示</button>
-<vivo-dialog :close="true" title="这是标题" v-model="show" @btn-click="btnClick">
-    这是内容
-</vivo-dialog>
+<vui-dialog v-model="show" :title="title" @btn-click="onBtnClick">
+  内容内容
+</vui-dialog>
 
 ```
 
 ```
-import {Dialog as VDialog} from 'vui';
+import {Dialog as VuiDialog} from 'vui';
 
 export default {
     components: {
-        VDialog
+        VuiDialog
     },
-    data: {
-        show: false
-    },
-    methods: {
-        btnClick(type) {
-            console.log(type);
-            this.show = false;
-        }
-    }
+    ...
 };
 ```
 
@@ -36,12 +27,11 @@ export default {
 名称|类型|必填|默认值|描述
 :-:|:-:|:-:|:-:|:-:
 v-model|`Boolean`|`Y`|`-`|是否显示对话框
-close|`Boolean`|`N`|`false`|是否显示右上角的关闭按钮
-autoClose|`Boolean`|`N`|`true`|点击右上角的关闭按钮或者后退时，是否自动关闭对话框
+preventClose|`Boolean`|`N`|`false`|点击关闭按钮或者back时是否阻止关闭
+duration|`Number`|`N`|`285`|过渡时间，单位`ms`
+close|`Boolean`|`N`|`false`|是否显示关闭按钮
 title|`String`|`N`|`-`|标题，没有则不显示
-btns|`Array`|`N`|`[{text: '取消'}, {text: '确定',type: 'primary'}]`|按钮列表
-btns[{text}]|`String`|`Y`|`-`|按钮文本
-btns[{type}]|`String`|`N`|`-`|按钮类型，只支持`primary`，表示主按钮，默认为普通按钮
+btns|`Array`|`N`|`['取消', '确定']`|按钮文本列表
 
 ## 插槽
 
@@ -53,7 +43,7 @@ btns[{type}]|`String`|`N`|`-`|按钮类型，只支持`primary`，表示主按�
 
 名称|参数|说明
 :-:|:-:|:-:
-btn-click|{type}|点击按钮或者后退时触发，点击右上角关闭按钮或者后退时type为-1（**autoClose为true时一样触发**），点击底部按钮时从左至右依次为0，1，2...
+btn-click|{type}|点击按钮或者后退时触发，点击右上角关闭按钮或者back时type为-1（**preventClose为true时一样触发**），点击底部按钮时从左至右依次为0，1，2...
 
 > dialog还支持插件形式来使用
 
