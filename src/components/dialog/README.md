@@ -53,13 +53,14 @@ import {PDialog} from 'vui';
 Vue.use(PDialog);
 //使用PDialog插件后，每个vue组件实例都可以显示和关闭对话框
 this.$vui.dialog.show({
-    close: true,    //是否显示对话框，默认false
-    autoClose: true,
-    title: '标题',    //标题，没有则不显示
-    btns: [{text: '确定',type:'primary'}],    //按钮，默认值跟组件一样
-    className: 'my-dialiog',    //自定义类名
-    slot: '<em>正文内容</em>',   //正文内容
-    callback(type, close) {     //点击按钮的回调
+    className: 'my-dialiog',    // 自定义类名
+    slot: '<em>正文内容</em>',   // 正文内容
+    preventClose: false,    // 跟组件一致
+    duration: 300,  // 跟组件一致
+    close: true,    // 跟组件一致
+    title: '标题',    // 跟组件一致
+    btns: ['确定', '取消'],    // 跟组件一样
+    callback(type, close) {   // 点击按钮的回调，记得执行close回调
         //type跟组件形式一样
         close();    //关闭
     }
