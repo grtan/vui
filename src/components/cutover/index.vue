@@ -115,8 +115,11 @@
 </style>
 
 <script>
+  import { mixin } from '../../mixins/history/index'
+
   export default {
     name: 'vui-cutover',
+    mixins: [mixin],
     props: {
       type: { // 切换类型
         type: String,
@@ -131,46 +134,20 @@
         default: false
       }
     },
-    data () {
-      return {
-        back: false // 是不是返回
-      }
-    },
     computed: {
       styleObj () {
         return {
           transitionDuration: `${this.duration}ms`
         }
-      }
-    },
-    watch: {
-      $route () {
-        if (!window.history.state || !window.history.state.vuiCutoverTime) { // 新建历史记录或者replace
-          window.history.replaceState(Object.assign({}, window.history.state || {}, {
-            vuiCutoverTime: this.replace ? this.previousTime || Date.now() : Date.now()
-          }), '')
-          this.replace = false
-          this.back = false
-        } else if (!this.time || window.history.state.vuiCutoverTime === this.time) { // 刷新
-          this.back = false
-        } else if (window.history.state.vuiCutoverTime < this.time) { // 后退
-          this.back = this.checkBack
-        } else { // 前进
-          this.back = false
+      },
+      back() {  // 是不是返回
+        switch (this.action) {
+          case 'back':
+            return this.checkBack
+          default:
+            return false
         }
-
-        this.time = window.history.state.vuiCutoverTime
       }
-    },
-    created() {
-      const replace = window.history.replaceState
-
-      // replace时history.state会被重置成null，所以要劫持（但仍无法解决location.replace的问题）
-      window.history.replaceState = function () {
-        this.replace = true
-        this.previousTime = window.history.state && window.history.state.vuiCutoverTime
-        replace.apply(window.history, arguments)
-      }.bind(this)
     }
   }
 </script>

@@ -1,7 +1,10 @@
 <script>
+  import { mixin, name } from '../../mixins/history/index'
+
   export default {
     name: 'vui-cache',
     abstract: true, // 这个必须加上，否则在transition组件中会有问题
+    mixins: [mixin],
     props: {
       type: {
         type: String,
@@ -31,7 +34,7 @@
       const vnode = this.$slots.default ? this.$slots.default[0] : null
 
       if (vnode) {
-        const time = window.history.state.vuiCacheTime
+        const time = window.history.state[name]
 
         switch (this.action) {
           case 'new': // 新建历史记录
@@ -87,54 +90,9 @@
 
       return vnode
     },
-    watch: {
-      $route: {
-        handler() {
-          switch (true) {
-            case !window.history.state || !window.history.state.vuiCacheTime:  // 新建历史记录，或者replace（history.state会被清除）
-              this.action = this.replace ? 'replace' : 'new'
-              window.history.replaceState(Object.assign({}, window.history.state || {}, {
-                vuiCacheTime: this.replace ? this.previousTime || Date.now() : Date.now()
-              }), '')
-              this.replace = false
-
-              break
-            case !this.time:  // 刷新，不会清除history.state
-              this.action = 'refresh'
-
-              break
-            case window.history.state.vuiCacheTime < this.time:  // 后退
-              this.action = 'back'
-
-              break
-            default:  // 前进
-              this.action = 'forward'
-          }
-
-          this.time = window.history.state.vuiCacheTime
-        },
-        immediately: true
-      }
-    },
     created() {
-      const replace = window.history.replaceState
-
       this.history = [] // 历史记录
       this.history.current = -1 // 当前页面位置
-      // replace时history.state会被重置成null，所以要劫持（但仍无法解决location.replace的问题）
-      window.history.replaceState = function () {
-        this.replace = true
-        this.previousTime = window.history.state && window.history.state.vuiCacheTime
-        replace.apply(window.history, arguments)
-      }.bind(this)
-
-//      const replace = this.$router.replace
-//
-//      this.$router.replace = function () {
-//        this.replace = true
-//        this.previousTime = window.history.state && window.history.state.vuiCacheTime
-//        replace.apply(this.$router, arguments)
-//      }.bind(this)
     }
   }
 </script>
