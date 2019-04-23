@@ -15,7 +15,9 @@
     </header>
     <cutover type="cover" :checkBack="true" :class="$style.cutover">
       <template slot-scope="slot">
-        <router-view :style="slot.styleObj"></router-view>
+        <cache>
+          <router-view :style="slot.styleObj"></router-view>
+        </cache>
       </template>
     </cutover>
   </div>
@@ -80,13 +82,14 @@
   import Error from '@/component/Error/Index.vue'
   import Loading from '@/component/Loading/Index.vue'
   import { mapState } from 'vuex'
-  import { Cutover } from 'vui'
+  import { Cutover, Cache } from 'vui'
 
   export default {
     components: {
       Loading,
       Error,
-      Cutover
+      Cutover,
+      Cache
     },
     computed: {
       ...mapState({

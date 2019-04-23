@@ -41,6 +41,7 @@ export { default as transit } from './tools/transit/index'
 
 // 组件
 export { default as Button } from './components/button/index.vue'
+export { default as Cache } from './components/cache/index.vue'
 export { default as CityPicker } from './components/city-picker/index.vue'
 export { default as Cutover } from './components/cutover/index.vue'
 export { default as Dialog } from './components/dialog/index.vue'
