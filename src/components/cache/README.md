@@ -20,7 +20,7 @@ export default {
 };
 ```
 
-**在单页应用内如果需要使用replace来切换内部页面，请使用vue-router的replace功能，而不要使用location.replace**
+**在单页应用内如果需要使用replace来切换内部页面，请使用vue-router的replace功能，而不要使用location.replace或者history.replaceState**
 
 ## 属性
 
