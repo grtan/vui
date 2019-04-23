@@ -145,12 +145,13 @@
     },
     watch: {
       $route () {
-        if (!window.history.state || !window.history.state.vuiCutoverTime) { // 新建历史记录，前进
+        if (!window.history.state || !window.history.state.vuiCutoverTime) { // 新建历史记录或者replace
           window.history.replaceState(Object.assign({}, window.history.state || {}, {
-            vuiCutoverTime: Date.now()
+            vuiCutoverTime: this.replace ? this.previousTime || Date.now() : Date.now()
           }), '')
+          this.replace = false
           this.back = false
-        } else if (!this.time || window.history.state.vuiCutoverTime === this.time) { // 刷新或者replace
+        } else if (!this.time || window.history.state.vuiCutoverTime === this.time) { // 刷新
           this.back = false
         } else if (window.history.state.vuiCutoverTime < this.time) { // 后退
           this.back = this.checkBack
@@ -160,6 +161,16 @@
 
         this.time = window.history.state.vuiCutoverTime
       }
+    },
+    created() {
+      const replace = window.history.replaceState
+
+      // replace时history.state会被重置成null，所以要劫持（但仍无法解决location.replace的问题）
+      window.history.replaceState = function () {
+        this.replace = true
+        this.previousTime = window.history.state && window.history.state.vuiCutoverTime
+        replace.apply(window.history, arguments)
+      }.bind(this)
     }
   }
 </script>

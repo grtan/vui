@@ -76,6 +76,8 @@ checkBack|`Boolean`|`N`|`false`|**当作页面转场动画时，返回时动效�
 appear|`Boolean`|`N`|`false`|初始渲染是否有过渡效果
 mode|`String`|`N`|`-`|控制元素切换时进入、离开的顺序，有效的模式有`out-in`和`in-out`，默认同时生效
 
+**当使用`checkBack`功能时，在单页应用内如果需要使用replace来切换内部页面，请使用vue-router的replace功能，而不要使用location.replace**
+
 ## 插槽
 
 名称|必填|说明
