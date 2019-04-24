@@ -132,7 +132,10 @@
             }]
           }, {
             category: '其他',
-            list: []
+            list: [{
+              name: 'cache 页面缓存',
+              routeName: 'cache'
+            }]
           }]
         }, {
           category: '指令',

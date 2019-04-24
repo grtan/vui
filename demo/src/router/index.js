@@ -92,6 +92,30 @@ let router = new Router({
     },
     component: () =>
       import(/* webpackChunkName: "city-picker" */ '@/views/components/city-picker/index.vue')
+  }, {
+    name: 'cache',
+    path: '/components/cache',
+    meta: {
+      title: 'cache 页面缓存'
+    },
+    component: () =>
+      import(/* webpackChunkName: "cache" */ '@/views/components/cache/index.vue')
+  }, {
+    name: 'cache-page1',
+    path: '/components/cache/page1',
+    meta: {
+      title: 'cache page1'
+    },
+    component: () =>
+      import(/* webpackChunkName: "cache-page1" */ '@/views/components/cache/page1.vue')
+  }, {
+    name: 'cache-page2',
+    path: '/components/cache/page2',
+    meta: {
+      title: 'cache page2'
+    },
+    component: () =>
+      import(/* webpackChunkName: "cache-page2" */ '@/views/components/cache/page2.vue')
   }]
 })
 
