@@ -34,7 +34,7 @@ new Vue({
 
 // 跟随文档切换界面
 window.addEventListener('message', function (e) {
-  if (e.data.type === 'vui') {
-    location.replace(e.data.hash.replace(/^#\/src/, '#'))
+  if (e.data.type === 'vui' && /^#\/src\//.test(e.data.hash)) {
+    router.replace(e.data.hash.replace(/^#\/src\//, '/'))
   }
 })
