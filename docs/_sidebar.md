@@ -30,9 +30,9 @@
         * [switch 开关](src/components/switch/)
     * 过渡
         * [cutover 元素切换动画](src/components/cutover/)   
-        * [timer 计时器](src/components/timer/)
     * 其他
         * [cache 页面缓存](src/components/cache/)
+        * [timer 计时器](src/components/timer/)
 
 * 插件
     * [dialog 对话框](src/components/dialog/)

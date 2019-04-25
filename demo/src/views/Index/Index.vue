@@ -126,15 +126,15 @@
             list: [{
               name: 'cutover 元素切换',
               routeName: 'cutover'
-            }, {
-              name: 'timer 计时器',
-              routeName: 'timer'
             }]
           }, {
             category: '其他',
             list: [{
               name: 'cache 页面缓存',
               routeName: 'cache'
+            }, {
+              name: 'timer 计时器',
+              routeName: 'timer'
             }]
           }]
         }, {

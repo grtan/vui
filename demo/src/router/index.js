@@ -116,6 +116,14 @@ let router = new Router({
     },
     component: () =>
       import(/* webpackChunkName: "cache-page2" */ '@/views/components/cache/page2.vue')
+  }, {
+    name: 'timer',
+    path: '/components/timer',
+    meta: {
+      title: 'timer 计时器'
+    },
+    component: () =>
+      import(/* webpackChunkName: "timer" */ '@/views/components/timer/index.vue')
   }]
 })
 
