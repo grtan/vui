@@ -127,7 +127,7 @@
       },
       duration: {
         type: Number,
-        default: 400
+        default: 300
       },
       checkBack: { // 当作页面转场动画时，返回时动效是否相反，且此时要配合vue-router使用，其它场景使用时不要设置该属性
         type: Boolean,

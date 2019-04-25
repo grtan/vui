@@ -32,7 +32,7 @@ export default {
 
 名称|类型|必填|默认值|描述
 :-:|:-:|:-:|:-:|:-:
-time|`Number`|`N`|`3000`|显示时间，单位ms
+time|`Number`|`N`|`2000`|显示时间，单位ms
 position|`String`|`N`|`center`|toast显示位置，只支持`top`,`center`,`bottom`三个值
 single|`Boolean`|`N`|`true`|是否同时只能显示一个toast，如果为`true`，则显示toast时，show方法无效
 className|`String`|`N`|`vui-toast-box`|自定义类名

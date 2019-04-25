@@ -33,6 +33,7 @@ export default {
             props: {
               className: this.className,
               time: this.time,
+              duration: this.duration,
               position: this.position,
               single: this.single
             }

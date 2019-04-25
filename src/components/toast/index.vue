@@ -7,9 +7,13 @@
       Cutover
     },
     props: {
+      duration: {
+        type: Number,
+        default: 300
+      },
       time: {
         type: Number,
-        default: 3000
+        default: 2000
       },
       position: {
         type: String,
@@ -38,9 +42,13 @@
         <div class='vui-toast'>{
           this.list.map(item => (
             <cutover appear {...{
+              key: item.id,
+              props: {
+                duration: item.duration
+              },
               scopedSlots: {
                 default: props => (
-                  <div class={item.className} style={props.styleObj} direction={item.position}>
+                  <div class={item.className} style={props.styleObj} direction={item.position} vShow={item.show}>
                     {item.slot}
                   </div>
                 )
@@ -57,14 +65,20 @@
             let item = {
               id: this.id++,
               slot: this.$slots.default,
+              show: true,
+              duration: this.duration,
               position: this.position,
               className: this.className
             }
 
             this.list.push(item)
             setTimeout(() => {
-              this.list.splice(this.list.indexOf(item), 1)
-            }, this.time)
+              item.show = false
+              // 等退场过渡完成后再移除
+              setTimeout(() => {
+                this.list.splice(this.list.indexOf(item), 1)
+              }, this.duration)
+            }, this.time + this.duration)
           }
         })
       }
