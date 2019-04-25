@@ -1,5 +1,6 @@
 <template>
-  <i class="vui-icon" :vui-type="value" :vui-disabled="disabled" @click="!disabled&&$emit('click')"></i>
+  <i class="vui-icon" :class="`vui-icon-${type}`" :vui-type="char" :vui-disabled="disabled"
+     @click="!disabled&&$emit('click')"></i>
 </template>
 
 <script>
@@ -35,9 +36,13 @@
   export default {
     name: 'vui-icon',
     props: {
-      type: { // 类型
-        type: String, // 16进制的unicode编码字符串
-        required: true
+      type: { // 类名后缀
+        type: String,
+        default: ''
+      },
+      unicode: { // 16进制的unicode编码字符串，可覆盖type
+        type: String,
+        default: ''
       },
       disabled: { // 禁用
         type: Boolean,
@@ -45,8 +50,8 @@
       }
     },
     computed: {
-      value() {
-        return unicodes2string(parseInt(this.type, 16))
+      char() {
+        return this.unicode ? unicodes2string(parseInt(this.unicode, 16)) : false
       }
     }
   }

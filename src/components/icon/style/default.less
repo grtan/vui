@@ -8,31 +8,126 @@ html:not([@{skin-attr}]) {
   @font-family: ~"@{lib-name}-iconfont";
 
   @font-face {
-    font-family: @font-family;  /* project id 965235 */
-    src: url("default/iconfont.eot");
-    src: url("default/iconfont.eot?#iefix") format("embedded-opentype"),
-    url("default/iconfont.woff2") format("woff2"),
-    url("default/iconfont.woff") format("woff"),
-    url("default/iconfont.ttf") format("truetype"),
-    url("default/iconfont.svg#iconfont") format("svg");
+    font-family: @font-family;
+    // IE9+、android 4.4+都支持woff
+    src: url("default/iconfont.woff") format("woff");
   }
 
   .@{name} {
     display: inline-block;
     width: @icon-area-size;
-    font-size: 0;
-    line-height: @icon-area-size;
+    font: normal @icon-font-size / @icon-area-size @font-family;
     text-align: center;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
     .click();
 
     &[@{disabled}] {
       .disabled();
     }
 
-    &::before {
+    &[@{type}]::before {
       content: attr(@type);
-      vertical-align: middle;
-      font: normal @icon-font-size @font-family;
+    }
+
+    &-commentaries:before {
+      content: "\e614";
+    }
+
+    &-back:before {
+      content: "\e615";
+    }
+
+    &-delete-circle:before {
+      content: "\e616";
+    }
+
+    &-delete:before {
+      content: "\e617";
+    }
+
+    &-good:before {
+      content: "\e618";
+    }
+
+    &-history:before {
+      content: "\e619";
+    }
+
+    &-download:before {
+      content: "\e61a";
+    }
+
+    &-loading:before {
+      content: "\e61b";
+    }
+
+    &-lock:before {
+      content: "\e61c";
+    }
+
+    &-maximize:before {
+      content: "\e61d";
+    }
+
+    &-like:before {
+      content: "\e61e";
+    }
+
+    &-minimization:before {
+      content: "\e61f";
+    }
+
+    &-message:before {
+      content: "\e620";
+    }
+
+    &-more:before {
+      content: "\e621";
+    }
+
+    &-read:before {
+      content: "\e622";
+    }
+
+    &-refresh:before {
+      content: "\e623";
+    }
+
+    &-scan:before {
+      content: "\e624";
+    }
+
+    &-phone:before {
+      content: "\e625";
+    }
+
+    &-search:before {
+      content: "\e626";
+    }
+
+    &-setting:before {
+      content: "\e627";
+    }
+
+    &-share:before {
+      content: "\e628";
+    }
+
+    &-sound:before {
+      content: "\e629";
+    }
+
+    &-unlock:before {
+      content: "\e62a";
+    }
+
+    &-silent:before {
+      content: "\e62b";
+    }
+
+    &-low:before {
+      content: "\e62c";
     }
   }
 }

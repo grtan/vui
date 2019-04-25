@@ -1,6 +1,6 @@
 # icon 图标
 
-> icon是一个图标组件
+> icon是一个图标组件，采用的`iconfont`方案，可自定义颜色和尺寸。
 
 ## 使用方法
 
@@ -17,7 +17,7 @@ export default {
     },
     data () {
         return {
-            type: 'e66c',
+            type: 'search',
             disabled: false
         }
     }
@@ -28,8 +28,11 @@ export default {
 
 名称|类型|必填|默认值|描述
 :-:|:-:|:-:|:-:|:-:
-type|`String`|`Y`|`-`|图标类型，因为采用的字体图标，所以`type`为16进制的unicode编码字符串，如`e66c`、`e66d`之类的
+type|`String`|`N`|`-`|图标类型名称，比如`good`、`search`等
+unicode|`String`|`N`|`-`|图标的16进制的unicode编码字符串，如`e66c`、`e66d`之类的。如果需要使用自定义字体图标，可以设置该属性
 disabled|`Boolean`|`N`|`false`|是否已被禁用
+
+**因为图标库使用的`iconfont`实现的，所以可以随意改变大小和颜色**
 
 ## 事件
 
