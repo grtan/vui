@@ -1,7 +1,6 @@
 <template>
   <cutover class="vui-layer" :class="{'vui-layer-global':global}" v-bind="$attrs">
-    <div slot-scope="slot" :style="Object.assign({backgroundColor:background},slot.styleObj)"
-         v-show="value" @click.self="onclick" @touchmove.self="onTouchMove">
+    <div :style="{backgroundColor:background}" v-show="value" @click.self="onclick" @touchmove.self="onTouchMove">
       <slot></slot>
     </div>
   </cutover>

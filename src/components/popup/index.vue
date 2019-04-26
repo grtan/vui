@@ -1,49 +1,45 @@
 <template>
-  <layer class="vui-popup" :class="[`vui-popup-${direction}`,{'vui-popup-layer':layer}]" :value="value"
-         v-bind="$attrs" v-on="$listeners">
+  <div class="vui-popup" :vui-direction="direction">
+    <layer :value="layer&&value" v-bind="$attrs" v-on="$listeners">
+    </layer>
     <cutover :type="`popup-${direction}`" v-bind="$attrs">
-      <div slot-scope="slot" :style="slot.styleObj" class="vui-popup-box" v-show="value">
+      <div class="vui-popup-box" v-show="value">
         <slot></slot>
       </div>
     </cutover>
-  </layer>
+  </div>
 </template>
 
 <style lang="less">
-  @name: vui-popup;
+  @import "../../assets/style/base";
+
+  @name: ~"@{lib-name}-popup";
+  @direction: ~"@{lib-name}-direction";
 
   .@{name} {
-    > div {
-      visibility: hidden;
-    }
-
-    &-layer > div,
-    > div > div {
-      visibility: visible;
-    }
-
     &-box {
-      position: absolute;
+      position: fixed;
+      z-index: 1000;
 
-      .@{name}-up & {
+      .@{name}[@{direction}=up] & {
         left: 0;
         right: 0;
         bottom: 0;
       }
 
-      .@{name}-down & {
+      .@{name}[@{direction}=down] & {
         left: 0;
         right: 0;
         top: 0;
       }
 
-      .@{name}-right & {
+      .@{name}[@{direction}=right] & {
         left: 0;
         top: 0;
         bottom: 0;
       }
 
-      .@{name}-left & {
+      .@{name}[@{direction}=left] & {
         right: 0;
         top: 0;
         bottom: 0;

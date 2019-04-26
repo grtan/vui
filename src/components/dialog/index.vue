@@ -4,7 +4,7 @@
       <layer :value="value" :duration="duration" v-bind="$attrs" v-on="$listeners" :click-close="false"
              @back="onBack"></layer>
       <cutover type="dialog" :duration="duration" v-bind="$attrs">
-        <div class="vui-dialog-box" slot-scope="slot" :style="slot.styleObj" v-show="value">
+        <div class="vui-dialog-box" v-show="value">
           <icon v-if="close" type="e66c" @click="onClose"></icon>
           <div class="vui-dialog-title" v-if="title">{{title}}</div>
           <div class="vui-dialog-content">

@@ -5,18 +5,25 @@
 ## 使用方法
 
 ```
-<vui-cache>
-    <router-view></router-view>  
-</vui-cache>
+<cache>
+  <router-view></router-view>  
+</cache>
+
+<!--与cutover配合使用-->
+<cutover>
+  <cache>
+    <router-view></router-view>
+  </cache>
+</cutover>
 ```
 
 ```
 import {Cache} from 'vui';
 
 export default {
-    components: {
-        Cache
-    }
+  components: {
+    Cache
+  }
 };
 ```
 

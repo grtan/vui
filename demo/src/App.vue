@@ -14,11 +14,9 @@
       </h1>
     </header>
     <cutover type="cover" :checkBack="true" :class="$style.cutover">
-      <template slot-scope="slot">
-        <cache>
-          <router-view :style="slot.styleObj"></router-view>
-        </cache>
-      </template>
+      <cache>
+        <router-view></router-view>
+      </cache>
     </cutover>
   </div>
 </template>

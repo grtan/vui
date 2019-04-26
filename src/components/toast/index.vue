@@ -1,4 +1,4 @@
-<script>
+<script lang="js">
   import Cutover from '../cutover/index.vue'
 
   export default {
@@ -39,23 +39,20 @@
     },
     render () {
       return (
-        <div class='vui-toast'>{
-          this.list.map(item => (
-            <cutover appear {...{
-              key: item.id,
-              props: {
-                duration: item.duration
-              },
-              scopedSlots: {
-                default: props => (
-                  <div class={item.className} style={props.styleObj} direction={item.position} vShow={item.show}>
+          <div class="vui-toast">{
+            this.list.map(item => (
+                <cutover appear {...{
+                  key: item.id,
+                  props: {
+                    duration: item.duration
+                  }
+                }}>
+                  <div class={item.className} direction={item.position} vShow={item.show}>
                     {item.slot}
                   </div>
-                )
-              }
-            }} />
-          ))
-        }</div>
+                </cutover>
+            ))
+          }</div>
       )
     },
     methods: {

@@ -7,25 +7,19 @@
 ```
 <!--单个元素切换-->
 <cutover type="cover">
-  <template slot-scope="slot">
-    <div v-show="show" :style="slot.styleObj">元素内容</div>
-  </template>
+  <div v-show="show">元素内容</div>
 </cutover>
 
 <!--多个元素切换-->
 <cutover type="cover">
-  <template slot-scope="slot">
-    <div v-if="value===1" :style="slot.styleObj">元素内容</div>
-    <div v-else-if="value===2" :style="slot.styleObj">元素内容</div>
-    <div v-else :style="slot.styleObj">元素内容</div>
-  </template>
+  <div v-if="value===1">元素内容</div>
+  <div v-else-if="value===2">元素内容</div>
+  <div v-else>元素内容</div>
 </cutover>
 
 <!--页面切换-->
 <cutover type="my">
-  <template slot-scope="slot">
-    <router-view :style="slot.styleObj"></router-view>
-  </template>
+  <router-view :style="slot.styleObj"></router-view>
 </cutover>
 ```
 
@@ -83,13 +77,3 @@ mode|`String`|`N`|`-`|控制元素切换时进入、离开的顺序，有效的�
 名称|必填|说明
 :-:|:-:|:-:
 默认|`Y`|要切换的元素
-
-## 注意
-
-**过渡的元素上必须要应用插槽的样式，否则过渡无法生效，如下**
-
-```
-<template slot-scope="slot">
-  <div v-show="show" :style="slot.styleObj">元素内容</div>
-</template>
-```

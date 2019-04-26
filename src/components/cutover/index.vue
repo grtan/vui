@@ -1,11 +1,3 @@
-<template>
-  <div class="vui-cutover" :vui-back="back">
-    <transition :name="`vui-cutover-${type}`" v-bind="$attrs">
-      <slot :style-obj="styleObj"></slot>
-    </transition>
-  </div>
-</template>
-
 <style lang="less">
   @import "../../assets/style/base";
 
@@ -114,7 +106,7 @@
   }
 </style>
 
-<script>
+<script lang="js">
   import { mixin } from '../../mixins/history/index'
 
   export default {
@@ -148,6 +140,22 @@
             return false
         }
       }
+    },
+    render() {
+      return (
+          <div class="vui-cutover" vui-back={this.back}>
+            <transition name={`vui-cutover-${this.type}`} {...{
+              props: this.$attrs
+            }}>{
+              this.$slots.default && this.$slots.default.map(vnode => {
+                vnode.data.staticStyle = vnode.data.staticStyle || {}
+                Object.assign(vnode.data.staticStyle, this.styleObj)
+
+                return vnode
+              })
+            }</transition>
+          </div>
+      )
     }
   }
 </script>
