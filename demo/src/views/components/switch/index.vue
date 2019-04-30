@@ -80,8 +80,8 @@
     data () {
       return {
         checked: false,
-        color1: '#fff',
-        color2: '#456FFF',
+        color1: '#ffffff',
+        color2: '#456fff',
         disabled: false,
         prevent: false
       }
