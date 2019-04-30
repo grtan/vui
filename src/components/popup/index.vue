@@ -1,13 +1,15 @@
 <template>
-  <div class="vui-popup" :vui-direction="direction">
-    <layer :value="layer&&value" v-bind="$attrs" v-on="$listeners">
-    </layer>
+  <!--这个layer来实现能否使用global属性，即决定蒙层范围-->
+  <layer class="vui-popup" :vui-direction="direction" :value="value" background="transparent" :click-close="false"
+         :back-close="false" v-bind="$attrs">
+    <!--这个layer来实现蒙层-->
+    <layer class="vui-popup-layer" :value="layer&&value" :global="true" v-bind="$attrs" v-on="$listeners"></layer>
     <cutover :type="`popup-${direction}`" v-bind="$attrs">
       <div class="vui-popup-box" v-show="value">
         <slot></slot>
       </div>
     </cutover>
-  </div>
+  </layer>
 </template>
 
 <style lang="less">
@@ -17,9 +19,18 @@
   @direction: ~"@{lib-name}-direction";
 
   .@{name} {
+    > div {
+      opacity: 1 !important;
+    }
+
+    &-layer > div {
+      position: absolute !important;
+      z-index: auto !important;
+    }
+
     &-box {
-      position: fixed;
-      z-index: 1000;
+      position: absolute;
+      width: auto;
 
       .@{name}[@{direction}=up] & {
         left: 0;

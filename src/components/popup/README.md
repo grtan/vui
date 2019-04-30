@@ -41,3 +41,7 @@ direction|`String`|`N`|`up`|弹层的弹出的方向，支持`up`,`down`,`left`,
 ## 事件
 
 跟`layer`组件一致
+
+## 更新日志
+
+* v1.0.0 发布

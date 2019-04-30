@@ -34,6 +34,18 @@
     </div>
     <div class="field is-horizontal">
       <div class="field-label">
+        <label class="label">是否是全局的</label>
+      </div>
+      <div class="field-body">
+        <div class="field is-narrow">
+          <div class="control">
+            <label class="checkbox"><input type="checkbox" name="global" v-model="global">{{global}}</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="field is-horizontal">
+      <div class="field-label">
         <label class="label">点击蒙层关闭</label>
       </div>
       <div class="field-body">
@@ -72,9 +84,9 @@
     <div :class="$style.btns">
       <a class="button is-primary is-fullwidth is-rounded" @click="show=true">显示</a>
     </div>
-    <popup v-model="show" :direction="direction" :layer="layer" :click-close="clickClose"
+    <popup v-model="show" :direction="direction" :layer="layer" :global="global" :click-close="clickClose"
            :back-close="backClose" :prevent-close="preventClose" @click="onclick" @back="onback">
-      <div class="box">
+      <div class="box" :class="{[$style.side]:['left','right'].includes(direction)}">
         <p>
           巴厘岛，印度尼西亚岛屿，位于爪哇岛东部，面积5620平方公里，岛上热带植被茂密，是举世闻名的旅游岛。巴厘岛是印尼17000多个岛屿当中最耀眼的一个岛屿，位于爪哇岛东部，面积5620平方公里，岛上山脉纵横、风情万种、景物绮丽。岛上东西宽140公里，南北相距80公里，全岛总面积为5620㎞²</p>
         <a class="button is-fullwidth is-outlined is-primary" :class="$style.close" @click="show=false">关闭</a>
@@ -106,6 +118,11 @@
   .close {
     margin-top: .5rem;
   }
+
+  .side {
+    width: 7rem;
+    height: 100%;
+  }
 </style>
 
 <script>
@@ -120,6 +137,7 @@
         show: false,
         direction: 'up',
         layer: true,
+        global: true,
         clickClose: false,
         backClose: true,
         preventClose: false

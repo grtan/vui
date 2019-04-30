@@ -47,3 +47,7 @@ preventClose|`Boolean`|`N`|`false`|当`clickClose`、`backClose`为`true`时，�
 :-:|:-:|:-:
 click|`(prevented)`|无论`clickClose`的值为什么，点击蒙层**（非slot内容）**时总会触发，`prevented`的值跟`preventClose`属性一致，可以在该事件中做阻止关闭的提示
 back|`(prevented)`|当`backClose`属性为`true`并显示了layer组件时，点击back键时触发，`prevented`同上
+
+## 更新日志
+
+* v1.0.0 发布
