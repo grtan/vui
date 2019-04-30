@@ -28,8 +28,6 @@
     * 数据展示
         * [swiper 轮播](src/components/swiper/)
         * [load-more 加载更多](src/components/load-more/)
-    * 表单
-        * [switch 开关](src/components/switch/)
     * 过渡
         * [cutover 元素切换动画](src/components/cutover/)   
     * 其他
