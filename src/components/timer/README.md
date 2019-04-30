@@ -43,3 +43,7 @@ pause|`Boolean`|`N`|`false`|是否暂停
 名称|参数|说明
 :-:|:-:|:-:
 change|`{value,complete}`|时间变化时触发，value为当前时间，complete表示倒计时是否结束，正计时该参数无效
+
+## 更新日志
+
+* v1.0.0 发布

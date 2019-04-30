@@ -62,3 +62,7 @@ this.$vui.toast.hide();
 ## 注意
 
 **如果需要在vue组件外使用toast，也可以使用Vue.$vui.toast.show()和Vue.$vui.toast.hide()**
+
+## 更新日志
+
+* v1.0.0 发布

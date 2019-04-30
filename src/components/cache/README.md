@@ -42,3 +42,7 @@ forceUpdate|`Boolean`|`N`|`false`|所有页面强制创建新的实例，而不�
 名称|必填|说明
 :-:|:-:|:-:
 默认|`Y`|路由视图，写死`<router-view></router-view>`
+
+## 更新日志
+
+* v1.0.0 发布

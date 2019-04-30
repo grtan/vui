@@ -70,3 +70,7 @@ this.$vui.dialog.hide();
 ## 注意
 
 **如果需要在vue组件外使用dialog，可以使用Vue.$vui.dialog.show()和Vue.$vui.dialog.hide()**
+
+## 更新日志
+
+* v1.0.0 发布
