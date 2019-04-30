@@ -1,10 +1,7 @@
 <template>
-  <div class="vui-switch" :class="{'vui-switch-checked':value,'vui-switch-disabled':disabled}" :style="style"
-       @click="click">
-    <template v-if="!this.image||!this.image.length">
-      <div :style="{backgroundColor:color[0]}"></div>
-      <div></div>
-    </template>
+  <div class="vui-switch" :style="style" :vui-checked="value" :vui-disabled="disabled" @click="click">
+    <div :style="{backgroundColor:color[0]}"></div>
+    <div></div>
   </div>
 </template>
 
@@ -19,13 +16,7 @@
       color: { // 背景色
         type: Array,
         default () {
-          return ['#fff', '#ffe26d']
-        }
-      },
-      image: { // 背景图片
-        type: Array,
-        default () {
-          return []
+          return ['#fff', '#456fff']
         }
       },
       disabled: {
@@ -39,16 +30,9 @@
     },
     computed: {
       style () {
-        if (this.image && this.image.length) { // 优先使用背景图
-          return {
-            backgroundColor: 'transparent',
-            backgroundImage: `url(${this.image[this.value ? 1 : 0]})`
-          }
-        } else {
-          return this.value ? {
-            backgroundColor: this.color[1]
-          } : {}
-        }
+        return this.value ? {
+          backgroundColor: this.color[1]
+        } : {}
       }
     },
     watch: {

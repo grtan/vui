@@ -19,10 +19,12 @@
         * [dialog 对话框](src/components/dialog/)
         * [layer 蒙层](src/components/layer/)
         * [popup 弹层](src/components/popup/)
+        * [loading 加载](src/components/loading/)
     * 数据输入
         * [picker 选择器](src/components/picker/)
         * [popup-picker 弹层选择器](src/components/popup-picker/)
         * [city-picker 省市区选择器](src/components/city-picker/)
+        * [switch 开关](src/components/switch/)
     * 数据展示
         * [swiper 轮播](src/components/swiper/)
         * [load-more 加载更多](src/components/load-more/)

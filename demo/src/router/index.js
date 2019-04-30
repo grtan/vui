@@ -4,127 +4,146 @@ import store from '../store/'
 Vue.use(Router)
 
 let router = new Router({
-  routes: [{
-    name: 'index',
-    path: '/',
-    meta: {
-      title: '首页'
+  routes: [
+    {
+      name: 'index',
+      path: '/',
+      meta: {
+        title: '首页'
+      },
+      component: () =>
+        import(/* webpackChunkName: "home" */ '@/views/Index/Index.vue')
     },
-    component: () =>
-      import(/* webpackChunkName: "home" */ '@/views/Index/Index.vue')
-  }, {
-    name: 'button',
-    path: '/components/button',
-    meta: {
-      title: 'button 按钮'
+    // 基础
+    {
+      name: 'button',
+      path: '/components/button',
+      meta: {
+        title: 'button 按钮'
+      },
+      component: () =>
+        import(/* webpackChunkName: "button" */ '@/views/components/button/index.vue')
+    }, {
+      name: 'icon',
+      path: '/components/icon',
+      meta: {
+        title: 'icon 图标'
+      },
+      component: () =>
+        import(/* webpackChunkName: "icon" */ '@/views/components/icon/index.vue')
     },
-    component: () =>
-      import(/* webpackChunkName: "button" */ '@/views/components/button/index.vue')
-  }, {
-    name: 'navbar',
-    path: '/components/navbar',
-    meta: {
-      title: 'navbar 导航栏'
+    // 导航
+    {
+      name: 'navbar',
+      path: '/components/navbar',
+      meta: {
+        title: 'navbar 导航栏'
+      },
+      component: () =>
+        import(/* webpackChunkName: "navbar" */ '@/views/components/navbar/index.vue')
     },
-    component: () =>
-      import(/* webpackChunkName: "navbar" */ '@/views/components/navbar/index.vue')
-  }, {
-    name: 'icon',
-    path: '/components/icon',
-    meta: {
-      title: 'icon 图标'
+    // 反馈
+    {
+      name: 'layer',
+      path: '/components/layer',
+      meta: {
+        title: 'layer 蒙层'
+      },
+      component: () =>
+        import(/* webpackChunkName: "layer" */ '@/views/components/layer/index.vue')
+    }, {
+      name: 'popup',
+      path: '/components/popup',
+      meta: {
+        title: 'popup 弹层'
+      },
+      component: () =>
+        import(/* webpackChunkName: "popup" */ '@/views/components/popup/index.vue')
+    }, {
+      name: 'toast',
+      path: '/components/toast',
+      meta: {
+        title: 'toast 提示'
+      },
+      component: () =>
+        import(/* webpackChunkName: "toast" */ '@/views/components/toast/index.vue')
+    }, {
+      name: 'dialog',
+      path: '/components/dialog',
+      meta: {
+        title: 'dialog 对话框'
+      },
+      component: () =>
+        import(/* webpackChunkName: "dialog" */ '@/views/components/dialog/index.vue')
     },
-    component: () =>
-      import(/* webpackChunkName: "icon" */ '@/views/components/icon/index.vue')
-  }, {
-    name: 'layer',
-    path: '/components/layer',
-    meta: {
-      title: 'layer 蒙层'
+    // 数据输入
+    {
+      name: 'picker',
+      path: '/components/picker',
+      meta: {
+        title: 'picker 滚动选择器'
+      },
+      component: () =>
+        import(/* webpackChunkName: "picker" */ '@/views/components/picker/index.vue')
+    }, {
+      name: 'popup-picker',
+      path: '/components/popup-picker',
+      meta: {
+        title: 'popup-picker 弹层选择器'
+      },
+      component: () =>
+        import(/* webpackChunkName: "popup-picker" */ '@/views/components/popup-picker/index.vue')
+    }, {
+      name: 'city-picker',
+      path: '/components/city-picker',
+      meta: {
+        title: 'city-picker 省市区选择'
+      },
+      component: () =>
+        import(/* webpackChunkName: "city-picker" */ '@/views/components/city-picker/index.vue')
+    }, {
+      name: 'switch',
+      path: '/components/switch',
+      meta: {
+        title: 'switch 开关'
+      },
+      component: () =>
+        import(/* webpackChunkName: "switch" */ '@/views/components/switch/index.vue')
     },
-    component: () =>
-      import(/* webpackChunkName: "layer" */ '@/views/components/layer/index.vue')
-  }, {
-    name: 'popup',
-    path: '/components/popup',
-    meta: {
-      title: 'popup 弹层'
-    },
-    component: () =>
-      import(/* webpackChunkName: "popup" */ '@/views/components/popup/index.vue')
-  }, {
-    name: 'toast',
-    path: '/components/toast',
-    meta: {
-      title: 'toast 提示'
-    },
-    component: () =>
-      import(/* webpackChunkName: "toast" */ '@/views/components/toast/index.vue')
-  }, {
-    name: 'dialog',
-    path: '/components/dialog',
-    meta: {
-      title: 'dialog 对话框'
-    },
-    component: () =>
-      import(/* webpackChunkName: "dialog" */ '@/views/components/dialog/index.vue')
-  }, {
-    name: 'picker',
-    path: '/components/picker',
-    meta: {
-      title: 'picker 滚动选择器'
-    },
-    component: () =>
-      import(/* webpackChunkName: "picker" */ '@/views/components/picker/index.vue')
-  }, {
-    name: 'popup-picker',
-    path: '/components/popup-picker',
-    meta: {
-      title: 'popup-picker 弹层选择器'
-    },
-    component: () =>
-      import(/* webpackChunkName: "popup-picker" */ '@/views/components/popup-picker/index.vue')
-  }, {
-    name: 'city-picker',
-    path: '/components/city-picker',
-    meta: {
-      title: 'city-picker 省市区选择'
-    },
-    component: () =>
-      import(/* webpackChunkName: "city-picker" */ '@/views/components/city-picker/index.vue')
-  }, {
-    name: 'cache',
-    path: '/components/cache',
-    meta: {
-      title: 'cache 页面缓存'
-    },
-    component: () =>
-      import(/* webpackChunkName: "cache" */ '@/views/components/cache/index.vue')
-  }, {
-    name: 'cache-page1',
-    path: '/components/cache/page1',
-    meta: {
-      title: 'cache page1'
-    },
-    component: () =>
-      import(/* webpackChunkName: "cache-page1" */ '@/views/components/cache/page1.vue')
-  }, {
-    name: 'cache-page2',
-    path: '/components/cache/page2',
-    meta: {
-      title: 'cache page2'
-    },
-    component: () =>
-      import(/* webpackChunkName: "cache-page2" */ '@/views/components/cache/page2.vue')
-  }, {
-    name: 'timer',
-    path: '/components/timer',
-    meta: {
-      title: 'timer 计时器'
-    },
-    component: () =>
-      import(/* webpackChunkName: "timer" */ '@/views/components/timer/index.vue')
-  }]
+    // 其他
+    {
+      name: 'cache',
+      path: '/components/cache',
+      meta: {
+        title: 'cache 页面缓存'
+      },
+      component: () =>
+        import(/* webpackChunkName: "cache" */ '@/views/components/cache/index.vue')
+    }, {
+      name: 'cache-page1',
+      path: '/components/cache/page1',
+      meta: {
+        title: 'cache page1'
+      },
+      component: () =>
+        import(/* webpackChunkName: "cache-page1" */ '@/views/components/cache/page1.vue')
+    }, {
+      name: 'cache-page2',
+      path: '/components/cache/page2',
+      meta: {
+        title: 'cache page2'
+      },
+      component: () =>
+        import(/* webpackChunkName: "cache-page2" */ '@/views/components/cache/page2.vue')
+    }, {
+      name: 'timer',
+      path: '/components/timer',
+      meta: {
+        title: 'timer 计时器'
+      },
+      component: () =>
+        import(/* webpackChunkName: "timer" */ '@/views/components/timer/index.vue')
+    }]
 })
 
 router.beforeResolve(function (to, from, next) {

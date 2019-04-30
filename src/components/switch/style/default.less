@@ -1,17 +1,21 @@
 @import "../../../assets/style/base";
+@import "../../../assets/style/default/mixin";
 
-@name: vui-switch;
+@name: ~"@{lib-name}-switch";
+@checked: ~"@{lib-name}-checked";
+@disabled: ~"@{lib-name}-disabled";
 
 html:not([@{skin-attr}]) {
   .@{name} {
     position: relative;
     display: inline-block;
-    width: 1.35rem;
-    height: .8rem;
-    background: #dfdfdf center / contain no-repeat;
+    box-sizing: border-box;
+    width: @switch-width;
+    height: @switch-height;
+    background: @switch-border-color;
     background-origin: border-box;
-    border: .03rem solid transparent;
-    border-radius: .43rem / 50%;
+    border: @switch-border-width solid transparent;
+    border-radius: @switch-height / 2;
     transition: background .35s;
 
     > :first-child {
@@ -20,8 +24,8 @@ html:not([@{skin-attr}]) {
       right: 0;
       top: 0;
       bottom: 0;
-      border-radius: .4rem / 50%;
-      transition: transform .35s cubic-bezier(0.45, 1, 0.4, 1);
+      border-radius: (@switch-height - 2 * @switch-border-width) / 2;
+      transition: transform .35s cubic-bezier(.45, 1, .4, 1);
     }
 
     > :last-child {
@@ -30,15 +34,15 @@ html:not([@{skin-attr}]) {
       top: 0;
       bottom: 0;
       transform: translateX(100%);
-      width: .8rem;
+      width: @switch-height - 2 * @switch-border-width;
       border-radius: 50%;
-      background: #fff;
-      box-shadow: 0 .03rem .09rem rgba(0, 0, 0, 0.4);
-      transition: .35s cubic-bezier(0.4, 0.4, 0.25, 1.35);
-      transition-property: right, transform;
+      background: @switch-btn-bg;
+      box-shadow: @switch-btn-shadow;
+      transition: .35s cubic-bezier(.4, .4, .25, 1.35);
+      transition-property: right, transform, box-shadow;
     }
 
-    &-checked {
+    &[@{checked}] {
       > :first-child {
         transform: scale(0);
       }
@@ -46,11 +50,12 @@ html:not([@{skin-attr}]) {
       > :last-child {
         right: 0;
         transform: none;
+        box-shadow: @switch-btn-shadow-checked;
       }
     }
 
-    &-disabled {
-      opacity: .6;
+    &[@{disabled}] {
+      .disabled();
     }
 
     /*pc样式*/

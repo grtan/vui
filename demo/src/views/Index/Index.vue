@@ -93,6 +93,9 @@
             }, {
               name: 'popup 弹层',
               routeName: 'popup'
+            }, {
+              name: 'loading 加载提示',
+              routeName: 'loading'
             }]
           }, {
             category: '数据输入',
@@ -105,6 +108,9 @@
             }, {
               name: 'city-picker 省市区选择',
               routeName: 'city-picker'
+            }, {
+              name: 'switch 开关',
+              routeName: 'switch'
             }]
           }, {
             category: '数据展示',
