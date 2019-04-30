@@ -1,5 +1,5 @@
 <template>
-  <cutover class="vui-layer" :class="{'vui-layer-global':global}" v-bind="$attrs">
+  <cutover class="vui-layer" :vui-global="global" v-bind="$attrs">
     <div :style="{backgroundColor:background}" v-show="value" @click.self="onclick" @touchmove.self="onTouchMove">
       <slot></slot>
     </div>
@@ -7,7 +7,12 @@
 </template>
 
 <style lang="less">
-  .vui-layer {
+  @import "../../assets/style/base";
+
+  @name: ~"@{lib-name}-layer";
+  @global: ~"@{lib-name}-global";
+
+  .@{name} {
     > div {
       position: absolute;
       /*非全局遮罩z-index统一为99*/
@@ -17,7 +22,8 @@
       top: 0;
       bottom: 0;
     }
-    &-global > div {
+
+    &[@{global}] > div {
       position: fixed;
       /*全局遮罩z-index统一为999*/
       z-index: 999;

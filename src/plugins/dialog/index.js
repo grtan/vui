@@ -22,12 +22,11 @@ export default {
               <vui-dialog {...{
                 'class': ['vui-dialog-plugin', option.className],
                 attrs: {
-                  appear: ''
+                  appear: '',
+                  preventClose: this.preventClose
                 },
                 props: {
-                  preventClose: this.preventClose,
                   duration: this.duration,
-                  close: this.close,
                   title: this.title,
                   btns: this.btns
                 }
@@ -43,9 +42,8 @@ export default {
           data: {
             show: true,
             slot: (option && option.slot) || '',
-            preventClose: (option && option.preventClose !== undefined) ? option.preventClose : Dialog.props.preventClose.default,
+            preventClose: (option && option.preventClose !== undefined) ? option.preventClose : false,
             duration: (option && option.duration !== undefined) ? option.duration : Dialog.props.duration.default,
-            close: (option && option.close) || Dialog.props.close.default,
             title: (option && option.title) || Dialog.props.title.default,
             btns: (option && option.btns) || Dialog.props.btns.default()
           },

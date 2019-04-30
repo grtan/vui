@@ -27,9 +27,8 @@ export default {
 名称|类型|必填|默认值|描述
 :-:|:-:|:-:|:-:|:-:
 v-model|`Boolean`|`Y`|`-`|是否显示对话框
-preventClose|`Boolean`|`N`|`false`|点击关闭按钮或者back时是否阻止关闭
+preventClose|`Boolean`|`N`|`false`|back时是否阻止关闭
 duration|`Number`|`N`|`285`|过渡时间，单位`ms`
-close|`Boolean`|`N`|`false`|是否显示关闭按钮
 title|`String`|`N`|`-`|标题，没有则不显示
 btns|`Array`|`N`|`['取消', '确定']`|按钮文本列表
 
@@ -43,7 +42,7 @@ btns|`Array`|`N`|`['取消', '确定']`|按钮文本列表
 
 名称|参数|说明
 :-:|:-:|:-:
-btn-click|{type}|点击按钮或者后退时触发，点击右上角关闭按钮或者back时type为-1（**preventClose为true时一样触发**），点击底部按钮时从左至右依次为0，1，2...
+btn-click|{type}|点击按钮或者back时触发，back时type为-1（**preventClose为true时一样触发**），点击底部按钮时从左至右依次为0，1，2...
 
 > dialog还支持插件形式来使用
 
@@ -57,7 +56,6 @@ this.$vui.dialog.show({
     slot: '<em>正文内容</em>',   // 正文内容
     preventClose: false,    // 跟组件一致
     duration: 300,  // 跟组件一致
-    close: true,    // 跟组件一致
     title: '标题',    // 跟组件一致
     btns: ['确定', '取消'],    // 跟组件一样
     callback(type, close) {   // 点击按钮的回调，记得执行close回调

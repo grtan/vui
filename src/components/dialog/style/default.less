@@ -3,48 +3,16 @@
 
 html:not([@{skin-attr}]) {
   @name: ~"@{lib-name}-dialog";
-  @cutover: ~"@{lib-name}-cutover";
 
   .@{name} {
-    .@{cutover} {
-      position: relative;
-      z-index: 0;
-
-      // 过渡效果
-      &-dialog {
-        &-enter,
-        &-leave-active {
-          bottom: 0;
-          transform: translateY(100%);
-        }
-
-        //&-enter-active {
-        //  transition-timing-function: cubic-bezier(.28, .85, .36, 1);
-        //}
-        //
-        //&-leave-active {
-        //  transition-timing-function: cubic-bezier(.4, 0, 1, 1);
-        //}
-      }
-    }
-
     &-box {
-      position: fixed;
-      left: 50%;
-      bottom: @dialog-bottom;
       box-sizing: border-box;
-      margin-left: -@dialog-width / 2;
+      margin: 0 auto;
       padding: @dialog-padding;
       width: @dialog-width;
       text-align: center;
       background: @dialog-bg;
       border-radius: @dialog-radius;
-    }
-
-    .@{lib-name}-icon {
-      position: absolute;
-      right: 0;
-      top: 0;
     }
 
     &-title {
@@ -77,6 +45,10 @@ html:not([@{skin-attr}]) {
         width: @dialog-separate-width;
         background: @dialog-separate-bg;
       }
+    }
+
+    &-bottom {
+      height: @dialog-bottom;
     }
   }
 }

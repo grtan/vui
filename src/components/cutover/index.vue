@@ -19,7 +19,7 @@
 
     /*这个延迟必须加上，否则enter元素因为margin-left:-100%突然去掉，还会过渡margin-left*/
     > :last-child:not(:first-child) {
-      transition-delay: 20ms;
+      transition-delay: 40ms;
     }
 
     /*fade效果*/
