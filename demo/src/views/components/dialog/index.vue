@@ -3,18 +3,6 @@
     <p :class="$style.config" class="is-size-5 has-text-centered">配置</p>
     <div class="field is-horizontal">
       <div class="field-label">
-        <label class="label">显示关闭按钮</label>
-      </div>
-      <div class="field-body">
-        <div class="field is-narrow">
-          <div class="control">
-            <label class="checkbox"><input type="checkbox" name="close" v-model="close">{{close}}</label>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="field is-horizontal">
-      <div class="field-label">
         <label class="label">显示标题</label>
       </div>
       <div class="field-body">
@@ -42,8 +30,8 @@
       <a class="button is-primary is-fullwidth is-rounded" @click="show=true">以组件形式显示</a>
       <a class="button is-primary is-fullwidth is-rounded" @click="showPlugin">以插件形式显示</a>
     </div>
-    <vui-dialog v-model="show" :duration="280" :close="close" :prevent-close="preventClose" :title="title"
-              @btn-click="onBtnClick">
+    <vui-dialog v-model="show" :duration="280" :prevent-close="preventClose" :title="title"
+                @btn-click="onBtnClick">
       巴厘岛，印度尼西亚岛屿，位于爪哇岛东部，面积5620平方公里，岛上热带植被茂密，是举世闻名的旅游岛。
     </vui-dialog>
   </div>
@@ -84,7 +72,6 @@
     data () {
       return {
         show: false,
-        close: true,
         preventClose: false,
         showTitle: true
       }
@@ -111,16 +98,22 @@
       },
       showPlugin () {
         this.$vui.dialog.show({
-          close: this.close,
           preventClose: this.preventClose,
           title: this.showTitle ? '长滩岛' : '',
           slot: '长滩岛（Boracay）是菲律宾中部的一座岛屿，属于西米沙鄢群岛，位于班乃岛西北2公里，是菲律宾的旅游胜地之一。',
           callback: (type, close) => {
-            close()
-            type > -1 && this.$vui.toast.show({
-              slot: `点击了第${type + 1}个按钮`,
-              position: 'bottom'
-            })
+            if (type > -1) {
+              close()
+              this.$vui.toast.show({
+                slot: `点击了第${type + 1}个按钮`,
+                position: 'bottom'
+              })
+            } else if (this.preventClose) {
+              this.$vui.toast.show({
+                slot: '阻止关闭',
+                position: 'bottom'
+              })
+            }
           }
         })
       }

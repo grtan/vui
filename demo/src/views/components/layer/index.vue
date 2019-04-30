@@ -20,6 +20,18 @@
     </div>
     <div class="field is-horizontal">
       <div class="field-label">
+        <label class="label">是否是全局的</label>
+      </div>
+      <div class="field-body">
+        <div class="field is-narrow">
+          <div class="control">
+            <label class="checkbox"><input type="checkbox" name="global" v-model="global">{{global}}</label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="field is-horizontal">
+      <div class="field-label">
         <label class="label">背景色</label>
       </div>
       <div class="field-body">
@@ -70,7 +82,7 @@
     <div :class="$style.btns">
       <a class="button is-primary is-fullwidth is-rounded" @click="show=true">显示蒙层</a>
     </div>
-    <layer v-model="show" :duration="duration" :background="background" :click-close="clickClose"
+    <layer v-model="show" :duration="duration" :background="background" :global="global" :click-close="clickClose"
            :back-close="backClose" :prevent-close="preventClose" @click="onclick" @back="onback">
       <div :class="$style.box" class="box">
         <p>
@@ -126,6 +138,7 @@
         show: false,
         duration: 500,
         background: '#000b',
+        global: true,
         clickClose: true,
         backClose: true,
         preventClose: false

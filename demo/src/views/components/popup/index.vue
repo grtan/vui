@@ -34,18 +34,6 @@
     </div>
     <div class="field is-horizontal">
       <div class="field-label">
-        <label class="label">是否是全局的</label>
-      </div>
-      <div class="field-body">
-        <div class="field is-narrow">
-          <div class="control">
-            <label class="checkbox"><input type="checkbox" name="global" v-model="global">{{global}}</label>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="field is-horizontal">
-      <div class="field-label">
         <label class="label">点击蒙层关闭</label>
       </div>
       <div class="field-body">
@@ -84,7 +72,7 @@
     <div :class="$style.btns">
       <a class="button is-primary is-fullwidth is-rounded" @click="show=true">显示</a>
     </div>
-    <popup v-model="show" :direction="direction" :layer="layer" :global="global" :click-close="clickClose"
+    <popup v-model="show" :direction="direction" :layer="layer" :click-close="clickClose"
            :back-close="backClose" :prevent-close="preventClose" @click="onclick" @back="onback">
       <div class="box">
         <p>
@@ -132,7 +120,6 @@
         show: false,
         direction: 'up',
         layer: true,
-        global: true,
         clickClose: false,
         backClose: true,
         preventClose: false
