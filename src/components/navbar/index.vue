@@ -17,7 +17,11 @@
 </template>
 
 <style lang="less">
-  .vui-navbar {
+  @import "../../assets/style/base";
+
+  @name: ~"@{lib-name}-navbar";
+
+  .@{name} {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -28,12 +32,11 @@
 
       > div {
         float: left;
-        writing-mode: horizontal-tb;
       }
     }
 
-    &-right {
-      writing-mode: vertical-rl;
+    &-right > div {
+      float: right;
     }
 
     &-center {
