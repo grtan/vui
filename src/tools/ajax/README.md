@@ -36,3 +36,7 @@ timeout|`Number`|`N`|`0`|超时时间，单位ms，默认为0，即没有超时
 success(data,status,xhr)|`Function`|`N`|`-`|成功回调函数，`data`为返回数据，`status`为状态（`success`，`notmodified`，`error`，`timeout`，`abort`或者`parsererror`），xhr为请求对象
 error(xhr,status,error)|`Function`|`N`|`-`|失败回调函数，xhr、status同上，error为http状态文本（`OK`、`Not Found`等）
 complete(xhr,status)|`Function`|`N`|`-`|请求完成回调函数，成功或者失败回调之后调用，xhr、status同上
+
+## 更新日志
+
+* v1.0.0 发布

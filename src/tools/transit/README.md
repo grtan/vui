@@ -21,3 +21,7 @@ to|`Number`|`Y`|`-`|结束值
 callback|`Function`|`Y`|`-`|过渡的回调函数，参数为`{value,complete}`，value为当前值，complete表示是否过渡完成
 duration|`Number`|`N`|`300`|过渡持续时间，单位ms
 easing|`Function`|`N`|`linear`|缓动函数，支持`easing`里的所有类型，如`sineEaseIn`，`bounceEaseInOut`等
+
+## 更新日志
+
+* v1.0.0 发布
