@@ -122,12 +122,6 @@
               routeName: 'load-more'
             }]
           }, {
-            category: '表单',
-            list: [{
-              name: 'switch 开关',
-              routeName: 'switch'
-            }]
-          }, {
             category: '过渡',
             list: [{
               name: 'cutover 元素切换',

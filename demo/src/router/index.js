@@ -42,6 +42,15 @@ let router = new Router({
       component: () =>
         import(/* webpackChunkName: "navbar" */ '@/views/components/navbar/index.vue')
     },
+    {
+      name: 'pagination',
+      path: '/components/pagination',
+      meta: {
+        title: 'pagination 分页'
+      },
+      component: () =>
+        import(/* webpackChunkName: "pagination" */ '@/views/components/pagination/index.vue')
+    },
     // 反馈
     {
       name: 'layer',

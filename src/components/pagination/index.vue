@@ -1,19 +1,15 @@
 <template>
   <div class="vui-pagination">
-        <span :class="['vui-pagination-btn',{'vui-pagination-disabled':value===1}]"
-              @click="value>1&&goto(value-1)">上一页</span>
-    <ul>
-      <li v-for="(page,index) in list" :key="index" @click="page!=='...'&&goto(page)"
-          :class="{'vui-pagination-disabled':page==='...','vui-pagination-active':page===value}">{{page}}
-      </li>
-    </ul>
-    <span :class="['vui-pagination-btn',{'vui-pagination-disabled':value===total}]"
-          @click="value<total&&goto(value+1)">下一页
-        </span>
+    <a class="vui-pagination-btn" :vui-disabled="value===1" @click="value>1&&goto(value-1)">上一页</a>
+    <div>
+      <a v-for="(page,index) in list" :key="index" @click="page!=='...'&&goto(page)" :vui-disabled="page==='...'"
+         :vui-selected="page===value">{{page}}</a>
+    </div>
+    <a class="vui-pagination-btn" :vui-disabled="value===total" @click="value<total&&goto(value+1)">下一页</a>
     <template v-if="showGoto">
-            <span class="vui-pagination-prompt">共{{total}}页，跳转至<input type="text" :value="num" @input="input"
-                                                                      @keyup.enter="goto(num)"/>页</span>
-      <span :class="['vui-pagination-btn',{'vui-pagination-disabled':!num}]" @click="num&&goto(num)">确定</span>
+      <span class="vui-pagination-prompt">共{{total}}页，跳转至<input type="text" :value="num" @input="input"
+                                                                @keyup.enter="goto(num)"/>页</span>
+      <a class="vui-pagination-btn" :vui-disabled="!num" @click="num&&goto(num)">确定</a>
     </template>
   </div>
 </template>

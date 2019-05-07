@@ -1,74 +1,85 @@
 @import "../../../assets/style/base";
+@import "../../../assets/style/default/mixin";
 
-@name: vui-pagination;
+@name: ~"@{lib-name}-pagination";
+@disabled: ~"@{lib-name}-disabled";
+@selected: ~"@{lib-name}-selected";
 
 html:not([@{skin-attr}]) {
   .@{name} {
-    display: inline-block;
-    color: #333;
-    font-size: 14px;
-    line-height: 26px;
+    display: inline-flex;
+    color: @pagination-color;
+    font-size: @pagination-font-size;
+    line-height: @pagination-line-height;
     text-align: center;
     user-select: none;
 
-    li:not(.@{name}-disabled), input {
-      border: 1px solid #e5e5e5;
-    }
+    &-btn {
+      flex-shrink: 0;
+      border: @pagination-border-width solid @pagination-border-color;
+      padding: @pagination-padding;
+      min-width: @pagination-btn-min-width;
+      color: inherit;
+      .a();
 
-    &-btn:extend(& li:not(.@{name}-disabled)) {
-      display: inline-block;
-      margin-left: 6px;
-      min-width: 64px;
-      &:first-of-type,
-      &:nth-of-type(4) {
-        margin-left: 0;
+      &:not([@{disabled}]) {
+        .click();
+      }
+
+      &[@{disabled}] {
+        color: @pagination-disabled-color;
       }
     }
 
-    ul {
-      list-style-type: none;
-      display: inline-block;
-      margin: 0;
-      padding: 0;
-    }
+    > div {
+      display: inline-flex;
+      flex-shrink: 0;
 
-    li {
-      display: inline-block;
-      box-sizing: border-box;
-      margin-left: 6px;
-      padding: 0 5px;
-      min-width: 28px;
-      cursor: pointer;
+      a {
+        box-sizing: border-box;
+        margin-left: @pagination-spacing;
+        padding: @pagination-padding;
+        min-width: @pagination-line-height + 2 * @pagination-border-width;
+        color: inherit;
+        cursor: pointer;
+        .a();
+
+        &:last-child {
+          margin-right: @pagination-spacing;
+        }
+
+        &:not([@{disabled}]) {
+          border: @pagination-border-width solid @pagination-border-color;
+          .click();
+        }
+      }
     }
 
     &-prompt {
-      margin: 0 15px;
+      flex-shrink: 0;
+      margin: @pagination-prompt-spacing;
+      align-self: baseline;
     }
 
     input {
-      margin: 0 5px;
-      padding: 0 5px;
-      width: 40px;
-      height: 26px;
+      margin: @pagination-input-spacing;
+      border: @pagination-border-width solid @pagination-border-color;
+      padding: @pagination-padding;
+      width: @pagination-input-width;
       line-height: inherit;
       text-align: center;
       outline: none;
     }
 
-    li.@{name}-active,
-    li:not(.@{name}-disabled):hover,
-    &-btn:not(.@{name}-disabled):hover {
-      color: #000;
-      border-color: #000;
+    > div a[@{selected}],
+    > div a:not([@{disabled}]):hover,
+    &-btn:not([@{disabled}]):hover {
+      color: @pagination-highlight-color;
+      border-color: @pagination-highlight-border-color;
     }
 
-    &-disabled,
-    &-active {
+    [@{disabled}], [@{selected}] {
       cursor: not-allowed !important;
-    }
-
-    &-btn.@{name}-disabled {
-      color: #ccc;
     }
   }
 }
