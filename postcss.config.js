@@ -9,7 +9,8 @@ module.exports = {
     pxtorem: {
       rootValue: 100,
       propList: ['*'],
-      minPixelValue: 3
+      minPixelValue: 3,
+      selectorBlackList: ['[vui-pc]']   // pc端样式不转换
     }
   }
 }
