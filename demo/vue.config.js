@@ -111,7 +111,7 @@ module.exports = {
     // config.resolve.alias.set('vui', path.resolve(__dirname, '../lib'))
     // lib不应用babel-loader、eslint
     config.module.rule('js').exclude.add(path.resolve(__dirname, '../lib'))
-    config.module.rule('eslint').exclude.add(path.resolve(__dirname, '../lib'))
+    config.module.rule('eslint').exclude.add(path.resolve(__dirname, '../'))
   },
   transpileDependencies: ['node_modules/@vivo/vivo-ui']
 }
