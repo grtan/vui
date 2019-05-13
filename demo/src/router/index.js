@@ -119,6 +119,16 @@ let router = new Router({
       component: () =>
         import(/* webpackChunkName: "switch" */ '@/views/components/switch/index.vue')
     },
+    // 数据展示
+    {
+      name: 'swiper',
+      path: '/components/swiper',
+      meta: {
+        title: 'swiper 轮播'
+      },
+      component: () =>
+        import(/* webpackChunkName: "swiper" */ '@/views/components/swiper/index.vue')
+    },
     // 其他
     {
       name: 'cache',
