@@ -62,13 +62,16 @@
       </div>
     </div>
     <div :class="$style.swiper">
-      <swiper v-model="index" :direction="direction" :loop="loop" :interval="interval" :swipe="swipe">
+      <swiper v-model="index" :direction="direction" :loop="loop" :interval="interval" :swipe="swipe"
+              @wait="wait=$event">
         <swiper-item v-for="item in list">
           <div :class="$style.item" :style="{backgroundImage:`url(${item})`}"></div>
         </swiper-item>
       </swiper>
-      <div :class="$style.thumb">
-        <span v-for="n in list.length" :class="{[$style.active]:n-1===index}" @click="index=n-1"></span>
+      <div :class="$style['thumb-list']">
+        <div :class="$style.thumb" v-for="n in list.length" @click="index=n-1">
+          <div :style="{width:`${n-1===wait.index?wait.progress:0}%`}"></div>
+        </div>
       </div>
     </div>
   </div>
@@ -88,7 +91,7 @@
     background: center / cover no-repeat;
   }
 
-  .thumb {
+  .thumb-list {
     position: absolute;
     left: 0;
     right: 0;
@@ -97,15 +100,15 @@
     justify-content: center;
   }
 
-  .thumb span {
+  .thumb {
     margin: 0 .1rem;
-    width: .2rem;
+    width: 1rem;
     height: .2rem;
-    border-radius: 50%;
     background: #ccc;
   }
 
-  .thumb .active {
+  .thumb div {
+    height: 100%;
     background: #456fff;
   }
 </style>
@@ -125,6 +128,7 @@
         loop: true,
         interval: 3000,
         swipe: true,
+        wait: {},
         list: [
           'https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1557722658&di=2322efbf1cae53cb93c3a388a284ee8b&src=http://img17.3lian.com/d/file/201702/20/ec4acb80b76b3e84fe58f48b558908d3.jpg',
           'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1557732742520&di=c46e7363b51903a4b2b1fe571b61d712&imgtype=0&src=http%3A%2F%2Fpic1.win4000.com%2Fwallpaper%2F5%2F513026b307cb2.jpg',

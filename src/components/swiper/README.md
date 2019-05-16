@@ -38,8 +38,8 @@ export default {
 v-model|`Number`|`N`|`0`|index位置，如果需要人为改变位置，则需要绑定
 direction|`String`|`N`|`left`|轮播的方向
 loop|`Boolean`|`N`|`true`|是否循环
-interval|`Number`|`N`|`4000`|自动切换的时间间隔，单位ms，`0`表示不自动切换
-duration|`Number`|`N`|`400`|切换时动画时间，单位ms
+interval|`Number`|`N`|`3000`|自动切换的时间间隔，单位ms，`0`表示不自动切换
+duration|`Number`|`N`|`300`|切换时动画时间，单位ms
 swipe|`Boolean`|`N`|`true`|是否支持手指滑动
 threshold|`Number`|`N`|`0.2`|手指滑动时切换的阈值，当滑动超过指定比例才进行切换
 
@@ -55,7 +55,8 @@ threshold|`Number`|`N`|`0.2`|手指滑动时切换的阈值，当滑动超过指
 
 名称|参数|说明
 :-:|:-:|:-:
-change|(index)|切换完成后触发，index表示当前的位置索引
+wait|(`{index,progress,complete}`)|自动轮播时等待切换的状态下触发，`index`表示当前的位置索引，progress为等待进度，范围为`0-100`，`complete`表示是否等待完成
+change|(`index`)|切换完成后触发，`index`表示当前的位置索引
 
 ## 更新日志
 

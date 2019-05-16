@@ -33,6 +33,7 @@
 <script>
   import { cubicEaseOut } from '../../tools/easing/index'
   import { raf, caf, afInterval } from '../../tools/prefix/index'
+  import transit from '../../tools/transit/index'
 
   export default {
     name: 'vui-swiper',
@@ -41,7 +42,7 @@
         type: Number,
         default: 0
       },
-      direction: {
+      direction: {  // 切换时动画时间
         type: String,
         default: 'left',
         validator (value) {
@@ -54,11 +55,11 @@
       },
       interval: { // 轮播间隔时间，0表示不自动轮播
         type: Number,
-        default: 4000
+        default: 3000
       },
       duration: { // 切换动画时间
         type: Number,
-        default: 400
+        default: 300
       },
       swipe: { // 是否可以手指滑动
         type: Boolean,
@@ -88,9 +89,6 @@
       },
       vertical () {
         return ['up', 'down'].indexOf(this.direction) !== -1
-      },
-      afCount () {  // 切换动画的帧数
-        return Math.round(this.duration / afInterval)
       }
     },
     watch: {
@@ -98,20 +96,13 @@
         this.index = value
       },
       index (value) {
-        this.clear()
-
-        // 刚check完不会再移动
+        // 已经滑动好了就不再滑动，比如手指滑动导致index变化
         if (value + this.loop - this.pos) {
-          this.buffer(this.pos, value + this.loop - this.pos, Math.round(Math.pow(3, (Math.min(Math.abs(value + this.loop - this.pos), 1) - 1)) * this.afCount) || 1)
+          this.buffer(this.pos, value + this.loop, Math.pow(3, (Math.min(Math.abs(value + this.loop - this.pos), 1) - 1)) * this.duration)
         }
       },
       loop: 'rerender',
-      interval(value, old) {
-        // 不自动轮播变为自动轮播
-        if (!old && value) {
-          this.next()
-        }
-      }
+      interval: 'check'
     },
     methods: {
       rerender () { // slot内容有变化，更新dom
@@ -149,15 +140,10 @@
 
         // 这里必须要用max记录最大值后赋值，因为只要this.height中途变化了，即使最后的结果没变，也会调用render函数，触发updated钩子。但只要最后的结果没变，watch钩子是不会执行的
         this.height = max
-        this.check(true)
+        this.pos = Math.round(this.pos)
+        this.check()
       },
-      check (slotChange) {  // 在每一次切换后，检查是否要移动位置
-        // slot内容变化
-        if (slotChange) {
-          this.clear()
-          this.pos = Math.round(this.pos)
-        }
-
+      check () {  // 在每一次切换后，检查是否要移动位置
         // 处理边界情况（slot内容更改或者循环的情况下到达了边界）
         if (this.loop) {
           if (this.pos >= this.$children.length + 1) {
@@ -178,50 +164,46 @@
 
         // 同步index
         this.index = this.pos - this.loop
-        /**
-         * 切换完成后再触发input、change事件
-         * 必须在$nextTick中调用next，否则index变化时会执行clear，导致next失效
-         */
-        this.$nextTick(function () {
-          this.next()
+        this.next()
 
-          if (changed) {
-            this.lastIndex = this.index
-            this.$emit('input', this.index)
-            this.$emit('change', this.index)
-          }
-        })
-      },
-      next () { // 下一步，此时位置都已经移动好了，在循环模式下，不会处在边缘
-        if (this.interval) {
-          clearTimeout(this.intervalId)
-          this.intervalId = setTimeout(() => {
-            if (!this.interval) {
-              return
-            }
-
-            if (['up', 'left'].indexOf(this.direction) !== -1) {
-              this.index = this.loop ? this.index + 1 : (this.index + 1) % this.$children.length
-            } else {
-              this.index = this.loop ? this.index - 1 : (this.index - 1 + this.$children.length) % this.$children.length
-            }
-          }, this.interval)
+        if (changed) {
+          this.lastIndex = this.index
+          this.$emit('input', this.index)
+          this.$emit('change', this.index)
         }
       },
-      buffer (b, c, d) { // 缓冲
-        let t = 0
-        const fn = () => {
-          t++
-          this.pos = cubicEaseOut(t, b, c, d)
-          t === d && (this.pos = Math.round(this.pos))
-          t < d ? (this.rafId = raf(fn)) : this.check()
-        }
+      next () { // 开始等待，此时位置都已经移动好了，在循环模式下，不会处在边缘
+        this.clear()
 
-        this.rafId = raf(fn)
+        if (this.interval) { // 自动轮播
+          // 更新进度
+          this.waitTransit = transit(0, 100, (progress, complete) => {
+            this.$emit('wait', {
+              index: this.index,  // 必须携带当前index，否则用户主动切换时不知道progress到底是哪个item的
+              progress,
+              complete
+            })
+
+            if (complete && this.interval) {
+              if (['up', 'left'].indexOf(this.direction) !== -1) {
+                this.index = this.loop ? this.index + 1 : (this.index + 1) % this.$children.length
+              } else {
+                this.index = this.loop ? this.index - 1 : (this.index - 1 + this.$children.length) % this.$children.length
+              }
+            }
+          }, this.interval).play()
+        }
       },
-      clear () {
-        caf(this.rafId)
-        clearInterval(this.intervalId)
+      buffer (from, to, duration) { // 开始切换动画
+        this.clear()
+        this.bufferTransit = transit(from, to, (pos, complete) => {
+          this.pos = pos
+          complete && this.check()
+        }, duration).play()
+      },
+      clear () {  // 清除计时器
+        this.waitTransit && this.waitTransit.pause()
+        this.bufferTransit && this.bufferTransit.pause()
       },
       touchmove (event) {
         if (!this.swipe) {
@@ -274,7 +256,7 @@
           this.touchId = undefined
           pos < 0 && (pos = 0)
           pos === this.$children.length + (this.loop ? 2 : 0) && pos--
-          this.buffer(this.pos, pos - this.pos, Math.round(Math.pow(3, (Math.min(Math.abs(pos - this.pos), 1) - 1)) * this.afCount) || 1)
+          this.buffer(this.pos, pos, Math.pow(3, (Math.min(Math.abs(pos - this.pos), 1) - 1)) * this.duration)
         }
       }
     },
