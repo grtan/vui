@@ -56,7 +56,7 @@
   }
 
   .picker :global(.vui-picker) {
-    height: 7.5rem !important;
+    height: 7rem !important;
   }
 </style>
 

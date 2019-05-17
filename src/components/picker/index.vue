@@ -1,6 +1,6 @@
 <template>
   <div class="vui-picker" :vui-3d="enable3d">
-    <div class="vui-picker-column" v-for="(column,index) in columns">
+    <div class="vui-picker-column" :style="{minWidth:`${100/(1.5*columns.length)}%`}" v-for="(column,index) in columns">
       <div class="vui-picker-label" v-if="labels[index]">{{labels[index]}}</div>
       <div class="vui-picker-content" :style="maskStyle" ref="content" @touchmove="touchmove($event,index)"
            @touchend="touchend">
