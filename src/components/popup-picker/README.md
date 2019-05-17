@@ -74,3 +74,7 @@ confirm|`String`|`N`|`确定`|确定按钮文本，为空不显示
 confirm|(`value`)|点击确定按钮时触发，参数同update事件
 
 `update`事件与picker组件一致
+
+## 更新日志
+
+* v1.0.0 发布
