@@ -1,32 +1,37 @@
 <template>
-  <popup class="vui-popup-picker" :value="value" @input="onInput" v-bind="$attrs" v-on="$listeners">
-    <div class="vui-popup-picker-header" v-if="title||cancel||confirm">
-      <span class="vui-popup-picker-cancel" v-if="cancel" @click="onCancel">{{cancel}}</span>
-      <span class="vui-popup-picker-confirm" v-if="confirm" @click="onConfirm">{{confirm}}</span>
-      <p v-if="title">{{title}}</p>
-    </div>
-    <picker ref="picker" style="height:8rem" @update="onUpdate" v-bind="$attrs"></picker>
-  </popup>
+  <vui-dialog class="vui-popup-picker" :value="value" :btns="btns" v-bind="$attrs" @input="onInput"
+              @btn-click="onBtnClick">
+    <picker ref="picker" v-bind="$attrs" @update="onUpdate"></picker>
+  </vui-dialog>
 </template>
 
+<style lang="less">
+  @import "../../assets/style/base";
+
+  @name: ~"@{lib-name}-popup-picker";
+
+  .@{name} {
+    .@{lib-name}-dialog-box {
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
+  }
+</style>
+
 <script>
-  import Popup from '../popup/index.vue'
+  import VuiDialog from '../dialog/index.vue'
   import Picker from '../picker/index.vue'
 
   export default {
     name: 'vui-popup-picker',
     components: {
-      Popup,
+      VuiDialog,
       Picker
     },
     props: {
       value: {
         type: Boolean,
         default: false
-      },
-      title: {
-        type: String,
-        default: '请选择'
       },
       cancel: {
         type: String,
@@ -37,19 +42,31 @@
         default: '确定'
       }
     },
+    computed: {
+      btns() {
+        const btns = []
+
+        this.confirmIndex = undefined
+        this.cancel && btns.push(this.cancel)
+
+        if (this.confirm) {
+          this.confirmIndex = btns.length
+          btns.push(this.confirm)
+        }
+
+        return btns
+      }
+    },
     methods: {
-      onCancel () { // 关闭
-        this.$refs.picker.stop(true)
-        this.$emit('input', false)
-      },
       onInput (value) {
         !value && this.$refs.picker.stop(true)
         this.$emit('input', value)
       },
-      onConfirm () { // 点击确定按钮
-        this.onCancel()
+      onBtnClick (index) {
+        this.$refs.picker.stop(true)
+        this.$emit('input', false)
         // 确保update事件先执行
-        this.$nextTick(function () {
+        index === this.confirmIndex && this.$nextTick(function () {
           this.$emit('confirm', this.indexs.slice())
         })
       },

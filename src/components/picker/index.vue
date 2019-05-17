@@ -1,26 +1,36 @@
 <template>
-  <div class="vui-picker" :class="{'vui-picker-enable3d':enable3d}">
-    <ul class="vui-picker-labels" v-if="labels.length">
-      <li v-for="label in labels">{{label}}</li>
-    </ul>
-    <ul class="vui-picker-content" :style="maskStyle" ref="content" @touchmove="$event.preventDefault()">
-      <li class="vui-picker-column" v-for="(column,index) in columns" @touchmove="touchmove($event,index)"
-          @touchend="touchend">
-        <ul :style="style[index]">
-          <li v-for="(item,pos) in column" :ref="!index&&!pos?'item':undefined"
-              :class="{'vui-picker-visible':itemVisible(index,pos)}" :style="itemStyle(pos)"
-              :data-value="item" @click="location(index,pos)">
-          </li>
-        </ul>
-      </li>
-    </ul>
+  <div class="vui-picker" :vui-3d="enable3d">
+    <div class="vui-picker-column" v-for="(column,index) in columns">
+      <div class="vui-picker-label" v-if="labels[index]">{{labels[index]}}</div>
+      <div class="vui-picker-content" :style="maskStyle" ref="content" @touchmove="touchmove($event,index)"
+           @touchend="touchend">
+        <div class="vui-picker-list" :style="style[index]">
+          <div class="vui-picker-item" :style="itemStyle(pos)" v-for="(item,pos) in column"
+               :ref="!index&&!pos?'item':undefined" :vui-visible="itemVisible(index,pos)" :data-value="item"
+               @click="location(index,pos)">
+          </div>
+        </div>
+        <!--放大-->
+        <div class="vui-picker-zoom">
+          <div class="vui-picker-list" :style="style[index]">
+            <div class="vui-picker-item" :style="itemStyle(pos)" v-for="(item,pos) in column"
+                 :vui-visible="itemVisible(index,pos)" :data-value="item">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
   import { backEaseOut, cubicEaseOut } from '../../tools/easing/index'
   import { raf, caf } from '../../tools/prefix/index'
-  import ResizeSensor from '../../assets/js/css-element-queries/ResizeSensor'
+  import ResizeSensor from 'css-element-queries/src/ResizeSensor'
+
+  function getBufferAfCount (offset) {  // 根据缓冲距离获取动画桢数，必须返回整数
+    return Math.round(90 * Math.pow(4, Math.min(Math.abs(offset) / 30, 1) - 1))
+  }
 
   export default {
     name: 'vui-picker',
@@ -59,14 +69,14 @@
         })
       },
       maskStyle () { // 蒙层样式
-        const pos = (this.contentHeight - this.itemHeight) / 2 / this.contentHeight * 100
+        const pos = this.itemHeight * 100 / this.contentHeight
 
         return {
-          'mask-box-image': `linear-gradient(to bottom, rgba(255, 255, 255, .15), rgba(255, 255, 255, .5) ${pos}%, #fff ${pos}%, #fff ${100 - pos}%, rgba(255, 255, 255, .5) ${100 - pos}%, rgba(255, 255, 255, .15))`
+          'mask-box-image': `linear-gradient(to bottom, rgba(255, 255, 255, 0), #fff ${pos}%, #fff ${100 - pos}%, rgba(255, 255, 255, 0))`
         }
       },
       radius () { // 3d旋转半径
-        return this.contentHeight / 2
+        return this.contentHeight / 1.8
       },
       spacing () { // 3d旋转时每个子项之间的角度间距
         return Math.asin(Math.min(this.contentHeight / 2 / this.radius, 1)) / Math.PI * 180 / this.half
@@ -172,6 +182,8 @@
         }
       },
       touchmove (event, index) {
+        event.preventDefault()
+
         if (this.scrollingIndex === undefined) { // 没有列正在滑动
           this.scrollingIndex = index
           this.touchId = event.changedTouches[0].identifier
@@ -220,12 +232,12 @@
       },
       touchend (event) {
         if ([].slice.call(event.changedTouches).some(touch => {
-          return touch.identifier === this.touchId
-        })) { // 同一个触点移除了
+            return touch.identifier === this.touchId
+          })) { // 同一个触点移除了
           const prev = this.offsets[this.scrollingIndex]
           const length = this.columns[this.scrollingIndex].length
-          let offset = (this.speed > 0 ? 1 : -1) * Math.pow(Math.abs(this.speed), 0.7) // 缓冲变化量
-          const duration = 40 + Math.min(parseInt(2 * Math.abs(offset)), 40) // 缓冲动画有多少帧
+          let offset = (this.speed > 0 ? 1 : -1) * Math.pow(Math.abs(this.speed), 0.8) // 缓冲变化量
+          const duration = getBufferAfCount(offset) // 缓冲动画有多少帧
           let back // 是否回弹
 
           // 获取该变量
@@ -303,13 +315,8 @@
           this.stop()
           this.scrollingIndex = index
           const offset = pos - this.offsets[index]
-          this.buffer(this.offsets[index], offset, 40 + Math.min(parseInt(2 * Math.abs(offset)), 40))
+          this.buffer(this.offsets[index], offset, getBufferAfCount(offset))
         }
-      },
-      getSize () {
-        // 这里不能使用offsetHeight，因为该属性始终返回四舍五入的整数，不精确，会导致显示错位
-        this.itemHeight = this.$refs.item[0].getBoundingClientRect().height
-        this.contentHeight = this.$refs.content.getBoundingClientRect().height
       }
     },
     created () {
@@ -317,9 +324,14 @@
       this.update()
     },
     mounted () {
-      this.getSize()
-      // 监控尺寸变化
-      new ResizeSensor(this.$el, this.getSize) // eslint-disable-line no-new
+      // 初始化并监控尺寸变化
+      new ResizeSensor(this.$refs.content[0], ({height}) => { // eslint-disable-line no-new
+        if (height !== this.contentHeight) {
+          // 这里不能使用offsetHeight，因为该属性始终返回四舍五入的整数，不精确，会导致显示错位
+          this.itemHeight = this.$refs.item[0].getBoundingClientRect().height
+          this.contentHeight = height
+        }
+      })
     }
   }
 </script>

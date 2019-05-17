@@ -60,18 +60,17 @@ export default {
 
 名称|类型|必填|默认值|描述
 :-:|:-:|:-:|:-:|:-:
-title|`String`|`N`|`请选择`|标题，为空不显示
 cancel|`String`|`N`|`取消`|取消按钮文本，为空不显示
 confirm|`String`|`N`|`确定`|确定按钮文本，为空不显示
 
 `data`、`selected`、`sync`、`enable3d`属性跟picker组件一致
 
-`v-model`、`background`、`duration`、`appear`、`layer`、`clickClose`属性跟popup组件一致
+`v-model`、`title`属性跟dialog组件一致
 
 ## 事件
 
 名称|参数|说明
 :-:|:-:|:-:
-confirm|`(value)`|点击确定按钮时触发，参数同update事件
+confirm|(`value`)|点击确定按钮时触发，参数同update事件
 
 `update`事件与picker组件一致

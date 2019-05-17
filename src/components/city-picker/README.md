@@ -37,7 +37,7 @@ export default {
 selected|`Array`|`N`|`第一个省市区`|选中省市区的名称，如`['浙江省','杭州市','西湖区']`表示设置组件当前选中浙江省杭州市西湖区
 filter|`Boolean`|`N`|`true`|是否过滤特殊地区，详见[账户平台化](http://km.vivo.xyz/pages/viewpage.action?pageId=28480544&token=iIVODW0BekNrSG24IShFFAPeCr-VGp1yiRcjgZ7A(55d5FVXb99gFoBWGWVPMHbN2gXyu57Ha0s))
 
-`title`、`cancel`、`confirm`、`sync`、`enable3d`、`v-model`、`background`、`duration`、`appear`、`layer`、`clickClose`属性跟popup-picker组件一致
+`v-model`、`title`、`cancel`、`confirm`、`sync`、`enable3d`属性跟popup-picker组件一致
 
 ## 事件
 

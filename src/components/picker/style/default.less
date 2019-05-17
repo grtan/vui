@@ -1,99 +1,94 @@
 @import "../../../assets/style/base";
+@import "../../../assets/style/default/index";
 
-@name: vui-picker;
+@name: ~"@{lib-name}-picker";
+@v3d: ~"@{lib-name}-3d";
+@visible: ~"@{lib-name}-visible";
 
 html:not([@{skin-attr}]) {
   .@{name} {
-    flex-direction: column;
-    min-height: 4rem;
+    position: relative;
+    overflow: hidden;
+    display: flex;
     height: 100%;
-    color: #000;
-    font-size: .44rem;
-    line-height: 1rem;
+    color: @picker-item-color;
+    font-size: @picker-item-font-size;
+    line-height: @picker-item-line-height;
     text-align: center;
-    background: #fff;
 
-    ul {
-      margin: 0;
-      padding: 0;
-      list-style-type: none;
-    }
-
-    &,
-    &-labels,
-    &-content,
     &-column {
       display: flex;
+      flex-direction: column;
+      flex: auto;
+      // 防止某些浏览器中列之间出现间隙
+      margin-left: -1PX;
+      //max-width: 60%;
     }
 
-    &-labels {
-      flex: none;
-      border-bottom: 1px solid #d0d0d0;
+    &-label {
+      padding: @picker-label-padding;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
 
-      > li {
+    &-content {
+      position: relative;
+      display: flex;
+      flex: auto;
+      flex-direction: column;
+      justify-content: center;
+      min-height: 5 * @picker-item-line-height;
+      overflow: hidden;
+    }
+
+    &-zoom {
+      pointer-events: none;
+      overflow: hidden;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      height: @picker-item-highlight-height;
+      color: @picker-item-highlight-color;
+      font-size: @picker-item-highlight-font-size;
+      background: @picker-item-highlight-bg;
+    }
+
+    &-list {
+      height: @picker-item-line-height;
+    }
+
+    &-item {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      height: 100%;
+
+      &::before {
+        content: attr(data-value);
+        padding: 0 .25em;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
       }
     }
 
-    &-labels > li,
-    &-column {
-      flex: auto;
-      width: 0;
-    }
-
-    &-content {
-      flex: auto;
-      position: relative;
-
-      &::before {
-        content: "";
-        position: absolute;
-        left: 0;
-        right: 0;
-        top: 50%;
-        transform: translateY(-50%);
-        box-sizing: border-box;
-        height: 1rem;
-        border-top: 1px solid #d0d0d0;
-        border-bottom: 1px solid #d0d0d0;
-      }
-    }
-
-    &-column {
-      flex-direction: column;
-      justify-content: center;
-      overflow: hidden;
-
-      ul {
-        height: 1rem;
-      }
-
-      li {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        height: 100%;
-
-        &::before {
-          content: attr(data-value);
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-        }
-      }
-    }
-
     /*3D样式*/
-    &-enable3d .@{name}-column {
-      perspective: 2000px;
+    &[@{v3d}] {
+      .@{name}-content {
+        perspective: 50000px;
+      }
 
-      ul {
+      .@{name}-list {
         transform-style: preserve-3d;
       }
 
-      li {
+      .@{name}-item {
         float: left;
         width: 100%;
         height: 100%;
@@ -103,10 +98,10 @@ html:not([@{skin-attr}]) {
         &:not(:first-child) {
           margin-left: -100%;
         }
-      }
 
-      .@{name}-visible {
-        visibility: visible;
+        &[@{visible}] {
+          visibility: visible;
+        }
       }
     }
   }

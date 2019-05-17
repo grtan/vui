@@ -54,8 +54,8 @@
     <div :class="$style.btns">
       <a class="button is-primary is-fullwidth is-rounded" @click="show=true">显示</a>
     </div>
-    <popup-picker :class="$style.picker" v-model="show" :data="data" :enable3d="enable3d" :title="title"
-                  :cancel="cancel" :confirm="confirm" @update="onUpdate" @confirm="onConfirm"></popup-picker>
+    <popup-picker v-model="show" :data="data" :enable3d="enable3d" :title="title"
+                  :cancel="cancel" :confirm="confirm" @confirm="onConfirm"></popup-picker>
   </div>
 </template>
 
@@ -78,10 +78,6 @@
 
   .btns :global(.button) {
     margin-top: .15rem;
-  }
-
-  .picker :global(.vui-picker) {
-    height: 7.5rem !important;
   }
 </style>
 
@@ -106,7 +102,7 @@
           function deep () {
             var index = arguments[0] || 0,
               data = {
-                name: '列' + (index + 1),
+//                name: '列' + (index + 1),
                 options: []
               }
 
@@ -136,9 +132,6 @@
       }
     },
     methods: {
-      onUpdate(value) {
-        this.indexs = value
-      },
       onConfirm(value) {
         this.indexs = value
       }

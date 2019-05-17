@@ -55,7 +55,6 @@
 
   .picker {
     padding: .25rem 0;
-    height: 7.5rem;
   }
 </style>
 
@@ -79,10 +78,10 @@
             data.push({
               name: '列' + (i + 1),
               options: function () {
-                var arr = [], i = 0
+                var arr = [], j = 0
 
-                for (; i < 100; i++) {
-                  arr.push(i)
+                for (; j < 100; j++) {
+                  arr.push(i ? `item${j}` : `列表第${j}个item`)
                 }
 
                 return arr
@@ -98,7 +97,7 @@
           function deep () {
             var index = arguments[0] || 0,
               data = {
-                name: '列' + (index + 1),
+//                name: '列' + (index + 1),
                 options: []
               }
 
