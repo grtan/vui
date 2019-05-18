@@ -1,6 +1,6 @@
 <template>
-  <popup-picker v-if="address" :value="value" :data="address" :selected="indexs" v-bind="$attrs" v-on="listeners"
-                @update="update($event,true)" @confirm="update($event)"></popup-picker>
+  <popup-picker v-if="address" :value="value" :data="address" :selected="indexs" v-bind="$attrs"
+                @input="$listeners.input" @update="update($event,true)" @confirm="update($event)"></popup-picker>
 </template>
 
 <script>
@@ -49,13 +49,6 @@
       }
     },
     computed: {
-      listeners () {
-        // 过滤外部传入的update,confirm事件处理器
-        return Object.assign({}, this.$listeners, {
-          update: [],
-          confirm: []
-        })
-      },
       indexs () { // 将省市区名称转化成索引
         if (!this.address || this.selected === undefined) {
           return undefined

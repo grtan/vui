@@ -79,15 +79,6 @@
               name: 'dialog 对话框',
               routeName: 'dialog'
             }, {
-              name: 'loading 加载提示',
-              routeName: 'loading'
-            }, {
-              name: 'swipeout 滑动删除',
-              routeName: 'swipeout'
-            }, {
-              name: 'collapse 折叠面板',
-              routeName: 'collapse'
-            }, {
               name: 'layer 蒙层',
               routeName: 'layer'
             }, {

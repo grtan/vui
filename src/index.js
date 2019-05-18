@@ -49,7 +49,7 @@ export { default as Pagination } from './components/pagination/index.vue'
 // 反馈
 export { default as Toast } from './components/toast/index.vue'
 export { default as Dialog } from './components/dialog/index.vue'
-// export { default as Loading } from './components/loading/index.vue'
+export { default as Loading } from './components/loading/index.vue'
 export { default as Layer } from './components/layer/index.vue'
 export { default as Popup } from './components/popup/index.vue'
 // 数据输入
