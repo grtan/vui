@@ -199,7 +199,7 @@
         this.bufferTransit = transit(from, to, (pos, complete) => {
           this.pos = pos
           complete && this.check()
-        }, duration).play()
+        }, duration, cubicEaseOut).play()
       },
       clear () {  // 清除计时器
         this.waitTransit && this.waitTransit.pause()

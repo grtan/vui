@@ -146,6 +146,16 @@ let router = new Router({
       component: () =>
         import(/* webpackChunkName: "load-more" */ '@/views/components/load-more/index.vue')
     },
+    // 过渡
+    {
+      name: 'cutover',
+      path: '/components/cutover',
+      meta: {
+        title: 'cutover 过渡'
+      },
+      component: () =>
+        import(/* webpackChunkName: "cutover" */ '@/views/components/cutover/index.vue')
+    },
     // 其他
     {
       name: 'cache',

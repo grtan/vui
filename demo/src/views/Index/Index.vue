@@ -64,16 +64,13 @@
               name: 'navbar 导航栏',
               routeName: 'navbar'
             }, {
-              name: 'tab 标签栏',
-              routeName: 'tab'
-            }, {
               name: 'pagination 分页',
               routeName: 'pagination'
             }]
           }, {
             category: '反馈',
             list: [{
-              name: 'toast 提升',
+              name: 'toast 提示',
               routeName: 'toast'
             }, {
               name: 'dialog 对话框',
@@ -126,24 +123,6 @@
             }, {
               name: 'timer 计时器',
               routeName: 'timer'
-            }]
-          }]
-        }, {
-          category: '指令',
-          list: [{
-            category: '数据输入',
-            list: [{
-              name: '省市区选择',
-              routeName: 'city-picker'
-            }, {
-              name: '省市区选择',
-              routeName: 'city-picker'
-            }]
-          }, {
-            category: '页面切换',
-            list: [{
-              name: '元素切换',
-              routeName: 'cutover'
             }]
           }]
         }]

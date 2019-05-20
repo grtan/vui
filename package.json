@@ -5,7 +5,7 @@
   "main": "dist/lib.js",
   "module": "lib/index.js",
   "scripts": {
-    "doc": "docsify serve ./ --port 9000",
+    "doc": "docsify serve ./ --port 80",
     "watch": "gulp watch",
     "build": "gulp",
     "lint": "standard --plugin html 'src/**/*.{js,vue}'",

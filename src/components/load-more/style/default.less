@@ -1,72 +1,91 @@
 @import "../../../assets/style/base";
+@import "../../../assets/style/default/index";
 
-@name: vui-load-more;
+@name: ~"@{lib-name}-load-more";
+@position: ~"@{lib-name}-position";
 
 html:not([@{skin-attr}]) {
   .@{name} {
     overflow: auto;
-
-    &-left,
-    &-right {
-      writing-mode: vertical-lr;
-      width: 100%;
-      .@{name}-content {
-        writing-mode: horizontal-tb;
-        min-width: 100%;
-      }
-    }
+    display: flex;
 
     &-loading {
       position: relative;
       overflow: hidden;
-      font-size: 0;
-      line-height: 1rem;
-      text-align: center;
-      > div {
+      flex: none;
+
+      &-box {
         position: absolute;
-        left: 0;
-        right: 0;
-        top: 0;
-        .@{name}-right & {
-          left: auto;
-          right: 0;
-        }
       }
     }
 
-    &-top .@{name}-content,
-    &-bottom .@{name}-content {
-      min-height: 100%;
-    }
-
-    &-bottom .@{name}-loading > div {
-      top: auto;
-      bottom: 0;
-    }
-
-    &-left, &-right {
-      .@{name}-loading > div {
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: auto;
-      }
+    &-default {
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
     &-icon {
-      display: inline-block;
-      vertical-align: middle;
-      margin-right: .2rem;
-      width: .7rem;
-      height: .7rem;
+      width: @loading-more-icon-size;
+      height: @loading-more-icon-size;
       background: center no-repeat;
       background-size: contain;
     }
 
     &-text {
-      vertical-align: middle;
-      color: #d37123;
-      font-size: .5rem;
+      color: @loading-more-color;
+      font-size: @loading-more-font-size;
+    }
+
+    &-content {
+      flex: none;
+    }
+
+    &[@{position}=left],
+    &[@{position}=right] {
+      .@{name}-loading-box {
+        top: 0;
+        bottom: 0;
+        left: 0;
+      }
+
+      .@{name}-default {
+        width: @loading-more-size;
+        height: 100%;
+      }
+
+      .@{name}-text {
+        width: 1em;
+      }
+    }
+
+    &[@{position}=right] {
+      .@{name}-loading-box {
+        left: auto;
+        right: 0;
+      }
+    }
+
+    &[@{position}=top],
+    &[@{position}=bottom] {
+      flex-direction: column;
+
+      .@{name}-loading-box {
+        left: 0;
+        right: 0;
+        top: 0;
+      }
+
+      .@{name}-default {
+        height: @loading-more-size;
+      }
+    }
+
+    &[@{position}=bottom] {
+      .@{name}-loading-box {
+        top: auto;
+        bottom: 0;
+      }
     }
   }
 }

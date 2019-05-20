@@ -12,9 +12,9 @@
 
 <!--多个元素切换-->
 <cutover type="cover">
-  <div v-if="value===1">元素内容</div>
-  <div v-else-if="value===2">元素内容</div>
-  <div v-else>元素内容</div>
+  <div key="1" v-if="value===1">元素内容</div>
+  <div key="2" v-else-if="value===2">元素内容</div>
+  <div key="3" v-else>元素内容</div>
 </cutover>
 
 <!--页面切换-->
@@ -65,7 +65,7 @@ export default {
 名称|类型|必填|默认值|描述
 :-:|:-:|:-:|:-:|:-:
 type|`String`|`N`|`fade`|过渡动画类型，目前支持fade、cover、popup-up、popup-down、popup-left、popup-right类型
-duration|`Number`|`N`|`400`|过渡时间，单位ms，`0`表示无过渡效果
+duration|`Number`|`N`|`300`|过渡时间，单位ms，`0`表示无过渡效果
 checkBack|`Boolean`|`N`|`false`|**当作页面转场动画时，返回时动效是否相反，且此时要配合vue-router使用，其它场景使用时不要设置该属性**
 appear|`Boolean`|`N`|`false`|初始渲染是否有过渡效果
 mode|`String`|`N`|`-`|控制元素切换时进入、离开的顺序，有效的模式有`out-in`和`in-out`，默认同时生效
