@@ -16,7 +16,7 @@
            * forward 只有前进才使用缓存
            * none 前进、后退都不使用缓存
            */
-          return ['all', 'back', 'forward', 'none'].includes(value)
+          return ['all', 'back', 'forward', 'none'].indexOf(value) !== -1
         }
       },
       exclude: {  // 排除哪些页面，这些页面始终不使用缓存
@@ -66,7 +66,7 @@
 
                   break
                 default:  // 前进、后退
-                  if ((this.action === 'back' ? ['all', 'back'] : ['all', 'forward']).includes(this.type) && !this.exclude.includes(this.$route.name) && !this.forceUpdate) { // 可以使用缓存
+                  if ((this.action === 'back' ? ['all', 'back'] : ['all', 'forward']).indexOf(this.type) !== -1 && this.exclude.indexOf(this.$route.name) === -1 && !this.forceUpdate) { // 可以使用缓存
                     vnode.componentInstance = this.history[index].vnode.componentInstance
                   } else {
                     this.history[index].vnode.componentInstance.$destroy()

@@ -17,14 +17,14 @@
         type: String,
         default: 'default',
         validator(value) {
-          return ['default', 'primary', 'danger'].includes(value)
+          return ['default', 'primary', 'danger'].indexOf(value) !== -1
         }
       },
       shape: { // 圆角类型
         type: String,
         default: 'semicircle',
         validator(value) {
-          return ['rectangle', 'round', 'semicircle'].includes(value)
+          return ['rectangle', 'round', 'semicircle'].indexOf(value) !== -1
         }
       },
       disabled: {

@@ -329,3 +329,7 @@ change|(`{touch,progress}`)|pull模式才有效，当页面拉动的距离变化
 release|(`progress`)|pull模式才有效，手指松开时触发，`progress`同`change`事件
 appear|`-`|scroll模式才有效，当loading元素出现时触发
 load|(`finish(success)`)|触发加载动作时触发，**当数据更新完成后一定要执行`finish`回调函数，否则loading元素不会隐藏，且无法再次触发加载。回调函数接受一个参数`success`，表示加载成功还是失败，使用默认loading效果时会使用到该参数**
+
+## 更新日志
+
+* v1.0.0 发布

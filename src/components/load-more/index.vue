@@ -1,13 +1,18 @@
 <template>
-  <div class="vui-load-more" :vui-position="position" @touchstart="touchstart" @touchmove="touchmove"
+  <div class="vui-load-more" :vui-position="position" :vui-pull="pull" :vui-loading="status==='loading'"
+       :vui-complete="['init','loading'].indexOf(status)===-1" @touchstart="touchstart" @touchmove="touchmove"
        @touchend="touchend" @scroll="scroll">
     <div class="vui-load-more-loading" :style="{[this.sizeProp]:`${this.size}px`}"
-         v-if="['top','left'].includes(position)">
+         v-if="['top','left'].indexOf(position)!==-1">
       <div class="vui-load-more-loading-box" ref="box">
         <slot name="loading">
           <div class="vui-load-more-default">
-            <div class="vui-load-more-icon" :style="iconStyle" v-if="['init','loading'].indexOf(status)!==-1"></div>
-            <div class="vui-load-more-text" v-else>{{text}}</div>
+            <div class="vui-load-more-icon" :style="iconStyle" ref="icon"
+                 v-show="['init','loading'].indexOf(status)!==-1"></div>
+            <div class="vui-load-more-text" :style="textStyle"
+                 v-show="!pull||['success','fail','nomore'].indexOf(status)!==-1">{{text}}</div>
+            <div class="vui-load-more-bg" :style="bgStyle"
+                 v-show="['success','fail','nomore'].indexOf(status)!==-1||!pull"></div>
           </div>
         </slot>
       </div>
@@ -16,12 +21,16 @@
       <slot></slot>
     </div>
     <div class="vui-load-more-loading" :style="{[this.sizeProp]:`${this.size}px`}"
-         v-if="['bottom','right'].includes(position)">
+         v-if="['bottom','right'].indexOf(position)!==-1">
       <div class="vui-load-more-loading-box" ref="box">
         <slot name="loading">
           <div class="vui-load-more-default">
-            <div class="vui-load-more-icon" :style="iconStyle" v-if="['init','loading'].indexOf(status)!==-1"></div>
-            <div class="vui-load-more-text" v-else>{{text}}</div>
+            <div class="vui-load-more-icon" :style="iconStyle" ref="icon"
+                 v-show="['init','loading'].indexOf(status)!==-1"></div>
+            <div class="vui-load-more-text" :style="textStyle"
+                 v-show="!pull||['success','fail','nomore'].indexOf(status)!==-1">{{text}}</div>
+            <div class="vui-load-more-bg" :style="bgStyle"
+                 v-show="['success','fail','nomore'].indexOf(status)!==-1||!pull"></div>
           </div>
         </slot>
       </div>
@@ -45,7 +54,7 @@
         type: String,
         default: 'top',
         validator (value) {
-          return ['top', 'bottom', 'left', 'right'].includes(value)
+          return ['top', 'bottom', 'left', 'right'].indexOf(value) !== -1
         }
       },
       pull: { // 是在边界拉动还是只要滚动到边界
@@ -60,9 +69,9 @@
         type: Number,
         default: 300
       },
-      pullThreshold: { // pull模式时为拉动的距离，单位px
+      pullThreshold: { // pull模式时加载需要拉动的距离，相对loading元素区域尺寸的比例
         type: Number,
-        default: 0
+        default: 1
       },
       scrollThreshold: { // scroll模式时为滚动到边界还差多少距离
         type: Number,
@@ -75,30 +84,83 @@
       angle: { // pull角度，如果position为垂直方向的话，表示手指初始滑动时与垂直方向的角度要<=45才有效
         type: Number,
         default: 45
+      },
+      pullLoadingBackground: {  // pull时loading图的背景色
+        type: String,
+        default: '#FF8A00'
+      },
+      scrollLoadingColor: { // scroll时loading文字颜色
+        type: String,
+        default: '#999'
+      },
+      scrollLoadingBackground: {
+        type: String,
+        default: '#F6F7F8'
+      },
+      successColor: { // 加载成功提示文本颜色
+        type: String,
+        default: '#FF8A00'
+      },
+      successBackground: { // 背景色
+        type: String,
+        default: '#FFF6EC'
+      },
+      failColor: { // 失败或者没有更多数据时的文本颜色
+        type: String,
+        default: '#aaa'
+      },
+      failBackground: {
+        type: String,
+        default: '#F6F7F8'
       }
     },
     data () {
       return {
         size: 0, // loading元素的宽或者高
         speed: this.duration,
-        status: 'init', // 状态，有init、loading、complete三种
-        progress: 0, // pull距离相对threshold的百分比
+        status: 'init', // 状态，有init、loading、success、fail、nomore五种
+        scaleRatio: 0, // pull时loading图标的缩放比例
         text: ''
       }
     },
     computed: {
       sizeProp () {
-        return ['top', 'bottom'].includes(this.position) ? 'height' : 'width'
+        return ['top', 'bottom'].indexOf(this.position) !== -1 ? 'height' : 'width'
       },
       iconStyle () {
         return {
-          transform: this.status === 'init' ? `scale(${Math.min(this.progress / 100, 1)}) rotate(${3.6 * this.progress}deg)` : '',
-          backgroundImage: (() => {
+          transform: this.pull && this.status === 'init' ? `scale(${Math.min(this.scaleRatio / 100, 1)}) rotate(${1.8 * this.scaleRatio}deg)` : '',
+          backgroundColor: this.pull ? this.pullLoadingBackground : '',
+          backgroundImage: `url(${this.pull ? initIcon : loadingIcon})`,
+          borderRadius: this.pull ? '50%' : ''
+        }
+      },
+      textStyle() {
+        return {
+          color: (() => {
             switch (this.status) {
-              case 'init':
-                return `url(${this.pull ? initIcon : loadingIcon})`
-              case 'loading':
-                return `url(${loadingIcon})`
+              case 'success':
+                return this.successColor
+              case 'fail':
+              case 'nomore':
+                return this.failColor
+              default:
+                return this.scrollLoadingColor
+            }
+          })()
+        }
+      },
+      bgStyle() {
+        return {
+          background: (() => {
+            switch (this.status) {
+              case 'success':
+                return this.successBackground
+              case 'fail':
+              case 'nomore':
+                return this.failBackground
+              default:
+                return this.scrollLoadingBackground
             }
           })()
         }
@@ -244,7 +306,7 @@
           if (isPull !== undefined) {
             this.$emit('change', {
               touch: true,
-              progress: this.size * 100 / (this.pullThreshold || 2 * this.$refs.box.getBoundingClientRect()[this.sizeProp])
+              progress: this.size * 100 / (this.pullThreshold * this.$refs.box.getBoundingClientRect()[this.sizeProp])
             })
           }
         } else if (this.disabled === false) {
@@ -262,7 +324,7 @@
 
           if (this.pull && this.size > 0) {
             const size = this.$refs.box.getBoundingClientRect()[this.sizeProp]
-            const threshold = this.pullThreshold || 2 * size
+            const threshold = this.pullThreshold * size
 
             this.transitioning = true
             this.$emit('release', this.size * 100 / threshold) // 松开事件
@@ -302,7 +364,7 @@
           if (this.pull) {
             this.$emit('change', {
               touch: false,
-              progress: size * 100 / (this.pullThreshold || 2 * this.$refs.box.getBoundingClientRect()[this.sizeProp])
+              progress: size * 100 / (this.pullThreshold * this.$refs.box.getBoundingClientRect()[this.sizeProp])
             })
           }
 
@@ -344,34 +406,68 @@
           }
         }, duration, cubicEaseOut).play()
       },
-      finish (success) {
+      finish (status, text) {
         // 内部监听调用
-        this.$emit('finish', success)
+        this.$emit('finish', status, text)
         setTimeout(() => {
           this.buffer(this.size, 0, this.duration)
-        }, 500)
+        }, 800)
       }
     },
     created() {
       // 监听事件，修改默认loading效果
       this.$on('appear', () => {
         this.status = 'init'
+        this.text = '正在加载…'
       })
       this.$on('change', ({progress}) => {
-        if (this.status === 'complete' && progress) {
-          return
+        if (this.status === 'init') {
+          this.status = 'init'
+          this.scaleRatio = progress * this.pullThreshold
+        } else if (!progress) {
+          this.status = 'init'
         }
-
-        this.status = 'init'
-        this.progress = progress
       })
       this.$on('load', () => {
         this.status = 'loading'
       })
-      this.$on('finish', (success) => {
-        this.status = 'complete'
-        this.text = success ? '加载成功' : '没有更多数据了'
+      this.$on('finish', (status, text) => {
+        this.status = status
+
+        if (text) {
+          this.text = text
+        } else {
+          switch (status) {
+            case 'success':
+              this.text = '加载成功'
+              break
+            case 'fail':
+              this.text = '加载失败'
+              break
+            default:
+              this.text = '没有更多数据了'
+          }
+        }
       })
+    },
+    mounted() {
+      // 将loading图片尺寸设置成整数，因为页面没缩放的情况下，小数时在chrome下旋转会抖动
+      if (!this.pull || !this.$refs.icon) {
+        return
+      }
+
+      const style = window.getComputedStyle(this.$refs.icon)
+      let width = parseInt(style.width)
+      let height = parseInt(style.height)
+      let backgroundSize = parseInt(width * 0.56)
+
+      // 确保是偶数值，否则会抖动
+      width % 2 && width++
+      height % 2 && height++
+      backgroundSize % 2 && backgroundSize++
+      this.$refs.icon.style.width = `${width}px`
+      this.$refs.icon.style.height = `${height}px`
+      this.$refs.icon.style.backgroundSize = `${backgroundSize}px`
     }
   }
 </script>

@@ -113,11 +113,11 @@
             }
 
             this.defaultPullList.length > 50 && (this.defaultPullHasMore = false)
-            finish(true)
+            finish('success')
           }, 2000)
         } else {
           setTimeout(() => {
-            finish(false)
+            finish('nomore')
           }, 2000)
         }
       },
@@ -131,11 +131,11 @@
             }
 
             this.defaultScrollList.length > 200 && (this.defaultScrollHasMore = false)
-            finish(true)
+            finish('success')
           }, 2000)
         } else {
           setTimeout(() => {
-            finish(false)
+            finish('nomore')
           }, 2000)
         }
       },
@@ -162,14 +162,14 @@
             this.pullList.length > 50 && (this.pullHasMore = false)
             this.pullText = '加载完成'
             setTimeout(() => {
-              finish(true)
+              finish('success')
             }, 500)
           }, 2000)
         } else {
           setTimeout(() => {
             this.pullText = '没有更多内容了~'
             setTimeout(() => {
-              finish(false)
+              finish('nomore')
             }, 500)
           }, 2000)
         }
@@ -188,12 +188,12 @@
 
             this.scrollList.length > 200 && (this.scrollHasMore = false)
             this.scrollText = '加载完成'
-            finish(true)
+            finish('success')
           }, 2000)
         } else {
           setTimeout(() => {
             this.scrollText = '没有更多内容了~'
-            finish(false)
+            finish('nomore')
           }, 2000)
         }
       }
