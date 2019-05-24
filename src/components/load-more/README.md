@@ -87,11 +87,15 @@
             }
 
             this.defaultPullList.length > 50 && (this.defaultPullHasMore = false)
-            finish(true)
+            finish({
+              status: 'success'
+            })
           }, 2000)
         } else {
           setTimeout(() => {
-            finish(false)
+            finish({
+              status: 'nomore'
+            })
           }, 2000)
         }
       }
@@ -148,11 +152,16 @@
             }
 
             this.defaultScrollList.length > 200 && (this.defaultScrollHasMore = false)
-            finish(true)
+            finish({
+              status: 'success'
+            })
           }, 2000)
         } else {
           setTimeout(() => {
-            finish(false)
+            finish({
+              status: 'nomore',
+              fold: false
+            })
           }, 2000)
         }
       }
@@ -216,14 +225,18 @@
             this.pullList.length > 50 && (this.pullHasMore = false)
             this.pullText = '加载完成'
             setTimeout(() => {
-              finish(true)
+              finish({
+                status: 'success'
+              })
             }, 500)
           }, 2000)
         } else {
           setTimeout(() => {
             this.pullText = '没有更多内容了~'
             setTimeout(() => {
-              finish(false)
+              finish({
+                status: 'nomore'
+              })
             }, 500)
           }, 2000)
         }
@@ -288,12 +301,16 @@
 
             this.scrollList.length > 200 && (this.scrollHasMore = false)
             this.scrollText = '加载完成'
-            finish(true)
+            finish({
+              status: 'success'
+            })
           }, 2000)
         } else {
           setTimeout(() => {
             this.scrollText = '没有更多内容了~'
-            finish(false)
+            finish({
+              status: 'nomore'
+            })
           }, 2000)
         }
       }
@@ -306,13 +323,16 @@
 
 名称|类型|必填|默认值|描述
 :-:|:-:|:-:|:-:|:-:
-position|`String`|`N`|`top`|loading元素所在的位置，支持`top`,`bottom`,`left`,`right`
-pull|`Boolean`|`N`|`true`|是pull加载还是scroll加载，true表示pull加载
-work|`Boolean`|`N`|`true`|是否还需要加载，false表示不再需要加载了，此时loading元素将不再显示。不过可以设置work为true，然后控制loading逻辑来实现自定义效果，如demo中那样
-duration|`Number`|`N`|`300`|loading元素的过渡时间，单位ms
-pullThreshold|`Number`|`N`|loading元素区域尺寸的两倍（比如`position`为`top`、`bottom`时，为高度的两倍，其他情况为宽度的两倍）|pull加载时，触发加载动作的拉动距离，单位px，scroll模式无效。**移动端缩放时要根据不同设备像素比设置不同阈值，否则用户感知的拉动距离不一致**
-scrollThreshold|`Number`|`N`|`0`|scroll加载时，触发加载动作的阈值,单位px，pull模式无效 **（如scrollThreshold为50，则表示距离滚动到末尾还差50px时就触发加载动作，常用来进行预加载）.在移动端注意要根据不同设备像素比设置不同阈值）**
-angle|`Number`|`N`|`45`|pull或者scroll时有效的角度，比如`position`为`top`或者`bottom`，angle为30，则表示手指初始滑动的方向与垂直方向的夹角要<=30度，否则无法pull或者scroll
+position|`String`|`N`|`top`|loading元素所在的位置，支持`top`,`bottom`,`left`,`right`。比如`pull`为`true`且`position`为`top`表示下拉加载，`pull`为`false`且`position`为`bottom`表示滚动到底部加载
+pull|`Boolean`|`N`|`true`|是pull（拉动）加载还是scroll（滚动）加载，true表示pull加载
+pullThreshold|`Number`|`N`|`1`|pull加载时，触发加载动作的拉动距离（相对于loading元素区域尺寸的比例，比如`position`为`top`或者`bottom`表示相对于loading区域高度的比例），scroll模式无效。
+scrollThreshold|`Number`|`N`|`0`|scroll加载时，触发加载动作的阈值（同`pullThreshold`一致，也是相对于loading元素区域尺寸的比例。比如`position`为`bottom`时，表示滚动到距离底部多少距离才触发加载事件），pull模式无效
+angle|`Number`|`N`|`45`|pull或者scroll时有效的角度，比如`position`为`top`或者`bottom`，`angle`为30，则表示手指初始滑动的方向与垂直方向的夹角要<=30度，否则无法pull或者scroll
+pullLoadingBackground|`String`|`N`|`#FF8A00`|pull模式下，默认loading图的背景色，如果使用自定义loading效果，无需设置
+successColor|`String`|`N`|`#FF8A00`|加载成功时，默认提示文本的颜色，如果使用自定义loading效果，无需设置
+successBackground|`String`|`N`|`#FFF6EC`|加载成功时，loading区域的背景颜色，如果使用自定义loading效果，无需设置
+failColor|`String`|`N`|`#AAA`|加载失败或者无更多数据时，默认提示文本的颜色，如果使用自定义loading效果，无需设置
+failBackground|`String`|`N`|`#F6F7F8`|加载失败或者无更多数据时，loading区域的背景颜色，如果使用自定义loading效果，无需设置
 
 ## 插槽
 
@@ -325,10 +345,18 @@ loading|`N`|loading元素区域
 
 名称|参数|说明
 :-:|:-:|:-:
-change|(`{touch,progress}`)|pull模式才有效，当页面拉动的距离变化时触发，`touch`表示手指是否触摸（false表示已松开），`progress`表示拉动的距离相对于`pullThreshold`的百分比
+change|(`{touch,progress}`)|pull模式才有效，当拉动的距离变化时触发，`touch`表示手指是否触摸（`false`表示已松开），`progress`表示拉动的距离相对于`pullThreshold`的百分比
 release|(`progress`)|pull模式才有效，手指松开时触发，`progress`同`change`事件
 appear|`-`|scroll模式才有效，当loading元素出现时触发
-load|(`finish(success)`)|触发加载动作时触发，**当数据更新完成后一定要执行`finish`回调函数，否则loading元素不会隐藏，且无法再次触发加载。回调函数接受一个参数`success`，表示加载成功还是失败，使用默认loading效果时会使用到该参数**
+load|(`finish(param)`)|触发加载动作时触发，**当数据更新完成后一定要执行`finish`回调函数，否则loading元素不会隐藏，且无法再次触发加载。回调函数接受一个必填的对象参数param**
+
+### param属性
+
+名称|类型|必填|默认值|描述
+:-:|:-:|:-:|:-:|:-:
+status|`String`|`Y`|`-`|加载的状态，`success`表示加载成功，`fail`表示失败，`nomore`表示没有更多数据
+text|`String`|`N`|`success`为`加载成功`，`fail`为`加载失败`，`nomore`为`没有更多数据了`|提示文本
+fold|`Boolean`|`N`|`true`|加载结束后是否隐藏loading元素区域。如果没有更多数据时想一直显示提示文本，就将`fold`设为`false`
 
 ## 更新日志
 

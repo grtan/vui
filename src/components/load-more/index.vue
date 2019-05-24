@@ -61,7 +61,7 @@
         type: Boolean,
         default: true
       },
-      work: { // 是否还需要加载
+      work: { // 是否还需要加载，false时不再显示loading区域
         type: Boolean,
         default: true
       },
@@ -73,7 +73,7 @@
         type: Number,
         default: 1
       },
-      scrollThreshold: { // scroll模式时为滚动到边界还差多少距离
+      scrollThreshold: { // scroll加载时，触发加载动作的阈值，同pullThreshold一致，都是比例
         type: Number,
         default: 0
       },
@@ -107,7 +107,7 @@
       },
       failColor: { // 失败或者没有更多数据时的文本颜色
         type: String,
-        default: '#aaa'
+        default: '#AAA'
       },
       failBackground: {
         type: String,
@@ -343,15 +343,17 @@
           return
         }
 
+        this.scrollThod = this.scrollThod === undefined ? this.scrollThreshold * this.$refs.box.getBoundingClientRect()[this.sizeProp] : this.scrollThod
+
         switch (true) {
-          case this.position === 'top' && this.scrollTop <= scrollTop && this.scrollTop <= this.scrollThreshold:
-          case this.position === 'bottom' && this.scrollTop >= scrollTop && (this.scrollTop + this.$el.clientHeight + this.scrollThreshold >= this.$el.scrollHeight):
-          case this.position === 'left' && this.scrollLeft <= scrollLeft && this.scrollLeft <= this.scrollThreshold:
-          case this.position === 'right' && this.scrollLeft >= scrollLeft && (this.scrollLeft + this.$el.clientWidth + this.scrollThreshold >= this.$el.scrollWidth):
+          case this.position === 'top' && this.scrollTop <= scrollTop && this.scrollTop <= this.scrollThod:
+          case this.position === 'bottom' && this.scrollTop >= scrollTop && (this.scrollTop + this.$el.clientHeight + this.scrollThod >= this.$el.scrollHeight):
+          case this.position === 'left' && this.scrollLeft <= scrollLeft && this.scrollLeft <= this.scrollThod:
+          case this.position === 'right' && this.scrollLeft >= scrollLeft && (this.scrollLeft + this.$el.clientWidth + this.scrollThod >= this.$el.scrollWidth):
             this.transitioning = true
             this.$emit('appear') // 出现
             // 非提前预加载就定位到末尾
-            this.buffer(this.size, this.$refs.box.getBoundingClientRect()[this.sizeProp], this.duration, !this.scrollThreshold)
+            this.buffer(this.size, this.$refs.box.getBoundingClientRect()[this.sizeProp], this.duration, !this.scrollThod)
         }
       },
       /**
@@ -384,7 +386,7 @@
               // 触发load事件，并传入finish回调
               this.$emit('load', this.finish)
             } else {
-              if (!this.pull && !('ontouchend' in document)) { // pc端scroll情况下如果请求失败了，也保留1px的滚动空间
+              if (!('ontouchend' in document) && !this.pull && ['fail', 'nomore'].indexOf(this.status) !== -1) { // pc端scroll情况下如果请求失败或者没有更多数据时，也保留1px的滚动空间
                 switch (this.position) {
                   case 'top':
                     this.$el.scrollTop++
@@ -406,12 +408,18 @@
           }
         }, duration, cubicEaseOut).play()
       },
-      finish (status, text) {
+      /**
+       * @param status  状态
+       * @param text  提示文本
+       * @param fold  loading区域是否要收起来（有可能没有更多数据的情况下，不需要收起来）
+       */
+      finish ({status, text, fold = true}) {
         // 内部监听调用
         this.$emit('finish', status, text)
-        setTimeout(() => {
-          this.buffer(this.size, 0, this.duration)
-        }, 800)
+        fold && setTimeout(() => {
+          // 加载成功时，底部、右侧的loading要瞬间消失，否则用户滑动过快时会看到提示文本，体验不好
+          this.buffer(this.size, 0, status === 'success' && ['bottom', 'right'].indexOf(this.position) !== -1 ? 0 : this.duration)
+        }, status === 'success' && ['bottom', 'right'].indexOf(this.position) !== -1 ? 0 : 800)
       }
     },
     created() {

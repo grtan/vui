@@ -113,11 +113,15 @@
             }
 
             this.defaultPullList.length > 50 && (this.defaultPullHasMore = false)
-            finish('success')
+            finish({
+              status: 'success'
+            })
           }, 2000)
         } else {
           setTimeout(() => {
-            finish('nomore')
+            finish({
+              status: 'nomore'
+            })
           }, 2000)
         }
       },
@@ -131,11 +135,16 @@
             }
 
             this.defaultScrollList.length > 200 && (this.defaultScrollHasMore = false)
-            finish('success')
+            finish({
+              status: 'success'
+            })
           }, 2000)
         } else {
           setTimeout(() => {
-            finish('nomore')
+            finish({
+              status: 'nomore',
+              fold: false
+            })
           }, 2000)
         }
       },
@@ -162,14 +171,18 @@
             this.pullList.length > 50 && (this.pullHasMore = false)
             this.pullText = '加载完成'
             setTimeout(() => {
-              finish('success')
+              finish({
+                status: 'success'
+              })
             }, 500)
           }, 2000)
         } else {
           setTimeout(() => {
             this.pullText = '没有更多内容了~'
             setTimeout(() => {
-              finish('nomore')
+              finish({
+                status: 'nomore'
+              })
             }, 500)
           }, 2000)
         }
@@ -188,12 +201,16 @@
 
             this.scrollList.length > 200 && (this.scrollHasMore = false)
             this.scrollText = '加载完成'
-            finish('success')
+            finish({
+              status: 'success'
+            })
           }, 2000)
         } else {
           setTimeout(() => {
             this.scrollText = '没有更多内容了~'
-            finish('nomore')
+            finish({
+              status: 'nomore'
+            })
           }, 2000)
         }
       }

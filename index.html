@@ -44,10 +44,13 @@
   window.addEventListener('hashchange', postMessage)
 
   function postMessage () {
-    demo.contentWindow.postMessage({
-      type: 'vui',
-      hash: location.hash
-    }, '*')
+    // 只有组件才跳转到demo
+    if (!location.hash.indexOf('#/src/components/')) {
+      demo.contentWindow.postMessage({
+        type: 'vui',
+        hash: location.hash
+      }, '*')
+    }
   }
 </script>
 <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
