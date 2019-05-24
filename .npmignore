@@ -1,6 +1,7 @@
-demo
-docs
-src
+/demo/**
+/demo-old/**
+/docs/**
+/src/**
 /.*/**
 /.*
 /*.js

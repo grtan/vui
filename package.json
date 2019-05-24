@@ -1,5 +1,5 @@
 {
-  "name": "vui",
+  "name": "@vivo/vui",
   "version": "1.0.0",
   "description": "A library of vue ui components and some tools",
   "main": "dist/lib.js",
