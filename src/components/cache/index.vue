@@ -34,59 +34,67 @@
       const vnode = this.$slots.default ? this.$slots.default[0] : null
 
       if (vnode) {
-        const time = window.history.state[name]
+        if (this.action) { // 由于路由变化引起的渲染
+          const time = window.history.state[name]
 
-        switch (this.action) {
-          case 'new': // 新建历史记录
-            // 删除弹出的历史记录并销毁相应的组件实例
-            this.history.splice(++this.history.current).forEach(function (record) {
-              record.vnode.componentInstance.$destroy()
-            })
-            this.history.push({
-              time,
-              vnode
-            })
+          switch (this.action) {
+            case 'new': // 新建历史记录
+            case 'refresh': // 刷新
+              // 删除弹出的历史记录并销毁相应的组件实例
+              this.history.splice(++this.history.current).forEach(function (record) {
+                record.vnode.componentInstance.$destroy()
+              })
+              this.history.push({
+                time,
+                vnode
+              })
 
-            break;
-          default:  // 前进、后退或者spa页面内部replace
-            const index = this.history.findIndex(function (record) {
-              return record.time >= time
-            })
+              break;
+            default:  // 前进、后退或者spa页面内部replace
+              const index = this.history.findIndex(function (record) {
+                return record.time >= time
+              })
 
-            if (this.history[index] && this.history[index].time === time) {  // 有缓存
-              this.history.current = index
+              if (this.history[index] && this.history[index].time === time) {  // replace或者前进、后退有缓存
+                this.history.current = index
 
-              switch (this.action) {
-                case 'replace': // spa页面内部replace
-                  this.history[index].vnode.componentInstance.$destroy()
-                  this.history[index] = {
-                    time,
-                    vnode
-                  }
-
-                  break
-                default:  // 前进、后退
-                  if ((this.action === 'back' ? ['all', 'back'] : ['all', 'forward']).indexOf(this.type) !== -1 && this.exclude.indexOf(this.$route.name) === -1 && !this.forceUpdate) { // 可以使用缓存
-                    vnode.componentInstance = this.history[index].vnode.componentInstance
-                  } else {
+                switch (this.action) {
+                  case 'replace': // spa页面内部replace
                     this.history[index].vnode.componentInstance.$destroy()
                     this.history[index] = {
                       time,
                       vnode
                     }
-                  }
+
+                    break
+                  default:  // 前进、后退
+                    if ((this.action === 'back' ? ['all', 'back'] : ['all', 'forward']).indexOf(this.type) !== -1 && this.exclude.indexOf(this.$route.name) === -1 && !this.forceUpdate) { // 可以使用缓存
+                      vnode.componentInstance = this.history[index].vnode.componentInstance
+                    } else {
+                      this.history[index].vnode.componentInstance.$destroy()
+                      this.history[index] = {
+                        time,
+                        vnode
+                      }
+                    }
+                }
+              } else { // 前进、后退时无缓存的情况，index=-1为前进无缓存的情况，否则为后退无缓存
+                this.history.current = index === -1 ? this.history.length : index
+                this.history.splice(this.history.current, 0, {
+                  time,
+                  vnode
+                })
               }
-            } else { // 刷新或者前进、后退时无缓存的情况
-              this.history.current = index === -1 ? this.history.length : index
-              this.history.splice(this.history.current, 0, {
-                time,
-                vnode
-              })
-            }
+          }
+        } else if (this.history[this.history.current]) {  // 由于祖先组件数据变化引起的渲染
+          vnode.componentInstance = this.history[this.history.current].vnode.componentInstance
         }
 
         vnode.data.keepAlive = true
       }
+
+      // 路由变化渲染完后，将标记清除
+      this.action = ''
 
       return vnode
     },
