@@ -7,8 +7,8 @@
 **整体引入**
 
 ```
-<link rel="stylesheet" href="xx/vivo-ui/dist/vui.min.css">
-<script src="xx/vivo-ui/dist/vui.min.js"></script>
+<link rel="stylesheet" href="xx/vui/dist/vui.min.css">
+<script src="xx/vui/dist/vui.min.js"></script>
 ```
 
 **按需加载**
@@ -16,7 +16,8 @@
 > 只加载被引用的工具方法和组件，且组件只会加载指定皮肤的样式
 
 ```
-import { Toast, Dialog, sineEaseOut, ... } from 'vui'
+// 使用时请将npm源设置成公司内部npm仓库http://npm.vivo.xyz
+import { Toast, Dialog, sineEaseOut, ... } from '@vivo/vui'
 ```
 
 按需加载需要配合[babel-plugin-lib-import](https://www.npmjs.com/package/babel-plugin-lib-import)使用，且能自定义配置来实现加载特定皮肤
@@ -32,7 +33,7 @@ npm i -D babel-plugin-lib-import
     [
       "lib-import",
       {
-        "name": "vui"
+        "name": "@vivo/vui"
       }
     ]
   ]
