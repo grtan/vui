@@ -103,6 +103,9 @@
           }, {
             category: '数据展示',
             list: [{
+              name: 'marquee 跑马灯',
+              routeName: 'marquee'
+            }, {
               name: 'swiper 轮播',
               routeName: 'swiper'
             }, {

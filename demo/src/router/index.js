@@ -129,6 +129,15 @@ let router = new Router({
     },
     // 数据展示
     {
+      name: 'marquee',
+      path: '/components/marquee',
+      meta: {
+        title: 'marquee 跑马灯'
+      },
+      component: () =>
+        import(/* webpackChunkName: "marquee" */ '@/views/components/marquee/index.vue')
+    },
+    {
       name: 'swiper',
       path: '/components/swiper',
       meta: {

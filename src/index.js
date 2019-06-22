@@ -61,6 +61,7 @@ export { default as CityPicker } from './components/city-picker/index.vue'
 export { default as LoadMore } from './components/load-more/index.vue'
 export { default as Swiper } from './components/swiper/index.vue'
 export { default as SwiperItem } from './components/swiper/item.vue'
+export { default as Marquee } from './components/marquee/index.vue'
 // 过渡
 export { default as Cutover } from './components/cutover/index.vue'
 // 其他

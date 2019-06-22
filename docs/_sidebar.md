@@ -26,6 +26,7 @@
         * [city-picker 省市区选择器](src/components/city-picker/)
         * [switch 开关](src/components/switch/)
     * 数据展示
+        * [marquee 跑马灯](src/components/marquee/)
         * [swiper 轮播](src/components/swiper/)
         * [load-more 加载更多](src/components/load-more/)
     * 过渡
