@@ -1,3 +1,12 @@
+# [1.2.0](http://gitlab.vmic.xyz/game-fed/vui/compare/v1.1.0...v1.2.0) (2019-06-22)
+
+
+### Features
+
+* **marquee:** 新增marquee组件 ([7d11f41](http://gitlab.vmic.xyz/game-fed/vui/commit/7d11f41))
+
+
+
 # [1.1.0](http://gitlab.vmic.xyz/game-fed/vui/compare/v1.0.1...v1.1.0) (2019-06-18)
 
 
