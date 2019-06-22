@@ -41,7 +41,6 @@
 <script>
   import initIcon from './image/init.png'
   import loadingIcon from './image/loading.svg'
-  import { raf, caf } from '../../tools/prefix/index'
   import { cubicEaseOut } from '../../tools/easing/index'
   import transit from '../../tools/transit/index'
 
