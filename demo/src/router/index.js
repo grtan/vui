@@ -198,6 +198,14 @@ let router = new Router({
       },
       component: () =>
         import(/* webpackChunkName: "timer" */ '@/views/components/timer/index.vue')
+    },{
+      name: 'upload',
+      path: '/components/upload',
+      meta: {
+        title: 'upload上传'
+      },
+      component: () =>
+        import(/* webpackChunkName: "timer" */ '@/views/components/upload/index.vue')
     }]
 })
 

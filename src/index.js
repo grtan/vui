@@ -67,6 +67,7 @@ export { default as Cutover } from './components/cutover/index.vue'
 // 其他
 export { default as Cache } from './components/cache/index.vue'
 export { default as Timer } from './components/timer/index.vue'
+export { default as Upload } from './components/upload/index.vue'
 
 // 插件
 export { default as PDialog } from './plugins/dialog/index'

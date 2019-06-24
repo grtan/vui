@@ -34,6 +34,7 @@
     * 其他
         * [cache 页面缓存](src/components/cache/)
         * [timer 计时器](src/components/timer/)
+        * [upload 上传](src/components/upload/)
 
 * 插件
     * [dialog 对话框](src/components/dialog/)

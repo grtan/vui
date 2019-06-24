@@ -126,6 +126,9 @@
             }, {
               name: 'timer 计时器',
               routeName: 'timer'
+            },{
+              name: 'upload上传',
+              routeName: 'upload'
             }]
           }]
         }]
