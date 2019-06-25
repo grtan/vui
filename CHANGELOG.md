@@ -1,3 +1,12 @@
+# [1.3.0](http://gitlab.vmic.xyz/game-fed/vui/compare/v1.1.0...v1.3.0) (2019-06-25)
+
+
+### Features
+
+* **tab,tab-item:** 新增tab组件 ([95848ad](http://gitlab.vmic.xyz/game-fed/vui/commit/95848ad))
+
+
+
 # [1.2.0](http://gitlab.vmic.xyz/game-fed/vui/compare/v1.1.0...v1.2.0) (2019-06-22)
 
 

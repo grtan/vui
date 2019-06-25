@@ -64,6 +64,9 @@
               name: 'navbar 导航栏',
               routeName: 'navbar'
             }, {
+              name: 'tab 标签栏',
+              routeName: 'tab'
+            }, {
               name: 'pagination 分页',
               routeName: 'pagination'
             }]
@@ -126,7 +129,10 @@
             }, {
               name: 'timer 计时器',
               routeName: 'timer'
-            }]
+            }/*,{
+              name: 'upload上传',
+              routeName: 'upload'
+            }*/]
           }]
         }]
       }

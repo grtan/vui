@@ -46,6 +46,11 @@ module.exports = {
         target: 'http://api.vivo.xyz',
         ws: true,
         changeOrigin: true
+      },
+      '/mockApi':{
+        target: 'http://api.vivo.xyz',
+        ws: true,
+        changeOrigin: true
       }
     }
   },
