@@ -45,6 +45,8 @@ export { default as Button } from './components/button/index.vue'
 export { default as Icon } from './components/icon/index.vue'
 // 导航
 export { default as Navbar } from './components/navbar/index.vue'
+export { default as Tab } from './components/tab/index.vue'
+export { default as TabItem } from './components/tab/item.vue'
 export { default as Pagination } from './components/pagination/index.vue'
 // 反馈
 export { default as Toast } from './components/toast/index.vue'
@@ -67,7 +69,7 @@ export { default as Cutover } from './components/cutover/index.vue'
 // 其他
 export { default as Cache } from './components/cache/index.vue'
 export { default as Timer } from './components/timer/index.vue'
-export { default as Upload } from './components/upload/index.vue'
+// export { default as Upload } from './components/upload/index.vue'
 
 // 插件
 export { default as PDialog } from './plugins/dialog/index'

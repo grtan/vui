@@ -1,0 +1,95 @@
+@import "../../../assets/style/base";
+@import "../../../assets/style/default/index";
+
+html:not([@{skin-attr}]) {
+  @name: ~"@{lib-name}-tab";
+  @vertical: ~"@{lib-name}-vertical";
+  @upside: ~"@{lib-name}-upside";
+  @selected: ~"@{lib-name}-selected";
+  @scroll: ~"@{lib-name}-scroll";
+
+  .@{name} {
+    overflow: hidden;
+
+    &-scroller {
+      margin-bottom: -100PX;
+      padding-bottom: 100PX;
+      overflow: hidden;
+    }
+
+    &[@{scroll}] .@{name}-scroller {
+      overflow: auto;
+    }
+
+    &-wrapper {
+      position: relative;
+      float: left;
+      min-width: 100%;
+    }
+
+    &-list {
+      display: flex;
+    }
+
+    &-line {
+      position: absolute;
+      bottom: 0;
+      height: @tab-line-size;
+      background: @tab-line-bg;
+      border-radius: @tab-line-size / 2;
+      transition-property: left, right;
+    }
+
+    &[@{upside}] .@{name}-line {
+      top: 0;
+      bottom: auto;
+    }
+
+    // 垂直方向
+    &[@{vertical}] {
+      display: inline-block;
+      vertical-align: top;
+
+      .@{name}-scroller {
+        margin: 0 -100PX 0 0;
+        padding: 0 100PX 0 0;
+        height: 100%;
+      }
+
+      .@{name}-wrapper {
+        display: flex;
+        min-height: 100%;
+      }
+
+      .@{name}-list {
+        flex-direction: column;
+      }
+
+      .@{name}-line {
+        bottom: auto;
+        right: 0;
+        height: auto;
+        width: @tab-line-size;
+        transition-property: top, bottom;
+      }
+
+      &[@{upside}] .@{name}-line {
+        left: 0;
+        right: auto;
+        top: auto;
+      }
+    }
+
+    // tab item
+    &-item {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex: 1 0 auto;
+
+      &[@{selected}] {
+        color: @tab-selected-color;
+      }
+    }
+  }
+}

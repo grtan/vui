@@ -13,6 +13,7 @@
         * [icon 图标](src/components/icon/)
     * 导航
         * [navbar 导航栏](src/components/navbar/)
+        * [tab 标签栏](src/components/tab/)
         * [pagination 分页](src/components/pagination/)
     * 反馈
         * [toast 提示](src/components/toast/)
@@ -34,7 +35,6 @@
     * 其他
         * [cache 页面缓存](src/components/cache/)
         * [timer 计时器](src/components/timer/)
-        * [upload 上传](src/components/upload/)
 
 * 插件
     * [dialog 对话框](src/components/dialog/)

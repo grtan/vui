@@ -43,6 +43,15 @@ let router = new Router({
         import(/* webpackChunkName: "navbar" */ '@/views/components/navbar/index.vue')
     },
     {
+      name: 'tab',
+      path: '/components/tab',
+      meta: {
+        title: 'tab 标签栏'
+      },
+      component: () =>
+        import(/* webpackChunkName: "tab" */ '@/views/components/tab/index.vue')
+    },
+    {
       name: 'pagination',
       path: '/components/pagination',
       meta: {
@@ -198,15 +207,15 @@ let router = new Router({
       },
       component: () =>
         import(/* webpackChunkName: "timer" */ '@/views/components/timer/index.vue')
-    },{
+    }/*,{
       name: 'upload',
       path: '/components/upload',
       meta: {
         title: 'upload上传'
       },
       component: () =>
-        import(/* webpackChunkName: "timer" */ '@/views/components/upload/index.vue')
-    }]
+        import(/!* webpackChunkName: "timer" *!/ '@/views/components/upload/index.vue')
+    }*/]
 })
 
 router.beforeResolve(function (to, from, next) {
