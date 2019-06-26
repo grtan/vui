@@ -1,3 +1,12 @@
+## [1.3.2](http://gitlab.vmic.xyz/game-fed/vui/compare/v1.3.1...v1.3.2) (2019-06-26)
+
+
+### Bug Fixes
+
+* **pagination:** 修复页码输入框为空时，enter键还有效的问题 ([f450931](http://gitlab.vmic.xyz/game-fed/vui/commit/f450931))
+
+
+
 ## [1.3.1](http://gitlab.vmic.xyz/game-fed/vui/compare/v1.1.0...v1.3.1) (2019-06-26)
 
 
