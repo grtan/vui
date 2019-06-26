@@ -1,3 +1,12 @@
+## [1.3.1](http://gitlab.vmic.xyz/game-fed/vui/compare/v1.1.0...v1.3.1) (2019-06-26)
+
+
+### Bug Fixes
+
+* **cache:** 添加recordScrollPosition属性来修复缓存页面没法恢复滚动位置的问题 ([7b96ceb](http://gitlab.vmic.xyz/game-fed/vui/commit/7b96ceb))
+
+
+
 # [1.3.0](http://gitlab.vmic.xyz/game-fed/vui/compare/v1.1.0...v1.3.0) (2019-06-25)
 
 
