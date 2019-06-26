@@ -32,6 +32,7 @@ export default {
 名称|类型|必填|默认值|描述
 :-:|:-:|:-:|:-:|:-:
 type|`String`|`N`|`all`|缓存类型，`all`表示点击浏览器前进、后退按钮时都显示页面缓存，`back`表示只有后退时才显示页面缓存，`forward`表示只有前进时才显示页面缓存，`none`表示路由切换时始终创建新的页面实例，而不显示缓存
+recordScrollPosition**(v1.3.1+)**|`Boolean`|`N`|`Y`|是否记录缓存页面的滚动位置
 exclue|`Array<String>`|`N`|`[]`|页面路由名称的数组，表示这些页面始终创建新的实例，不显示缓存
 forceUpdate|`Boolean`|`N`|`false`|所有页面强制创建新的实例，而不显示缓存，可以用来实现自定义缓存逻辑
 
@@ -45,5 +46,6 @@ forceUpdate|`Boolean`|`N`|`false`|所有页面强制创建新的实例，而不�
 
 ## 更新日志
 
+* v1.3.1 添加`recordScrollPosition`属性来修复缓存页面没法恢复滚动位置的问题
 * v1.0.1 组件render时区分是路由变化还是其他原因引起的，解决缓存复用错乱的问题
 * v1.0.0 发布

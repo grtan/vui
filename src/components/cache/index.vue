@@ -1,5 +1,8 @@
 <script>
   import { mixin, name } from '../../mixins/history/index'
+  import { libName } from '../../config'
+
+  const prefix = `__${libName}__`
 
   export default {
     name: 'vui-cache',
@@ -19,6 +22,10 @@
           return ['all', 'back', 'forward', 'none'].indexOf(value) !== -1
         }
       },
+      recordScrollPosition: { // 是否记录滚动位置
+        type: Boolean,
+        default: true
+      },
       exclude: {  // 排除哪些页面，这些页面始终不使用缓存
         type: Array,
         default() { // 路由name数组
@@ -36,6 +43,20 @@
       if (vnode) {
         if (this.action) { // 由于路由变化引起的渲染
           const time = window.history.state[name]
+          const last = this.history[this.history.current]
+
+          /**
+           * 保存组件根元素及其父元素的滚动位置
+           * 将信息保存在dom元素上，滚动位置是跟dom元素相关的，防止有些组件中途替换根dom元素
+           */
+          if (last) {
+            const el = last.vnode.componentInstance.$el
+
+            el[`${prefix}scrollTop`] = el.scrollTop
+            el[`${prefix}scrollLeft`] = el.scrollLeft
+            el[`${prefix}parentScrollTop`] = el.parentElement.scrollTop
+            el[`${prefix}parentScrollLeft`] = el.parentElement.scrollLeft
+          }
 
           switch (this.action) {
             case 'new': // 新建历史记录
@@ -70,6 +91,17 @@
                   default:  // 前进、后退
                     if ((this.action === 'back' ? ['all', 'back'] : ['all', 'forward']).indexOf(this.type) !== -1 && this.exclude.indexOf(this.$route.name) === -1 && !this.forceUpdate) { // 可以使用缓存
                       vnode.componentInstance = this.history[index].vnode.componentInstance
+                      // 渲染完成后恢复滚动位置
+                      this.recordScrollPosition && this.$nextTick(function () {
+                        const el = vnode.componentInstance.$el
+
+                        if (el[`${prefix}scrollTop`] !== undefined) {
+                          el.scrollTop = el[`${prefix}scrollTop`]
+                          el.scrollLeft = el[`${prefix}scrollLeft`]
+                          el.parentElement.scrollTop = el[`${prefix}parentScrollTop`]
+                          el.parentElement.scrollLeft = el[`${prefix}parentScrollLeft`]
+                        }
+                      })
                     } else {
                       this.history[index].vnode.componentInstance.$destroy()
                       this.history[index] = {
