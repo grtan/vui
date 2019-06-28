@@ -82,59 +82,59 @@
 </style>
 
 <script>
-  import { PopupPicker } from 'vui'
+import { PopupPicker } from 'vui'
 
-  export default {
-    components: {
-      PopupPicker
-    },
-    data () {
-      return {
-        show: false,
-        showTitle: true,
-        showCancel: true,
-        showConfirm: true,
-        enable3d: true,
-        indexs: [],
-        data: function () {
-          var num = 3
+export default {
+  components: {
+    PopupPicker
+  },
+  data () {
+    return {
+      show: false,
+      showTitle: true,
+      showCancel: true,
+      showConfirm: true,
+      enable3d: true,
+      indexs: [],
+      data: (function () {
+        var num = 3
 
-          function deep () {
-            var index = arguments[0] || 0,
-              data = {
-//                name: '列' + (index + 1),
-                options: []
-              }
-
-            for (var i = 0; i < 80; i++) {
-              data.options.push((index < num - 1) && (!i || Math.random() > 0.5) ? {
-                value: index + '-' + (arguments[1] || 0) + '-' + i,
-                children: deep(index + 1, i)
-              } : index + '-' + (arguments[1] || 0) + '-' + i)
+        function deep () {
+          var index = arguments[0] || 0,
+            data = {
+              //                name: '列' + (index + 1),
+              options: []
             }
 
-            return data
+          for (var i = 0; i < 80; i++) {
+            data.options.push((index < num - 1) && (!i || Math.random() > 0.5) ? {
+              value: index + '-' + (arguments[1] || 0) + '-' + i,
+              children: deep(index + 1, i)
+            } : index + '-' + (arguments[1] || 0) + '-' + i)
           }
 
-          return deep()
-        }()
-      }
+          return data
+        }
+
+        return deep()
+      }())
+    }
+  },
+  computed: {
+    title () {
+      return this.showTitle ? '标题' : ''
     },
-    computed: {
-      title () {
-        return this.showTitle ? '标题' : ''
-      },
-      cancel () {
-        return this.showCancel ? '取消' : ''
-      },
-      confirm () {
-        return this.showConfirm ? '确定' : ''
-      }
+    cancel () {
+      return this.showCancel ? '取消' : ''
     },
-    methods: {
-      onConfirm(value) {
-        this.indexs = value
-      }
+    confirm () {
+      return this.showConfirm ? '确定' : ''
+    }
+  },
+  methods: {
+    onConfirm (value) {
+      this.indexs = value
     }
   }
+}
 </script>

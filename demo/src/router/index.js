@@ -119,6 +119,14 @@ let router = new Router({
       component: () =>
         import(/* webpackChunkName: "city-picker" */ '@/views/components/city-picker/index.vue')
     }, {
+      name: 'datetime-picker',
+      path: '/components/datetime-picker',
+      meta: {
+        title: 'datetime-picker 日期时间选择'
+      },
+      component: () =>
+        import(/* webpackChunkName: "city-picker" */ '@/views/components/datetime-picker/index.vue')
+    }, {
       name: 'switch',
       path: '/components/switch',
       meta: {
