@@ -32,7 +32,6 @@
 
 <script>
   import { cubicEaseOut } from '../../tools/easing/index'
-  import { raf, caf, afInterval } from '../../tools/prefix/index'
   import transit from '../../tools/transit/index'
 
   export default {

@@ -43,6 +43,15 @@ let router = new Router({
         import(/* webpackChunkName: "navbar" */ '@/views/components/navbar/index.vue')
     },
     {
+      name: 'tab',
+      path: '/components/tab',
+      meta: {
+        title: 'tab 标签栏'
+      },
+      component: () =>
+        import(/* webpackChunkName: "tab" */ '@/views/components/tab/index.vue')
+    },
+    {
       name: 'pagination',
       path: '/components/pagination',
       meta: {
@@ -137,6 +146,15 @@ let router = new Router({
     },
     // 数据展示
     {
+      name: 'marquee',
+      path: '/components/marquee',
+      meta: {
+        title: 'marquee 跑马灯'
+      },
+      component: () =>
+        import(/* webpackChunkName: "marquee" */ '@/views/components/marquee/index.vue')
+    },
+    {
       name: 'swiper',
       path: '/components/swiper',
       meta: {
@@ -149,10 +167,19 @@ let router = new Router({
       name: 'load-more',
       path: '/components/load-more',
       meta: {
-        title: 'load-more 轮播'
+        title: 'load-more 加载更多'
       },
       component: () =>
         import(/* webpackChunkName: "load-more" */ '@/views/components/load-more/index.vue')
+    },
+    {
+      name: 'photo-swipe',
+      path: '/components/photo-swipe',
+      meta: {
+        title: 'photo-swipe 图片查看'
+      },
+      component: () =>
+        import(/* webpackChunkName: "load-more" */ '@/views/components/photo-swipe/index.vue')
     },
     // 过渡
     {
@@ -197,7 +224,15 @@ let router = new Router({
       },
       component: () =>
         import(/* webpackChunkName: "timer" */ '@/views/components/timer/index.vue')
-    }]
+    }/*, {
+      name: 'upload',
+      path: '/components/upload',
+      meta: {
+        title: 'upload上传'
+      },
+      component: () =>
+        import(/!* webpackChunkName: "timer" *!/ '@/views/components/upload/index.vue')
+    } */]
 })
 
 router.beforeResolve(function (to, from, next) {

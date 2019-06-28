@@ -8,7 +8,7 @@
     <a class="vui-pagination-btn" :vui-disabled="value===total" @click="value<total&&goto(value+1)">下一页</a>
     <template v-if="showGoto">
       <span class="vui-pagination-prompt">共{{total}}页，跳转至<input type="text" :value="num" @input="input"
-                                                                @keyup.enter="goto(num)"/>页</span>
+                                                                @keyup.enter="num&&goto(num)"/>页</span>
       <a class="vui-pagination-btn" :vui-disabled="!num" @click="num&&goto(num)">确定</a>
     </template>
   </div>
@@ -61,6 +61,7 @@
             type = 3
           }
         }
+
         switch (type) {
           case 0: // 左右两边都没有省略号
             start = 0

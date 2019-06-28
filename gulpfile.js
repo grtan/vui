@@ -21,6 +21,7 @@ const rollupBabel = require('rollup-plugin-babel')
 const rollupVue = require('rollup-plugin-vue')
 const autoprefixer = require('autoprefixer')
 const postcssPxtorem = require('postcss-pxtorem')
+const postcssUrl = require('postcss-url')
 const postcssPlugins = require('./postcss.config').plugins
 const src = path.join(__dirname, 'src') // src目录路径
 const srcDirName = 'src' // src目录名
@@ -42,7 +43,7 @@ async function createDistJs (cb) {
           style: 'less'
         },
         style: {
-          postcssPlugins: [autoprefixer(postcssPlugins.autoprefixer), postcssPxtorem(postcssPlugins.pxtorem)]
+          postcssPlugins: [autoprefixer(postcssPlugins.autoprefixer), postcssPxtorem(postcssPlugins.pxtorem), postcssUrl(postcssPlugins.url)]
         },
         template: {
           isProduction: true
@@ -130,58 +131,6 @@ function createDistMinCss (cb) {
 async function compile (file) {
   //获取file相对src目录的路径
   const relative = path.relative(src, path.join(path.dirname(file), path.basename(file, path.extname(file))))
-
-  // rollup.watch({
-  //   input: file,
-  //   plugins: [
-  //     rollupResolve(),
-  //     rollupCommonjs(),
-  //     rollupVue({
-  //       style: {
-  //         postcssPlugins: [autoprefixer(postcssPlugins.autoprefixer), postcssClean()]
-  //       },
-  //       template: {
-  //         isProduction: true
-  //       }
-  //     }),
-  //     rollupUrl({
-  //       limit: Number.MAX_VALUE, // 所有图片都内嵌，否则用户使用时还需要针对图片配置loader才能引用
-  //       include: '**/*.{jpg|jpeg|png|gif|svg|bmp}'
-  //     }),
-  //     rollupBabel({
-  //       runtimeHelpers: true,
-  //       include: 'src/**'   // 只编译我们的源代码
-  //     })
-  //   ],
-  //   external(id) {  //外部依赖模块，不需要处理import
-  //     return id !== file && !/\.(jpg|jpeg|png|gif|svg|bmp)$/.test(id) && !id.includes('?rollup-plugin-vue=')
-  //   },
-  //   output: [{
-  //     format: 'esm',
-  //     file: path.join(__dirname, lib, relative + '.js'),
-  //     paths (id) {     //将import中的.vue替换成.js
-  //       console.log('id------', id)
-  //
-  //       if (/^\w/.test(id)) {   //npm库
-  //         return id
-  //       } else {
-  //         id = id.replace(/\.vue$/, '')
-  //         if (path.isAbsolute(id)) {   //绝对路径
-  //           let relative = path.relative(path.dirname(file), id)
-  //
-  //           return relative.startsWith('.') ? relative : './' + relative
-  //         } else {  //相对路径
-  //           return id.startsWith('.') ? id : './' + relative
-  //         }
-  //       }
-  //     }
-  //   }],
-  //   watch: {
-  //     chokidar,
-  //     include: 'src/**'
-  //   }
-  // })
-
   const bundle = await rollup.rollup({
     input: file,
     plugins: [
@@ -190,7 +139,7 @@ async function compile (file) {
           style: 'less'
         },
         style: {
-          postcssPlugins: [autoprefixer(postcssPlugins.autoprefixer), postcssPxtorem(postcssPlugins.pxtorem)]
+          postcssPlugins: [autoprefixer(postcssPlugins.autoprefixer), postcssPxtorem(postcssPlugins.pxtorem), postcssUrl(postcssPlugins.url)]
         },
         template: {
           isProduction: true

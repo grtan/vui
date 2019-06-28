@@ -13,6 +13,7 @@
         * [icon 图标](src/components/icon/)
     * 导航
         * [navbar 导航栏](src/components/navbar/)
+        * [tab 标签栏](src/components/tab/)
         * [pagination 分页](src/components/pagination/)
     * 反馈
         * [toast 提示](src/components/toast/)
@@ -26,8 +27,10 @@
         * [city-picker 省市区选择器](src/components/city-picker/)
         * [switch 开关](src/components/switch/)
     * 数据展示
+        * [marquee 跑马灯](src/components/marquee/)
         * [swiper 轮播](src/components/swiper/)
         * [load-more 加载更多](src/components/load-more/)
+        * [photo-swipe 图片查看](src/components/photo-swipe/)
     * 过渡
         * [cutover 元素切换动画](src/components/cutover/)   
     * 其他

@@ -15,11 +15,8 @@
 
     > :not(:first-child) {
       margin-left: -100%;
-    }
-
-    /*这个延迟必须加上，否则enter元素因为margin-left:-100%突然去掉，还会过渡margin-left*/
-    > :last-child:not(:first-child) {
-      transition-delay: 40ms;
+      /*这个延迟必须加上，否则enter元素因为margin-left:-100%突然去掉，还会过渡margin-left*/
+      transition-delay: 60ms;
     }
 
     /*fade效果*/
@@ -124,12 +121,16 @@
       checkBack: { // 当作页面转场动画时，返回时动效是否相反，且此时要配合vue-router使用，其它场景使用时不要设置该属性
         type: Boolean,
         default: false
+      },
+      disabled: { // 是否禁用过渡动画
+        type: Boolean,
+        default: false
       }
     },
     computed: {
       styleObj () {
         return {
-          transitionDuration: `${this.duration}ms`
+          transitionDuration: `${this.disabled ? 0 : this.duration}ms`
         }
       },
       back() {  // 是不是返回
@@ -144,7 +145,7 @@
     render() {
       return (
           <div class="vui-cutover" vui-back={this.back}>
-            <transition name={`vui-cutover-${this.type}`} {...{
+            <transition name={this.disabled ? '' : `vui-cutover-${this.type}`} {...{
               props: this.$attrs
             }}>{
               this.$slots.default && this.$slots.default.map(vnode => {

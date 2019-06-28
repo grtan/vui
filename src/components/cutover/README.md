@@ -69,6 +69,7 @@ duration|`Number`|`N`|`300`|过渡时间，单位ms，`0`表示无过渡效果
 checkBack|`Boolean`|`N`|`false`|**当作页面转场动画时，返回时动效是否相反，且此时要配合vue-router使用，其它场景使用时不要设置该属性**
 appear|`Boolean`|`N`|`false`|初始渲染是否有过渡效果
 mode|`String`|`N`|`-`|控制元素切换时进入、离开的顺序，有效的模式有`out-in`和`in-out`，默认同时生效
+disabled|`Boolean`|`N`|`false`|是否禁用过渡效果。比如不想要首页有转场效果时，就可以在首页禁用，等首页加载完后取消禁用
 
 **当使用`checkBack`功能时，在单页应用内如果需要使用replace来切换内部页面，请使用vue-router的replace功能，而不要使用location.replace或者history.replaceState**
 
@@ -80,4 +81,5 @@ mode|`String`|`N`|`-`|控制元素切换时进入、离开的顺序，有效的�
 
 ## 更新日志
 
+* v1.1.0 新增`disabled`属性
 * v1.0.0 发布
