@@ -30,6 +30,7 @@
         * [marquee 跑马灯](src/components/marquee/)
         * [swiper 轮播](src/components/swiper/)
         * [load-more 加载更多](src/components/load-more/)
+        * [photo-swipe 图片查看](src/components/photo-swipe/)
     * 过渡
         * [cutover 元素切换动画](src/components/cutover/)   
     * 其他

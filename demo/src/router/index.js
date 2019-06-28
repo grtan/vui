@@ -164,6 +164,15 @@ let router = new Router({
       component: () =>
         import(/* webpackChunkName: "load-more" */ '@/views/components/load-more/index.vue')
     },
+    {
+      name: 'photo-swipe',
+      path: '/components/photo-swipe',
+      meta: {
+        title: 'photo-swipe 图片查看'
+      },
+      component: () =>
+        import(/* webpackChunkName: "load-more" */ '@/views/components/photo-swipe/index.vue')
+    },
     // 过渡
     {
       name: 'cutover',
@@ -207,7 +216,7 @@ let router = new Router({
       },
       component: () =>
         import(/* webpackChunkName: "timer" */ '@/views/components/timer/index.vue')
-    }/*,{
+    }/*, {
       name: 'upload',
       path: '/components/upload',
       meta: {
@@ -215,7 +224,7 @@ let router = new Router({
       },
       component: () =>
         import(/!* webpackChunkName: "timer" *!/ '@/views/components/upload/index.vue')
-    }*/]
+    } */]
 })
 
 router.beforeResolve(function (to, from, next) {

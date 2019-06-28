@@ -114,6 +114,9 @@
             }, {
               name: 'load-more 加载更多',
               routeName: 'load-more'
+            }, {
+              name: 'photo-swipe 图片查看',
+              routeName: 'photo-swipe'
             }]
           }, {
             category: '过渡',
