@@ -159,7 +159,7 @@ let router = new Router({
       name: 'load-more',
       path: '/components/load-more',
       meta: {
-        title: 'load-more 轮播'
+        title: 'load-more 加载更多'
       },
       component: () =>
         import(/* webpackChunkName: "load-more" */ '@/views/components/load-more/index.vue')
