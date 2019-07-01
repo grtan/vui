@@ -32,7 +32,7 @@ export default {
 
 名称|类型|必填|默认值|描述
 :-:|:-:|:-:|:-:|:-:
-format|`String`|`N`|`YYYY-MM-DD`|显示的时间格式，YYYY-MM-DD HH:mm:ss、YYYY-MM-DD
+format|`String`|`N`|`YYYY-MM-DD`|显示的时间格式，`YYYY-MM-DD HH:mm:ss`、`YYYY-MM-DD`
 startDate|`String`|`N`|`2010-01-01`|开始日期
 endDate|`String`|`N`|`2030-12-31`|结束日期
 title|`String`|`N`|`选择日期`|弹窗标题，可设置为空
