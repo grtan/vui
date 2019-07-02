@@ -127,15 +127,15 @@ let router = new Router({
       },
       component: () =>
         import(/* webpackChunkName: "city-picker" */ '@/views/components/city-picker/index.vue')
-    }, {
+    }, /*{
       name: 'datetime-picker',
       path: '/components/datetime-picker',
       meta: {
         title: 'datetime-picker 日期时间选择'
       },
       component: () =>
-        import(/* webpackChunkName: "city-picker" */ '@/views/components/datetime-picker/index.vue')
-    }, {
+        import(/!* webpackChunkName: "city-picker" *!/ '@/views/components/datetime-picker/index.vue')
+    },*/ {
       name: 'switch',
       path: '/components/switch',
       meta: {
@@ -172,15 +172,15 @@ let router = new Router({
       component: () =>
         import(/* webpackChunkName: "load-more" */ '@/views/components/load-more/index.vue')
     },
-    {
+    /*{
       name: 'photo-swipe',
       path: '/components/photo-swipe',
       meta: {
         title: 'photo-swipe 图片查看'
       },
       component: () =>
-        import(/* webpackChunkName: "load-more" */ '@/views/components/photo-swipe/index.vue')
-    },
+        import(/!* webpackChunkName: "load-more" *!/ '@/views/components/photo-swipe/index.vue')
+    },*/
     // 过渡
     {
       name: 'cutover',

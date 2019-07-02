@@ -100,10 +100,10 @@ export default {
           }, {
             name: 'city-picker 省市区选择',
             routeName: 'city-picker'
-          }, {
+          }, /*{
             name: 'datetime-picker 日期时间选择',
             routeName: 'datetime-picker'
-          }, {
+          },*/ {
             name: 'switch 开关',
             routeName: 'switch'
           }]
@@ -118,10 +118,10 @@ export default {
           }, {
             name: 'load-more 加载更多',
             routeName: 'load-more'
-          }, {
+          }/*, {
             name: 'photo-swipe 图片查看',
             routeName: 'photo-swipe'
-          }]
+          }*/]
         }, {
           category: '过渡',
           list: [{

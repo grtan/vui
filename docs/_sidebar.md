@@ -25,13 +25,11 @@
         * [picker 选择器](src/components/picker/)
         * [popup-picker 弹层选择器](src/components/popup-picker/)
         * [city-picker 省市区选择器](src/components/city-picker/)
-        * [datetime-picker 日期选择器](src/components/datetime-picker/)
         * [switch 开关](src/components/switch/)
     * 数据展示
         * [marquee 跑马灯](src/components/marquee/)
         * [swiper 轮播](src/components/swiper/)
         * [load-more 加载更多](src/components/load-more/)
-        * [photo-swipe 图片查看](src/components/photo-swipe/)
     * 过渡
         * [cutover 元素切换动画](src/components/cutover/)   
     * 其他
