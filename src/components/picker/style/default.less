@@ -2,8 +2,6 @@
 @import "../../../assets/style/default/index";
 
 @name: ~"@{lib-name}-picker";
-@v3d: ~"@{lib-name}-3d";
-@visible: ~"@{lib-name}-visible";
 
 html:not([@{skin-attr}]) {
   .@{name} {
@@ -22,9 +20,11 @@ html:not([@{skin-attr}]) {
       flex: auto;
       // 防止某些浏览器中列之间出现间隙
       margin-left: -1PX;
+      width: 1PX;
     }
 
     &-label {
+      flex: none;
       padding: @picker-label-padding;
       white-space: nowrap;
       overflow: hidden;
@@ -78,9 +78,9 @@ html:not([@{skin-attr}]) {
     }
 
     /*3D样式*/
-    &[@{v3d}] {
+    &[data-3d] {
       .@{name}-content {
-        perspective: 50000px;
+        perspective: 3000px;
       }
 
       .@{name}-list {
@@ -98,7 +98,7 @@ html:not([@{skin-attr}]) {
           margin-left: -100%;
         }
 
-        &[@{visible}] {
+        &[data-visible] {
           visibility: visible;
         }
       }

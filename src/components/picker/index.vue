@@ -1,20 +1,20 @@
 <template>
-  <div class="vui-picker" :vui-3d="enable3d">
-    <div class="vui-picker-column" :style="{minWidth:`${100/(1.5*columns.length)}%`}" v-for="(column,index) in columns">
-      <div class="vui-picker-label" v-if="labels[index]">{{labels[index]}}</div>
-      <div class="vui-picker-content" :style="maskStyle" ref="content" @touchmove="touchmove($event,index)"
+  <div :class="$options.name" :data-3d="enable3d">
+    <div :class="`${$options.name}-column`" v-for="(column,index) in columns">
+      <div :class="`${$options.name}-label`" v-if="labels[index]">{{labels[index]}}</div>
+      <div :class="`${$options.name}-content`" :style="maskStyle" ref="content" @touchmove="touchmove($event,index)"
            @touchend="touchend">
-        <div class="vui-picker-list" :style="style[index]">
-          <div class="vui-picker-item" :style="itemStyle(pos)" v-for="(item,pos) in column"
-               :ref="!index&&!pos?'item':undefined" :vui-visible="itemVisible(index,pos)" :data-value="item"
-               @click="location(index,pos)">
+        <div :class="`${$options.name}-list`" :style="style[index]">
+          <div :class="`${$options.name}-item`" :style="itemStyle(pos)" v-for="(item,pos) in column"
+               :ref="!index&&pos===positions[0]?'item':undefined" :data-visible="itemVisible(index,pos)"
+               :data-value="item" @click="location(index,pos)">
           </div>
         </div>
         <!--放大-->
-        <div class="vui-picker-zoom">
-          <div class="vui-picker-list" :style="style[index]">
-            <div class="vui-picker-item" :style="itemStyle(pos)" v-for="(item,pos) in column"
-                 :vui-visible="itemVisible(index,pos)" :data-value="item">
+        <div :class="`${$options.name}-zoom`">
+          <div :class="`${$options.name}-list`" :style="style[index]">
+            <div :class="`${$options.name}-item`" :style="itemStyle(pos)" v-for="(item,pos) in column"
+                 :data-visible="itemVisible(index,pos)" :data-value="item">
             </div>
           </div>
         </div>
@@ -24,6 +24,7 @@
 </template>
 
 <script>
+  import { libName } from '../../config'
   import { backEaseOut, cubicEaseOut } from '../../tools/easing/index'
   import { raf, caf } from '../../tools/prefix/index'
   import ResizeSensor from 'css-element-queries/src/ResizeSensor'
@@ -33,7 +34,7 @@
   }
 
   export default {
-    name: 'vui-picker',
+    name: `${libName}-picker`,
     props: {
       data: [Array, Object], // 数据
       selected: Array, // 各列选中的子项
@@ -127,7 +128,10 @@
     },
     watch: {
       data: 'update',
-      selected: 'update',
+      selected(value, oldValue) {
+        // 索引值不同才更新
+        JSON.stringify(value) !== JSON.stringify(oldValue) && this.update()
+      },
       positions (value) {
         this.$emit('update', value.slice())
       }
@@ -327,7 +331,10 @@
       // 初始化并监控尺寸变化
       new ResizeSensor(this.$refs.content[0], ({height}) => { // eslint-disable-line no-new
         if (height !== this.contentHeight) {
-          // 这里不能使用offsetHeight，因为该属性始终返回四舍五入的整数，不精确，会导致显示错位
+          /**
+           * 这里不能使用offsetHeight，因为该属性始终返回四舍五入的整数，不精确，会导致显示错位
+           * 且3d样式时，item始终要为列里选中的元素，因为transform会影响尺寸
+           */
           this.itemHeight = this.$refs.item[0].getBoundingClientRect().height
           this.contentHeight = height
         }

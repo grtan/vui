@@ -218,7 +218,7 @@ function compileStyle (cb) {
     }))
     .pipe(gulpModifyFile((content, pt) => {
       // 使用tools/add-style来添加样式
-      return `import addStyle from '${path.relative(path.dirname(pt), path.join(src, 'tools/add-style/index'))}'\n\naddStyle(\`${content.replace(/\\/g, '\\\\')}\`)`
+      return `import addStyle from '${path.relative(path.dirname(pt), path.join(src, 'tools/add-style/index'))}'\n\naddStyle('${content.replace(/([\\'"])/g, '\\$1')}')`
     }))
     .pipe(gulpRename({
       extname: '.js'

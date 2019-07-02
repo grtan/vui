@@ -1,9 +1,10 @@
 <template>
-  <popup-picker v-if="address" :value="value" :data="address" :selected="indexs" v-bind="$attrs"
+  <popup-picker :class="$options.name" v-if="address" :value="value" :data="address" :selected="indexs" v-bind="$attrs"
                 @input="$listeners.input" @update="update($event,true)" @confirm="update($event)"></popup-picker>
 </template>
 
 <script>
+  import { libName } from '../../config'
   import ajax from '../../tools/ajax/index'
   import PopupPicker from '../popup-picker/index.vue'
 
@@ -31,7 +32,7 @@
   }
 
   export default {
-    name: 'vui-city-picker',
+    name: `${libName}-city-picker`,
     components: {
       PopupPicker
     },
