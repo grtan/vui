@@ -1,0 +1,17 @@
+@import "../../../assets/style/base";
+@import "../../../assets/style/default/index";
+
+@name: ~"@{lib-name}-city-picker";
+@picker: ~"@{lib-name}-picker";
+
+html:not([@{skin-attr}]) {
+  .@{name} {
+    .@{picker} {
+      font-size: @city-picker-item-font-size;
+
+      &-zoom {
+        font-size: @city-picker-item-highlight-font-size;
+      }
+    }
+  }
+}

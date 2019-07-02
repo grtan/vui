@@ -59,11 +59,13 @@ export { default as Picker } from './components/picker/index.vue'
 export { default as PopupPicker } from './components/popup-picker/index.vue'
 export { default as Switch } from './components/switch/index.vue'
 export { default as CityPicker } from './components/city-picker/index.vue'
+// export { default as DatetimePicker } from './components/datetime-picker/index.vue'
 // 数据展示
 export { default as LoadMore } from './components/load-more/index.vue'
 export { default as Swiper } from './components/swiper/index.vue'
 export { default as SwiperItem } from './components/swiper/item.vue'
 export { default as Marquee } from './components/marquee/index.vue'
+// export { default as PhotoSwipe } from './components/photo-swipe/index.vue'
 // 过渡
 export { default as Cutover } from './components/cutover/index.vue'
 // 其他
