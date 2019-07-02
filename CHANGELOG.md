@@ -1,3 +1,12 @@
+## [1.3.3](http://gitlab.vmic.xyz/game-fed/vui/compare/v1.3.2...v1.3.3) (2019-07-02)
+
+
+### Bug Fixes
+
+* 解决picker组件滚动时列宽变化的问题（设置每列宽度始终相等）；解决3d样式时当容器尺寸变化时选项过于密集的问题；解决构建出来的css文件里包含模板字符串的问题 ([6c32296](http://gitlab.vmic.xyz/game-fed/vui/commit/6c32296))
+
+
+
 ## [1.3.2](http://gitlab.vmic.xyz/game-fed/vui/compare/v1.3.1...v1.3.2) (2019-06-26)
 
 
