@@ -1,3 +1,12 @@
+# [1.4.0](http://gitlab.vmic.xyz/game-fed/vui/compare/v1.3.3...v1.4.0) (2019-07-06)
+
+
+### Features
+
+* **track:** 新增track插件 ([3bf402d](http://gitlab.vmic.xyz/game-fed/vui/commit/3bf402d))
+
+
+
 ## [1.3.3](http://gitlab.vmic.xyz/game-fed/vui/compare/v1.3.2...v1.3.3) (2019-07-02)
 
 
