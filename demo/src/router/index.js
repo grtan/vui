@@ -232,7 +232,17 @@ let router = new Router({
       },
       component: () =>
         import(/!* webpackChunkName: "timer" *!/ '@/views/components/upload/index.vue')
-    } */]
+    } */,
+    // =======插件=======
+    /*{
+      name: 'track',
+      path: '/plugins/track',
+      meta: {
+        title: 'track 埋点插件'
+      },
+      component: () =>
+        import(/!* webpackChunkName: "track" *!/ '@/views/plugins/track/index.vue')
+    }*/]
 })
 
 router.beforeResolve(function (to, from, next) {
