@@ -141,7 +141,16 @@ export default {
               routeName: 'upload'
             } */]
         }]
-      }]
+      }/*,{
+        category: '插件',
+        list: [{
+          category: '基础',
+          list: [{
+            name: 'track 埋点',
+            routeName: 'track'
+          }]
+        }]
+      }*/]
     }
   }
 }

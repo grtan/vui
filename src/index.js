@@ -76,3 +76,4 @@ export { default as Timer } from './components/timer/index.vue'
 // 插件
 export { default as PDialog } from './plugins/dialog/index'
 export { default as PToast } from './plugins/toast/index'
+export { default as PTrack } from './plugins/track/index'
