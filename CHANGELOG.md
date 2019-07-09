@@ -1,3 +1,12 @@
+# [1.5.0](http://gitlab.vmic.xyz/game-fed/vui/compare/v1.4.0...v1.5.0) (2019-07-09)
+
+
+### Features
+
+* **loadComponent:** 新增loadComponent工具方法 ([29b4a04](http://gitlab.vmic.xyz/game-fed/vui/commit/29b4a04))
+
+
+
 # [1.4.0](http://gitlab.vmic.xyz/game-fed/vui/compare/v1.3.3...v1.4.0) (2019-07-06)
 
 
