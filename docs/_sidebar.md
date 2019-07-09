@@ -6,6 +6,7 @@
     * [setSkin 设置皮肤](src/tools/set-skin/)
     * [setType 设置类型](src/tools/set-type/)
     * [transit 过渡](src/tools/transit/)
+    * [loadComponent 组件加载](src/tools/load-component/)
 
 * 组件
     * 基础

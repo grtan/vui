@@ -30,6 +30,10 @@
 <iframe class="demo-iframe"></iframe>
 <script>
   var demo = document.querySelector('.demo-iframe')
+  var whiteList = [
+    '#/src/components/',
+    '#/src/tools/load-component'
+  ]
 
   demo.onload = postMessage
   demo.setAttribute('src', '//' + location.hostname + ':9001')
@@ -45,7 +49,9 @@
 
   function postMessage () {
     // 只有组件才跳转到demo
-    if (!location.hash.indexOf('#/src/components/')) {
+    if (whiteList.find(function (hash) {
+        return !location.hash.indexOf(hash)
+      })) {
       demo.contentWindow.postMessage({
         type: 'vui',
         hash: location.hash

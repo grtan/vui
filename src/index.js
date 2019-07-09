@@ -38,6 +38,7 @@ export { prefixed, raf, caf } from './tools/prefix/index'
 export { default as setSkin } from './tools/set-skin/index'
 export { default as setType } from './tools/set-type/index'
 export { default as transit } from './tools/transit/index'
+export { default as loadComponent } from './tools/load-component/index'
 
 // 组件
 // 基础
