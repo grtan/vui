@@ -9177,6 +9177,10 @@ vm-browserify@0.0.4:
   dependencies:
     indexof "0.0.1"
 
+vue-content-placeholders@^0.2.1:
+  version "0.2.1"
+  resolved "http://npm.vivo.xyz/vue-content-placeholders/-/vue-content-placeholders-0.2.1.tgz#5876bda4577c80ff6d396fb33b2dbbf8b8cc140f"
+
 vue-eslint-parser@^2.0.3:
   version "2.0.3"
   resolved "http://npm.vivo.xyz/vue-eslint-parser/-/vue-eslint-parser-2.0.3.tgz#c268c96c6d94cfe3d938a5f7593959b0ca3360d1"

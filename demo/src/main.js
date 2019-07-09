@@ -11,11 +11,13 @@ import {
 } from '@vivo/vivo-ui'
 import { PToast, PDialog } from 'vui'
 import TouchEmulator from 'hammer-touchemulator'
+import VueContentPlaceholders from 'vue-content-placeholders'
 
 TouchEmulator()
 Vue.use(ToastPlugin)
 Vue.use(PToast)
 Vue.use(PDialog)
+Vue.use(VueContentPlaceholders)
 /* eslint-disable  */
 import vivojsbridge from '@vivo/vivojsbridge/dist/vivo_native.js'
 window.vivojsbridge = vivojsbridge

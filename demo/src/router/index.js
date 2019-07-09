@@ -1,7 +1,14 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import store from '../store/'
+import { loadComponent } from 'vui'
+
 Vue.use(Router)
+
+loadComponent.Loading = require('@/views/tools/load-component/skeleton.vue')
+loadComponent.Error = require('@/views/tools/load-component/error.vue')
+loadComponent.delay = 0
+loadComponent.duration = 2000
 
 let router = new Router({
   routes: [
@@ -11,8 +18,18 @@ let router = new Router({
       meta: {
         title: '首页'
       },
-      component: () =>
-        import(/* webpackChunkName: "home" */ '@/views/Index/Index.vue')
+      component: () => import(/* webpackChunkName: "home" */ '@/views/Index/Index.vue')
+    },
+    // 工具
+    {
+      name: 'loadComponent',
+      path: '/tools/load-component',
+      meta: {
+        title: 'loadComponent 组件加载'
+      },
+      component: loadComponent({
+        Component: () => import(/* webpackChunkName: "loadComponent" */ '@/views/tools/load-component/index.vue')
+      })
     },
     // 基础
     {
@@ -21,8 +38,7 @@ let router = new Router({
       meta: {
         title: 'button 按钮'
       },
-      component: () =>
-        import(/* webpackChunkName: "button" */ '@/views/components/button/index.vue')
+      component: () => import(/* webpackChunkName: "button" */ '@/views/components/button/index.vue')
     }, {
       name: 'icon',
       path: '/components/icon',
