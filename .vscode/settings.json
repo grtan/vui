@@ -1,0 +1,24 @@
+{
+  "editor.tabSize": 2,
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "prettier.disableLanguages": [],
+  "prettier.singleQuote": true,
+  "prettier.semi": false,
+  "prettier.printWidth": 1000,
+  // 在vue文件中启用单引号，去掉末尾分号
+  "vetur.format.defaultFormatterOptions": {
+    "prettier": {
+      "semi": false,
+      "singleQuote": true,
+      "printWidth": 1000
+    }
+  }
+}
