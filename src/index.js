@@ -66,6 +66,7 @@ export { default as LoadMore } from './components/load-more/index.vue'
 export { default as Swiper } from './components/swiper/index.vue'
 export { default as SwiperItem } from './components/swiper/item.vue'
 export { default as Marquee } from './components/marquee/index.vue'
+export { default as Img } from './components/img/index.vue'
 // export { default as PhotoSwipe } from './components/photo-swipe/index.vue'
 // 过渡
 export { default as Cutover } from './components/cutover/index.vue'

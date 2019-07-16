@@ -126,6 +126,9 @@
             }, {
               name: 'load-more 加载更多',
               routeName: 'load-more'
+            }, {
+              name: 'img 图片',
+              routeName: 'img'
             }/*, {
              name: 'photo-swipe 图片查看',
              routeName: 'photo-swipe'

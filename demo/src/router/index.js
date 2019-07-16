@@ -31,7 +31,7 @@ let router = new Router({
         Component: () => import(/* webpackChunkName: "loadComponent" */ '@/views/tools/load-component/index.vue')
       })
     },
-    // 基础
+    // 组件-基础
     {
       name: 'button',
       path: '/components/button',
@@ -187,6 +187,15 @@ let router = new Router({
       },
       component: () =>
         import(/* webpackChunkName: "load-more" */ '@/views/components/load-more/index.vue')
+    },
+    {
+      name: 'img',
+      path: '/components/img',
+      meta: {
+        title: 'img 图片'
+      },
+      component: () =>
+        import(/* webpackChunkName: "img" */ '@/views/components/img/index.vue')
     },
     /*{
       name: 'photo-swipe',
