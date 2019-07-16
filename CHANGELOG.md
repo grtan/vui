@@ -1,3 +1,13 @@
+## [1.5.1](http://gitlab.vmic.xyz/game-fed/vui/compare/v1.5.0...v1.5.1) (2019-07-16)
+
+
+### Bug Fixes
+
+* **cutover:** 修复过渡时偶现 margin-left 被过渡的问题 ([9e5dd4e](http://gitlab.vmic.xyz/game-fed/vui/commit/9e5dd4e))
+* **loadComponent:** 给加载的组件限制只添加一次beforeCreate钩子 ([0e75923](http://gitlab.vmic.xyz/game-fed/vui/commit/0e75923))
+
+
+
 # [1.5.0](http://gitlab.vmic.xyz/game-fed/vui/compare/v1.4.0...v1.5.0) (2019-07-09)
 
 
