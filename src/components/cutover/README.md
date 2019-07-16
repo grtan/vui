@@ -1,6 +1,6 @@
 # cutover 元素切换动画
 
-> cutover为元素切换过渡动画组件，可支持多种效果，且可自定义过渡动效。
+> cutover 为元素切换过渡动画组件，可支持多种效果，且可自定义过渡动效。
 
 ## 使用方法
 
@@ -62,24 +62,25 @@ export default {
 
 ## 属性
 
-名称|类型|必填|默认值|描述
-:-:|:-:|:-:|:-:|:-:
-type|`String`|`N`|`fade`|过渡动画类型，目前支持fade、cover、popup-up、popup-down、popup-left、popup-right类型
-duration|`Number`|`N`|`300`|过渡时间，单位ms，`0`表示无过渡效果
-checkBack|`Boolean`|`N`|`false`|**当作页面转场动画时，返回时动效是否相反，且此时要配合vue-router使用，其它场景使用时不要设置该属性**
-appear|`Boolean`|`N`|`false`|初始渲染是否有过渡效果
-mode|`String`|`N`|`-`|控制元素切换时进入、离开的顺序，有效的模式有`out-in`和`in-out`，默认同时生效
-disabled|`Boolean`|`N`|`false`|是否禁用过渡效果。比如不想要首页有转场效果时，就可以在首页禁用，等首页加载完后取消禁用
+|   名称    |   类型    | 必填 | 默认值  |                                                  描述                                                  |
+| :-------: | :-------: | :--: | :-----: | :----------------------------------------------------------------------------------------------------: |
+|   type    | `String`  | `N`  | `fade`  |         过渡动画类型，目前支持 fade、cover、popup-up、popup-down、popup-left、popup-right 类型         |
+| duration  | `Number`  | `N`  |  `300`  |                                  过渡时间，单位 ms，`0`表示无过渡效果                                  |
+| checkBack | `Boolean` | `N`  | `false` | **当作页面转场动画时，返回时动效是否相反，且此时要配合 vue-router 使用，其它场景使用时不要设置该属性** |
+|  appear   | `Boolean` | `N`  | `false` |                                         初始渲染是否有过渡效果                                         |
+|   mode    | `String`  | `N`  |   `-`   |              控制元素切换时进入、离开的顺序，有效的模式有`out-in`和`in-out`，默认同时生效              |
+| disabled  | `Boolean` | `N`  | `false` |         是否禁用过渡效果。比如不想要首页有转场效果时，就可以在首页禁用，等首页加载完后取消禁用         |
 
-**当使用`checkBack`功能时，在单页应用内如果需要使用replace来切换内部页面，请使用vue-router的replace功能，而不要使用location.replace或者history.replaceState**
+**当使用`checkBack`功能时，在单页应用内如果需要使用 replace 来切换内部页面，请使用 vue-router 的 replace 功能，而不要使用 location.replace 或者 history.replaceState**
 
 ## 插槽
 
-名称|必填|说明
-:-:|:-:|:-:
-默认|`Y`|要切换的元素
+| 名称 | 必填 |     说明     |
+| :--: | :--: | :----------: |
+| 默认 | `Y`  | 要切换的元素 |
 
 ## 更新日志
 
-* v1.1.0 新增`disabled`属性
-* v1.0.0 发布
+- v1.5.1 修复过渡时偶现 margin-left 被过渡的问题
+- v1.1.0 新增`disabled`属性
+- v1.0.0 发布

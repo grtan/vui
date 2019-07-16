@@ -1,6 +1,8 @@
-/.*/**
+/.*/
+# 忽略.vscode目录
+!/.vscode/
 settings.json
 npm-debug.log
-node_modules
-lib
-dist
+node_modules/
+/lib/
+/dist/
