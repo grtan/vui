@@ -1,3 +1,12 @@
+# [1.6.0](http://gitlab.vmic.xyz/game-fed/vui/compare/v1.5.1...v1.6.0) (2019-07-16)
+
+
+### Features
+
+* **img:** 新增img组件 ([993aafb](http://gitlab.vmic.xyz/game-fed/vui/commit/993aafb))
+
+
+
 ## [1.5.1](http://gitlab.vmic.xyz/game-fed/vui/compare/v1.5.0...v1.5.1) (2019-07-16)
 
 
