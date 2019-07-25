@@ -1,24 +1,21 @@
 {
-  "editor.tabSize": 2,
-  "[javascript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[jsonc]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[markdown]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "prettier.disableLanguages": [],
-  "prettier.singleQuote": true,
-  "prettier.semi": false,
-  "prettier.printWidth": 1000,
-  // 在vue文件中启用单引号，去掉末尾分号
-  "vetur.format.defaultFormatterOptions": {
-    "prettier": {
-      "semi": false,
-      "singleQuote": true,
-      "printWidth": 1000
+  // 这个必须开启，否则vue文件保存时template无法自动格式化（eslint fix此时都不起作用）
+  "editor.formatOnSave": true,
+  // 每次保存的时候将代码按eslint格式进行修复
+  "eslint.autoFixOnSave": true,
+  // 打开对html、vue的lint，并自动fix
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    {
+      "language": "html",
+      "autoFix": true
+    },
+    {
+      "language": "vue",
+      "autoFix": true
     }
-  }
+  ],
+  // 使用vscode自带的格式化工具，因为prettier会跟eslint fix冲突
+  "vetur.format.defaultFormatter.js": "vscode-typescript"
 }
