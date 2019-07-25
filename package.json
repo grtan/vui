@@ -1,6 +1,6 @@
 {
   "name": "@vivo/vui",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "description": "A library of vue ui components and some tools",
   "main": "dist/lib.js",
   "module": "lib/index.js",
@@ -8,8 +8,7 @@
     "doc": "docsify serve ./ --port 80",
     "watch": "gulp watch",
     "build": "gulp",
-    "lint": "standard --plugin html 'src/**/*.{js,vue}'",
-    "fix": "standard --fix --plugin html 'src/**/*.{js,vue}'",
+    "lint": "eslint --ext .js,.vue src",
     "prepublishOnly": "npm run build",
     "precommit": "npm run lint",
     "commit": "git-cz",
@@ -46,7 +45,13 @@
     "commitizen": "^3.0.7",
     "conventional-changelog-cli": "^2.0.12",
     "cz-conventional-changelog": "^2.1.0",
-    "eslint-plugin-html": "^4.0.5",
+    "eslint": "^6.1.0",
+    "eslint-config-standard": "^13.0.1",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-node": "^9.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "eslint-plugin-vue": "^5.2.3",
     "fs-extra": "^7.0.1",
     "gulp": "^4.0.0",
     "gulp-base64": "^0.1.3",
@@ -69,17 +74,18 @@
     "rollup-plugin-node-resolve": "^4.0.0",
     "rollup-plugin-url": "^2.2.0",
     "rollup-plugin-vue": "^4.7.1",
-    "standard": "^11.0.1",
     "vue-template-compiler": "^2.6.8"
   },
   "sideEffects": [
     "./lib/assets/js/modernizr/modernizr.js"
   ],
-  "standard": {
-    "ignore": [
-      "src/assets/js/**"
-    ]
-  },
+  "eslintIgnore": [
+    "/demo/",
+    "/demo-old/",
+    "/dist/",
+    "/lib/",
+    "/src/assets/"
+  ],
   "config": {
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
