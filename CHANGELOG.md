@@ -1,3 +1,12 @@
+# [1.7.0](http://gitlab.vmic.xyz/game-fed/vui/compare/v1.6.0...v1.7.0) (2019-07-25)
+
+
+### Features
+
+* **track,img:** track插件埋点类型为expose时新增track_expose事件，img组件增加懒加载功能 ([38c4af6](http://gitlab.vmic.xyz/game-fed/vui/commit/38c4af6))
+
+
+
 # [1.6.0](http://gitlab.vmic.xyz/game-fed/vui/compare/v1.5.1...v1.6.0) (2019-07-16)
 
 
