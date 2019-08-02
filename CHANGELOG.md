@@ -1,3 +1,13 @@
+# [1.8.0](http://gitlab.vmic.xyz/game-fed/vui/compare/v1.7.0...v1.8.0) (2019-08-02)
+
+
+### Features
+
+* 新增timer计时器工具，废弃原来的timer组件，修复transit页面退到后台时过渡停止的问题 ([3fa9cdb](http://gitlab.vmic.xyz/game-fed/vui/commit/3fa9cdb))
+* **swiper:** swiper组件新增angle属性 ([75ccb94](http://gitlab.vmic.xyz/game-fed/vui/commit/75ccb94))
+
+
+
 # [1.7.0](http://gitlab.vmic.xyz/game-fed/vui/compare/v1.6.0...v1.7.0) (2019-07-25)
 
 
