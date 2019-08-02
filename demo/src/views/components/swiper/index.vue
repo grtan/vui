@@ -8,14 +8,18 @@
       <div class="field-body">
         <div class="field is-narrow">
           <div class="control level is-mobile">
-            <label class="radio level-item"><input type="radio" name="direction" value="left"
-                                                   v-model="direction">left</label>
-            <label class="radio level-item"><input type="radio" name="direction" value="right"
-                                                   v-model="direction">right</label>
-            <label class="radio level-item"><input type="radio" name="direction" value="up"
-                                                   v-model="direction">up</label>
-            <label class="radio level-item"><input type="radio" name="direction" value="down"
-                                                   v-model="direction">down</label>
+            <label class="radio level-item">
+              <input type="radio" name="direction" value="left" v-model="direction" />left
+            </label>
+            <label class="radio level-item">
+              <input type="radio" name="direction" value="right" v-model="direction" />right
+            </label>
+            <label class="radio level-item">
+              <input type="radio" name="direction" value="up" v-model="direction" />up
+            </label>
+            <label class="radio level-item">
+              <input type="radio" name="direction" value="down" v-model="direction" />down
+            </label>
           </div>
         </div>
       </div>
@@ -27,7 +31,10 @@
       <div class="field-body">
         <div class="field is-narrow">
           <div class="control level is-mobile">
-            <label class="checkbox"><input type="checkbox" name="loop" v-model="loop">{{loop}}</label>
+            <label class="checkbox">
+              <input type="checkbox" name="loop" v-model="loop" />
+              {{loop}}
+            </label>
           </div>
         </div>
       </div>
@@ -39,12 +46,35 @@
       <div class="field-body">
         <div class="field is-narrow">
           <div class="control level is-mobile">
-            <label class="radio level-item"><input type="radio" name="interval" value="3000"
-                                                   v-model.number="interval">3000ms</label>
-            <label class="radio level-item"><input type="radio" name="interval" value="5000"
-                                                   v-model.number="interval">5000ms</label>
-            <label class="radio level-item"><input type="radio" name="interval" value="10000"
-                                                   v-model.number="interval">10000ms</label>
+            <label class="radio level-item">
+              <input type="radio" name="interval" value="3000" v-model.number="interval" />3000ms
+            </label>
+            <label class="radio level-item">
+              <input type="radio" name="interval" value="5000" v-model.number="interval" />5000ms
+            </label>
+            <label class="radio level-item">
+              <input type="radio" name="interval" value="10000" v-model.number="interval" />10000ms
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="field is-horizontal">
+      <div class="field-label">
+        <label class="label">滑动角度</label>
+      </div>
+      <div class="field-body">
+        <div class="field is-narrow">
+          <div class="control level is-mobile">
+            <label class="radio level-item">
+              <input type="radio" name="angle" value="5" v-model.number="angle" />5度
+            </label>
+            <label class="radio level-item">
+              <input type="radio" name="angle" value="30" v-model.number="angle" />30度
+            </label>
+            <label class="radio level-item">
+              <input type="radio" name="angle" value="60" v-model.number="angle" />60度
+            </label>
           </div>
         </div>
       </div>
@@ -56,20 +86,31 @@
       <div class="field-body">
         <div class="field is-narrow">
           <div class="control">
-            <label class="checkbox"><input type="checkbox" name="swipe" v-model="swipe">{{swipe}}</label>
+            <label class="checkbox">
+              <input type="checkbox" name="swipe" v-model="swipe" />
+              {{swipe}}
+            </label>
           </div>
         </div>
       </div>
     </div>
     <div :class="$style.swiper">
-      <swiper v-model="index" :direction="direction" :loop="loop" :interval="interval" :swipe="swipe"
-              @wait="wait=$event">
-        <swiper-item v-for="item in list">
+      <swiper
+        v-model="index"
+        :direction="direction"
+        :loop="loop"
+        :duration="400"
+        :interval="interval"
+        :angle="angle"
+        :swipe="swipe"
+        @wait="wait=$event"
+      >
+        <swiper-item v-for="(item,index) in list" :key="index">
           <div :class="$style.item" :style="{backgroundImage:`url(${item})`}"></div>
         </swiper-item>
       </swiper>
       <div :class="$style['thumb-list']">
-        <div :class="$style.thumb" v-for="n in list.length" @click="index=n-1">
+        <div :class="$style.thumb" v-for="n in list.length" :key="n" @click="index=n-1">
           <div :style="{width:`${n-1===wait.index?wait.progress:0}%`}"></div>
         </div>
       </div>
@@ -78,65 +119,66 @@
 </template>
 
 <style module>
-  .config {
-    padding-bottom: .4rem;
-  }
+.config {
+  padding-bottom: 0.4rem;
+}
 
-  .swiper {
-    position: relative;
-  }
+.swiper {
+  position: relative;
+}
 
-  .item {
-    height: 5rem;
-    background: center / cover no-repeat;
-  }
+.item {
+  height: 5rem;
+  background: center / cover no-repeat;
+}
 
-  .thumb-list {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: .3rem;
-    display: flex;
-    justify-content: center;
-  }
+.thumb-list {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.3rem;
+  display: flex;
+  justify-content: center;
+}
 
-  .thumb {
-    margin: 0 .1rem;
-    width: 1rem;
-    height: .2rem;
-    background: #ccc;
-  }
+.thumb {
+  margin: 0 0.1rem;
+  width: 1rem;
+  height: 0.2rem;
+  background: #ccc;
+}
 
-  .thumb div {
-    height: 100%;
-    background: #456fff;
-  }
+.thumb div {
+  height: 100%;
+  background: #456fff;
+}
 </style>
 
 <script>
-  import { Swiper, SwiperItem } from 'vui'
+import { Swiper, SwiperItem } from 'vui'
 
-  export default {
-    components: {
-      Swiper,
-      SwiperItem
-    },
-    data () {
-      return {
-        index: 0,
-        direction: 'left',
-        loop: true,
-        interval: 3000,
-        swipe: true,
-        wait: {},
-        list: [
-          'https://ss0.bdstatic.com/94oJfD_bAAcT8t7mm9GUKT-xh_/timg?image&quality=100&size=b4000_4000&sec=1557722658&di=2322efbf1cae53cb93c3a388a284ee8b&src=http://img17.3lian.com/d/file/201702/20/ec4acb80b76b3e84fe58f48b558908d3.jpg',
-          'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1557732742520&di=c46e7363b51903a4b2b1fe571b61d712&imgtype=0&src=http%3A%2F%2Fpic1.win4000.com%2Fwallpaper%2F5%2F513026b307cb2.jpg',
-          'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1557732742519&di=c22463343c48ca4546ad59945c42d7ed&imgtype=0&src=http%3A%2F%2Fimg17.3lian.com%2Fd%2Ffile%2F201702%2F23%2F6e12cb5e536cbaaa63d4f841f8bcb1dc.jpg',
-          'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1557732742519&di=5662fca66769dec436808aa95b25f598&imgtype=0&src=http%3A%2F%2Fpic.rmb.bdstatic.com%2Ff54083119edfb83c4cfe9ce2eeebc076.jpeg',
-          'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1557732742517&di=34c081d7ed2e16133b705adee136648a&imgtype=0&src=http%3A%2F%2Fimg.pconline.com.cn%2Fimages%2Fupload%2Fupc%2Ftx%2Fphotoblog%2F1606%2F29%2Fc11%2F23527926_1467193551983_mthumb.png'
-        ]
-      }
+export default {
+  components: {
+    Swiper,
+    SwiperItem
+  },
+  data() {
+    return {
+      index: 0,
+      direction: 'left',
+      loop: true,
+      interval: 3000,
+      angle: 30,
+      swipe: true,
+      wait: {},
+      list: [
+        'http://i9.hexun.com/2018-11-24/195299307.jpg',
+        'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1557732742520&di=c46e7363b51903a4b2b1fe571b61d712&imgtype=0&src=http%3A%2F%2Fpic1.win4000.com%2Fwallpaper%2F5%2F513026b307cb2.jpg',
+        'http://www.hubei.gov.cn/zhuanti/2016zt/2016trwr/2016trwrwh/201601/W020160126606049779228.jpg',
+        'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1557732742519&di=5662fca66769dec436808aa95b25f598&imgtype=0&src=http%3A%2F%2Fpic.rmb.bdstatic.com%2Ff54083119edfb83c4cfe9ce2eeebc076.jpeg',
+        'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1557732742517&di=34c081d7ed2e16133b705adee136648a&imgtype=0&src=http%3A%2F%2Fimg.pconline.com.cn%2Fimages%2Fupload%2Fupc%2Ftx%2Fphotoblog%2F1606%2F29%2Fc11%2F23527926_1467193551983_mthumb.png'
+      ]
     }
   }
+}
 </script>

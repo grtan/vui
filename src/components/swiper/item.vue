@@ -1,11 +1,13 @@
 <template>
-  <div class="vui-swiper-item">
+  <div :class="$options.name">
     <slot></slot>
   </div>
 </template>
 
 <script>
-  export default {
-    name: 'vui-swiper-item'
-  }
+import { libName } from '../../config'
+
+export default {
+  name: `${libName}-swiper-item`
+}
 </script>

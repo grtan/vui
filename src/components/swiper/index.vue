@@ -1,6 +1,12 @@
 <template>
-  <div class="vui-swiper" :vui-horizontal="!vertical" @touchmove="touchmove" @touchend="touchend">
-    <div class="vui-swiper-list" :style="style" ref="list">
+  <div
+    :class="$options.name"
+    :data-horizontal="!vertical"
+    @touchstart="touchstart"
+    @touchmove="touchmove"
+    @touchend="touchend"
+  >
+    <div :class="`${$options.name}-list`" :style="style" ref="list">
       <slot></slot>
     </div>
   </div>
@@ -10,12 +16,11 @@
 @import "../../assets/style/base";
 
 @name: ~"@{lib-name}-swiper";
-@horizontal: ~"@{lib-name}-horizontal";
 
 .@{name} {
   overflow: hidden;
 
-  &[@{horizontal}] {
+  &[data-horizontal] {
     .@{name}-list {
       white-space: nowrap;
     }
@@ -31,17 +36,18 @@
 </style>
 
 <script>
+import { libName } from '../../config'
 import { cubicEaseOut } from '../../tools/easing/index'
 import Transit from '../../tools/transit/index'
 
 export default {
-  name: 'vui-swiper',
+  name: `${libName}-swiper`,
   props: {
     value: {
       type: Number,
       default: 0
     },
-    direction: { // 切换时动画时间
+    direction: { // 轮播方向
       type: String,
       default: 'left',
       validator (value) {
@@ -67,6 +73,10 @@ export default {
     threshold: { // 超过了多少比例才切换
       type: Number,
       default: 0.2
+    },
+    angle: { // 角度，如果direction为垂直方向的话，表示手指初始滑动时与垂直方向的角度要<=45才有效
+      type: Number,
+      default: 45
     }
   },
   data () {
@@ -215,59 +225,109 @@ export default {
       this.waitTransit && this.waitTransit.pause()
       this.bufferTransit && this.bufferTransit.pause()
     },
+    touchstart (event) {
+      if (!this.swipe || this.touchId !== undefined) {
+        return
+      }
+
+      this.clear()
+      this.offset = 0
+      this.touchId = event.changedTouches[0].identifier
+      this.prev = this.vertical ? event.changedTouches[0].clientY : event.changedTouches[0].clientX
+      this.x = event.changedTouches[0].clientX
+      this.y = event.changedTouches[0].clientY
+    },
     touchmove (event) {
       if (!this.swipe) {
         return
       }
 
-      if (this.touchId === undefined) {
-        this.clear()
-        this.touchId = event.changedTouches[0].identifier
-        this.prev = this.vertical ? event.changedTouches[0].clientY : event.changedTouches[0].clientX
-        this.offset = 0
-      } else {
-        const touch = [].slice.call(event.changedTouches).filter(touch => {
-          return touch.identifier === this.touchId
-        })[0]
+      const touch = [].slice.call(event.changedTouches).filter(touch => {
+        return touch.identifier === this.touchId
+      })[0]
 
-        if (touch) { // 同一个触点移动
-          const current = this.vertical ? touch.clientY : touch.clientX
-          let delta = this.prev - current
-
-          // 不循环时，如果在边界继续往边缘方向拉，就给滑动添加阻尼效果
-          if (!this.loop && ((this.pos <= 0 && delta < 0) || (this.pos >= this.$children.length - 1 && delta > 0))) {
-            delta *= 0.3
-          }
-
-          this.offset = delta / this.$refs.list.getBoundingClientRect()[this.vertical ? 'height' : 'width']
-          this.pos += this.offset
-          this.prev = current
+      if (!touch) { // 非同一个触点移动
+        // 当前组件滑动生效时，其它手指滑动无效
+        if (this.disabled === false) {
+          // 防止冒泡到祖先swiper等
+          event.stopPropagation()
+          // 阻止原生行为，如双指缩放等
+          event.preventDefault()
         }
-      }
-    },
-    touchend (event) {
-      if (!this.swipe) {
+
         return
       }
 
-      if ([].slice.call(event.changedTouches).some(touch => {
-        return touch.identifier === this.touchId
-      })) { // 同一个触点移除了
-        const offset = this.pos - parseInt(this.pos)
-        let pos
+      if (this.disabled === undefined) { // 初次移动，还未判断方向
+        const deltaY = Math.abs(touch.clientY - this.y)
+        const deltaX = Math.abs(touch.clientX - this.x)
 
-        // 判断是否超过阈值
-        if ((this.offset > 0 && offset >= this.threshold) || (this.offset <= 0 && offset > 1 - this.threshold)) {
-          pos = Math.ceil(this.pos)
-        } else {
-          pos = Math.floor(this.pos)
+        if (!deltaY && !deltaX) {
+          return
         }
 
-        this.touchId = undefined
-        pos < 0 && (pos = 0)
-        pos === this.$children.length + (this.loop ? 2 : 0) && pos--
-        this.buffer(this.pos, pos, Math.pow(3, (Math.min(Math.abs(pos - this.pos), 1) - 1)) * this.duration)
+        const angle = Math.atan(deltaY / deltaX) / Math.PI * 180 // 与水平方向的夹角
+
+        switch (this.direction) {
+          case 'up':
+          case 'down':
+            this.disabled = 90 - angle > this.angle
+
+            break
+          case 'left':
+          case 'right':
+            this.disabled = angle > this.angle
+
+            break
+        }
       }
+
+      if (this.disabled) { // 滑动方向不对
+        return
+      }
+
+      const current = this.vertical ? touch.clientY : touch.clientX
+      let delta = this.prev - current
+
+      // 防止冒泡到祖先swiper等
+      event.stopPropagation()
+      // 阻止浏览器度原生行为，如页面滚动等
+      event.preventDefault()
+
+      // 不循环时，如果在边界继续往边缘方向拉，就给滑动添加阻尼效果
+      if (!this.loop && ((this.pos <= 0 && delta < 0) || (this.pos >= this.$children.length - 1 && delta > 0))) {
+        delta *= 0.3
+      }
+
+      // delta为0的情况经常发生，为避免误判滑动方向，直接忽略为0的场景
+      if (delta) {
+        this.offset = delta / this.$refs.list.getBoundingClientRect()[this.vertical ? 'height' : 'width']
+        this.pos += this.offset
+        this.prev = current
+      }
+    },
+    touchend (event) {
+      if (!this.swipe || ![].slice.call(event.changedTouches).some(touch => {
+        return touch.identifier === this.touchId
+      })) { // 非同一个触点移除
+        return
+      }
+
+      const offset = this.pos - parseInt(this.pos)
+      let pos
+
+      // 判断是否超过阈值
+      if ((this.offset > 0 && offset >= this.threshold) || (this.offset <= 0 && offset > 1 - this.threshold)) {
+        pos = Math.ceil(this.pos)
+      } else {
+        pos = Math.floor(this.pos)
+      }
+
+      this.touchId = undefined
+      this.disabled = undefined
+      pos < 0 && (pos = 0)
+      pos === this.$children.length + (this.loop ? 2 : 0) && pos--
+      this.buffer(this.pos, pos, Math.pow(3, (Math.min(Math.abs(pos - this.pos), 1) - 1)) * this.duration)
     }
   },
   mounted () {
