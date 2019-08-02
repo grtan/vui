@@ -95,7 +95,6 @@
 
 <script>
 import { Img } from 'vui'
-import { setTimeout } from 'timers'
 
 export default {
   components: {
