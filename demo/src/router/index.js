@@ -22,6 +22,15 @@ let router = new Router({
     },
     // 工具
     {
+      name: 'timer',
+      path: '/tools/timer',
+      meta: {
+        title: 'timer 计时器'
+      },
+      component: () =>
+        import(/* webpackChunkName: "timer" */ '@/views/tools/timer/index.vue')
+    },
+    {
       name: 'loadComponent',
       path: '/tools/load-component',
       meta: {
@@ -241,14 +250,6 @@ let router = new Router({
       },
       component: () =>
         import(/* webpackChunkName: "cache-page2" */ '@/views/components/cache/page2.vue')
-    }, {
-      name: 'timer',
-      path: '/components/timer',
-      meta: {
-        title: 'timer 计时器'
-      },
-      component: () =>
-        import(/* webpackChunkName: "timer" */ '@/views/components/timer/index.vue')
     }/*, {
       name: 'upload',
       path: '/components/upload',

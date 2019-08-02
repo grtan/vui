@@ -7,6 +7,7 @@
   - [setSkin 设置皮肤](src/tools/set-skin/)
   - [setType 设置类型](src/tools/set-type/)
   - [transit 过渡](src/tools/transit/)
+  - [timer 计时器](src/tools/timer/)
   - [loadComponent 组件加载](src/tools/load-component/)
 
 - 组件
