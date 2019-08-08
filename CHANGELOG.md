@@ -1,3 +1,12 @@
+# [1.9.0](http://gitlab.vmic.xyz/game-fed/vui/compare/v1.8.0...v1.9.0) (2019-08-08)
+
+
+### Features
+
+* 新增clock日期时钟；tab组件新增stickyIndex属性；track插件新增callback选项；解决swiper组件滑动不顺畅的问题 ([ae415c8](http://gitlab.vmic.xyz/game-fed/vui/commit/ae415c8))
+
+
+
 # [1.8.0](http://gitlab.vmic.xyz/game-fed/vui/compare/v1.7.0...v1.8.0) (2019-08-02)
 
 
