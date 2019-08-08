@@ -27,11 +27,12 @@ const viewport = {}
 })()
 
 class Track {
-  install (Vue, { name, url, commonParams, dynamicParams } = {}) {
+  install (Vue, { name, url, commonParams, dynamicParams = function () { }, callback } = {}) {
     this.name = name || 'track'
     this.url = url
-    this.commonParams = commonParams
-    this.dynamicParams = dynamicParams || function () { }
+    this.commonParams = commonParams // 公共参数
+    this.dynamicParams = dynamicParams // 动态公共参数
+    this.callback = callback // 自定义上报函数
     this.prefix = `__track_${instanceId++}_` // 这里使用instanceId，是为了区分各个实例（可能会创建多个指令），防止clear时互相影响
     this.observers = `${this.prefix}observers` // 指令dom元素中保存相关observer列表的键名
     this.track = `${this.prefix}track` // 指令dom元素中保存各种埋点类型回调方法列表的对象的键名
@@ -216,13 +217,19 @@ class Track {
 
   // 发送埋点请求
   send (params) {
-    if (!this.url) {
+    if (!this.url && !this.callback) {
       return
     }
 
     let url = `${this.url}?`
 
     params = Object.assign({}, this.commonParams, this.dynamicParams(), params)
+
+    // callback比url优先级高
+    if (this.callback) {
+      return this.callback(params)
+    }
+
     url += Object.keys(params)
       .map(function (key) {
         return `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`

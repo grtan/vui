@@ -3,13 +3,15 @@
 
 html:not([@{skin-attr}]) {
   @name: ~"@{lib-name}-tab";
-  @vertical: ~"@{lib-name}-vertical";
-  @upside: ~"@{lib-name}-upside";
-  @selected: ~"@{lib-name}-selected";
-  @scroll: ~"@{lib-name}-scroll";
+  @vertical: ~"data-vertical";
+  @upside: ~"data-upside";
+  @selected: ~"data-selected";
+  @scroll: ~"data-scroll";
 
   .@{name} {
     overflow: hidden;
+    // 限制fixed item
+    transform: scale(1);
 
     &-scroller {
       margin-bottom: -100PX;
@@ -78,17 +80,36 @@ html:not([@{skin-attr}]) {
         right: auto;
         top: auto;
       }
+
+      // tab-item
+      .@{name}-item {
+        .@{name}-line {
+          left: auto;
+          top: 50%;
+          transform: translateY(-50%);
+          transition-property: height;
+        }
+      }
     }
 
     // tab item
     &-item {
-      display: flex;
-      justify-content: center;
-      align-items: center;
       flex: 1 0 auto;
 
       &[@{selected}] {
         color: @tab-selected-color;
+      }
+
+      &-fixed {
+        display: none;
+        position: fixed;
+        z-index: 1;
+      }
+
+      .@{name}-line {
+        left: 50%;
+        transform: translateX(-50%);
+        transition-property: width;
       }
     }
   }

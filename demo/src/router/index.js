@@ -31,6 +31,15 @@ let router = new Router({
         import(/* webpackChunkName: "timer" */ '@/views/tools/timer/index.vue')
     },
     {
+      name: 'clock',
+      path: '/tools/clock',
+      meta: {
+        title: 'clock 日期时钟'
+      },
+      component: () =>
+        import(/* webpackChunkName: "clock" */ '@/views/tools/clock/index.vue')
+    },
+    {
       name: 'loadComponent',
       path: '/tools/load-component',
       meta: {
