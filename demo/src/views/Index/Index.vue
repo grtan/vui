@@ -63,6 +63,9 @@ export default {
             name: 'timer 计时器',
             routeName: 'timer'
           }, {
+            name: 'clock 日期时钟',
+            routeName: 'clock'
+          }, {
             name: 'loadComponent 组件加载',
             routeName: 'loadComponent'
           }]

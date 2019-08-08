@@ -1,6 +1,6 @@
 <template>
-  <div :class="$options.name" v-bind="attrs">
-    <div :class="`${$options.name}-scroller`" ref="scroller">
+  <div :class="$options.name" :data-vertical="vertical" :data-upside="upside" :data-scroll="scroll">
+    <div :class="`${$options.name}-scroller`" ref="scroller" @scroll="onScroll">
       <div :class="`${$options.name}-wrapper`" ref="wrapper">
         <div :class="`${$options.name}-list`" ref="list">
           <slot></slot>
@@ -60,23 +60,19 @@ export default {
     },
     selectedAttr: { // 选中时添加的属性的名称
       type: String,
-      default: `${libName}-selected`
+      default: 'data-selected'
+    },
+    stickyIndex: { // 滚动时哪个item应用粘性布局，-1表示不应用
+      type: Number,
+      default: -1
     }
   },
   data () {
     return {
-      libName,
       linePosStyle: {}
     }
   },
   computed: {
-    attrs () { // 为了兼容性，这里不使用v2.6.0+才支持的模版动态属性名功能
-      return {
-        [`${this.libName}-vertical`]: this.vertical,
-        [`${this.libName}-upside`]: this.lineUpside,
-        [`${this.libName}-scroll`]: this.scroll
-      }
-    },
     lineStyle () {
       return {
         visibility: this.showLine ? 'visible' : 'hidden',
@@ -95,10 +91,9 @@ export default {
   },
   watch: {
     value: 'select',
-    lineSize: 'select',
-    selectedAttr: 'select',
+    lineSize: 'setLine',
+    stickyIndex: 'onScroll',
     vertical () {
-      // 等render后再选择item
       this.$nextTick(function () {
         this.left = undefined
         this.select()
@@ -107,8 +102,39 @@ export default {
   },
   methods: {
     select () { // 选择item
-      const children = [].slice.call(this.$refs.list.children) // item的dom数组
+      const children = [].slice.call(this.$refs.list.children)
+      const itemRect = children[this.value].getBoundingClientRect()
+      const center = (itemRect[this.leftProp] + itemRect[this.rightProp]) / 2 // 中心位置
+      const scrollLeft = this.$refs.scroller[this.scrollProp]
       const scrollerRect = this.$refs.scroller.getBoundingClientRect()
+      const delta = center - (scrollerRect[this.leftProp] + scrollerRect[this.rightProp]) / 2 // 滚动位置变化量
+
+      // 设置线条
+      this.setLine()
+      // this.$children不保证顺序，所以根据dom来确定vm
+      this.$children.forEach(child => {
+        child.select(child.$el === children[this.value])
+      })
+      // 停止当前过渡
+      this.transition && this.transition.pause()
+      // 确保至少调用一次onScroll
+      this.onScroll()
+
+      // 每次选中item时，自动滚动让item水平居中
+      if (delta) {
+        this.transition = new Transit({
+          from: scrollLeft,
+          to: scrollLeft + delta,
+          duration: this.duration,
+          easing: cubicEaseOut,
+          callback: (value, complete) => {
+            this.$refs.scroller[this.scrollProp] = value
+          }
+        }).play()
+      }
+    },
+    setLine () {
+      const children = [].slice.call(this.$refs.list.children)
       const wrapperRect = this.$refs.wrapper.getBoundingClientRect()
       const itemRect = children[this.value].getBoundingClientRect()
       const center = (itemRect[this.leftProp] + itemRect[this.rightProp]) / 2 // 中心位置
@@ -122,35 +148,13 @@ export default {
 
       const left = center - wrapperRect[this.leftProp] - size / 2 // 线条定位left或top值
       const right = wrapperRect[this.rightProp] - center - size / 2 // 线条定位right或bottom值
-      const scrollLeft = this.$refs.scroller[this.scrollProp]
-      const delta = center - (scrollerRect[this.leftProp] + scrollerRect[this.rightProp]) / 2 // 滚动位置变化量
 
-      // 停止当前过渡
-      this.transition && this.transition.pause()
-      // 每次选中item时，自动滚动让item水平居中
-      this.transition = new Transit({
-        from: scrollLeft,
-        to: scrollLeft + delta,
-        duration: this.duration,
-        easing: cubicEaseOut,
-        callback: (value, complete) => {
-          this.$refs.scroller[this.scrollProp] = value
-
-          if (complete) {
-            this.transition = null
-          }
-        }
-      }).play()
       // 设置线条样式
       this.linePosStyle = {
         [this.leftProp]: `${left}px`,
         [this.rightProp]: `${right}px`,
         transitionDelay: this.getTransitionDelay(left, size)
       }
-      // this.$children不保证顺序，所以根据dom来确定vm
-      this.$children.forEach(child => {
-        child.setState(child.$el === children[this.value], this.selectedAttr)
-      })
       // 记录线条位置及长度
       this.left = left
       this.size = size
@@ -175,16 +179,20 @@ export default {
     },
     update () { // 内容更新了
       this.$nextTick(function () {
-        const children = [].slice.call(this.$refs.list.children)
-        let index = children.findIndex(el => {
-          return el.getAttribute(this.selectedAttr)
-        })
+        let index = -1
+        const child = this.$children.filter(function (child) {
+          return child.selected
+        })[0]
 
-        if (index === -1) { // 原来选中的item的dom已经没了
+        if (child) {
+          index = child.getIndex()
+        }
+
+        if (index === -1) { // 原来选中的item已经没了
           index = this.value
         }
 
-        if (index >= children.length) { // 超出了范围
+        if (index >= this.$children.length) { // 超出了范围
           index = 0
         }
 
@@ -193,6 +201,14 @@ export default {
         } else {
           this.select()
         }
+      })
+    },
+    onScroll () {
+      const scrollerRect = this.$refs.scroller.getBoundingClientRect()
+
+      // 通知子组件
+      this.$children.forEach(function (child) {
+        child.onScroll(scrollerRect)
       })
     }
   },

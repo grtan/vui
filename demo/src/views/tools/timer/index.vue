@@ -44,7 +44,7 @@ export default {
         format: 'HH:mm:ss',
         countdown: true
       }, {
-        format: 'HH:m:s',
+        format: 'HH:s',
         countdown: true
       }, {
         format: 'mm:ss',

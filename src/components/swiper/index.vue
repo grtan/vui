@@ -91,9 +91,12 @@ export default {
   },
   computed: {
     style () {
+      const translate = `${-this.pos * 100}%`
+
       return {
         height: this.height + 'px',
-        transform: `translate${this.vertical ? 'Y' : 'X'}(${-this.pos * 100}%)`
+        // 这里使用3d变换来加速，不然滑动时界面会抖动
+        transform: `translate3d(${this.vertical ? 0 : translate},${this.vertical ? translate : 0},0)`
       }
     },
     vertical () {

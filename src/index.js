@@ -39,6 +39,7 @@ export { default as setSkin } from './tools/set-skin/index'
 export { default as setType } from './tools/set-type/index'
 export { default as transit } from './tools/transit/index'
 export { default as timer } from './tools/timer/index'
+export { default as clock } from './tools/clock/index'
 export { default as loadComponent } from './tools/load-component/index'
 
 // 组件
