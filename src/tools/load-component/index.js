@@ -1,8 +1,8 @@
 const loadEvent = `__load__${Date.now()}` // 组件加载完成事件
-const Fail = {  // 组件加载失败时使用自定义的Fail组件，以此来触发loadEvent事件
+const Fail = { // 组件加载失败时使用自定义的Fail组件，以此来触发loadEvent事件
   functional: true,
   abstract: true,
-  render(h, context) {
+  render (h, context) {
     // 触发load失败事件
     context.listeners[loadEvent](false)
 
@@ -11,7 +11,7 @@ const Fail = {  // 组件加载失败时使用自定义的Fail组件，以此来
 }
 
 function loadComponent (options) {
-  const {Component, Loading, Error, delay, duration, timeout, customLoad} = Object.assign({
+  const { Component, Loading, Error, delay, duration, timeout, customLoad } = Object.assign({
     // 全局配置可以设置到loadComponent上
     Loading: loadComponent.Loading,
     Error: loadComponent.Error,
@@ -23,24 +23,25 @@ function loadComponent (options) {
   let addHook // 是否已经给组件添加beforeCreate钩子
 
   return {
-    render() {
+    render () {
       return (
         <span>
-            {Loading && this.canShowLoading && this.status === 'loading' ? <loading></loading> : ''}
+          {Loading && this.canShowLoading && this.status === 'loading' ? <loading></loading> : ''}
           {Error && this.status === 'fail' ? <error></error> : ''}
-          <v-component vOn:custom-load={this.onCustomLoad} {
-            ...{
-              style: this.componentStyle,
-              on: {
-                [loadEvent]: this.onLoad
-              }
+          <v-component {
+          ...{
+            style: this.componentStyle,
+            on: {
+              [loadEvent]: this.onLoad,
+              'custom-load': this.onCustomLoad
             }
+          }
           }></v-component>
-          </span>
+        </span>
       )
     },
     components: {
-      VComponent() {
+      VComponent () {
         // 组件的加载时长最大为timeout
         return Promise.race([Promise.resolve(typeof Component === 'function' ? new Promise(function (resolve, reject) {
           const result = Component(resolve, reject)
@@ -59,7 +60,7 @@ function loadComponent (options) {
             addHook = true
             component.mixins = component.mixins || []
             component.mixins.push({
-              beforeCreate() {
+              beforeCreate () {
                 this.$emit(loadEvent, true)
               }
             })
@@ -76,7 +77,7 @@ function loadComponent (options) {
           }
         })])
       },
-      Loading(resolve, reject) { // 这里使用函数形式，是为了利用vue框架兼容commonjs引入的es6模块
+      Loading (resolve, reject) { // 这里使用函数形式，是为了利用vue框架兼容commonjs引入的es6模块
         // 支持vue组件的各种写法
         if (typeof Loading === 'function') {
           return Loading(resolve, reject)
@@ -84,7 +85,7 @@ function loadComponent (options) {
           resolve(Loading)
         }
       },
-      Error(resolve, reject) {
+      Error (resolve, reject) {
         if (typeof Error === 'function') {
           return Error(resolve, reject)
         } else {
@@ -92,14 +93,14 @@ function loadComponent (options) {
         }
       }
     },
-    data() {
+    data () {
       return {
         canShowLoading: false,
         status: 'loading'
       }
     },
     computed: {
-      componentStyle() {
+      componentStyle () {
         return {
           display: (() => {
             if (Loading && this.canShowLoading && this.status === 'loading') {
@@ -116,12 +117,12 @@ function loadComponent (options) {
       }
     },
     methods: {
-      onLoad(success) { // 组件加载
+      onLoad (success) { // 组件加载
         if (!success || !customLoad) {
           this.onCustomLoad(success)
         }
       },
-      onCustomLoad(success) { // 自定义加载事件
+      onCustomLoad (success) { // 自定义加载事件
         if (this.loadFinish) {
           return
         }
@@ -133,7 +134,7 @@ function loadComponent (options) {
         }, Loading && this.canShowLoading ? duration : 0)
       }
     },
-    created() {
+    created () {
       // 超过delay时间加载的组件还没有load，才显示loading
       setTimeout(() => {
         this.canShowLoading = true
