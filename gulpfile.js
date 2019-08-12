@@ -11,8 +11,8 @@ const gulpUglify = require('gulp-uglify')
 const gulpBase64 = require('gulp-base64')
 const gulpBase64Img = require('gulp-base64-img')
 const gulpSourcemaps = require('gulp-sourcemaps')
-const lessAutoPrefix = require('less-plugin-autoprefix')
-const lessCleanCSS = require('less-plugin-clean-css')
+const LessAutoPrefix = require('less-plugin-autoprefix')
+const LessCleanCSS = require('less-plugin-clean-css')
 const rollup = require('rollup')
 const rollupResolve = require('rollup-plugin-node-resolve')
 const rollupCommonjs = require('rollup-plugin-commonjs')
@@ -56,8 +56,8 @@ async function createDistJs (cb) {
          * https://github.com/rollup/rollup-plugin-babel/issues/260
          */
         extensions: ['.js', '.jsx', '.es6', '.es', '.mjs', '.vue'],
-        include: `${srcDirName}/**`,   // 只编译我们的源代码
-        exclude: `${srcDirName}/assets/**`  // 这里必须要排除assets目录，否则由于runtimeHelpers的原因，babel会在代码中import一些库，从而导致commonjs插件认为这是一个es6模块，从而不进行转换，导致报错
+        include: `${srcDirName}/**`, // 只编译我们的源代码
+        exclude: `${srcDirName}/assets/**` // 这里必须要排除assets目录，否则由于runtimeHelpers的原因，babel会在代码中import一些库，从而导致commonjs插件认为这是一个es6模块，从而不进行转换，导致报错
       }),
       rollupResolve(),
       rollupCommonjs(),
@@ -96,11 +96,11 @@ function createDistCss (cb) {
     .pipe(gulpLess({
       rewriteUrls: 'all', // url路径相对被引入的less而不相对entry less
       plugins: [
-        new lessAutoPrefix(postcssPlugins.autoprefixer)
+        new LessAutoPrefix(postcssPlugins.autoprefixer)
       ]
     }))
     .pipe(gulpPxtorem(postcssPlugins.pxtorem))
-    .pipe(gulpBase64({  // 将url文件转成base64
+    .pipe(gulpBase64({ // 将url文件转成base64
       maxImageSize: Number.MAX_VALUE
     }))
     .pipe(gulpConcat(`${libName}.css`))
@@ -129,7 +129,7 @@ function createDistMinCss (cb) {
  * @param file  文件绝对路径
  */
 async function compile (file) {
-  //获取file相对src目录的路径
+  // 获取file相对src目录的路径
   const relative = path.relative(src, path.join(path.dirname(file), path.basename(file, path.extname(file))))
   const bundle = await rollup.rollup({
     input: file,
@@ -153,7 +153,7 @@ async function compile (file) {
       rollupBabel({
         runtimeHelpers: true,
         extensions: ['.js', '.jsx', '.es6', '.es', '.mjs', '.vue'],
-        include: `${srcDirName}/**`   // 只编译我们的源代码
+        include: `${srcDirName}/**` // 只编译我们的源代码
       }),
       /**
        * commonjs和es6语法不能同时存在，否则会被认为非commonjs模块，从而忽略掉不做转换
@@ -166,7 +166,7 @@ async function compile (file) {
         include: ['**/*.jpg', '**/*.jpeg', '**/*.png', '**/*.gif', '**/*.svg', '**/*.bmp']
       })
     ],
-    external(id) {  //不处理部分import
+    external (id) { // 不处理部分import
       // assets/image目录下的图片是公共图片，作为外部依赖
       if (/\.(jpg|jpeg|png|gif|svg|bmp)$/.test(id) && id.includes('../assets/image/')) {
         return true
@@ -176,20 +176,20 @@ async function compile (file) {
     }
   })
 
-  //生成代码
+  // 生成代码
   await bundle.write({
     format: 'esm',
     file: path.join(__dirname, libDirName, relative + '.js'),
-    paths (id) {     //将import中的.vue替换成.js
-      if (/^(\w|@)/.test(id)) {   //npm库
+    paths (id) { // 将import中的.vue替换成.js
+      if (/^(\w|@)/.test(id)) { // npm库
         return id
       } else {
         id = id.replace(/\.(vue|jpg|jpeg|png|gif|svg|bmp)$/, '')
-        if (path.isAbsolute(id)) {   //绝对路径
-          let relative = path.relative(path.dirname(file), id)
+        if (path.isAbsolute(id)) { // 绝对路径
+          const relative = path.relative(path.dirname(file), id)
 
           return relative.startsWith('.') ? relative : './' + relative
-        } else {  //相对路径
+        } else { // 相对路径
           return id.startsWith('.') ? id : './' + relative
         }
       }
@@ -208,12 +208,12 @@ function compileStyle (cb) {
     .pipe(gulpLess({
       rewriteUrls: 'all', // url路径相对被引入的less而不相对entry less
       plugins: [
-        new lessAutoPrefix(postcssPlugins.autoprefixer),
-        new lessCleanCSS()
+        new LessAutoPrefix(postcssPlugins.autoprefixer),
+        new LessCleanCSS()
       ]
     }))
     .pipe(gulpPxtorem(postcssPlugins.pxtorem))
-    .pipe(gulpBase64({  // 将url文件转成base64
+    .pipe(gulpBase64({ // 将url文件转成base64
       maxImageSize: Number.MAX_VALUE
     }))
     .pipe(gulpModifyFile((content, pt) => {
@@ -256,10 +256,11 @@ function compileAssetsImage (cb) {
 
 // 处理js、vue文件
 function compileModule (cb) {
-  let total = 0, completed = 0
+  let total = 0
+  let completed = 0
 
   gulp.src([`${srcDirName}/**/*.{js,vue}`, `!${srcDirName}/assets/js/**`])
-    .on('data', async function ({path}) {
+    .on('data', async function ({ path }) {
       total++
       await compile(path)
       completed++

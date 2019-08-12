@@ -1,7 +1,7 @@
 <style lang="less">
-@import '../../assets/style/base';
+@import "../../assets/style/base";
 
-@name: ~'@{lib-name}-cutover';
+@name: ~"@{lib-name}-cutover";
 
 .@{name} {
   overflow: hidden;
@@ -30,6 +30,39 @@
     &-enter,
     &-leave-active {
       opacity: 0;
+    }
+  }
+
+  // slide效果
+  &-slide-hz {
+    &-enter-active,
+    &-leave-active {
+      transition-property: width;
+      overflow: hidden;
+    }
+
+    &-enter {
+      transition-duration: 0ms !important;
+    }
+
+    &-leave-to {
+      width: 0 !important;
+    }
+  }
+
+  &-slide-vt {
+    &-enter-active,
+    &-leave-active {
+      transition-property: height;
+      overflow: hidden;
+    }
+
+    &-enter {
+      transition-duration: 0ms !important;
+    }
+
+    &-leave-to {
+      height: 0 !important;
     }
   }
 
@@ -107,6 +140,7 @@
 <script>
 import { libName } from '../../config'
 import { mixin } from '../../mixins/history/index'
+import { raf, caf } from '../../tools/prefix/index'
 
 export default {
   name: `${libName}-cutover`,
@@ -132,13 +166,24 @@ export default {
       default: false
     }
   },
+  data () {
+    return {
+      size: undefined // 宽或高
+    }
+  },
   computed: {
-    styleObj() {
+    sizeProp () {
+      return this.type === 'slide-hz' ? 'width' : 'height'
+    },
+    style () {
       return {
-        transitionDuration: `${this.disabled ? 0 : this.duration}ms`
+        transitionDuration: `${this.disabled ? 0 : this.duration}ms`,
+        ...(this.size === undefined ? {} : {
+          [this.sizeProp]: `${this.size}px`
+        })
       }
     },
-    back() {
+    back () {
       // 是不是返回
       switch (this.action) {
         case 'back':
@@ -148,25 +193,69 @@ export default {
       }
     }
   },
-  render() {
+  render () {
     return (
       <div class={this.$options.name} data-back={this.back}>
         <transition
           name={this.disabled ? '' : `${this.$options.name}-${this.type}`}
           {...{
-            props: this.$attrs
+            props: this.$attrs,
+            on: ['slide-hz', 'slide-vt'].indexOf(this.type) === -1 ? {} : {
+              enter: this.onEnter,
+              afterEnter: this.onAfter,
+              leave: this.onLeave,
+              afterLeave: this.onAfter
+            }
           }}
         >
-          {this.$slots.default &&
-            this.$slots.default.map(vnode => {
-              vnode.data.staticStyle = vnode.data.staticStyle || {}
-              Object.assign(vnode.data.staticStyle, this.styleObj)
+          {this.$slots.default && this.$slots.default.map(vnode => {
+            /**
+             * https://github.com/vuejs/vue/issues/5986#issuecomment-311518789
+             * dom diff时，vnode及其一些属性需要是不同的对象才会进行patch
+             * 我们只需要对slot根元素应用样式，所以不需要深拷贝，浅拷贝就够了
+             */
+            const cloned = Object.create(Object.getPrototypeOf(vnode))
 
-              return vnode
-            })}
+            Object.assign(cloned, vnode)
+            cloned.data = Object.assign({}, cloned.data)
+            cloned.data.staticStyle = Object.assign({}, cloned.data.staticStyle, this.style)
+
+            return cloned
+          })}
         </transition>
-      </div>
+      </div >
     )
+  },
+  methods: {
+    /**
+     * vue过渡enter顺序
+     * 执行beforeEnter钩子->添加enter,enter-active类并显示元素->执行enter钩子->下一帧去掉enter类并添加enter-to类
+     * 执行beforeEnter钩子->添加enter,enter-active类并显示元素->执行enter钩子  是在同一个事件循环中同步执行的
+     *
+     * vue过渡leave顺序
+     * 执行beforeLeave钩子->添加leave,leave-active类->执行leave钩子->下一帧去掉leave类并添加leave-to类
+     */
+    onEnter (el) {
+      this.initSize = this.size === undefined ? el.getBoundingClientRect()[this.sizeProp] : this.initSize // 初始高度
+      this.size = 0
+      // 这里必须确保在下下次重绘时修改，否则由于浏览器渲染机制可能会导致突变而不是过渡
+      this.rafId = raf(() => {
+        this.rafId = raf(() => {
+          this.size = this.initSize
+        })
+      })
+    },
+    onLeave (el) {
+      // enter未完成就leave
+      if (this.size !== undefined) {
+        return caf(this.rafId)
+      }
+
+      this.size = el.getBoundingClientRect()[this.sizeProp]
+    },
+    onAfter (el) {
+      this.size = undefined
+    }
   }
 }
 </script>
