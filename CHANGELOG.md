@@ -1,3 +1,12 @@
+# [1.10.0](http://gitlab.vmic.xyz/game-fed/vui/compare/v1.9.0...v1.10.0) (2019-08-12)
+
+
+### Features
+
+* **cutover:** cutover组件type属性新增slide-hz和slide-vt类型 ([5f5716e](http://gitlab.vmic.xyz/game-fed/vui/commit/5f5716e))
+
+
+
 # [1.9.0](http://gitlab.vmic.xyz/game-fed/vui/compare/v1.8.0...v1.9.0) (2019-08-08)
 
 
