@@ -47,7 +47,7 @@ module.exports = {
         ws: true,
         changeOrigin: true
       },
-      '/mockApi':{
+      '/mockApi': {
         target: 'http://api.vivo.xyz',
         ws: true,
         changeOrigin: true
@@ -117,6 +117,54 @@ module.exports = {
     // lib不应用babel-loader、eslint
     config.module.rule('js').exclude.add(path.resolve(__dirname, '../lib'))
     config.module.rule('eslint').exclude.add(path.resolve(__dirname, '../'))
+    // 普通图片及gif
+    config.module
+      .rule('images')
+      .uses
+      .clear()
+      .end()
+      .oneOf('gif')
+      .resourceQuery(/^\?gif$/)
+      .use('sizeof-loader')
+      .loader('sizeof-loader')
+      .options({
+        useFileLoader: true,
+        name: 'static/img/[name].[hash:8].[ext]'
+      })
+      .end()
+      .end()
+      .oneOf('normal')
+      .use('url-loader')
+      .loader('url-loader')
+      .options({
+        limit: 4096,
+        fallback: {
+          loader: 'file-loader',
+          options: {
+            name: 'static/img/[name].[hash:8].[ext]'
+          }
+        }
+      })
+    // 缩略图
+    config.module
+      .rule('normal-thumb')
+      .test(/\.(png|jpe?g|webp)$/)
+      .resourceQuery(/^\?thumb$/)
+      .use('@vivo/image-thumbnail-loader')
+      .loader('@vivo/image-thumbnail-loader')
+      .options({
+        percentage: 10
+      })
+    // gif封面图
+    config.module
+      .rule('gif-thumb')
+      .test(/\.gif$/)
+      .resourceQuery(/^\?thumb$/)
+      .use('@vivo/image-thumbnail-loader')
+      .loader('@vivo/image-thumbnail-loader')
+      .options({
+        percentage: 100
+      })
   },
   transpileDependencies: ['node_modules/@vivo/vivo-ui']
 }
