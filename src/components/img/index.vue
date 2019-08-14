@@ -76,7 +76,7 @@ export default {
   props: {
     src: {
       type: String,
-      required: true
+      default: ''
     },
     loading: String,
     error: String,
@@ -99,7 +99,7 @@ export default {
   computed: {
     showHelper () {
       // 是否显示隐藏的img元素
-      return !this.lazy || this.expose
+      return this.src && (!this.lazy || this.expose)
     }
   },
   watch: {
@@ -122,13 +122,17 @@ export default {
   },
   methods: {
     onLoad () {
-      setTimeout(() => {
+      clearTimeout(this.loadTimeoutId)
+      this.loadTimeoutId = setTimeout(() => {
         this.status = 'success'
+        this.$emit('complete', true)
       }, this.delay)
     },
     onError () {
-      setTimeout(() => {
+      clearTimeout(this.errorTimeoutId)
+      this.errorTimeoutId = setTimeout(() => {
         this.status = 'error'
+        this.$emit('complete', false)
       }, this.delay)
     },
     onExpose ({ detail: { directive, expose } }) {
@@ -142,6 +146,10 @@ export default {
         this.currentIsExpose = expose
       }
     }
+  },
+  beforeDestroy () {
+    clearTimeout(this.loadTimeoutId)
+    clearTimeout(this.errorTimeoutId)
   }
 }
 </script>
