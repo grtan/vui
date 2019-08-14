@@ -1,3 +1,12 @@
+# [1.11.0](http://gitlab.vmic.xyz/game-fed/vui/compare/v1.10.0...v1.11.0) (2019-08-14)
+
+
+### Features
+
+* **img:** img组件新增complete事件，且将src属性改为非必填 ([c9c8bcc](http://gitlab.vmic.xyz/game-fed/vui/commit/c9c8bcc))
+
+
+
 # [1.10.0](http://gitlab.vmic.xyz/game-fed/vui/compare/v1.9.0...v1.10.0) (2019-08-12)
 
 
