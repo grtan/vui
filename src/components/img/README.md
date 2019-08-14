@@ -1,6 +1,6 @@
 # img 图片 (v1.6.0+)
 
-> img 是一个图片组件，支持自定义loading和加载失败效果，支持懒加载。还可以结合[image-thumbnail-loader](https://gitlab.vmic.xyz/game-fed/image-thumbnail-loader)来制作更复杂的加载效果，如demo中的渐进式加载、点击后加载gif图等。
+> img 是一个图片组件，支持自定义loading和加载失败效果，支持懒加载。还可以结合[image-thumbnail-loader](https://gitlab.vmic.xyz/game-fed/image-thumbnail-loader)来制作更复杂的加载效果，如渐进式加载、点击后加载gif图等。
 
 ## 使用方法
 
