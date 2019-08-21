@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="72px" height="72px" viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.5 (67469) - http://www.bohemiancoding.com/sketch -->
+    <title>xxhdpi/icon/search</title>
+    <desc>Created with Sketch.</desc>
+    <g id="icon/search" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group-3">
+            <rect id="Rectangle" x="0" y="0" width="72" height="72"></rect>
+            <path d="M48.0257304,42.9145779 L56.588905,51.4777525 C57.7604779,52.6493253 57.7604779,54.5488203 56.588905,55.7203932 C55.4173321,56.891966 53.5178372,56.891966 52.3462643,55.7203932 L43.9292192,47.303348 C40.8990141,49.6222447 37.1104031,51 33,51 C23.0588745,51 15,42.9411255 15,33 C15,23.0588745 23.0588745,15 33,15 C42.9411255,15 51,23.0588745 51,33 C51,36.6635297 49.9055329,40.0714329 48.0257304,42.9145779 Z M33,45 C39.627417,45 45,39.627417 45,33 C45,26.372583 39.627417,21 33,21 C26.372583,21 21,26.372583 21,33 C21,39.627417 26.372583,45 33,45 Z" id="Combined-Shape" fill="#000000"></path>
+        </g>
+    </g>
+</svg>

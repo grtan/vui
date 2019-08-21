@@ -1,5 +1,7 @@
 const path = require('path')
+const fs = require('fs')
 const fse = require('fs-extra')
+const klaw = require('klaw')
 const gulp = require('gulp')
 const gulpConcat = require('gulp-concat')
 const gulpModifyFile = require('gulp-modify-file')
@@ -11,6 +13,7 @@ const gulpUglify = require('gulp-uglify')
 const gulpBase64 = require('gulp-base64')
 const gulpBase64Img = require('gulp-base64-img')
 const gulpSourcemaps = require('gulp-sourcemaps')
+const gulpSvgSymbols = require('gulp-svg-symbols')
 const LessAutoPrefix = require('less-plugin-autoprefix')
 const LessCleanCSS = require('less-plugin-clean-css')
 const rollup = require('rollup')
@@ -23,7 +26,7 @@ const autoprefixer = require('autoprefixer')
 const postcssPxtorem = require('postcss-pxtorem')
 const postcssUrl = require('postcss-url')
 const postcssPlugins = require('./postcss.config').plugins
-const src = path.join(__dirname, 'src') // src目录路径
+const src = path.join(process.cwd(), 'src') // src目录路径
 const srcDirName = 'src' // src目录名
 const libDirName = 'lib' // lib目录名
 const distDirName = 'dist' // dist目录名
@@ -216,17 +219,85 @@ function compileStyle (cb) {
     .pipe(gulpBase64({ // 将url文件转成base64
       maxImageSize: Number.MAX_VALUE
     }))
-    .pipe(gulpModifyFile((content, pt) => {
-      // 使用tools/add-style来添加样式
-      return `import addStyle from '${path.relative(path.dirname(pt), path.join(src, 'tools/add-style/index'))}'\n\naddStyle('${content.replace(/([\\'"])/g, '\\$1')}')`
-    }))
     .pipe(gulpRename({
       extname: '.js'
+    }))
+    .pipe(gulpModifyFile((content, pt) => {
+      // 是不是icon组件
+      const isIcon = path.dirname(pt) === path.resolve(src, 'components/icon/style')
+
+      // 使用tools/add-style来添加样式
+      return `
+import addStyle from '${path.relative(path.dirname(pt), path.join(src, 'tools/add-style/index.js'))}'
+${!isIcon ? '' : `import addIcon from './${path.basename(pt, '.js')}-icon.js'`}
+
+${!isIcon ? '' : 'addIcon()'}
+addStyle('${content.replace(/([\\'"])/g, '\\$1')}')
+      `
     }))
     .pipe(gulp.dest(`${libDirName}/components`))
     .on('end', function () {
       cb()
     })
+}
+
+// 处理icon
+function compileIcon (cb) {
+  const styleDir = `${src}/components/icon/style`
+  const promises = []
+
+  // 生成各皮肤的svg symbol
+  klaw(styleDir, {
+    depthLimit: 0, // 只遍历一层
+    filter (path) {
+      return fs.statSync(path).isDirectory()
+    }
+  }).on('data', function ({ path: pt }) {
+    // 忽略styleDir
+    if (pt === styleDir) {
+      return
+    }
+
+    promises.push(new Promise(function (resolve) {
+      gulp.src(`${pt}/**/*.svg`)
+        .pipe(gulpSvgSymbols({
+          templates: ['default-svg'],
+          svgAttrs: {
+            class: `${libName}-icon-svg-symbols`,
+            'aria-hidden': 'true'
+          },
+          slug (name) {
+            return `${libName}-icon-${name}`
+          }
+        }))
+        .pipe(gulpRename({
+          basename: path.basename(pt),
+          suffix: '-icon',
+          extname: '.js'
+        }))
+        .pipe(gulpModifyFile((content) => {
+          // 转义\、'，去掉注释、title、desc标签
+          content = content.replace(/([\\'])/g, '\\$1').replace(/\n/g, '\\\n').replace(/\s*(?:<!--[\s\S]*?-->|<(title|desc)>[\s\S]*?<\/\1>)\s*/g, '')
+
+          // 使用tools/add-html来添加svg
+          return `
+import addHtml from '${path.relative(path.dirname(pt), path.join(src, 'tools/add-html/index.js'))}'
+
+export default function () {
+  addHtml('${content}')
+}
+      `
+        }))
+        .pipe(gulp.dest(`${libDirName}/components/icon/style`))
+        .on('end', function () {
+          resolve()
+        })
+    }))
+  }).on('end', function () {
+    Promise.all(promises).then(function () {
+      cb()
+    })
+  })
 }
 
 // 拷贝js目录
@@ -273,6 +344,7 @@ exports.default = gulp.parallel(
     deleteLib,
     gulp.parallel(
       compileStyle,
+      compileIcon,
       copyAssetsJs,
       compileAssetsImage,
       compileModule
@@ -283,6 +355,7 @@ exports.default = gulp.parallel(
     gulp.parallel(
       gulp.series(createDistJs, createDistMinJs),
       gulp.series(createDistCss, createDistMinCss)
+      // TODO: 处理icon
     )
   )
 )
@@ -294,6 +367,7 @@ exports.watch = function (cb) {
 
   // 构建lib
   gulp.watch(`${srcDirName}/**/*.less`, watchConfig, compileStyle)
+  gulp.watch(`${srcDirName}/components/icon/**/*.svg`, watchConfig, compileIcon)
   gulp.watch(`${srcDirName}/assets/js/**`, watchConfig, copyAssetsJs)
   gulp.watch(`${srcDirName}/assets/image/**`, watchConfig, compileAssetsImage)
   gulp.watch([`${srcDirName}/**/*.{js,vue}`, `!${srcDirName}/assets/js/**`], watchConfig, compileModule)
