@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="72px" height="72px" viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.5 (67469) - http://www.bohemiancoding.com/sketch -->
+    <title>xxhdpi/icon/loading</title>
+    <desc>Created with Sketch.</desc>
+    <g id="icon/loading" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Group-8">
+            <rect id="Rectangle-18" x="0" y="0" width="72" height="72"></rect>
+            <g id="Group-7" transform="translate(6.000000, 6.000000)" fill="#9F9F9F">
+                <circle id="Oval-5" fill-opacity="0.12" cx="46.9705627" cy="13.0294373" r="6"></circle>
+                <circle id="Oval-5" fill-opacity="0.25" cx="54" cy="30" r="6"></circle>
+                <circle id="Oval-5" fill-opacity="0.38" cx="46.9705627" cy="46.9705627" r="6"></circle>
+                <circle id="Oval-5" fill-opacity="0.5" cx="30" cy="54" r="6"></circle>
+                <circle id="Oval-5" fill-opacity="0.62" cx="13.0294373" cy="46.9705627" r="6"></circle>
+                <circle id="Oval-5" fill-opacity="0.75" cx="6" cy="30" r="6"></circle>
+                <circle id="Oval-5" fill-opacity="0.88" cx="13.0294373" cy="13.0294373" r="6"></circle>
+                <circle id="Oval-5" cx="30" cy="6" r="6"></circle>
+            </g>
+        </g>
+    </g>
+</svg>

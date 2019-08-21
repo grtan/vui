@@ -1,6 +1,6 @@
 {
   "name": "@vivo/vui",
-  "version": "1.11.0",
+  "version": "1.12.0",
   "description": "A library of vue ui components and some tools",
   "main": "dist/lib.js",
   "module": "lib/index.js",
@@ -61,8 +61,10 @@
     "gulp-pxtorem": "^3.0.0",
     "gulp-rename": "^1.4.0",
     "gulp-sourcemaps": "^2.6.5",
+    "gulp-svg-symbols": "^3.2.3",
     "gulp-uglify": "^3.0.2",
     "husky": "^3.0.1",
+    "klaw": "^3.0.0",
     "less-plugin-autoprefix": "^2.0.0",
     "less-plugin-clean-css": "^1.5.1",
     "postcss-pxtorem": "^4.0.1",

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="72px" height="72px" viewBox="0 0 72 72" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.5 (67469) - http://www.bohemiancoding.com/sketch -->
+    <title>xxhdpi/icon/commentaries</title>
+    <desc>Created with Sketch.</desc>
+    <g id="icon/commentaries" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <path d="M24.5,28 C23.671,28 23,27.328 23,26.5 C23,25.672 23.671,25 24.5,25 L48.5,25 C49.329,25 50,25.672 50,26.5 C50,27.328 49.329,28 48.5,28 L24.5,28 Z M24.5,38 C23.671,38 23,37.328 23,36.5 C23,35.672 23.671,35 24.5,35 L36.5,35 C37.329,35 38,35.672 38,36.5 C38,37.328 37.329,38 36.5,38 L24.5,38 Z M16,15 C14.343,15 13,16.343 13,18 L13,21.732 L13,55.642 C13,56.487 13.985,56.951 14.637,56.412 L23.603,49 L57,49 C58.657,49 60,47.657 60,46 L60,18 C60,16.343 58.657,15 57,15 L16,15 Z" id="Fill-1" fill="#000000"></path>
+    </g>
+</svg>
