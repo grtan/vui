@@ -1,3 +1,12 @@
+# [1.12.0](http://gitlab.vmic.xyz/game-fed/vui/compare/v1.11.0...v1.12.0) (2019-08-21)
+
+
+### Features
+
+* **icon:** icon组件改用svg图标方案，并去掉unicode属性 ([4cd5032](http://gitlab.vmic.xyz/game-fed/vui/commit/4cd5032))
+
+
+
 # [1.11.0](http://gitlab.vmic.xyz/game-fed/vui/compare/v1.10.0...v1.11.0) (2019-08-14)
 
 
