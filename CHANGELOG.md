@@ -1,3 +1,12 @@
+# [1.13.0](http://gitlab.vmic.xyz/game-fed/vui/compare/v1.12.0...v1.13.0) (2019-08-27)
+
+
+### Features
+
+* **swiper:** swiper组件新增pos-change事件，swiper-item组件新增作用域插槽 ([d1537a8](http://gitlab.vmic.xyz/game-fed/vui/commit/d1537a8))
+
+
+
 # [1.12.0](http://gitlab.vmic.xyz/game-fed/vui/compare/v1.11.0...v1.12.0) (2019-08-21)
 
 
