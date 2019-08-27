@@ -1,17 +1,3 @@
-<template>
-  <div
-    :class="$options.name"
-    :data-horizontal="!vertical"
-    @touchstart="touchstart"
-    @touchmove="touchmove"
-    @touchend="touchend"
-  >
-    <div :class="`${$options.name}-list`" :style="style" ref="list">
-      <slot></slot>
-    </div>
-  </div>
-</template>
-
 <style lang="less">
 @import "../../assets/style/base";
 
@@ -20,16 +6,25 @@
 .@{name} {
   overflow: hidden;
 
-  &[data-horizontal] {
+  .@{name}-list {
+    display: flex;
+    box-sizing: border-box;
+    height: 100%;
+  }
+
+  &-item {
+    box-sizing: border-box;
+    width: 100%;
+    flex-shrink: 0;
+  }
+
+  &[data-vertical] {
     .@{name}-list {
-      white-space: nowrap;
+      flex-direction: column;
     }
 
     .@{name}-item {
-      display: inline-block;
-      vertical-align: top;
-      width: 100%;
-      white-space: normal;
+      height: 100%;
     }
   }
 }
@@ -42,6 +37,69 @@ import Transit from '../../tools/transit/index'
 
 export default {
   name: `${libName}-swiper`,
+  render () {
+    return (
+      <div class={this.$options.name} style={this.rootStyle} data-vertical={this.vertical}
+        {...{
+          on: {
+            touchstart: this.touchstart,
+            touchmove: this.touchmove,
+            touchend: this.touchend
+          }
+        }}
+      >
+        <div class={`${this.$options.name}-list`} style={this.listStyle} ref="list">
+          {
+            (() => {
+              if (!this.$slots.default) {
+                return
+              }
+
+              const vnodes = this.$slots.default.slice()
+
+              // 循环时拷贝首尾节点
+              if (this.loop) {
+                const firstCloned = Object.create(Object.getPrototypeOf(vnodes[0]))
+                const lastCloned = Object.create(Object.getPrototypeOf(vnodes[vnodes.length - 1]))
+
+                Object.assign(firstCloned, vnodes[0])
+                Object.assign(lastCloned, vnodes[vnodes.length - 1])
+                firstCloned.key += '-cloned'
+                lastCloned.key += '-cloned'
+                vnodes.push(firstCloned)
+                vnodes.unshift(lastCloned)
+              }
+
+              return vnodes.map((vnode, index) => {
+                if (!vnode.data.scopedSlots) {
+                  return vnode
+                }
+
+                /**
+                 * https://github.com/vuejs/vue/issues/5986#issuecomment-311518789
+                 * dom diff时，vnode及其一些属性需要是不同的对象才会进行patch
+                 * 我们只需要修改slot根元素，所以不需要深拷贝，浅拷贝就够了
+                 */
+                const cloned = Object.create(Object.getPrototypeOf(vnode))
+                const defaultFn = vnode.data.scopedSlots.default
+
+                Object.assign(cloned, vnode)
+                cloned.data = Object.assign({}, cloned.data)
+                // 设置item的index，因为循环模式下，外部无法设置拷贝节点的index
+                cloned.data.scopedSlots = Object.assign({}, cloned.data.scopedSlots, {
+                  default () {
+                    return defaultFn({ index })
+                  }
+                })
+
+                return cloned
+              })
+            })()
+          }
+        </div>
+      </div >
+    )
+  },
   props: {
     value: {
       type: Number,
@@ -90,11 +148,19 @@ export default {
     }
   },
   computed: {
-    style () {
+    rootStyle () {
+      if (this.height === undefined) {
+        return {}
+      }
+
+      return {
+        height: `${this.height}px`
+      }
+    },
+    listStyle () {
       const translate = `${-this.pos * 100}%`
 
       return {
-        height: this.height + 'px',
         // 这里使用3d变换来加速，不然滑动时界面会抖动
         transform: `translate3d(${this.vertical ? 0 : translate},${this.vertical ? translate : 0},0)`
       }
@@ -114,57 +180,43 @@ export default {
       }
     },
     loop: 'rerender',
-    interval: 'check'
+    interval: 'check',
+    pos: {
+      handler (value) {
+        this.$emit('pos-change', value)
+      },
+      immediate: true
+    }
   },
   methods: {
     rerender () { // slot内容有变化，更新dom
-      let first, last, max
+      this.height = undefined // 重置高度
+      this.$nextTick(function () {
+        let max
 
-      // 获取子项最高的高度
-      this.$children.forEach((child, index) => {
-        !index && (first = child.$el)
-        index === this.$children.length - 1 && (last = child.$el)
-        // 这里不能使用offsetHeight，因为该属性始终返回四舍五入的整数，不精确
-        ; (!index || child.$el.getBoundingClientRect().height > max) && (max = child.$el.getBoundingClientRect().height)
+        // 获取子项最高的高度
+        this.$children.forEach((child, index) => {
+          // 这里要使用offsetHeight，因为该属性不受transform影响
+          if (!index || child.$el.offsetHeight > max) {
+            max = child.$el.offsetHeight
+          }
+        })
+        // 这里必须要用max记录最大值后赋值，因为只要this.height中途变化了，即使最后的结果没变，也会调用render函数，触发updated钩子。但只要最后的结果没变，watch钩子是不会执行的
+        this.height = max
+        this.pos = Math.round(this.pos)
+        this.check()
       })
-      // 给每个子项设置成最高高度
-      this.$children.forEach(child => {
-        child.$el.style.height = max + 'px'
-      })
-
-      // 将第一项复制到最后，将最后一项复制到最前
-      if (this.first) {
-        this.first.parentElement.removeChild(this.first)
-        this.first = null
-      }
-
-      if (this.last) {
-        this.last.parentElement.removeChild(this.last)
-        this.last = null
-      }
-
-      if (this.loop) {
-        this.first = first.cloneNode(true)
-        this.last = last.cloneNode(true)
-        this.$refs.list.insertBefore(this.last, first)
-        this.$refs.list.appendChild(this.first)
-      }
-
-      // 这里必须要用max记录最大值后赋值，因为只要this.height中途变化了，即使最后的结果没变，也会调用render函数，触发updated钩子。但只要最后的结果没变，watch钩子是不会执行的
-      this.height = max
-      this.pos = Math.round(this.pos)
-      this.check()
     },
     check () { // 在每一次切换后，检查是否要移动位置
       // 处理边界情况（slot内容更改或者循环的情况下到达了边界）
       if (this.loop) {
-        if (this.pos >= this.$children.length + 1) {
+        if (this.pos >= this.$children.length - 1) {
           this.pos = 1
         } else if (this.pos <= 0) {
-          this.pos = this.$children.length
+          this.pos = this.$children.length - 2
         }
       } else {
-        if (this.pos >= this.$children.length) {
+        if (this.pos > this.$children.length - 1) {
           this.pos = this.$children.length - 1
         } else if (this.pos < 0) {
           this.pos = 0
@@ -187,29 +239,31 @@ export default {
     next () { // 开始等待，此时位置都已经移动好了，在循环模式下，不会处在边缘
       this.clear()
 
-      if (this.interval) { // 自动轮播
-        // 更新进度
-        this.waitTransit = new Transit({
-          from: 0,
-          to: 100,
-          duration: this.interval,
-          callback: (progress, complete) => {
-            this.$emit('wait', {
-              index: this.index, // 必须携带当前index，否则用户主动切换时不知道progress到底是哪个item的
-              progress,
-              complete
-            })
+      if (!this.interval) { // 不自动轮播
+        return
+      }
 
-            if (complete && this.interval) {
-              if (['up', 'left'].indexOf(this.direction) !== -1) {
-                this.index = this.loop ? this.index + 1 : (this.index + 1) % this.$children.length
-              } else {
-                this.index = this.loop ? this.index - 1 : (this.index - 1 + this.$children.length) % this.$children.length
-              }
+      // 更新进度
+      this.waitTransit = new Transit({
+        from: 0,
+        to: 100,
+        duration: this.interval,
+        callback: (progress, complete) => {
+          this.$emit('wait', {
+            index: this.index, // 必须携带当前index，否则用户主动切换时不知道progress到底是哪个item的
+            progress,
+            complete
+          })
+
+          if (complete && this.interval) {
+            if (['up', 'left'].indexOf(this.direction) !== -1) {
+              this.index = this.loop ? this.index + 1 : (this.index + 1) % this.$children.length
+            } else {
+              this.index = this.loop ? this.index - 1 : (this.index - 1 + this.$children.length) % this.$children.length
             }
           }
-        }).play()
-      }
+        }
+      }).play()
     },
     buffer (from, to, duration) { // 开始切换动画
       this.clear()
@@ -304,7 +358,7 @@ export default {
 
       // delta为0的情况经常发生，为避免误判滑动方向，直接忽略为0的场景
       if (delta) {
-        this.offset = delta / this.$refs.list.getBoundingClientRect()[this.vertical ? 'height' : 'width']
+        this.offset = delta / this.$refs.list[this.vertical ? 'offsetHeight' : 'offsetWidth']
         this.pos += this.offset
         this.prev = current
       }
@@ -329,12 +383,12 @@ export default {
       this.touchId = undefined
       this.disabled = undefined
       pos < 0 && (pos = 0)
-      pos === this.$children.length + (this.loop ? 2 : 0) && pos--
+      pos >= this.$children.length && (pos = this.$children.length - 1)
       this.buffer(this.pos, pos, Math.pow(3, (Math.min(Math.abs(pos - this.pos), 1) - 1)) * this.duration)
     }
   },
   mounted () {
-    this.$nextTick(this.rerender)
+    this.rerender()
   },
   beforeDestroy () {
     this.clear()
