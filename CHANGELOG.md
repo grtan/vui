@@ -1,3 +1,12 @@
+## [1.13.1](http://gitlab.vmic.xyz/game-fed/vui/compare/v1.13.0...v1.13.1) (2019-08-28)
+
+
+### Bug Fixes
+
+* **swiper:** 解决swiper组件循环模式下只有单个swiper-item时key冲突的问题，同时swiper新增cloneNumber属性 ([60a99b4](http://gitlab.vmic.xyz/game-fed/vui/commit/60a99b4))
+
+
+
 # [1.13.0](http://gitlab.vmic.xyz/game-fed/vui/compare/v1.12.0...v1.13.0) (2019-08-27)
 
 
