@@ -55,19 +55,54 @@ export default {
                 return
               }
 
-              const vnodes = this.$slots.default.slice()
+              let vnodes = this.$slots.default.slice()
 
               // 循环时拷贝首尾节点
               if (this.loop) {
-                const firstCloned = Object.create(Object.getPrototypeOf(vnodes[0]))
-                const lastCloned = Object.create(Object.getPrototypeOf(vnodes[vnodes.length - 1]))
+                let clonedIndex = 0
+                let i = 0
+                const head = []
+                const end = []
 
-                Object.assign(firstCloned, vnodes[0])
-                Object.assign(lastCloned, vnodes[vnodes.length - 1])
-                firstCloned.key += '-cloned'
-                lastCloned.key += '-cloned'
-                vnodes.push(firstCloned)
-                vnodes.unshift(lastCloned)
+                // 拷贝头部节点
+                while (i < vnodes.length) {
+                  const cloned = Object.create(Object.getPrototypeOf(vnodes[i]))
+
+                  Object.assign(cloned, vnodes[i])
+                  cloned.key += `-cloned-${clonedIndex++}`
+                  end.push(cloned)
+                  i++
+
+                  if (i === vnodes.length) {
+                    i = 0
+                  }
+
+                  if (end.length === this.cloneNumber) {
+                    i = vnodes.length - 1
+                    break
+                  }
+                }
+
+                // 拷贝尾部节点
+                while (i >= 0) {
+                  const cloned = Object.create(Object.getPrototypeOf(vnodes[i]))
+
+                  Object.assign(cloned, vnodes[i])
+                  cloned.key += `-cloned-${clonedIndex++}`
+                  head.unshift(cloned)
+                  i--
+
+                  if (i < 0) {
+                    i = vnodes.length - 1
+                  }
+
+                  if (head.length === this.cloneNumber) {
+                    break
+                  }
+                }
+
+                vnodes = vnodes.concat(end)
+                vnodes = head.concat(vnodes)
               }
 
               return vnodes.map((vnode, index) => {
@@ -135,6 +170,10 @@ export default {
     angle: { // 角度，如果direction为垂直方向的话，表示手指初始滑动时与垂直方向的角度要<=45才有效
       type: Number,
       default: 45
+    },
+    cloneNumber: { // 循环模式时，首尾复制节点的数目
+      type: Number,
+      default: 2
     }
   },
   data () {
@@ -143,11 +182,14 @@ export default {
 
     return {
       index: this.value, // 相对用户来说的位置
-      pos: this.value + this.loop, // 实时的实际的位置，反应了当前swiper的偏移
+      pos: this.value + (this.loop ? this.cloneNumber : 0), // 实时的实际的位置，反应了当前swiper的偏移
       height: undefined
     }
   },
   computed: {
+    clonedCount () { // 实际拷贝的节点数目
+      return this.loop ? this.cloneNumber : 0
+    },
     rootStyle () {
       if (this.height === undefined) {
         return {}
@@ -175,12 +217,13 @@ export default {
     },
     index (value) {
       // 已经滑动好了就不再滑动，比如手指滑动导致index变化
-      if (value + this.loop - this.pos) {
-        this.buffer(this.pos, value + this.loop, Math.pow(3, (Math.min(Math.abs(value + this.loop - this.pos), 1) - 1)) * this.duration)
+      if (value + this.clonedCount - this.pos) {
+        this.buffer(this.pos, value + this.clonedCount, Math.pow(3, (Math.min(Math.abs(value + this.clonedCount - this.pos), 1) - 1)) * this.duration)
       }
     },
     loop: 'rerender',
-    interval: 'check',
+    interval: 'rerender',
+    cloneNumber: 'rerender',
     pos: {
       handler (value) {
         this.$emit('pos-change', value)
@@ -210,10 +253,10 @@ export default {
     check () { // 在每一次切换后，检查是否要移动位置
       // 处理边界情况（slot内容更改或者循环的情况下到达了边界）
       if (this.loop) {
-        if (this.pos >= this.$children.length - 1) {
-          this.pos = 1
-        } else if (this.pos <= 0) {
-          this.pos = this.$children.length - 2
+        if (this.pos > this.$children.length - this.clonedCount - 1) {
+          this.pos = this.clonedCount
+        } else if (this.pos < this.clonedCount) {
+          this.pos = this.$children.length - this.clonedCount - 1
         }
       } else {
         if (this.pos > this.$children.length - 1) {
@@ -224,10 +267,10 @@ export default {
       }
 
       // index是否变化
-      const changed = this.pos - this.loop !== this.lastIndex
+      const changed = this.pos - this.clonedCount !== this.lastIndex
 
       // 同步index
-      this.index = this.pos - this.loop
+      this.index = this.pos - this.clonedCount
       this.next()
 
       if (changed) {
@@ -382,8 +425,15 @@ export default {
 
       this.touchId = undefined
       this.disabled = undefined
-      pos < 0 && (pos = 0)
-      pos >= this.$children.length && (pos = this.$children.length - 1)
+
+      if (this.loop) {
+        pos < this.cloneNumber - 1 && (pos = this.cloneNumber - 1)
+        pos > this.$children.length - this.cloneNumber && (pos = this.$children.length - this.cloneNumber)
+      } else {
+        pos < 0 && (pos = 0)
+        pos > this.$children.length - 1 && (pos = this.$children.length - 1)
+      }
+
       this.buffer(this.pos, pos, Math.pow(3, (Math.min(Math.abs(pos - this.pos), 1) - 1)) * this.duration)
     }
   },
