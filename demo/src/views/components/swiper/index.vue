@@ -163,7 +163,7 @@
       </swiper>
     </div>
     <div :class="[$style.swiper,$style.swiper6]">
-      <swiper v-model="index6" @pos-change="onPosChange6" :interval="0" :loop="false">
+      <swiper v-model="index6" @pos-change="onPosChange6" :interval="0" :clone-number="3">
         <swiper-item v-for="n in 7" :key="n">
           <div slot-scope="slotProps" :style="getStyle6(slotProps.index)">
             <div>
