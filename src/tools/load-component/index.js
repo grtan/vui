@@ -1,6 +1,5 @@
 import { libName } from '../../config'
 import Cutover from '../../components/cutover/index.vue'
-import './style'
 
 const loadEvent = '__component_loaded' // 组件加载完成事件
 const Fail = { // 组件加载失败时使用自定义的Fail组件，以此来触发loadEvent事件
@@ -10,6 +9,9 @@ const Fail = { // 组件加载失败时使用自定义的Fail组件，以此来�
     // 触发load失败事件
     context.listeners[loadEvent](false)
   }
+}
+const style = {
+  height: '100%'
 }
 
 function loadComponent (options) {
@@ -79,7 +81,7 @@ function loadComponent (options) {
               if (Loading && this.canShowLoading && this.status === 'loading') {
                 // 这里利用vdom diff算法，当loading消失时也复用这里的cutover组件，从而将离开和进入的元素都包裹到同一个cutover组件里
                 return (
-                  <cutover type={transitionType} duration={transitionDuration} appear={transitionAppear} mode={transitionMode}>
+                  <cutover style={style} type={transitionType} duration={transitionDuration} appear={transitionAppear} mode={transitionMode}>
                     <loading></loading>
                   </cutover>
                 )
@@ -90,14 +92,14 @@ function loadComponent (options) {
             (() => {
               if (Error && this.status === 'fail') {
                 return (
-                  <cutover type={transitionType} duration={transitionDuration} appear={transitionAppear} mode={transitionMode}>
+                  <cutover style={style} type={transitionType} duration={transitionDuration} appear={transitionAppear} mode={transitionMode}>
                     <error></error>
                   </cutover>
                 )
               }
             })()
           }
-          <cutover type={transitionType} duration={transitionDuration} appear={transitionAppear} mode={transitionMode}>
+          <cutover style={style} type={transitionType} duration={transitionDuration} appear={transitionAppear} mode={transitionMode}>
             <v-component vShow={this.showComponent}
               {
               ...({
