@@ -128,7 +128,13 @@
       </swiper>
     </div>
     <div :class="$style.swiper">
-      <swiper v-model="index3" @pos-change="onPosChange3" :interval="0" :loop="false">
+      <swiper
+        v-model="index3"
+        @pos-change="onPosChange3"
+        :interval="0"
+        :loop="false"
+        :slide-speed="3"
+      >
         <swiper-item v-for="(item,index) in list" :key="index">
           <div slot-scope="slotProps" :class="$style.item3" :style="getStyle3(slotProps.index)">
             <div>{{index}}</div>
@@ -141,7 +147,13 @@
       </swiper>
     </div>
     <div :class="$style.swiper">
-      <swiper v-model="index4" @pos-change="onPosChange4" :interval="0" :loop="false">
+      <swiper
+        v-model="index4"
+        @pos-change="onPosChange4"
+        :interval="0"
+        :loop="false"
+        :slide-speed="1.3"
+      >
         <swiper-item v-for="n in 7" :key="n">
           <div slot-scope="slotProps" :class="$style.item4" :style="getStyle4(slotProps.index)">
             <div v-if="n<7">{{n-1}}</div>
@@ -156,6 +168,7 @@
         v-model="index5"
         @pos-change="onPosChange5"
         :interval="0"
+        :slide-speed="1.5"
       >
         <swiper-item v-for="n in 7" :key="n">
           <div slot-scope="slotProps" :style="getStyle5(slotProps.index)">{{n-1}}</div>
@@ -163,7 +176,13 @@
       </swiper>
     </div>
     <div :class="[$style.swiper,$style.swiper6]">
-      <swiper v-model="index6" @pos-change="onPosChange6" :interval="0" :clone-number="3">
+      <swiper
+        v-model="index6"
+        @pos-change="onPosChange6"
+        :interval="0"
+        :clone-number="5"
+        :slide-speed="3.5"
+      >
         <swiper-item v-for="n in 7" :key="n">
           <div slot-scope="slotProps" :style="getStyle6(slotProps.index)">
             <div>
