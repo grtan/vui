@@ -1,3 +1,12 @@
+# [1.14.0](http://gitlab.vmic.xyz/game-fed/vui/compare/v1.13.1...v1.14.0) (2019-08-29)
+
+
+### Features
+
+* swiper组件新增slideSpeed属性；load-component新增过渡支持，且修复`Component`组件加载失败后不再请求加载的问题；cutover组件暴露过渡的js钩子事件 ([5abdc31](http://gitlab.vmic.xyz/game-fed/vui/commit/5abdc31))
+
+
+
 ## [1.13.1](http://gitlab.vmic.xyz/game-fed/vui/compare/v1.13.0...v1.13.1) (2019-08-28)
 
 
