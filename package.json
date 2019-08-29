@@ -1,6 +1,6 @@
 {
   "name": "@vivo/vui",
-  "version": "1.13.1",
+  "version": "1.14.0",
   "description": "A library of vue ui components and some tools",
   "main": "dist/lib.js",
   "module": "lib/index.js",
@@ -79,7 +79,8 @@
   },
   "sideEffects": [
     "./lib/assets/js/**",
-    "./lib/components/**/style/*.js"
+    "./lib/components/**/style/**/*.js",
+    "./lib/tools/**/style.js"
   ],
   "eslintIgnore": [
     "/demo/",

@@ -95,7 +95,7 @@ function createDistMinJs (cb) {
 }
 
 function createDistCss (cb) {
-  gulp.src(`${srcDirName}/components/**/*.less`)
+  gulp.src([`${srcDirName}/**/*.less`, `!${srcDirName}/assets/**`])
     .pipe(gulpLess({
       rewriteUrls: 'all', // url路径相对被引入的less而不相对entry less
       plugins: [
@@ -207,7 +207,7 @@ function deleteLib (cb) {
 
 // 处理less文件
 function compileStyle (cb) {
-  gulp.src(`${srcDirName}/components/**/*.less`)
+  gulp.src([`${srcDirName}/**/*.less`, `!${srcDirName}/assets/**`])
     .pipe(gulpLess({
       rewriteUrls: 'all', // url路径相对被引入的less而不相对entry less
       plugins: [
@@ -235,7 +235,7 @@ ${!isIcon ? '' : 'addIcon()'}
 addStyle('${content.replace(/([\\'"])/g, '\\$1')}')
       `
     }))
-    .pipe(gulp.dest(`${libDirName}/components`))
+    .pipe(gulp.dest(`${libDirName}`))
     .on('end', function () {
       cb()
     })

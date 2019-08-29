@@ -174,6 +174,10 @@ export default {
     cloneNumber: { // 循环模式时，首尾复制节点的数目
       type: Number,
       default: 2
+    },
+    slideSpeed: { // 滑动速度
+      type: Number,
+      default: 1
     }
   },
   data () {
@@ -254,9 +258,9 @@ export default {
       // 处理边界情况（slot内容更改或者循环的情况下到达了边界）
       if (this.loop) {
         if (this.pos > this.$children.length - this.clonedCount - 1) {
-          this.pos = this.clonedCount
+          this.pos = this.clonedCount + (this.pos - (this.$children.length - this.clonedCount)) % (this.$children.length - 2 * this.clonedCount)
         } else if (this.pos < this.clonedCount) {
-          this.pos = this.$children.length - this.clonedCount - 1
+          this.pos = this.$children.length - this.clonedCount - 1 - (this.clonedCount - 1 - this.pos) % (this.$children.length - 2 * this.clonedCount)
         }
       } else {
         if (this.pos > this.$children.length - 1) {
@@ -387,7 +391,7 @@ export default {
       }
 
       const current = this.vertical ? touch.clientY : touch.clientX
-      let delta = this.prev - current
+      let delta = (this.prev - current) * this.slideSpeed
 
       // 防止冒泡到祖先swiper等
       event.stopPropagation()
@@ -396,7 +400,7 @@ export default {
 
       // 不循环时，如果在边界继续往边缘方向拉，就给滑动添加阻尼效果
       if (!this.loop && ((this.pos <= 0 && delta < 0) || (this.pos >= this.$children.length - 1 && delta > 0))) {
-        delta *= 0.3
+        delta *= 0.4
       }
 
       // delta为0的情况经常发生，为避免误判滑动方向，直接忽略为0的场景
@@ -425,15 +429,8 @@ export default {
 
       this.touchId = undefined
       this.disabled = undefined
-
-      if (this.loop) {
-        pos < this.cloneNumber - 1 && (pos = this.cloneNumber - 1)
-        pos > this.$children.length - this.cloneNumber && (pos = this.$children.length - this.cloneNumber)
-      } else {
-        pos < 0 && (pos = 0)
-        pos > this.$children.length - 1 && (pos = this.$children.length - 1)
-      }
-
+      pos < 0 && (pos = 0)
+      pos > this.$children.length - 1 && (pos = this.$children.length - 1)
       this.buffer(this.pos, pos, Math.pow(3, (Math.min(Math.abs(pos - this.pos), 1) - 1)) * this.duration)
     }
   },

@@ -200,11 +200,22 @@ export default {
           name={this.disabled ? '' : `${this.$options.name}-${this.type}`}
           {...{
             props: this.$attrs,
-            on: ['slide-hz', 'slide-vt'].indexOf(this.type) === -1 ? {} : {
+            on: {
+              // 哪怕没设置appear属性，只设置了apper钩子，也会引起初始渲染。所以未设置appear属性时不能添加钩子
+              ...(!this.$attrs.appear && this.$attrs.appear !== '' ? {} : {
+                beforeAppear: this.onBeforeEnter,
+                appear: this.onEnter,
+                afterAppear: this.onAfterEnter,
+                appearCancelled: this.onEnterCancelled
+              }),
+              beforeEnter: this.onBeforeEnter,
               enter: this.onEnter,
-              afterEnter: this.onAfter,
+              afterEnter: this.onAfterEnter,
+              enterCancelled: this.onEnterCancelled,
+              beforeLeave: this.onBeforeLeave,
               leave: this.onLeave,
-              afterLeave: this.onAfter
+              afterLeave: this.onAfterLeave,
+              leaveCancelled: this.onLeaveCancelled
             }
           }}
         >
@@ -235,26 +246,57 @@ export default {
      * vue过渡leave顺序
      * 执行beforeLeave钩子->添加leave,leave-active类->执行leave钩子->下一帧去掉leave类并添加leave-to类
      */
+    onBeforeEnter (el) {
+      this.$emit('before-enter', el)
+    },
     onEnter (el) {
-      this.initSize = this.size === undefined ? el.getBoundingClientRect()[this.sizeProp] : this.initSize // 初始高度
-      this.size = 0
-      // 这里必须确保在下下次重绘时修改，否则由于浏览器渲染机制可能会导致突变而不是过渡
-      this.rafId = raf(() => {
+      this.$emit('enter', el)
+
+      if (['slide-hz', 'slide-vt'].includes(this.type)) {
+        this.initSize = this.size === undefined ? el.getBoundingClientRect()[this.sizeProp] : this.initSize // 初始高度
+        this.size = 0
+        // 这里必须确保在下下次重绘时修改，否则由于浏览器渲染机制可能会导致突变而不是过渡
         this.rafId = raf(() => {
-          this.size = this.initSize
+          this.rafId = raf(() => {
+            this.size = this.initSize
+          })
         })
-      })
+      }
+    },
+    onAfterEnter (el) {
+      this.$emit('after-enter', el)
+
+      if (['slide-hz', 'slide-vt'].includes(this.type)) {
+        this.size = undefined
+      }
+    },
+    onEnterCancelled (el) {
+      this.$emit('enter-cancelled', el)
+    },
+    onBeforeLeave (el) {
+      this.$emit('before-leave', el)
     },
     onLeave (el) {
-      // enter未完成就leave
-      if (this.size !== undefined) {
-        return caf(this.rafId)
-      }
+      this.$emit('leave', el)
 
-      this.size = el.getBoundingClientRect()[this.sizeProp]
+      if (['slide-hz', 'slide-vt'].includes(this.type)) {
+        // enter未完成就leave
+        if (this.size !== undefined) {
+          return caf(this.rafId)
+        }
+
+        this.size = el.getBoundingClientRect()[this.sizeProp]
+      }
     },
-    onAfter (el) {
-      this.size = undefined
+    onAfterLeave (el) {
+      this.$emit('after-leave', el)
+
+      if (['slide-hz', 'slide-vt'].includes(this.type)) {
+        this.size = undefined
+      }
+    },
+    onLeaveCancelled (el) {
+      this.$emit('leave-cancelled', el)
     }
   }
 }
