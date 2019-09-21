@@ -1,3 +1,12 @@
+# [1.15.0](http://gitlab.vmic.xyz/game-fed/vui/compare/v1.14.0...v1.15.0) (2019-09-21)
+
+
+### Features
+
+* 新增国际化功能；switch组件新增funtouch os 9的风格；修复load-component会创建组件两次的问题；修复tab、swiper组件初始化时如果为隐藏状态，位置尺寸获取错误的问题 ([7680c8e](http://gitlab.vmic.xyz/game-fed/vui/commit/7680c8e))
+
+
+
 # [1.14.0](http://gitlab.vmic.xyz/game-fed/vui/compare/v1.13.1...v1.14.0) (2019-08-29)
 
 
