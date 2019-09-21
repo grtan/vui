@@ -46,3 +46,4 @@
   - [dialog 对话框](src/components/dialog/)
   - [toast 提示](src/components/toast/)
   - [track 埋点](src/plugins/track/)
+  - [translation 国际化](src/plugins/translation/)

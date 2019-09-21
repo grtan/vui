@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import ResizeSensor from 'css-element-queries/src/ResizeSensor'
 import { libName } from '../../config'
 import { cubicEaseOut } from '../../tools/easing/index'
 import Transit from '../../tools/transit/index'
@@ -178,6 +179,11 @@ export default {
       this.$emit('click', index)
     },
     update () { // 内容更新了
+      if (this.updated) {
+        return
+      }
+
+      this.updated = true
       this.$nextTick(function () {
         let index = -1
         const child = this.$children.filter(function (child) {
@@ -201,6 +207,8 @@ export default {
         } else {
           this.select()
         }
+
+        this.updated = false
       })
     },
     onScroll () {
@@ -213,7 +221,16 @@ export default {
     }
   },
   mounted () {
-    this.update()
+    // 初始化并监控尺寸变化，因为有可能组件创建时是隐藏的状态
+    // eslint-disable-next-line no-new
+    new ResizeSensor(this.$el, ({ width, height }) => {
+      if ((!this.vertical && this.width !== width) || (this.vertical && this.height !== height)) {
+        this.update()
+      }
+
+      this.width = width
+      this.height = height
+    })
   }
 }
 </script>

@@ -2,78 +2,88 @@
 @import "../../../assets/style/default/mixin";
 
 @name: ~"@{lib-name}-switch";
-@checked: ~"@{lib-name}-checked";
-@disabled: ~"@{lib-name}-disabled";
 
 html:not([@{skin-attr}]) {
-  .@{name} {
-    position: relative;
-    display: inline-block;
-    box-sizing: border-box;
-    width: @switch-width;
-    height: @switch-height;
-    background: @switch-border-color;
-    background-origin: border-box;
-    border: @switch-border-width solid transparent;
-    border-radius: @switch-height / 2;
-    transition: background .35s;
-
-    > :first-child {
-      position: absolute;
-      left: 0;
-      right: 0;
-      top: 0;
-      bottom: 0;
-      border-radius: (@switch-height - 2 * @switch-border-width) / 2;
-      transition: transform .35s cubic-bezier(.45, 1, .4, 1);
-    }
-
-    > :last-child {
-      position: absolute;
-      right: 100%;
-      top: 0;
-      bottom: 0;
-      transform: translateX(100%);
-      width: @switch-height - 2 * @switch-border-width;
-      border-radius: 50%;
-      background: @switch-btn-bg;
-      box-shadow: @switch-btn-shadow;
-      transition: .35s cubic-bezier(.4, .4, .25, 1.35);
-      transition-property: right, transform, box-shadow;
-    }
-
-    &[@{checked}] {
-      > :first-child {
-        transform: scale(0);
-      }
-
-      > :last-child {
-        right: 0;
-        transform: none;
-        box-shadow: @switch-btn-shadow-checked;
-      }
-    }
-
-    &[@{disabled}] {
+  .@{name}{
+    &[data-disabled] {
       .disabled();
     }
 
-    /*pc样式*/
-    &[@{pc-attr}] {
-      .@{name} {
+    &[data-type=default]{
+      position: relative;
+      display: inline-block;
+      box-sizing: border-box;
+      width: @switch-width;
+      height: @switch-height;
+      border: @switch-border-width solid transparent;
+      border-radius: @switch-height / 2;
+      transition: background;
+  
+      > :first-child {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        border-radius: (@switch-height - 2 * @switch-border-width) / 2;
+        transition: transform cubic-bezier(.45, 1, .4, 1);
+      }
+  
+      > :last-child {
+        position: absolute;
+        right: 100%;
+        top: 0;
+        bottom: 0;
+        transform: translateX(100%);
+        width: @switch-height - 2 * @switch-border-width;
+        border-radius: 50%;
+        box-shadow: @switch-btn-shadow;
+        transition: cubic-bezier(.4, .4, .25, 1.35);
+        transition-property: right, transform, box-shadow;
+      }
+  
+      &[data-checked] {
+        > :first-child {
+          transform: scale(0);
+        }
+  
+        > :last-child {
+          right: 0;
+          transform: none;
+          box-shadow: @switch-btn-shadow-checked;
+        }
+      }
+    }
+
+    &[data-type=funtouch9] {
+      display: inline-block;
+      width: @switch-width-funtouch9;
+      height: @switch-height-funtouch9;
+    }
+  }
+
+  /*pc样式*/
+  &[@{pc-attr}] {
+    .@{name} {
+      &[data-type=default] {
         width: 50px;
         height: 30px;
         border-width: 1px;
         border-radius: 16px / 50%;
-
+  
         > :first-child {
           border-radius: 15px / 50%;
         }
-
+  
         > :last-child {
           width: 30px;
           box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
         }
+      }
+
+      &[data-type=funtouch9] {
+        width: 42px;
+        height: 22px;
       }
     }
   }

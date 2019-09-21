@@ -1,36 +1,41 @@
+import { libName } from '../../config'
 import Dialog from '../../components/dialog/index.vue'
 
 export default {
   install (Vue) {
     const list = []
 
-    Dialog.mixins = [{
+    Dialog.mixins = Dialog.mixins || []
+    Dialog.mixins.push({
       created () {
         list.push(this)
       }
-    }]
+    })
     Vue.$vui = Vue.prototype.$vui = Vue.prototype.$vui || {}
     Vue.prototype.$vui.dialog = {
       show (option) {
         new Vue({ // eslint-disable-line no-new
+          name: `${libName}-dialog-plugin`,
           components: {
             VuiDialog: Dialog
           },
           el: document.body.appendChild(document.createElement('div')),
           render () {
             return (
-              <vui-dialog {...{
-                'class': ['vui-dialog-plugin', option.className],
-                attrs: {
-                  appear: '',
-                  preventClose: this.preventClose
-                },
-                props: {
-                  duration: this.duration,
-                  title: this.title,
-                  btns: this.btns
-                }
-              }} vModel={this.show} vOn:btn-click={this.btnClick}>
+              <vui-dialog
+                class={[this.$options.name, option.className]}
+                vModel={this.show}
+                duration={this.duration}
+                title={this.title}
+                btns={this.btns}
+                prevent-close={this.preventClose}
+                appear
+                {...{
+                  on: {
+                    'btn-click': this.btnClick
+                  }
+                }}
+              >
                 <div {...{
                   domProps: {
                     innerHTML: this.slot

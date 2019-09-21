@@ -164,6 +164,10 @@ export default {
       // 是否禁用过渡动画
       type: Boolean,
       default: false
+    },
+    multiple: { // 是否同时存在多个元素
+      type: Boolean,
+      default: false
     }
   },
   data () {
@@ -194,47 +198,53 @@ export default {
     }
   },
   render () {
+    const data = {
+      props: Object.assign({}, this.$attrs, {
+        name: this.disabled ? '' : `${this.$options.name}-${this.type}`
+      }),
+      on: {
+        // 哪怕没设置appear属性，只设置了apper钩子，也会引起初始渲染。所以未设置appear属性时不能添加钩子
+        ...(!this.$attrs.appear && this.$attrs.appear !== '' ? {} : {
+          beforeAppear: this.onBeforeEnter,
+          appear: this.onEnter,
+          afterAppear: this.onAfterEnter,
+          appearCancelled: this.onEnterCancelled
+        }),
+        beforeEnter: this.onBeforeEnter,
+        enter: this.onEnter,
+        afterEnter: this.onAfterEnter,
+        enterCancelled: this.onEnterCancelled,
+        beforeLeave: this.onBeforeLeave,
+        leave: this.onLeave,
+        afterLeave: this.onAfterLeave,
+        leaveCancelled: this.onLeaveCancelled
+      }
+    }
+    const slot = this.$slots.default && this.$slots.default.map(vnode => {
+      /**
+       * https://github.com/vuejs/vue/issues/5986#issuecomment-311518789
+       * dom diff时，vnode及其一些属性需要是不同的对象才会进行patch
+       * 我们只需要对slot根元素应用样式，所以不需要深拷贝，浅拷贝就够了
+       */
+      const cloned = Object.create(Object.getPrototypeOf(vnode))
+
+      Object.assign(cloned, vnode)
+      cloned.data = Object.assign({}, cloned.data)
+      cloned.data.staticStyle = Object.assign({}, cloned.data.staticStyle, this.style)
+
+      return cloned
+    })
+
+    if (!this.multiple) {
+      return (
+        <div class={this.$options.name} data-back={this.back}>
+          <transition {...data}>{slot}</transition>
+        </div >
+      )
+    }
+
     return (
-      <div class={this.$options.name} data-back={this.back}>
-        <transition
-          name={this.disabled ? '' : `${this.$options.name}-${this.type}`}
-          {...{
-            props: this.$attrs,
-            on: {
-              // 哪怕没设置appear属性，只设置了apper钩子，也会引起初始渲染。所以未设置appear属性时不能添加钩子
-              ...(!this.$attrs.appear && this.$attrs.appear !== '' ? {} : {
-                beforeAppear: this.onBeforeEnter,
-                appear: this.onEnter,
-                afterAppear: this.onAfterEnter,
-                appearCancelled: this.onEnterCancelled
-              }),
-              beforeEnter: this.onBeforeEnter,
-              enter: this.onEnter,
-              afterEnter: this.onAfterEnter,
-              enterCancelled: this.onEnterCancelled,
-              beforeLeave: this.onBeforeLeave,
-              leave: this.onLeave,
-              afterLeave: this.onAfterLeave,
-              leaveCancelled: this.onLeaveCancelled
-            }
-          }}
-        >
-          {this.$slots.default && this.$slots.default.map(vnode => {
-            /**
-             * https://github.com/vuejs/vue/issues/5986#issuecomment-311518789
-             * dom diff时，vnode及其一些属性需要是不同的对象才会进行patch
-             * 我们只需要对slot根元素应用样式，所以不需要深拷贝，浅拷贝就够了
-             */
-            const cloned = Object.create(Object.getPrototypeOf(vnode))
-
-            Object.assign(cloned, vnode)
-            cloned.data = Object.assign({}, cloned.data)
-            cloned.data.staticStyle = Object.assign({}, cloned.data.staticStyle, this.style)
-
-            return cloned
-          })}
-        </transition>
-      </div >
+      <transition-group tag="div" class={this.$options.name} data-back={this.back} {...data}>{slot}</transition-group>
     )
   },
   methods: {
