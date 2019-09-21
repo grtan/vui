@@ -10,12 +10,9 @@ const Fail = { // 组件加载失败时使用自定义的Fail组件，以此来�
     context.listeners[loadEvent](false)
   }
 }
-const style = {
-  height: '100%'
-}
 
 function loadComponent (options) {
-  const { Component, Loading, Error, delay, duration, timeout, customLoad, transitionType, transitionDuration, transitionAppear, transitionMode } = Object.assign({
+  const { Component, Loading, Error, delay, duration, timeout, customLoad, transitionType, transitionDuration, transitionAppear } = Object.assign({
     // 全局配置可以设置到loadComponent上
     Loading: loadComponent.Loading,
     Error: loadComponent.Error,
@@ -25,8 +22,7 @@ function loadComponent (options) {
     customLoad: loadComponent.customLoad || false, // 是否自定义load事件，默认为组件加载完成就触发，否则需要在组件内手动$emit('custom-load', status)
     transitionType: loadComponent.transitionType,
     transitionDuration: loadComponent.transitionDuration,
-    transitionAppear: loadComponent.transitionAppear,
-    transitionMode: loadComponent.transitionMode
+    transitionAppear: loadComponent.transitionAppear
   }, options)
   let addHook // 是否已经给组件添加beforeCreate钩子
   const VComponent = function () {
@@ -74,32 +70,21 @@ function loadComponent (options) {
   return {
     name: `${libName}-load-component`,
     render () {
+      const style = {
+        visibility: this.showComponent ? '' : 'hidden',
+        height: '100%',
+        transition: 'none'
+      }
+
       return (
-        <span class={this.$options.name}>
+        <cutover tag="span" multiple={true} class={this.$options.name} type={transitionType} duration={transitionDuration} appear={transitionAppear}>
           {
-            (() => {
-              if (Loading && this.canShowLoading && this.status === 'loading') {
-                // 这里利用vdom diff算法，当loading消失时也复用这里的cutover组件，从而将离开和进入的元素都包裹到同一个cutover组件里
-                return (
-                  <cutover style={style} type={transitionType} duration={transitionDuration} appear={transitionAppear} mode={transitionMode}>
-                    <loading></loading>
-                  </cutover>
-                )
-              }
-            })()
+            /**
+             * transition-group的子元素使用v-show会有诡异的问题，所以要在外面再套一层
+             * https://github.com/vuejs/vue/issues/5661#issuecomment-301078575
+             */
           }
-          {
-            (() => {
-              if (Error && this.status === 'fail') {
-                return (
-                  <cutover style={style} type={transitionType} duration={transitionDuration} appear={transitionAppear} mode={transitionMode}>
-                    <error></error>
-                  </cutover>
-                )
-              }
-            })()
-          }
-          <cutover style={style} type={transitionType} duration={transitionDuration} appear={transitionAppear} mode={transitionMode}>
+          <cutover style={style} type={transitionType} duration={transitionDuration} appear={transitionAppear} key="component">
             <v-component vShow={this.showComponent}
               {
               ...({
@@ -111,7 +96,9 @@ function loadComponent (options) {
               }
             ></v-component>
           </cutover>
-        </span>
+          {Error && this.status === 'fail' ? <error key="error"></error> : undefined}
+          {Loading && this.canShowLoading && this.status === 'loading' ? <loading key="loading"></loading> : undefined}
+        </cutover>
       )
     },
     components: {

@@ -87,6 +87,16 @@ export default {
         this.width = rect.width
       }
     }
+  },
+  /**
+   * 只能检测数目变化，无法检测内容变化
+   * https://github.com/vuejs/vue/issues/6133
+   */
+  created () {
+    this.$parent.update()
+  },
+  beforeDestroy () {
+    this.$parent.update()
   }
 }
 </script>

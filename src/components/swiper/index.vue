@@ -14,23 +14,19 @@
 
   &-item {
     box-sizing: border-box;
-    width: 100%;
-    flex-shrink: 0;
+    flex: 0 0 100%;
   }
 
   &[data-vertical] {
     .@{name}-list {
       flex-direction: column;
     }
-
-    .@{name}-item {
-      height: 100%;
-    }
   }
 }
 </style>
 
 <script>
+import ResizeSensor from 'css-element-queries/src/ResizeSensor'
 import { libName } from '../../config'
 import { cubicEaseOut } from '../../tools/easing/index'
 import Transit from '../../tools/transit/index'
@@ -105,7 +101,7 @@ export default {
                 vnodes = head.concat(vnodes)
               }
 
-              return vnodes.map((vnode, index) => {
+              this.vnodes = vnodes.map((vnode, index) => {
                 if (!vnode.data.scopedSlots) {
                   return vnode
                 }
@@ -129,6 +125,8 @@ export default {
 
                 return cloned
               })
+
+              return this.vnodes
             })()
           }
         </div>
@@ -151,6 +149,10 @@ export default {
       type: Boolean,
       default: true
     },
+    cloneNumber: { // 循环模式时，首尾复制节点的数目
+      type: Number,
+      default: 2
+    },
     interval: { // 轮播间隔时间，0表示不自动轮播
       type: Number,
       default: 3000
@@ -163,21 +165,21 @@ export default {
       type: Boolean,
       default: true
     },
-    threshold: { // 超过了多少比例才切换
-      type: Number,
-      default: 0.2
-    },
     angle: { // 角度，如果direction为垂直方向的话，表示手指初始滑动时与垂直方向的角度要<=45才有效
       type: Number,
       default: 45
     },
-    cloneNumber: { // 循环模式时，首尾复制节点的数目
-      type: Number,
-      default: 2
-    },
-    slideSpeed: { // 滑动速度
+    swipeSpeed: { // 滑动速度
       type: Number,
       default: 1
+    },
+    threshold: { // 超过了多少比例才切换
+      type: Number,
+      default: 0.2
+    },
+    autoSize: { // 根据内容自动更新尺寸
+      type: Boolean,
+      default: true
     }
   },
   data () {
@@ -187,7 +189,8 @@ export default {
     return {
       index: this.value, // 相对用户来说的位置
       pos: this.value + (this.loop ? this.cloneNumber : 0), // 实时的实际的位置，反应了当前swiper的偏移
-      height: undefined
+      height: undefined, // 垂直方向时初始化高度
+      size: undefined // autoSize时，每次切换时更新高度或宽度
     }
   },
   computed: {
@@ -195,18 +198,24 @@ export default {
       return this.loop ? this.cloneNumber : 0
     },
     rootStyle () {
-      if (this.height === undefined) {
-        return {}
+      const style = {}
+
+      if (this.height !== undefined) {
+        style.height = `${this.height}px`
       }
 
-      return {
-        height: `${this.height}px`
+      if (this.size !== undefined) {
+        style[this.vertical ? 'width' : 'height'] = `${this.size}px`
       }
+
+      return style
     },
     listStyle () {
       const translate = `${-this.pos * 100}%`
 
       return {
+        // 非自动设置尺寸时所有item尺寸保持一样
+        alignItems: this.autoSize ? 'flex-start' : 'stretch',
         // 这里使用3d变换来加速，不然滑动时界面会抖动
         transform: `translate3d(${this.vertical ? 0 : translate},${this.vertical ? translate : 0},0)`
       }
@@ -225,9 +234,10 @@ export default {
         this.buffer(this.pos, value + this.clonedCount, Math.pow(3, (Math.min(Math.abs(value + this.clonedCount - this.pos), 1) - 1)) * this.duration)
       }
     },
-    loop: 'rerender',
-    interval: 'rerender',
-    cloneNumber: 'rerender',
+    vertical: 'update',
+    loop: 'update',
+    cloneNumber: 'update',
+    interval: 'update',
     pos: {
       handler (value) {
         this.$emit('pos-change', value)
@@ -236,22 +246,31 @@ export default {
     }
   },
   methods: {
-    rerender () { // slot内容有变化，更新dom
+    update () { // slot内容有变化，更新dom
+      if (this.updated) {
+        return
+      }
+
+      this.updated = true
       this.height = undefined // 重置高度
       this.$nextTick(function () {
-        let max
+        if (this.vertical) {
+          let max
 
-        // 获取子项最高的高度
-        this.$children.forEach((child, index) => {
-          // 这里要使用offsetHeight，因为该属性不受transform影响
-          if (!index || child.$el.offsetHeight > max) {
-            max = child.$el.offsetHeight
-          }
-        })
-        // 这里必须要用max记录最大值后赋值，因为只要this.height中途变化了，即使最后的结果没变，也会调用render函数，触发updated钩子。但只要最后的结果没变，watch钩子是不会执行的
-        this.height = max
+          // 获取子项最高的高度
+          this.$children.forEach((child, index) => {
+            // 这里要使用offsetHeight，因为该属性不受transform影响
+            if (!index || child.$el.offsetHeight > max) {
+              max = child.$el.offsetHeight
+            }
+          })
+          // 这里必须要用max记录最大值后赋值，因为只要this.height中途变化了，即使最后的结果没变，也会调用render函数，触发updated钩子。但只要最后的结果没变，watch钩子是不会执行的
+          this.height = max
+        }
+
         this.pos = Math.round(this.pos)
         this.check()
+        this.updated = false
       })
     },
     check () { // 在每一次切换后，检查是否要移动位置
@@ -275,6 +294,7 @@ export default {
 
       // 同步index
       this.index = this.pos - this.clonedCount
+      this.updateSize()
       this.next()
 
       if (changed) {
@@ -282,6 +302,11 @@ export default {
         this.$emit('input', this.index)
         this.$emit('change', this.index)
       }
+    },
+    updateSize () {
+      const el = this.vnodes[this.pos].componentInstance.$el
+
+      this.size = this.autoSize ? el[this.vertical ? 'offsetWidth' : 'offsetHeight'] : undefined
     },
     next () { // 开始等待，此时位置都已经移动好了，在循环模式下，不会处在边缘
       this.clear()
@@ -391,7 +416,7 @@ export default {
       }
 
       const current = this.vertical ? touch.clientY : touch.clientX
-      let delta = (this.prev - current) * this.slideSpeed
+      let delta = (this.prev - current) * this.swipeSpeed
 
       // 防止冒泡到祖先swiper等
       event.stopPropagation()
@@ -411,7 +436,7 @@ export default {
       }
     },
     touchend (event) {
-      if (!this.swipe || ![].slice.call(event.changedTouches).some(touch => {
+      if (![].slice.call(event.changedTouches).some(touch => {
         return touch.identifier === this.touchId
       })) { // 非同一个触点移除
         return
@@ -435,7 +460,14 @@ export default {
     }
   },
   mounted () {
-    this.rerender()
+    // eslint-disable-next-line no-new
+    new ResizeSensor(this.$el, ({ width, height }) => {
+      // 组件创建时为显示状态或者从隐藏变为显示状态时调用
+      if (!this.inited) {
+        this.inited = true
+        this.update()
+      }
+    })
   },
   beforeDestroy () {
     this.clear()

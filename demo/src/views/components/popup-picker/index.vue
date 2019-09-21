@@ -8,7 +8,10 @@
       <div class="field-body">
         <div class="field is-narrow">
           <div class="control">
-            <label class="checkbox"><input type="checkbox" name="showTitle" v-model="showTitle">{{showTitle}}</label>
+            <label class="checkbox">
+              <input type="checkbox" name="showTitle" v-model="showTitle" />
+              {{showTitle}}
+            </label>
           </div>
         </div>
       </div>
@@ -20,7 +23,10 @@
       <div class="field-body">
         <div class="field is-narrow">
           <div class="control">
-            <label class="checkbox"><input type="checkbox" name="showCancel" v-model="showCancel">{{showCancel}}</label>
+            <label class="checkbox">
+              <input type="checkbox" name="showCancel" v-model="showCancel" />
+              {{showCancel}}
+            </label>
           </div>
         </div>
       </div>
@@ -32,8 +38,10 @@
       <div class="field-body">
         <div class="field is-narrow">
           <div class="control">
-            <label class="checkbox"><input type="checkbox" name="showConfirm"
-                                           v-model="showConfirm">{{showConfirm}}</label>
+            <label class="checkbox">
+              <input type="checkbox" name="showConfirm" v-model="showConfirm" />
+              {{showConfirm}}
+            </label>
           </div>
         </div>
       </div>
@@ -45,7 +53,10 @@
       <div class="field-body">
         <div class="field is-narrow">
           <div class="control">
-            <label class="checkbox"><input type="checkbox" name="enable3d" v-model="enable3d">{{enable3d}}</label>
+            <label class="checkbox">
+              <input type="checkbox" name="enable3d" v-model="enable3d" />
+              {{enable3d}}
+            </label>
           </div>
         </div>
       </div>
@@ -54,31 +65,38 @@
     <div :class="$style.btns">
       <a class="button is-primary is-fullwidth is-rounded" @click="show=true">显示</a>
     </div>
-    <popup-picker v-model="show" :data="data" :enable3d="enable3d" :title="title"
-                  :cancel="cancel" :confirm="confirm" @confirm="onConfirm"></popup-picker>
+    <popup-picker
+      v-model="show"
+      :data="data"
+      :enable3d="enable3d"
+      :title="title"
+      :cancel="cancel"
+      :confirm="confirm"
+      @confirm="onConfirm"
+    ></popup-picker>
   </div>
 </template>
 
 <style module>
-  .config {
-    padding-bottom: .4rem;
-  }
+.config {
+  padding-bottom: 0.4rem;
+}
 
-  .item {
-    padding: .2rem .5rem;
-  }
+.item {
+  padding: 0.2rem 0.5rem;
+}
 
-  .btns {
-    position: fixed;
-    z-index: 9;
-    left: .3rem;
-    right: .3rem;
-    bottom: .3rem;
-  }
+.btns {
+  position: fixed;
+  z-index: 9;
+  left: 0.3rem;
+  right: 0.3rem;
+  bottom: 0.3rem;
+}
 
-  .btns :global(.button) {
-    margin-top: .15rem;
-  }
+.btns :global(.button) {
+  margin-top: 0.15rem;
+}
 </style>
 
 <script>
@@ -88,7 +106,7 @@ export default {
   components: {
     PopupPicker
   },
-  data () {
+  data() {
     return {
       show: false,
       showTitle: true,
@@ -99,7 +117,7 @@ export default {
       data: (function () {
         var num = 3
 
-        function deep () {
+        function deep() {
           var index = arguments[0] || 0,
             data = {
               //                name: '列' + (index + 1),
@@ -121,18 +139,18 @@ export default {
     }
   },
   computed: {
-    title () {
+    title() {
       return this.showTitle ? '标题' : ''
     },
-    cancel () {
+    cancel() {
       return this.showCancel ? '取消' : ''
     },
-    confirm () {
+    confirm() {
       return this.showConfirm ? '确定' : ''
     }
   },
   methods: {
-    onConfirm (value) {
+    onConfirm(value) {
       this.indexs = value
     }
   }

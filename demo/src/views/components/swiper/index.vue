@@ -94,6 +94,21 @@
         </div>
       </div>
     </div>
+    <div class="field is-horizontal">
+      <div class="field-label">
+        <label class="label">是否自动设置尺寸</label>
+      </div>
+      <div class="field-body">
+        <div class="field is-narrow">
+          <div class="control">
+            <label class="checkbox">
+              <input type="checkbox" name="autoSize" v-model="autoSize" />
+              {{autoSize}}
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
     <div :class="$style.swiper">
       <swiper
         v-model="index"
@@ -103,9 +118,10 @@
         :interval="interval"
         :angle="angle"
         :swipe="swipe"
+        :auto-size="autoSize"
         @wait="wait=$event"
       >
-        <swiper-item v-for="(item,index) in list" :key="index">
+        <swiper-item :class="$style.sitem" v-for="(item,index) in list" :key="index">
           <div :class="$style.item" :style="{backgroundImage:`url(${item})`}"></div>
         </swiper-item>
       </swiper>
@@ -197,7 +213,7 @@
   </div>
 </template>
 
-<style module>
+<style lang="less" module>
 .config {
   padding-bottom: 0.4rem;
 }
@@ -208,8 +224,17 @@
 }
 
 .item {
+  width: 10.2rem;
   height: 5rem;
   background: center / cover no-repeat;
+
+  .sitem:nth-child(4) & {
+    height: 4rem;
+  }
+
+  .sitem:nth-child(6) & {
+    height: 6rem;
+  }
 }
 
 .thumb-list {
@@ -278,6 +303,10 @@
   transform: none !important;
 }
 
+.swiper5 :global(.vui-swiper-item) {
+  height: 100%;
+}
+
 .swiper5 :global(.vui-swiper-item > div) {
   position: absolute;
   left: 1rem;
@@ -330,6 +359,7 @@ export default {
       interval: 3000,
       angle: 30,
       swipe: true,
+      autoSize: true,
       wait: {},
       list: [
         'http://i9.hexun.com/2018-11-24/195299307.jpg',
