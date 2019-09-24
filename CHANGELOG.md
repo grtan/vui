@@ -1,3 +1,12 @@
+## [1.15.1](http://gitlab.vmic.xyz/game-fed/vui/compare/v1.15.0...v1.15.1) (2019-09-24)
+
+
+### Bug Fixes
+
+* 修复swiper、tab组件销毁时由于调用update方法而报错的问题 ([2cc9135](http://gitlab.vmic.xyz/game-fed/vui/commit/2cc9135))
+
+
+
 # [1.15.0](http://gitlab.vmic.xyz/game-fed/vui/compare/v1.14.0...v1.15.0) (2019-09-21)
 
 
