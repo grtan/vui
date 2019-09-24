@@ -75,6 +75,7 @@ export default {
 
 ## 更新日志
 
+* v1.15.1 修复组件销毁时由于调用`update`方法而报错的问题
 * v1.15.0 新增`autoSize`属性；修复初始隐藏时尺寸设置错误的问题
 * v1.14.0 新增`slideSpeed`属性
 * v1.13.1 解决循环模式下只有单个`swiper-item`时`key`冲突的问题；新增`cloneNumber`属性

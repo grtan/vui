@@ -92,11 +92,15 @@ export default {
    * 只能检测数目变化，无法检测内容变化
    * https://github.com/vuejs/vue/issues/6133
    */
-  created () {
+  mounted () {
     this.$parent.update()
   },
   beforeDestroy () {
-    this.$parent.update()
+    const $parent = this.$parent
+
+    this.$nextTick(function () {
+      $parent.update()
+    })
   }
 }
 </script>
