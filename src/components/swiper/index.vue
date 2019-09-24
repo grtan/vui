@@ -254,6 +254,11 @@ export default {
       this.updated = true
       this.height = undefined // 重置高度
       this.$nextTick(function () {
+        // 如果已经销毁
+        if (this._isDestroyed) {
+          return
+        }
+
         if (this.vertical) {
           let max
 

@@ -185,6 +185,11 @@ export default {
 
       this.updated = true
       this.$nextTick(function () {
+        // 子组件销毁后有可能该组件也会销毁，所以要判断该组件是否已经销毁
+        if (this._isDestroyed) {
+          return
+        }
+
         let index = -1
         const child = this.$children.filter(function (child) {
           return child.selected
