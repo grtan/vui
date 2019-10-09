@@ -58,9 +58,11 @@ customRequest|`Function`|`N`|无|通过覆盖默认的上传行为，可以自�
 onRemove|`Function`|`N`|无|(file,fileList)=>file ,移除文件时回调该方法
 
 ## 方法
+名称|类型|必填|默认值|描述
+:-:|:-:|:-:|:-:|:-:
 remove|`Function`|`N`|无|file=>{} 移除指定文件
 submit|`Function`|`N`|无|fileList=>{} 中所有的文件提交上传，仅状态不为success的文件
 
 ## 更新日志
 
-* v1.0.0 发布
+* v1.6.0 发布

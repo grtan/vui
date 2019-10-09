@@ -7,6 +7,7 @@
       ref="vuiFileInput"
       @change="fileSelected"
       :accept="accept"
+      :capture="capture"
       multiple
     />
     <input
@@ -16,6 +17,7 @@
       ref="vuiFileInput"
       @change="fileSelected"
       :accept="accept"
+      :capture="capture"
     />
     <div v-if="!dragAndDrop" class="vui-upload-content" @click="changeFile">
       <slot></slot>
@@ -144,6 +146,7 @@ export default {
       type: String,
       default: '*'
     },
+    capture: String,
     multiple: {
       type: Boolean,
       default: false
