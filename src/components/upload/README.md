@@ -43,6 +43,7 @@ export default {
 名称|类型|必填|默认值|描述
 :-:|:-:|:-:|:-:|:-:
 action|`String`|`Y`|`''`|文件上传服务器地址,必填
+capture|`String`|`N`|`'camera'`|使用摄像头功能
 accept|`String`|`N`|`*`|接受上传的文件类型, [详见 input accept Attribute](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/file#accept)
 multiple|`Boolean`|`N`|`false`|是否支持多选文件，`ie10+` 支持。开启后按住 ctrl 可选择多个文件
 dragAndDrop|`Boolean`|`N`|`false`|是否支持拖拽上传文件

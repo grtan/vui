@@ -192,7 +192,10 @@ export default {
       type: Function,
       default: () => { }
     },
-    onRemove: Function
+    onRemove: {
+      type: Function,
+      default: () => { }
+    }
   },
   data () {
     return {
