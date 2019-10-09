@@ -47,12 +47,16 @@ accept|`String`|`N`|`*`|接受上传的文件类型, [详见 input accept Attrib
 multiple|`Boolean`|`N`|`false`|是否支持多选文件，`ie10+` 支持。开启后按住 ctrl 可选择多个文件
 dragAndDrop|`Boolean`|`N`|`false`|是否支持拖拽上传文件
 limitSize|`Number`|`N`|`100*1024*1024`|单个文件大小限制，默认100M
+autoUpload|`Boolean`|`N`|`true`|选择文件后是否自动上传，默认为true,若为false，则需手动调用submit方法
 beforeUpload|`Function`|`N`|无|(blob)=>{},上传文件之前的钩子，参数为上传的文件，若返回 false 则停止上传该文件
 showUploadList|`Boolean`|`N`|`true`|是否显示上传文件列表
+onChange|`Function`|`N`|无|(file,fileList)=>file.status,文件状态改变触发该回调函数
 onProgress|`Function`|`N`|无|(file,fileList)=>file.progress,上传进度回调
 onSuccess|`Function`|`N`|无|(file,fileList)=>file.response,上传成功回调
 onError|`Function`|`N`|无|(file,fileList,error)=>file.status,上传错误回调
 customRequest|`Function`|`N`|无|通过覆盖默认的上传行为，可以自定义自己的上传实现,参数为选择的文件
+onRemove|`Function`|`N`|无|(file,fileList)=>file ,移除文件时回调该方法
+submit|`Function`|`N`|无|fileList 中所有的文件提交上传，仅状态不为success的文件
 
 
 ## 更新日志

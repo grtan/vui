@@ -72,7 +72,7 @@
   }
 }
 .vui-upload-item {
-  border-bottom: 1PX solid #eaeaea;
+  border-bottom: 1px solid #eaeaea;
   position: relative;
   &:last-child {
     border-bottom: none;
@@ -132,7 +132,7 @@ const FILE_STATUS = {
   PROGRESS: 'upload',
   SUCCESS: 'success',
   ERROR: 'error'
-};
+}
 export default {
   name: 'upload',
   props: {
@@ -142,7 +142,7 @@ export default {
     },
     accept: {
       type: String,
-      default: '*',
+      default: '*'
     },
     multiple: {
       type: Boolean,
@@ -150,140 +150,156 @@ export default {
     },
     dragAndDrop: {
       type: Boolean,
-      default: false,
+      default: false
     },
     trunkSize: {
       type: Number,
-      default: 4 * 1024 * 1024,
+      default: 4 * 1024 * 1024
     },
     limitSize: {
       type: Number,
-      default: 100 * 1024 * 1024,
+      default: 100 * 1024 * 1024
     },
     showUploadList: {
+      type: Boolean,
+      default: true
+    },
+    autoUpload: {
       type: Boolean,
       default: true
     },
     customRequest: Function,
     onChange: {
       type: Function,
-      default: () => { },
+      default: () => { }
     },
     onProgress: {
       type: Function,
-      default: () => { },
+      default: () => { }
     },
     onSuccess: {
       type: Function,
-      default: () => { },
+      default: () => { }
     },
     beforeUpload: {
       type: Function,
-      default: () => { },
+      default: () => { }
     },
     onError: {
       type: Function,
-      default: () => { },
+      default: () => { }
     },
+    onRemove: Function
   },
   data () {
     return {
       fileList: [],
-      dragStatus: undefined,
+      dragStatus: undefined
     }
   },
   methods: {
     checkFile (file) {
-      return file.size <= this.limitSize;
+      if (file.size > this.limitSize) {
+        this.onError(file, this.fileList, '文件大小超限')
+        return false
+      }
     },
     changeFile () {
-      const { vuiFileInput } = this.$refs;
-      vuiFileInput.value = '';
-      vuiFileInput.click();
+      const { vuiFileInput } = this.$refs
+      vuiFileInput.value = ''
+      vuiFileInput.click()
     },
     fileSelected (e) {
-      const files = e.target.files;
-      this.upload(files);
+      const files = e.target.files
+      this.uploadStart(files)
     },
     dropFile (e) {
-      e.preventDefault();
-      this.dragStatus = undefined;
-      this.upload(e.dataTransfer.files);
+      e.preventDefault()
+      this.dragStatus = undefined
+      this.uploadStart(e.dataTransfer.files)
     },
-
     dragOver (e) {
-      e.preventDefault();
-      this.dragStatus = 'dragging';
-      return false;
+      e.preventDefault()
+      this.dragStatus = 'dragging'
+      return false
     },
 
     dragEnd (e) {
-      e.preventDefault();
-      this.dragStatus = undefined;
-      return false;
+      e.preventDefault()
+      this.dragStatus = undefined
+      return false
     },
-
-    upload (files) {
-      if (this.customRequest) return this.customRequest(files);
+    uploadStart (files) {
+      if (this.customRequest) return this.customRequest(files)
       Array.from(files).forEach(file => {
-        if (this.beforeUpload(file) === false || this.checkFile(file) === false) return;
         const fileObj = {
           key: `${file.name}_${Date.now()}`,
           name: file.name,
           size: file.size,
           status: FILE_STATUS.WAIT,
           progress: 0,
-          raw: file,
-        };
-        this.fileList.push(fileObj);
-        this.uploadForm(fileObj);
-      });
+          raw: file
+        }
+        if (this.beforeUpload(file) === false || this.checkFile(file) === false) return
+        this.fileList.push(fileObj)
+        this.autoUpload && this.uploadForm(fileObj)
+      })
     },
     uploadForm (file) {
-      if (!this.action) return;
-      const formData = new FormData();
-      const xhr = new XMLHttpRequest();
-      formData.append('file', file.raw, file.name);
+      if (!this.action) return
+      const formData = new FormData()
+      const xhr = new XMLHttpRequest()
+      formData.append('file', file.raw, file.name)
       xhr.upload.onprogress = e => {
-        let progress = 0;
+        let progress = 0
         if (e.lengthComputable) {
-          progress = e.loaded / file.size;
+          progress = e.loaded / file.size
           if (progress > 0 && progress <= 1) {
-            file.status = FILE_STATUS.PROGRESS;
+            file.status = FILE_STATUS.PROGRESS
           };
-          file.progress = progress;
-          this.onProgress(file, this.fileList);
-          this.onChange(file, this.fileList);
+          file.progress = progress
+          this.onProgress(file, this.fileList)
+          this.onChange(file, this.fileList)
         }
-      };
-      xhr.onreadystatechange = () => {
-        if (xhr.readyState !== 4) return;
-        if (xhr.status && xhr.status === 200) {
-          file.status = FILE_STATUS.SUCCESS;
-          try {
-            file.response = JSON.parse(xhr.response);
-          } catch (e) {
-            file.response = xhr.response;
-          }
-          delete this.reqs[file.key];
-          this.onSuccess(file, this.fileList);
-          this.onChange(file, this.fileList);
-        }
-      };
-      xhr.onerror = () => {
-        file.status = FILE_STATUS.ERROR;
-        this.onError(file, this.fileList, xhr.response);
-        delete this.reqs[file.key];
       }
-      xhr.open("POST", this.action);
-      xhr.send(formData);
-      this.reqs = Object.assign(this.reqs || {}, { [file.key]: xhr });
+      xhr.onreadystatechange = () => {
+        if (xhr.readyState !== 4) return
+        if (xhr.status && xhr.status === 200) {
+          file.status = FILE_STATUS.SUCCESS
+          try {
+            file.response = JSON.parse(xhr.response)
+          } catch (e) {
+            file.response = xhr.response
+          }
+          delete this.reqs[file.key]
+          this.onSuccess(file, this.fileList)
+          this.onChange(file, this.fileList)
+        }
+      }
+      xhr.onerror = () => {
+        file.status = FILE_STATUS.ERROR
+        this.onError(file, this.fileList, xhr.response)
+        delete this.reqs[file.key]
+      }
+      xhr.open('POST', this.action)
+      xhr.send(formData)
+      this.reqs = Object.assign(this.reqs || {}, { [file.key]: xhr })
+    },
+    // 手动上传
+    submit () {
+      this.fileList && this.fileList.forEach(file => {
+        file.status !== FILE_STATUS.SUCCESS && this.uploadForm(file)
+      })
     },
     remove (file) {
-      const { key } = file;
-      if (this.reqs[key]) this.reqs[key].abort();
-      for (let [index, item] of this.fileList.entries()) {
-        if (item.key === key) return this.fileList.splice(index, 1);
+      const { key } = file
+      if (this.reqs && this.reqs[key]) this.reqs[key].abort()
+      for (const [index, item] of this.fileList.entries()) {
+        if (item.key === key) {
+          this.fileList.splice(index, 1)
+          this.onRemove(file, this.fileList)
+          return
+        }
       }
     }
   }
