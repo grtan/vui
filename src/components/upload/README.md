@@ -56,8 +56,10 @@ onSuccess|`Function`|`N`|无|(file,fileList)=>file.response,上传成功回调
 onError|`Function`|`N`|无|(file,fileList,error)=>file.status,上传错误回调
 customRequest|`Function`|`N`|无|通过覆盖默认的上传行为，可以自定义自己的上传实现,参数为选择的文件
 onRemove|`Function`|`N`|无|(file,fileList)=>file ,移除文件时回调该方法
-submit|`Function`|`N`|无|fileList 中所有的文件提交上传，仅状态不为success的文件
 
+## 方法
+remove|`Function`|`N`|无|file=>{} 移除指定文件
+submit|`Function`|`N`|无|fileList=>{} 中所有的文件提交上传，仅状态不为success的文件
 
 ## 更新日志
 
