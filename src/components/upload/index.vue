@@ -255,6 +255,7 @@ export default {
       if (!this.action) return
       const formData = new FormData()
       const xhr = new XMLHttpRequest()
+      this.reqs = Object.assign(this.reqs || {}, { [file.key]: xhr })
       formData.append('file', file.raw, file.name)
       xhr.upload.onprogress = e => {
         let progress = 0
@@ -289,7 +290,6 @@ export default {
       }
       xhr.open('POST', this.action)
       xhr.send(formData)
-      this.reqs = Object.assign(this.reqs || {}, { [file.key]: xhr })
     },
     // 手动上传
     submit () {
