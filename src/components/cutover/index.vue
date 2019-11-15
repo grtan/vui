@@ -14,8 +14,16 @@
     // 任何情况下过渡，transition组件都会将enter元素添加到尾部，这里利用opacity不为1时形成层叠上下文，保证层叠顺序跟元素dom顺序一致
     opacity: 0.99999;
 
-    &:not(:first-child) {
-      margin-left: -100%;
+    /**
+      第一个非display:none的元素必须要有高度，否则后面的元素会移动到容器外
+      这里的:first-child应该是指的排除display:none的元素后的第一个，由于选择器的局限性就没排除，不过正常情况下也不会出现这种情况
+     */
+    &:first-child {
+      min-height: 1px;
+
+      ~ * {
+        margin-left: -100%;
+      }
     }
   }
 
@@ -200,7 +208,8 @@ export default {
   render () {
     const data = {
       props: Object.assign({}, this.$attrs, {
-        name: this.disabled ? '' : `${this.$options.name}-${this.type}`
+        // 当duration为0时也不能应用过渡，否则type应用fade时会闪一下空白
+        name: this.disabled || !this.duration ? `${this.$options.name}_notransition` : `${this.$options.name}-${this.type}`
       }),
       on: {
         // 哪怕没设置appear属性，只设置了apper钩子，也会引起初始渲染。所以未设置appear属性时不能添加钩子
@@ -234,6 +243,26 @@ export default {
 
       return cloned
     })
+
+    /**
+     * 找到第一个非display:none的子元素，并添加相应的类
+     * 一般不需要，因为transition或者transition-group中一般不会出现display:none在非display:none元素前的场景
+     */
+    // this.$nextTick(function () {
+    //   const className = `${this.$options.name}-first-show`
+    //   let firstFinded
+
+    //     ;[].slice.call(this.$el.children).forEach(function (child) {
+    //     const display = window.getComputedStyle(child).display
+
+    //     if (firstFinded || display === 'none') {
+    //       child.classList.remove(className)
+    //     } else {
+    //       firstFinded = true
+    //       child.classList.add(className)
+    //     }
+    //   })
+    // })
 
     if (!this.multiple) {
       return (
