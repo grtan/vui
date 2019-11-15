@@ -1,3 +1,12 @@
+## [1.15.2](http://gitlab.vmic.xyz/game-fed/vui/compare/v1.15.1...v1.15.2) (2019-11-15)
+
+
+### Bug Fixes
+
+* **cutover,loadComponent:** 修复cutover第一个过渡元素高度为`0`时样式错乱、`duration`为`0`时依然应用过渡效果导致闪烁的问题；修复loadComponent中组件容器高度塌陷的问题 ([c540b18](http://gitlab.vmic.xyz/game-fed/vui/commit/c540b18))
+
+
+
 ## [1.15.1](http://gitlab.vmic.xyz/game-fed/vui/compare/v1.15.0...v1.15.1) (2019-09-24)
 
 
