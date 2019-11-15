@@ -70,21 +70,24 @@ function loadComponent (options) {
   return {
     name: `${libName}-load-component`,
     render () {
-      const style = {
+      const rootStyle = {
+        height: '100%'
+      }
+      const componentWrapperStyle = {
         visibility: this.showComponent ? '' : 'hidden',
         height: '100%',
         transition: 'none'
       }
 
       return (
-        <cutover tag="span" multiple={true} class={this.$options.name} type={transitionType} duration={transitionDuration} appear={transitionAppear}>
+        <cutover multiple={true} class={this.$options.name} style={rootStyle} type={transitionType} duration={transitionDuration} appear={transitionAppear}>
           {
             /**
              * transition-group的子元素使用v-show会有诡异的问题，所以要在外面再套一层
              * https://github.com/vuejs/vue/issues/5661#issuecomment-301078575
              */
           }
-          <cutover style={style} type={transitionType} duration={transitionDuration} appear={transitionAppear} key="component">
+          <cutover style={componentWrapperStyle} type={transitionType} duration={transitionDuration} appear={transitionAppear} key="component">
             <v-component vShow={this.showComponent}
               {
               ...({

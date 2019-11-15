@@ -81,7 +81,8 @@ export default {
 
 ## 更新日志
 
-- v1.10.0 `type`新增`slide-hz`和`slide-vt`类型
-- v1.5.1 修复过渡时偶现 margin-left 被过渡的问题
-- v1.1.0 新增`disabled`属性
-- v1.0.0 发布
+* v1.15.2 修复第一个过渡元素高度为`0`时样式错乱、`duration`为`0`时依然应用过渡效果导致闪烁的问题
+* v1.10.0 `type`新增`slide-hz`和`slide-vt`类型
+* v1.5.1 修复过渡时偶现 margin-left 被过渡的问题
+* v1.1.0 新增`disabled`属性
+* v1.0.0 发布
