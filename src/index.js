@@ -63,6 +63,7 @@ export { default as PopupPicker } from './components/popup-picker/index.vue'
 export { default as Switch } from './components/switch/index.vue'
 export { default as CityPicker } from './components/city-picker/index.vue'
 // export { default as DatetimePicker } from './components/datetime-picker/index.vue'
+export { default as Upload } from './components/upload/index.vue'
 // 数据展示
 export { default as LoadMore } from './components/load-more/index.vue'
 export { default as Swiper } from './components/swiper/index.vue'
@@ -75,7 +76,6 @@ export { default as Cutover } from './components/cutover/index.vue'
 // 其他
 export { default as Cache } from './components/cache/index.vue'
 export { default as Timer } from './components/timer/index.vue'
-// export { default as Upload } from './components/upload/index.vue'
 
 // 插件
 export { default as PDialog } from './plugins/dialog/index'

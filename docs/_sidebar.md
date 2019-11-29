@@ -31,6 +31,7 @@
     - [popup-picker 弹层选择器](src/components/popup-picker/)
     - [city-picker 省市区选择器](src/components/city-picker/)
     - [switch 开关](src/components/switch/)
+    - [upload 文件上传](src/components/upload/)
   - 数据展示
     - [marquee 跑马灯](src/components/marquee/)
     - [swiper 轮播](src/components/swiper/)

@@ -1,6 +1,6 @@
 {
   "name": "@vivo/vui",
-  "version": "1.15.2",
+  "version": "1.16.0",
   "description": "A library of vue ui components and some tools",
   "main": "dist/lib.js",
   "module": "lib/index.js",
@@ -100,8 +100,12 @@
     }
   },
   "browserslist": [
-    "> 0.5% and last 20 versions",
-    "not Android < 4.0",
-    "not ie < 10"
+    "> 0.5%",
+    "> 0.5% in CN",
+    "IE >= 10",
+    "Android >= 4.4",
+    "last 10 versions",
+    "not IE < 10",
+    "not Android < 4.4"
   ]
 }

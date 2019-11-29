@@ -46,7 +46,7 @@ async function createDistJs (cb) {
           style: 'less'
         },
         style: {
-          postcssPlugins: [autoprefixer(postcssPlugins.autoprefixer), postcssPxtorem(postcssPlugins.pxtorem), postcssUrl(postcssPlugins.url)]
+          postcssPlugins: [autoprefixer, postcssPxtorem(postcssPlugins.pxtorem), postcssUrl(postcssPlugins.url)]
         },
         template: {
           isProduction: true
@@ -99,7 +99,7 @@ function createDistCss (cb) {
     .pipe(gulpLess({
       rewriteUrls: 'all', // url路径相对被引入的less而不相对entry less
       plugins: [
-        new LessAutoPrefix(postcssPlugins.autoprefixer)
+        new LessAutoPrefix()
       ]
     }))
     .pipe(gulpPxtorem(postcssPlugins.pxtorem))
@@ -142,7 +142,7 @@ async function compile (file) {
           style: 'less'
         },
         style: {
-          postcssPlugins: [autoprefixer(postcssPlugins.autoprefixer), postcssPxtorem(postcssPlugins.pxtorem), postcssUrl(postcssPlugins.url)]
+          postcssPlugins: [autoprefixer, postcssPxtorem(postcssPlugins.pxtorem), postcssUrl(postcssPlugins.url)]
         },
         template: {
           isProduction: true
@@ -211,7 +211,7 @@ function compileStyle (cb) {
     .pipe(gulpLess({
       rewriteUrls: 'all', // url路径相对被引入的less而不相对entry less
       plugins: [
-        new LessAutoPrefix(postcssPlugins.autoprefixer),
+        new LessAutoPrefix(),
         new LessCleanCSS()
       ]
     }))

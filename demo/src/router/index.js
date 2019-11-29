@@ -177,6 +177,14 @@ let router = new Router({
       },
       component: () =>
         import(/* webpackChunkName: "switch" */ '@/views/components/switch/index.vue')
+    }, {
+      name: 'upload',
+      path: '/components/upload',
+      meta: {
+        title: 'upload 文件上传'
+      },
+      component: () =>
+        import(/* webpackChunkName: "upload" */ '@/views/components/upload/index.vue')
     },
     // 数据展示
     {
@@ -259,15 +267,7 @@ let router = new Router({
       },
       component: () =>
         import(/* webpackChunkName: "cache-page2" */ '@/views/components/cache/page2.vue')
-    }/*, {
-      name: 'upload',
-      path: '/components/upload',
-      meta: {
-        title: 'upload上传'
-      },
-      component: () =>
-        import(/!* webpackChunkName: "timer" *!/ '@/views/components/upload/index.vue')
-    } */,
+    }
     // =======插件=======
     /*{
       name: 'track',
