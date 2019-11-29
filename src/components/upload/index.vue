@@ -129,6 +129,7 @@
 </style>
 
 <script>
+import { libName } from '../../config'
 const FILE_STATUS = {
   WAIT: 'init',
   PROGRESS: 'upload',
@@ -136,7 +137,7 @@ const FILE_STATUS = {
   ERROR: 'error'
 }
 export default {
-  name: 'upload',
+  name: `${libName}-upload`,
   props: {
     action: {
       type: String,
