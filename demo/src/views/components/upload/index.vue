@@ -55,9 +55,9 @@
 import { Upload, Button, Icon } from 'vui';
 
 export default {
-  data () {
+  data() {
     return {
-      host: '/mockApi/vui/api/upload/file',
+      host: 'http://api.vivo.xyz/mockApi/vui/api/upload/file',
     }
   },
   components: {
@@ -65,35 +65,35 @@ export default {
     VuiButton: Button,
     Icon,
   },
-  mounted () {
+  mounted() {
     this.upload = this.$refs.upload
   },
   methods: {
-    submit () {
+    submit() {
       this.upload.submit()
     },
-    beforeUpload (file) {
+    beforeUpload(file) {
 
     },
 
-    removeFile () {
+    removeFile() {
       this.upload.fileList.forEach(file => {
         this.upload.remove(file)
       });
     },
-    onRemove (file, fileList) {
+    onRemove(file, fileList) {
       console.log(file, fileList)
     },
-    onChange (file, fileList) {
+    onChange(file, fileList) {
 
     },
-    onSuccess (file, fileList) {
+    onSuccess(file, fileList) {
       console.log('success', file.status);
     },
-    onProgress (file, fileList) {
+    onProgress(file, fileList) {
       console.log('progress', file.progress);
     },
-    onError (file, fileList, error) {
+    onError(file, fileList, error) {
       console.log('error', file);
     },
   }

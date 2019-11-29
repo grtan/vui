@@ -128,6 +128,9 @@ export default {
              },*/ {
             name: 'switch 开关',
             routeName: 'switch'
+          }, {
+            name: 'upload 文件上传',
+            routeName: 'upload'
           }]
         }, {
           category: '数据展示',

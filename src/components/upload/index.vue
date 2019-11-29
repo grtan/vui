@@ -1,9 +1,8 @@
 <template>
-  <div class="vui-upload">
+  <div :class="$options.name">
     <input
       v-if="multiple"
       type="file"
-      id="vui-upload-input"
       ref="vuiFileInput"
       @change="fileSelected"
       :accept="accept"
@@ -13,18 +12,17 @@
     <input
       v-else
       type="file"
-      id="vui-upload-input"
       ref="vuiFileInput"
       @change="fileSelected"
       :accept="accept"
       :capture="capture"
     />
-    <div v-if="!dragAndDrop" class="vui-upload-content" @click="changeFile">
+    <div v-if="!dragAndDrop" :class="`${$options.name}-content`" @click="changeFile">
       <slot></slot>
     </div>
     <div
       v-else
-      :class="[dragStatus === 'dragging'?'hover':'','vui-upload-content','dragDropArea']"
+      :class="[dragStatus === 'dragging'?'hover':'',`${$options.name}-content`,'dragDropArea']"
       @click="changeFile"
       @drop="dropFile"
       @dragover="dragOver"
@@ -32,13 +30,13 @@
     >
       <slot></slot>
     </div>
-    <div class="vui-upload-list" v-if="showUploadList">
-      <div :class="[file.status,'vui-upload-item']" v-for="file in fileList" :key="file.key">
-        <div class="vui-upload-item-info">
+    <div :class="`${$options.name}-list`" v-if="showUploadList">
+      <div :class="[file.status,`${$options.name}-item`]" v-for="file in fileList" :key="file.key">
+        <div :class="`${$options.name}-item-info`">
           <span>{{file.name}}</span>
           <svg
             @click="remove(file)"
-            class="vui-upload-item-remove"
+            :class="`${$options.name}-item-remove`"
             fill="currentColor"
             viewBox="0 0 1024 1024"
             version="1.1"
@@ -63,23 +61,27 @@
 </template>
 
 <style lang="less">
-.vui-upload #vui-upload-input {
+@import "../../assets/style/base";
+
+@name: ~"@{lib-name}-upload";
+
+.@{name} > input {
   display: none;
 }
-.vui-upload-content.dragDropArea {
+.@{name}-content.dragDropArea {
   &:hover,
   &.hover {
     cursor: pointer;
     background: #f1f1f1;
   }
 }
-.vui-upload-item {
+.@{name}-item {
   border-bottom: 1px solid #eaeaea;
   position: relative;
   &:last-child {
     border-bottom: none;
   }
-  .vui-upload-item-info {
+  .@{name}-item-info {
     position: relative;
     padding: 30px;
     display: flex;
@@ -88,12 +90,12 @@
     z-index: 1;
     &:hover {
       cursor: pointer;
-      .vui-upload-item-remove {
+      .@{name}-item-remove {
         display: inline-block;
       }
     }
   }
-  .vui-upload-item-remove {
+  .@{name}-item-remove {
     position: relative;
     display: none;
     background-size: 100%;
@@ -129,6 +131,7 @@
 </style>
 
 <script>
+import { libName } from '../../config'
 const FILE_STATUS = {
   WAIT: 'init',
   PROGRESS: 'upload',
@@ -136,7 +139,7 @@ const FILE_STATUS = {
   ERROR: 'error'
 }
 export default {
-  name: 'upload',
+  name: `${libName}-upload`,
   props: {
     action: {
       type: String,
