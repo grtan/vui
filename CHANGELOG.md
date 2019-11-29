@@ -1,3 +1,12 @@
+# [1.16.0](http://gitlab.vmic.xyz/game-fed/vui/compare/v1.15.2...v1.16.0) (2019-11-29)
+
+
+### Features
+
+* **upload:** 新增upload组件 ([fabf61a](http://gitlab.vmic.xyz/game-fed/vui/commit/fabf61a))
+
+
+
 ## [1.15.2](http://gitlab.vmic.xyz/game-fed/vui/compare/v1.15.1...v1.15.2) (2019-11-15)
 
 
