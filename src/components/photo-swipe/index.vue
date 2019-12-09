@@ -1,12 +1,12 @@
 <template>
   <!-- Root element of PhotoSwipe. Must have class pswp. -->
   <div class="pswp vui-photo-swipe" tabindex="-1" role="dialog" aria-hidden="true">
-    <!-- Background of PhotoSwipe. 
+    <!-- Background of PhotoSwipe.
          It's a separate element as animating opacity is faster than rgba(). -->
     <div class="pswp__bg"></div>
     <!-- Slides wrapper with overflow:hidden. -->
     <div class="pswp__scroll-wrap">
-      <!-- Container that holds slides. 
+      <!-- Container that holds slides.
             PhotoSwipe keeps only 3 of them in the DOM to save memory.
             Don't modify these 3 pswp__item elements, data is added later on. -->
       <div class="pswp__container">
@@ -16,7 +16,7 @@
       </div>
       <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
       <div class="pswp__ui pswp__ui--hidden">
-        <div class="pswp__top-bar">
+        <div class="pswp__top-bar" v-show="options.showTopBar">
           <!--  Controls are self-explanatory. Order can be changed. -->
           <div class="pswp__counter"></div>
           <button class="pswp__button pswp__button--close" title="关闭"></button>
@@ -37,6 +37,7 @@
         </div>
       </div>
     </div>
+    <slot></slot>
   </div>
 </template>
 
@@ -54,7 +55,9 @@ export default {
     options: {
       type: Object,
       default() {
-        return {};
+        return {
+          showTopBar: true
+        };
       }
     }
   },
@@ -65,15 +68,40 @@ export default {
         if (this.options.showAnimationDuration !== 0 && !item.msrc) {
           item.msrc = item.src;
         }
+        if (!(item.w >= 0 && item.h >= 0)) {
+          item.w = 0;
+          item.h = 0;
+        }
         return item;
       });
+    }
+  },
+  watch: {
+    list(newVal, oldVal) {
+      if (!this.photoswipe) {
+        return;
+      }
+      if (newVal.length && newVal.length - oldVal.length === -1) {
+        const index = this.photoswipe.getCurrentIndex();
+        this.photoswipe.invalidateCurrItems();
+        this.photoswipe.items.splice(index, 1);
+        let goToIndex = index;
+        if (goToIndex > this.photoswipe.items.length - 1) {
+          goToIndex = 0;
+        }
+        this.photoswipe.goTo(goToIndex);
+        this.photoswipe.updateSize(true);
+        this.photoswipe.ui.update();
+      } else if (!newVal.length) {
+        this.close();
+      }
     }
   },
   methods: {
     openPhotoSwipe(index) {
       const item = this.list[index];
       const _this = this;
-      if (!item.w || !item.h) {
+      if (!item.html && (!item.w || !item.h)) {
         const img = new Image();
         img.onload = function() {
           item.w = this.width;
@@ -92,13 +120,14 @@ export default {
           history: false,
           focus: false,
           tapToClose: true,
-          arrowEl:false,
+          arrowEl: false,
           index: index || 0
         },
         this.options
       );
       this.photoswipe = new PhotoSwipe(this.$el, PhotoSwipeUI, this.list, options);
       this.photoswipe.listen('gettingData', function(index, item) {
+        console.log(item.w, item.h);
         if (!item.w || !item.h) {
           const img = new Image();
           img.onload = function() {
@@ -149,6 +178,7 @@ export default {
   mounted() {}
 };
 </script>
-
+<style lang="less">
+@import url('style/default.less');
+</style>
 <style src="photoswipe/dist/photoswipe.css"></style>
-
