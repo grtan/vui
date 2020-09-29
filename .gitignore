@@ -1,9 +1,4 @@
-.DS_Store
-.idea
-.git
-.history
-settings.json
-npm-debug.log
 node_modules
-lib
 dist
+/lib
+/pnpm-lock.yaml

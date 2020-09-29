@@ -1,0 +1,6 @@
+@use '../var';
+
+.v-enter {
+  opacity: 0;
+  background: var.$primary-color;
+}

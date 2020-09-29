@@ -1,0 +1,46 @@
+@use './config';
+
+// BEM
+@mixin B($blocks) {
+  $selector: "";
+
+  @each $block in $blocks {
+    $selector: #{$selector + config.$namespace + config.$block-separator + $block + ","};
+  }
+
+  .#{$selector} {
+    @content;
+  }
+}
+
+@mixin E($elements) {
+  $selector: "";
+
+  @each $prefix in & {
+    @each $element in $elements {
+      $selector: #{$selector + $prefix + config.$element-separator + $element + ","};
+    }
+  }
+
+  @at-root {
+    #{$selector} {
+      @content;
+    }
+  }
+}
+
+@mixin M($modifiers) {
+  $selector: "";
+
+  @each $prefix in & {
+    @each $modifier in $modifiers {
+      $selector: #{$selector + $prefix + config.$modifier-separator + $modifier + ","};
+    }
+  }
+
+  @at-root {
+    #{$selector} {
+      @content;
+    }
+  }
+}

@@ -1,0 +1,35 @@
+@use '../../../skin/var';
+@use '../../../skin/common/mixin';
+@use '../../../skin/common/transition';
+@use 'test';
+
+@include mixin.B(dialog) {
+  text-align: center;
+
+  .t {
+    color: var.$primary-color;
+    background: url(/image/test.png);
+  }
+
+  .hehe {
+    background: url(../image/test.png);
+  }
+
+  @include mixin.E(e1) {
+    color: var.$primary-color;
+
+    @include mixin.M(m1 m11) {
+      height: 40px;
+      background: url(//image/test.png);
+    }
+  }
+
+  @include mixin.E([e2 e3]) {
+    width: 100px;
+    background: url(https://image/test.png);
+
+    @include mixin.M((m3, m4)) {
+      height: 140px;
+    }
+  }
+}
