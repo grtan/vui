@@ -59,6 +59,7 @@
     "vue": "^2.6.12"
   },
   "scripts": {
+    "c": "git-cz",
     "test": "rollup --config build/rollup.base.js",
     "build:skin": "gulp --gulpfile build/gulpfile.skin.js",
     "build:component": "rollup --config build/rollup.component.js"
