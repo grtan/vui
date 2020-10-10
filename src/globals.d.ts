@@ -10,4 +10,13 @@ interface HTMLElement {
     init: boolean
     observer: IntersectionObserver
   }
+  _scroll?: {
+    handler: EventListenerOrEventListenerObject
+  }
+  _top?: {
+    handler: EventListenerOrEventListenerObject
+  }
+  _bottom?: {
+    handler: EventListenerOrEventListenerObject
+  }
 }
