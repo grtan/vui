@@ -71,6 +71,7 @@
   "scripts": {
     "create": "node cli/index.js create",
     "delete": "node cli/index.js delete",
+    "c": "git-cz",
     "build:skin": "gulp --gulpfile build/gulpfile.skin.js",
     "build:component": "rollup --config build/rollup.component.js"
   },
