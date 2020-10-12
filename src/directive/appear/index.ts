@@ -1,3 +1,4 @@
+import { VuiDirective } from '@/type/module'
 import ObserveVNodeDirective from './interface'
 
 function unbind(el: HTMLElement) {
@@ -26,7 +27,12 @@ function inserted(el: HTMLElement, binding: ObserveVNodeDirective) {
   observer.observe(el)
 }
 
-export const appear = {
+const directive: VuiDirective = {
   inserted,
-  unbind
+  unbind,
+  install(Vue) {
+    Vue.directive('vui-appear', directive)
+  }
 }
+
+export default directive

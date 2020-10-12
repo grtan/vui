@@ -1,6 +1,5 @@
-import ObserveVNodeDirective from './interface'
-export { appear } from './appear'
-export { disappear } from './disappear'
+import { VuiDirective } from '@/type/module'
+import ObserveVNodeDirective from '../appear/interface'
 
 function unbind(el: HTMLElement) {
   if (!el._intersect) return
@@ -31,7 +30,12 @@ function inserted(el: HTMLElement, binding: ObserveVNodeDirective) {
   observer.observe(el)
 }
 
-export const intersect = {
+const directive: VuiDirective = {
   inserted,
-  unbind
+  unbind,
+  install(Vue) {
+    Vue.directive('vui-intersect', directive)
+  }
 }
+
+export default directive

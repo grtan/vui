@@ -1,4 +1,5 @@
-import ObserveVNodeDirective from './interface'
+import { VuiDirective } from '@/type/module'
+import ObserveVNodeDirective from '../appear/interface'
 
 function unbind(el: HTMLElement) {
   if (!el._disappear) return
@@ -26,7 +27,12 @@ function inserted(el: HTMLElement, binding: ObserveVNodeDirective) {
   observer.observe(el)
 }
 
-export const disappear = {
+const directive: VuiDirective = {
   inserted,
-  unbind
+  unbind,
+  install(Vue) {
+    Vue.directive('vui-disappear', directive)
+  }
 }
+
+export default directive

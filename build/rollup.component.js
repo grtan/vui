@@ -19,7 +19,7 @@ export default [
 
       glob
         .sync('src/**/*.{vue,ts,tsx,js,jsx}', {
-          ignore: ['src/**/*.d.ts']
+          ignore: ['src/**/demo/**', 'src/**/*.d.ts']
         })
         .forEach(pt => {
           entries[pt.replace(/^src\/|\.[^./]*$/g, '')] = pt

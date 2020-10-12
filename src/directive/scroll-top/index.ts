@@ -1,12 +1,13 @@
-import { ScrollVNodeDirective } from './interface'
+import { VuiDirective } from '@/type/module'
+import { ScrollVNodeDirective } from '../scroll/interface'
 
 function unbind(el: HTMLElement) {
-  if (!el._bottom) return
+  if (!el._top) return
 
-  const { handler } = el._bottom
+  const { handler } = el._top
 
   el.removeEventListener('scroll', handler)
-  delete el._bottom
+  delete el._top
 }
 
 function inserted(el: HTMLElement, binding: ScrollVNodeDirective) {
@@ -16,7 +17,7 @@ function inserted(el: HTMLElement, binding: ScrollVNodeDirective) {
   if (!value) return
 
   const handler = () => {
-    if (el.scrollTop + el.clientHeight >= el.scrollHeight) {
+    if (el.scrollTop <= 0) {
       value()
       once && unbind(el)
     }
@@ -24,12 +25,17 @@ function inserted(el: HTMLElement, binding: ScrollVNodeDirective) {
 
   el.addEventListener('scroll', handler, { passive: true })
 
-  el._bottom = {
+  el._top = {
     handler
   }
 }
 
-export const bottom = {
+const directive: VuiDirective = {
   inserted,
-  unbind
+  unbind,
+  install(Vue) {
+    Vue.directive('vui-scroll-top', directive)
+  }
 }
+
+export default directive

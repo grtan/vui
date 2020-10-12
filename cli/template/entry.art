@@ -1,11 +1,10 @@
+/* eslint-disable */
 import Vue from 'vue'
 {{each packages}}import {{$value.name}} from '{{$value.path}}'
 {{/each}}
 function install(vue: typeof Vue) {
   [{{components.map(item=>item.name).join(', ')}}, {{directives.map(item=>item.name).join(', ')}}].forEach(function (item) {
-    if (item.install) {
-      vue.use(item)
-    }
+    vue.use(item)
   })
 }
 

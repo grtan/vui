@@ -1,7 +1,5 @@
+import { VuiDirective } from '@/type/module'
 import { ScrollVNodeDirective } from './interface'
-
-export { top } from './top'
-export { bottom } from './bottom'
 
 function unbind(el: HTMLElement) {
   if (!el._scroll) return
@@ -32,7 +30,12 @@ function inserted(el: HTMLElement, binding: ScrollVNodeDirective) {
   }
 }
 
-export const scroll = {
+const directive: VuiDirective = {
   inserted,
-  unbind
+  unbind,
+  install(Vue) {
+    Vue.directive('vui-scroll', directive)
+  }
 }
+
+export default directive

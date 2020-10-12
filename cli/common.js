@@ -10,7 +10,7 @@ const types = {
 }
 
 function getModules(type) {
-  return glob.sync(`src/${type}/!(_template)*`).map(pt => {
+  return glob.sync(`src/${type}/*`).map(pt => {
     return {
       name: pascalcase(pt.replace(/^.*\/([^/]*)$/g, '$1')),
       path: pt
@@ -47,8 +47,11 @@ function genEntry() {
   fse.outputFileSync(
     path.resolve(__dirname, '../src/skin/index.scss'),
     artTemplate(path.resolve(__dirname, 'template/style-entry.art'), {
-      list: components.map(({ path: pt }) => {
-        return path.relative('src/skin', pt)
+      list: components.map(({ name, path: pt }) => {
+        return {
+          name,
+          path: path.relative('src/skin', `${pt}/style/index`)
+        }
       })
     })
   )

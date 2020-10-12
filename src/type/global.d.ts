@@ -1,5 +1,5 @@
 declare module '*.vue' {
-  import { VuiComponent } from '@/types/module'
+  import { VuiComponent } from '@/type/module'
   export default VuiComponent
 }
 
