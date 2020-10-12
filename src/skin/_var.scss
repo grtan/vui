@@ -1,3 +1,39 @@
-// 深色主题
+$color-primary: #6040ff !default;
+$color-regular: #909399 !default;
+$color-success: #f86f1a !default;
+$color-fail: #f56c6c !default;
+$color-warning: #e6a23c !default;
 
-$primary-color: blue !default;
+$color-text-dark: #e6a23c !default;
+$color-text-regular: #e6a23c !default;
+$color-text-light: #e6a23c !default;
+$color-text-lighter: #e6a23c !default;
+
+$button-color-primary: $color-primary !default;
+$button-color-regular: $color-regular !default;
+$button-color-success: $color-success !default;
+$button-color-fail: $color-fail !default;
+$button-color-warning: $color-warning !default;
+$button-font-size-big: 14px !default;
+$button-font-size-regular: 14px !default;
+$button-font-size-small: 12px !default;
+$button-font-size-mini: 12px !default;
+// 内边距
+$button-padding-big: 12px 20px !default;
+$button-padding-regular: 10px 17px !default;
+$button-padding-small: 8px 14px !default;
+$button-padding-mini: 6px 11px !default;
+// 圆角
+$button-radius-big: 4px !default;
+$button-radius-regular: 4px !default;
+$button-radius-small: 3px !default;
+$button-radius-mini: 3px !default;
+// 边框宽度
+$button-border-width: 1px !default;
+// 图标与文字间距
+$button-icon-spacing-big: 6px !default;
+$button-icon-spacing-regular: 6px !default;
+$button-icon-spacing-small: 6px !default;
+$button-icon-spacing-mini: 6px !default;
+
+// 移动端样式

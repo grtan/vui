@@ -1,0 +1,19 @@
+import Vue from 'vue'
+{{each packages}}import {{$value.name}} from '{{$value.path}}'
+{{/each}}
+function install(vue: typeof Vue) {
+  [{{components.map(item=>item.name).join(', ')}}, {{directives.map(item=>item.name).join(', ')}}].forEach(function (item) {
+    if (item.install) {
+      vue.use(item)
+    }
+  })
+}
+
+if (typeof window !== 'undefined' && window.Vue) {
+  install(window.Vue)
+}
+
+export { install, {{packages.map(item=>item.name).join(', ')}} }
+export default {
+  install
+}

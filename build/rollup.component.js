@@ -1,10 +1,12 @@
 import path from 'path'
 import glob from 'glob'
 import alias from '@rollup/plugin-alias'
-import vue from 'rollup-plugin-vue'
+import nodeResolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
 import typescript from 'rollup-plugin-typescript2'
 import babel from '@rollup/plugin-babel'
+import vue from 'rollup-plugin-vue'
+import { terser } from 'rollup-plugin-terser'
 import del from 'rollup-plugin-delete'
 
 const src = path.resolve(__dirname, `..${path.sep}src`)
@@ -19,7 +21,7 @@ export default [
         .sync('src/**/*.{vue,ts,tsx,js,jsx}', {
           ignore: ['src/**/*.d.ts']
         })
-        .forEach((pt) => {
+        .forEach(pt => {
           entries[pt.replace(/^src\/|\.[^./]*$/g, '')] = pt
         })
 
@@ -56,13 +58,11 @@ export default [
      * 所以构建后的index.vue文件中test模块的相对路径为  import { test } from '../../util/test'
      */
     external(id, parentId) {
-      console.log(id, '---', parentId)
-
       /**
-       * input文件本身、@/开头和vue处理后的模块不能外置
-       * @/开头和vue处理后的模块的路径经过alias插件处理后，alias插件又会调用this.resolve方法，最终又会调用该external判断，从而外置模块
+       * input文件本身、@/开头、后缀名为.vue、vue处理后的模块不能外置
+       * @/开头、后缀名为.vue的模块的路径经过alias插件处理后，alias插件又会调用this.resolve方法，最终又会调用该external判断，从而外置模块
        */
-      if (!parentId || id.startsWith('@/') || id.endsWith('.scss') || /\?rollup-plugin-vue=/.test(id)) {
+      if (!parentId || id.startsWith('@/') || id.endsWith('.vue') || /\?rollup-plugin-vue=/.test(id)) {
         return false
       }
 
@@ -70,27 +70,20 @@ export default [
     },
     plugins: [
       alias({
-        // 这里顺序很重要，如果前面的替换执行后找到了对应文件，就不会执行后续的替换了。所以@符号要最后替换
+        /**
+         * 默认是一个一个规则来顺序替换
+         * 前面匹配的规则替换后，如果替换后的路径被external外置了，就不会执行后续的替换了
+         */
         entries: [
           {
             find: /^(.*)\.vue$/,
             replacement: '$1.js'
           },
           {
-            find: /^(.*)\.scss$/,
-            replacement: '$1.css'
-          },
-          {
             find: /^@(\/.*)/,
             replacement: `${src}$1`
           }
         ]
-      }),
-      vue({
-        defaultLang: {
-          style: 'scss',
-          script: 'ts'
-        }
       }),
       // 必须放在babel前，否则babel处理后会添加import bael-helper语句，导致该插件无法识别代码为commonjs模块
       commonjs(),
@@ -101,9 +94,61 @@ export default [
         // 外置helper方法
         babelHelpers: 'runtime'
       }),
+      vue({
+        defaultLang: {
+          style: 'scss',
+          script: 'ts'
+        }
+      }),
       del({
         targets: 'lib/*'
       })
     ]
   }
+  // 构建umd模块
+  // {
+  //   input: 'src/index.ts',
+  //   output: [
+  //     {
+  //       dir: 'dist',
+  //       entryFileNames: 'vui.js',
+  //       format: 'umd',
+  //       name: 'VUI'
+  //     },
+  //     {
+  //       dir: 'dist',
+  //       entryFileNames: 'vui.min.js',
+  //       format: 'umd',
+  //       name: 'VUI',
+  //       compact: true,
+  //       plugins: [terser()]
+  //     }
+  //   ],
+  //   plugins: [
+  //     alias({
+  //       entries: {
+  //         '@': src
+  //       }
+  //     }),
+  //     nodeResolve({
+  //       extensions: ['.vue', '.ts', '.tsx', '.js', '.jsx']
+  //     }),
+  //     commonjs(),
+  //     typescript(),
+  //     babel({
+  //       extensions: ['.ts', '.tsx', '.js', '.jsx'],
+  //       exclude: 'node_modules/**',
+  //       babelHelpers: 'runtime'
+  //     }),
+  //     vue({
+  //       defaultLang: {
+  //         style: 'scss',
+  //         script: 'ts'
+  //       }
+  //     }),
+  //     del({
+  //       targets: 'dist/*'
+  //     })
+  //   ]
+  // }
 ]

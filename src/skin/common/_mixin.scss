@@ -1,24 +1,70 @@
 @use './config';
+@use './function' as *;
 
 // BEM
-@mixin B($blocks) {
-  $selector: "";
+@mixin B($block) {
+  $B: config.$namespace + "-" + $block !global;
+  // $selector: "";
 
-  @each $block in $blocks {
-    $selector: #{$selector + config.$namespace + config.$block-separator + $block + ","};
-  }
+  // @each $block in $blocks {
+  //   $selector: #{$selector + config.$namespace + config.$block-separator + $block + ","};
+  // }
 
-  .#{$selector} {
+  .#{$B} {
     @content;
   }
 }
 
 @mixin E($elements) {
+  // $E: $elements !global;
   $selector: "";
 
-  @each $prefix in & {
-    @each $element in $elements {
-      $selector: #{$selector + $prefix + config.$element-separator + $element + ","};
+  @each $parent in & {
+    @if containsElement($parent) or containsModifier($parent) {
+      // 父选择器已经包含了EM，进行选择器嵌套
+      @each $element in $elements {
+        $selector: #{$selector + "." + $B + config.$element-separator + $element + ","};
+      }
+
+      @at-root {
+        #{$parent} {
+          #{$selector} {
+            @content;
+          }
+        }
+      }
+    } @else {
+      // 父选择器未包含EM，在选择器后面加上E
+      @each $element in $elements {
+        $selector: #{$selector + $parent + config.$element-separator + $element + ","};
+      }
+
+      @at-root {
+        #{$selector} {
+          @content;
+        }
+      }
+    }
+  }
+}
+
+@mixin M($modifiers) {
+  $selector: "";
+
+  @each $parent in & {
+    @if containsModifier($parent) {
+      // 父选择器已经包含M，则组合选择器
+      @each $modifier in $modifiers {
+        /* stylelint-disable-next-line function-name-case */
+        $prefix: selectorToString($parent);
+        $index: str-index($prefix, config.$modifier-separator);
+        $prefix: str-slice($prefix, 1, $index - 1);
+        $selector: #{$selector + $parent + $prefix + config.$modifier-separator + $modifier + ","};
+      }
+    } @else {
+      @each $modifier in $modifiers {
+        $selector: #{$selector + $parent + config.$modifier-separator + $modifier + ","};
+      }
     }
   }
 
@@ -29,17 +75,10 @@
   }
 }
 
-@mixin M($modifiers) {
-  $selector: "";
-
-  @each $prefix in & {
-    @each $modifier in $modifiers {
-      $selector: #{$selector + $prefix + config.$modifier-separator + $modifier + ","};
-    }
-  }
-
+// pc端样式
+@mixin pc {
   @at-root {
-    #{$selector} {
+    html.#{config.$pc-class-name} & {
       @content;
     }
   }

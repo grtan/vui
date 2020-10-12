@@ -1,0 +1,3 @@
+{{each list}}
+@use '{{$value}}';
+{{/each}}

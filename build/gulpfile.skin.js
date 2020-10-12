@@ -18,7 +18,7 @@ function genLibSkin(cb) {
     .src([`${src}/**/[^_]*.scss`, `!${src}/skin/index.scss`])
     .pipe(
       gulpModifyFile((content, pt) => {
-        return new Promise((resolve) => {
+        return new Promise(resolve => {
           postcss([
             // 如果@use非片段scss文件，全部外置成对应的css文件
             postcssAtrule({
@@ -29,7 +29,10 @@ function genLibSkin(cb) {
                 }
 
                 // 判断是不是省略了片段文件的_前缀
-                const absolutePath = path.resolve(path.dirname(pt), importee.replace(/\b_?([^/.]+)(\.[^./]+)?$/, '_$1.scss'))
+                const absolutePath = path.resolve(
+                  path.dirname(pt),
+                  importee.replace(/\b_?([^/.]+)(\.[^./]+)?$/, '_$1.scss')
+                )
 
                 if (fse.pathExistsSync(absolutePath)) {
                   return
@@ -53,7 +56,7 @@ function genLibSkin(cb) {
               syntax: postcssScss,
               from: pt
             })
-            .then((result) => {
+            .then(result => {
               resolve(result.css)
             })
         })
@@ -74,7 +77,7 @@ function genDistSkin(cb) {
     .src(`${src}/skin/index.scss`)
     .pipe(
       gulpModifyFile((content, pt) => {
-        return new Promise((resolve) => {
+        return new Promise(resolve => {
           postcss([
             // 如果@use非片段scss文件，全部外置成对应的css文件
             postcssAtrule({
@@ -96,7 +99,7 @@ function genDistSkin(cb) {
               syntax: postcssScss,
               from: pt
             })
-            .then((result) => {
+            .then(result => {
               resolve(result.css)
             })
         })
@@ -153,7 +156,7 @@ function genDistSkin(cb) {
                 from: source
               }
             )
-            .then((result) => {
+            .then(result => {
               fse.outputFileSync(importee, result.css)
               done({
                 file: importee
@@ -181,7 +184,7 @@ function genDistSkin(cb) {
 // 拷贝资源
 function copyAssets(cb) {
   gulp
-    .src(`${src}/**/*.{jpg,jpeg,png,gif,webp,bmp,ttf,woff}`)
+    .src(`${src}/**/*.{jpg,jpeg,png,gif,webp}`)
     .pipe(gulp.dest(lib))
     .on('end', function () {
       cb()

@@ -1,0 +1,106 @@
+@use './config';
+
+@function selectorToString($selector) {
+  $selector: inspect($selector);
+  // $selector: str-slice($selector, 2, -2);
+  @return $selector;
+}
+
+// 检查选择器中是否包含BEM命名的分隔符
+@function containsSeparator($selector) {
+  /* stylelint-disable-next-line function-name-case */
+  $selector: selectorToString($selector);
+
+  @if str-index($selector, config.$element-separator) or str-index($selector, config.$modifier-separator) {
+    @return true;
+  } @else {
+    @return false;
+  }
+}
+
+@function containsElement($selector) {
+  /* stylelint-disable-next-line function-name-case */
+  $selector: selectorToString($selector);
+
+  @if str-index($selector, config.$element-separator) {
+    @return true;
+  } @else {
+    @return false;
+  }
+}
+
+@function containsModifier($selector) {
+  /* stylelint-disable-next-line function-name-case */
+  $selector: selectorToString($selector);
+
+  @if str-index($selector, config.$modifier-separator) {
+    @return true;
+  } @else {
+    @return false;
+  }
+}
+
+// @function containWhenFlag($selector) {
+//   $selector: selectortostring($selector);
+
+//   @if str-index($selector, "." + $state-prefix) {
+//     @return true;
+//   } @else {
+//     @return false;
+//   }
+// }
+
+// @function containPseudoClass($selector) {
+//   $selector: selectortostring($selector);
+
+//   @if str-index($selector, ":") {
+//     @return true;
+//   } @else {
+//     @return false;
+//   }
+// }
+
+// @function hitAllSpecialNestRule($selector) {
+//   @return containsModifier($selector) or containWhenFlag($selector) or containPseudoClass($selector);
+// }
+
+@function get-side($val, $side) {
+  $length: length($val);
+
+  @if $length == 1 {
+    @return $val;
+  }
+  @if $length == 2 {
+    @return map-get(
+      (
+        top: nth($val, 1),
+        bottom: nth($val, 1),
+        left: nth($val, 2),
+        right: nth($val, 2)
+      ),
+      $side
+    );
+  }
+  @if $length == 3 {
+    @return map-get(
+      (
+        top: nth($val, 1),
+        left: nth($val, 2),
+        right: nth($val, 2),
+        bottom: nth($val, 3)
+      ),
+      $side
+    );
+  }
+  @if $length == 4 {
+    @return map-get(
+      (
+        top: nth($val, 1),
+        right: nth($val, 2),
+        bottom: nth($val, 3),
+        left: nth($val, 4)
+      ),
+      $side
+    );
+  }
+}

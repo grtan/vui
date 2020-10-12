@@ -1,0 +1,27 @@
+@use '../../../skin/var' as *;
+@use '../../../skin/common/mixin' as *;
+
+@include B({{enName}}) {
+  font-size: 34px;
+
+  @include E(e) {
+    color: $color-primary;
+
+    @include M((m1, m2)) {
+      background: red;
+    }
+  }
+
+  // pc端样式
+  @include pc {
+    font-size: 12px;
+
+    @include E(e) {
+      color: #333;
+
+      @include M((m1, m2)) {
+        background: white;
+      }
+    }
+  }
+}
