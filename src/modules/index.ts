@@ -1,15 +1,15 @@
 /* eslint-disable */
 import Vue from 'vue'
 import { update } from '@/utils/store'
-import Appear from '@/modules/appear'
-import Button from '@/modules/button'
-import Dialog from '@/modules/dialog'
-import Disappear from '@/modules/disappear'
-import Intersect from '@/modules/intersect'
-import Overlayer from '@/modules/overlayer'
-import Scroll from '@/modules/scroll'
-import ScrollBottom from '@/modules/scroll-bottom'
-import ScrollTop from '@/modules/scroll-top'
+import Appear from './appear'
+import Button from './button'
+import Dialog from './dialog'
+import Disappear from './disappear'
+import Intersect from './intersect'
+import Overlayer from './overlayer'
+import Scroll from './scroll'
+import ScrollBottom from './scroll-bottom'
+import ScrollTop from './scroll-top'
 
 function install(
   vue: typeof Vue,

@@ -6,6 +6,7 @@ const gulpModifyFile = require('./gulp-modify-file')
 const gulpRename = require('gulp-rename')
 const postcss = require('postcss')
 const postcssUrl = require('postcss-url')
+const autoprefixer = require('autoprefixer')
 const postcssScss = require('postcss-scss')
 const postcssAtrule = require('./postcss-atrule')
 
@@ -15,11 +16,12 @@ const dist = path.resolve(__dirname, `..${path.sep}dist`)
 
 function genLibSkin(cb) {
   gulp
-    .src([`${src}/**/[^_]*.scss`, `!${src}/skin/index.scss`])
+    .src([`${src}/**/[^_]*.scss`])
     .pipe(
       gulpModifyFile((content, pt) => {
         return new Promise(resolve => {
           postcss([
+            autoprefixer(),
             // 如果@use非片段scss文件，全部外置成对应的css文件
             postcssAtrule({
               modifier(name, importee) {
@@ -74,7 +76,7 @@ function genDistSkin(cb) {
 
   fse.removeSync(skinTemp)
   gulp
-    .src(`${src}/skin/index.scss`)
+    .src(`${src}/modules/index.scss`)
     .pipe(
       gulpModifyFile((content, pt) => {
         return new Promise(resolve => {
@@ -137,6 +139,7 @@ function genDistSkin(cb) {
 
           // 替换url
           postcss([
+            autoprefixer(),
             postcssUrl({
               url({ url, absolutePath }) {
                 if (path.isAbsolute(url) || /^(https?:)?\/\//.test(url)) {

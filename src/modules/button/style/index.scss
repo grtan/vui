@@ -1,8 +1,8 @@
 @use '../../../skin/var' as *;
-@use '../../../skin/common/mixin';
+@use '../../../skin/common/mixin' as *;
 @use '../../../skin/common/function' as *;
 
-@include mixin.B(button) {
+@include b(button) {
   $block: &;
 
   outline: none;
@@ -37,7 +37,7 @@
     background: mix($color-white, $button-color-regular, 80%);
   }
 
-  @include mixin.M(primary) {
+  @include m(primary) {
     color: $button-color-primary;
 
     &:not([disabled]):hover {
@@ -49,7 +49,7 @@
     }
   }
 
-  @include mixin.M(success) {
+  @include m(success) {
     color: $button-color-success;
 
     &:not([disabled]):hover {
@@ -61,7 +61,7 @@
     }
   }
 
-  @include mixin.M(fail) {
+  @include m(fail) {
     color: $button-color-fail;
 
     &:not([disabled]):hover {
@@ -74,7 +74,7 @@
   }
 
   // 尺寸
-  @include mixin.M(big) {
+  @include m(big) {
     border-radius: $button-radius-big;
     padding: $button-padding-big;
     font-size: $button-font-size-big;
@@ -84,7 +84,7 @@
     }
   }
 
-  @include mixin.M(small) {
+  @include m(small) {
     border-radius: $button-radius-small;
     padding: $button-padding-small;
     font-size: $button-font-size-small;
@@ -94,7 +94,7 @@
     }
   }
 
-  @include mixin.M(mini) {
+  @include m(mini) {
     border-radius: $button-radius-mini;
     padding: $button-padding-mini;
     font-size: $button-font-size-mini;
@@ -105,35 +105,35 @@
   }
 
   // 圆角、圆形
-  @include mixin.M(round) {
+  @include m(round) {
     border-radius: #{$button-font-size-regular/2 + get-side($button-padding-regular, top) + $button-border-width} / 50%;
 
-    @include mixin.M(big) {
+    @include m(big) {
       border-radius: #{$button-font-size-big/2 + get-side($button-padding-big, top) + $button-border-width} / 50%;
     }
 
-    @include mixin.M(small) {
+    @include m(small) {
       border-radius: #{$button-font-size-small/2 + get-side($button-padding-small, top) + $button-border-width} / 50%;
     }
 
-    @include mixin.M(mini) {
+    @include m(mini) {
       border-radius: #{$button-font-size-mini/2 + get-side($button-padding-mini, top) + $button-border-width} / 50%;
     }
   }
 
-  @include mixin.M(circle) {
+  @include m(circle) {
     padding: 0.7em;
     border-radius: 50%;
   }
 
   // 块级按钮
-  @include mixin.M(block) {
+  @include m(block) {
     display: block;
     width: 100%;
   }
 
   // 实心背景
-  @include mixin.M(gorgeous) {
+  @include m(gorgeous) {
     background: $button-color-regular;
     color: #fff;
 
@@ -148,7 +148,7 @@
     }
 
     // 色调
-    @include mixin.M(primary) {
+    @include m(primary) {
       border-color: $button-color-primary;
       background: $button-color-primary;
 
@@ -163,7 +163,7 @@
       }
     }
 
-    @include mixin.M(success) {
+    @include m(success) {
       border-color: $button-color-success;
       background: $button-color-success;
 
@@ -178,7 +178,7 @@
       }
     }
 
-    @include mixin.M(fail) {
+    @include m(fail) {
       border-color: $button-color-fail;
       background: $button-color-fail;
 
@@ -195,7 +195,7 @@
   }
 
   // 渐变按钮
-  @include mixin.M(gradient) {
+  @include m(gradient) {
     color: #fff;
     border-color: transparent;
     background: linear-gradient(
@@ -223,7 +223,7 @@
         border-box;
     }
 
-    @include mixin.M(primary) {
+    @include m(primary) {
       background: linear-gradient(
           to right,
           mix($color-white, $button-color-primary, 20%),
@@ -250,7 +250,7 @@
       }
     }
 
-    @include mixin.M(success) {
+    @include m(success) {
       background: linear-gradient(
           to right,
           mix($color-white, $button-color-success, 20%),
@@ -277,7 +277,7 @@
       }
     }
 
-    @include mixin.M(fail) {
+    @include m(fail) {
       background: linear-gradient(
           to right,
           mix($color-white, $button-color-fail, 20%),
@@ -306,7 +306,7 @@
   }
 
   // 颜色淡一些的实心背景
-  @include mixin.M(plain) {
+  @include m(plain) {
     border-color: mix($color-white, $button-color-regular, 50%);
     background-color: mix($color-white, $button-color-regular, 90%);
 
@@ -321,7 +321,7 @@
       background: mix($color-black, $button-color-regular, 10%);
     }
 
-    @include mixin.M(primary) {
+    @include m(primary) {
       border-color: mix($color-white, $button-color-primary, 50%);
       background-color: mix($color-white, $button-color-primary, 90%);
 
@@ -336,7 +336,7 @@
       }
     }
 
-    @include mixin.M(success) {
+    @include m(success) {
       border-color: mix($color-white, $button-color-success, 50%);
       background-color: mix($color-white, $button-color-success, 90%);
 
@@ -351,7 +351,7 @@
       }
     }
 
-    @include mixin.M(fail) {
+    @include m(fail) {
       border-color: mix($color-white, $button-color-fail, 50%);
       background-color: mix($color-white, $button-color-fail, 90%);
 
@@ -368,7 +368,7 @@
   }
 
   // 纯文本按钮
-  @include mixin.M(text) {
+  @include m(text) {
     display: inline-block;
     border: none;
     padding: 0;
@@ -388,13 +388,13 @@
   }
 
   // pc端样式
-  @include mixin.pc {
+  @include pc {
     font-size: 34px;
 
-    @include mixin.E(e) {
+    @include e(e) {
       color: #333;
 
-      @include mixin.M((m1, m2)) {
+      @include m((m1, m2)) {
         background: white;
       }
     }

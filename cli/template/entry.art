@@ -1,8 +1,7 @@
 /* eslint-disable */
 import Vue from 'vue'
 import { update } from '@/utils/store'
-{{each modules}}import {{$value.enName}} from '@/modules/{{$value.lowerEnName}}'
-{{/each}}
+{{each modules}}import {{$value.enName}} from './{{$value.lowerEnName}}'{{'\n'}}{{/each}}
 function install(
   vue: typeof Vue,
   options?: {

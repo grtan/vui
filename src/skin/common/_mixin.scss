@@ -2,7 +2,7 @@
 @use './function' as *;
 
 // BEM
-@mixin B($block) {
+@mixin b($block) {
   $selector: get-block-selector($block);
 
   // 祖先选择器中不包含block块时才更新$B
@@ -15,7 +15,7 @@
   }
 }
 
-@mixin E($elements) {
+@mixin e($elements) {
   $selector: "";
 
   @each $parent in & {
@@ -47,7 +47,7 @@
   }
 }
 
-@mixin M($modifiers) {
+@mixin m($modifiers) {
   $selector: "";
 
   @each $parent in & {

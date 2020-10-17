@@ -11,17 +11,21 @@ const types = {
 }
 
 function getModules() {
-  return glob.sync(`src/modules/*`).map(pt => {
-    const meta = require(`../${pt}/meta.json`)
-    const lowerEnName = pt.replace(/^.*\/([^/]*)$/g, '$1')
+  return glob
+    .sync('src/modules/*', {
+      ignore: ['src/modules/index.*']
+    })
+    .map(pt => {
+      const meta = require(`../${pt}/meta.json`)
+      const lowerEnName = pt.replace(/^.*\/([^/]*)$/g, '$1')
 
-    return {
-      ...meta,
-      enName: pascalCase(lowerEnName),
-      lowerEnName,
-      path: pt
-    }
-  })
+      return {
+        ...meta,
+        enName: pascalCase(lowerEnName),
+        lowerEnName,
+        path: pt
+      }
+    })
 }
 
 // 生成入口文件
@@ -30,14 +34,14 @@ function genEntry() {
 
   // ts入口文件
   fse.outputFileSync(
-    path.resolve(__dirname, '../src/index.ts'),
+    path.resolve(__dirname, '../src/modules/index.ts'),
     artTemplate(path.resolve(__dirname, 'template/entry.art'), {
       modules
     })
   )
   // scss入口文件
   fse.outputFileSync(
-    path.resolve(__dirname, '../src/skin/index.scss'),
+    path.resolve(__dirname, '../src/modules/index.scss'),
     artTemplate(path.resolve(__dirname, 'template/style-entry.art'), {
       modules
     })

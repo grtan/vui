@@ -2,11 +2,11 @@
 @use '../../../skin/common/mixin' as *;
 @use '../../../skin/common/transition';
 
-@include B(overlayer) {
+@include b(overlayer) {
   // 阻止滚动溢出行为
   overscroll-behavior: contain;
 
-  @include E(layer) {
+  @include e(layer) {
     position: fixed;
     left: 0;
     right: 0;
@@ -14,16 +14,16 @@
     bottom: 0;
     background: $overlayer-background;
 
-    @include M(hide) {
+    @include m(hide) {
       display: none;
     }
 
-    @include M(light) {
+    @include m(light) {
       background: $overlayer-background-light;
     }
   }
 
-  @include E(content) {
+  @include e(content) {
     position: fixed;
   }
 }

@@ -2,12 +2,11 @@
 @use '../../../skin/common/config' as *;
 @use '../../../skin/common/function' as *;
 @use '../../../skin/common/mixin' as *;
-@use '../../../skin/common/transition';
-@use '../../overlayer/style/index' as overlayer;
-@use '../../button/style/index' as button;
+@use '../../overlayer/style/index' as *;
+@use '../../button/style/index' as *;
 
-@include B(dialog) {
-  @include E(wrapper) {
+@include b(dialog) {
+  @include e(wrapper) {
     position: fixed;
     left: 0;
     right: 0;
@@ -24,27 +23,27 @@
     }
   }
 
-  @include E(close) {
+  @include e(close) {
     display: none;
   }
 
-  @include E(header) {
+  @include e(header) {
     padding: $dialog-header-padding;
     color: $dialog-title-color;
     font-size: $dialog-title-font-size;
     line-height: $dialog-title-line-height;
     text-align: center;
 
-    @include M(left) {
+    @include m(left) {
       text-align: left;
     }
 
-    @include M(right) {
+    @include m(right) {
       text-align: right;
     }
   }
 
-  @include E(content) {
+  @include e(content) {
     padding: $dialog-content-padding;
     color: $dialog-content-color;
     font-size: $dialog-content-font-size;
@@ -52,30 +51,30 @@
     text-align: justify;
   }
 
-  @include E(footer) {
+  @include e(footer) {
     padding: $dialog-footer-padding;
     font-size: $dialog-footer-font-size;
     text-align: center;
 
-    @include M(left) {
+    @include m(left) {
       text-align: left;
     }
 
-    @include M(right) {
+    @include m(right) {
       text-align: right;
     }
   }
 
-  @include E(button-wrapper) {
+  @include e(button-wrapper) {
     display: flex;
     justify-content: center;
 
-    @include B(button) {
+    @include b(button) {
       flex: auto;
       max-width: $dialog-button-max-width;
     }
 
-    // @include B("button + .vui-button") {
+    // @include b("button + .vui-button") {
     //   margin-left: $dialog-button-spacing;
     // }
 
@@ -86,7 +85,7 @@
 
   // pc端样式
   @include pc {
-    @include E(wrapper) {
+    @include e(wrapper) {
       bottom: 50%;
       border-radius: $dialog-border-radius-pc;
       padding: $dialog-padding-pc;
@@ -110,7 +109,7 @@
       }
     }
 
-    @include E(close) {
+    @include e(close) {
       display: block;
       position: absolute;
       right: $dialog-close-right-pc;
@@ -120,19 +119,19 @@
       cursor: pointer;
     }
 
-    @include E(header) {
+    @include e(header) {
       padding: $dialog-header-padding-pc;
       font-size: $dialog-title-font-size-pc;
       line-height: $dialog-title-line-height-pc;
     }
 
-    @include E(content) {
+    @include e(content) {
       padding: $dialog-content-padding-pc;
       font-size: $dialog-content-font-size-pc;
       line-height: $dialog-content-line-height-pc;
     }
 
-    @include E(footer) {
+    @include e(footer) {
       padding: $dialog-footer-padding-pc;
       font-size: $dialog-footer-font-size-pc;
     }

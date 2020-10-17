@@ -1,8 +1,9 @@
 {
   "name": "@game/vui",
-  "version": "1.0.0-beta.0",
+  "version": "1.0.0-beta.2",
   "description": "a vue component lib",
-  "main": "index.js",
+  "main": "lib/modules/index.js",
+  "module": "lib/modules/index.js",
   "dependencies": {
     "@babel/runtime-corejs3": "^7.11.2",
     "tslib": "^2.0.1",
@@ -24,6 +25,7 @@
     "@typescript-eslint/parser": "^4.2.0",
     "@vue/babel-preset-jsx": "^1.2.1",
     "art-template": "^4.13.2",
+    "autoprefixer": "^10.0.1",
     "change-case": "^4.1.1",
     "commander": "^6.1.0",
     "commitizen": "^4.2.1",
@@ -104,15 +106,5 @@
   "bugs": {
     "url": "https://github.com/grtan/cli-template/issues"
   },
-  "homepage": "https://github.com/grtan/cli-template#readme",
-  "browserslist": [
-    "> 0.5% in CN",
-    "ie >= 10",
-    "Firefox ESR",
-    "android >= 4.4",
-    "ios >= 9",
-    "not ie < 10",
-    "not android < 4.4",
-    "not ios < 9"
-  ]
+  "homepage": "https://github.com/grtan/cli-template#readme"
 }
