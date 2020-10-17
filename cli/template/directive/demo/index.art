@@ -1,0 +1,15 @@
+<template>
+  <div v-vui-{{lowerEnName}}="">xxxx</div>
+</template>
+
+<script lang="ts">
+import { Vue, Component } from 'vue-property-decorator'
+import Vui{{enName}} from '../index'
+
+@Component({
+  directives: {
+    Vui{{enName}}
+  }
+})
+export default class VComponent extends Vue {}
+</script>

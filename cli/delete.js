@@ -1,7 +1,8 @@
 const path = require('path')
 const fse = require('fs-extra')
 const inquirer = require('inquirer')
-const { types, genEntry, genSidebar } = require('./common')
+const paramCase = require('change-case').paramCase
+const { genEntry, genSidebar } = require('./common')
 
 module.exports = async function () {
   let modulePath
@@ -9,25 +10,17 @@ module.exports = async function () {
   console.log('删除模块')
   await inquirer.prompt([
     {
-      name: 'type',
-      type: 'list',
-      message: '请选择要删除模块的类型',
-      choices: Object.keys(types)
-    },
-    {
       name: 'name',
-      message(answer) {
-        return `请输入要删除${answer.type}的英文名称`
-      },
-      validate(input = '', answer) {
-        if (!/^(?=[a-z])[0-9a-z-]+$/.test(input)) {
-          return '只能输入小写英文字母、数字和中划线，且只能以字母开头，请重新输入'
+      message: '请输入要删除模块的英文名称',
+      validate(input = '') {
+        if (!/^(?=[A-Z])[0-9a-zA-Z]+$/.test(input)) {
+          return '只支持帕斯卡命名法，如MyAge'
         }
 
-        modulePath = path.resolve(__dirname, `../src/${types[answer.type]}/${input}`)
+        modulePath = path.resolve(__dirname, `../src/modules/${paramCase(input)}`)
 
         if (!fse.pathExistsSync(modulePath)) {
-          return `${answer.type}不存在，请重新输入`
+          return '模块不存在，请重新输入'
         }
 
         return true

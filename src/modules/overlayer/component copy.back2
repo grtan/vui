@@ -1,0 +1,212 @@
+<template>
+  <div class="vui-overlayer">
+    <transition name="vui-fade" @after-enter="onAfterEnter" @after-leave="onAfterLeave">
+      <div
+        v-show="value"
+        :class="['vui-overlayer__layer', { 'vui-overlayer__layer--hide': hideLayer }]"
+        :style="{ zIndex: layerZIndex }"
+        @click="onClick"
+        @touchmove="$event.preventDefault()"
+      ></div>
+    </transition>
+    <div class="vui-overlayer__content" :style="{ zIndex: contentZIndex }">
+      <slot :show="value"></slot>
+    </div>
+  </div>
+</template>
+
+<script lang="ts">
+import { Vue, Component, Prop, Watch } from 'vue-property-decorator'
+import { zIndex, update } from '@/utils/store'
+
+// 当前显示的蒙层组件列表
+const layers: any[] = []
+
+@Component({
+  name: 'VuiOverlayer'
+})
+export default class VComponent extends Vue {
+  // 遮罩层z-index
+  layerZIndex = zIndex
+  // 内容层z-index
+  contentZIndex = zIndex
+  // 隐藏遮罩层
+  hideLayer = true
+  // 记录是否点击了蒙层
+  clicked = false
+
+  @Prop({
+    default: false
+  })
+  readonly value!: boolean
+
+  // 打开蒙层时是否pushState，如果是的话返回时关闭蒙层而不是页面后退
+  @Prop({
+    default: true
+  })
+  readonly pushState!: boolean
+
+  // 点击蒙层是否自动关闭
+  @Prop({
+    default: true
+  })
+  readonly closeOnClickOverlayer!: boolean
+
+  // 阻止点击、back关闭
+  @Prop({
+    default: false
+  })
+  readonly preventClose!: boolean
+
+  // 关闭前勾子
+  @Prop({
+    type: Function,
+    default() {
+      return (close:Function)=>{
+        close()
+      }
+    }
+  })
+  readonly beforeClose!: (close:(arg:boolean)=>void) => void
+
+  @Watch('value', {
+    immediate: true
+  })
+  onValueChange(value: boolean) {
+    this.onVisibilityChange(value)
+
+    if (this.pushState) {
+      if (value) {
+        window.history.pushState(
+          {
+            [this.$options.name!]: true
+          },
+          ''
+        )
+        window.addEventListener('popstate', this.onPopState)
+      } else if (window.history.state && window.history.state[this.$options.name!]) {
+        window.history.back()
+      }
+    }
+  }
+
+  // 显示/隐藏时遮罩层的处理
+  onVisibilityChange(value: boolean) {
+    if (value) {
+      // 应用最新的zIndex
+      this.layerZIndex = zIndex
+      this.contentZIndex = zIndex
+      // 如果下面有蒙层，则隐藏当前蒙层
+      this.hideLayer = !!layers.length
+      // 增加全局zIndex，这里至少要加2，因为后续显示的蒙层dom可能在当前显示蒙层dom的前面
+      update({ zIndex: zIndex + 2 })
+
+      if (layers.length) {
+        const preLayer = layers[layers.length - 1]
+
+        // 将顶层蒙层下一层的zIndex加1以遮盖其内容
+        preLayer.layerZIndex = preLayer.contentZIndex + 1
+        preLayer.hideLayer = false
+        // 重置下面的蒙层
+        layers.slice(0, -1).forEach(layer => {
+          layer.layerZIndex = layer.contentZIndex
+          layer.hideLayer = true
+        })
+      }
+
+      if (!layers.includes(this)) {
+        layers.push(this)
+      }
+    } else {
+      // 如果是顶层蒙层
+      if (!this.hideLayer) {
+        const index = layers.indexOf(this)
+
+        if (index) {
+          // 如果下面还有蒙层，则显示下一层蒙层
+          const preLayer = layers[index - 1]
+
+          this.hideLayer = true
+          preLayer.hideLayer = false
+          preLayer.layerZIndex = preLayer.contentZIndex + 1
+        } else {
+          // 恢复z-index
+          this.layerZIndex = this.contentZIndex
+        }
+      }
+    }
+  }
+
+  onAfterEnter() {
+    const index = layers.indexOf(this)
+
+    // 如果是顶层蒙层
+    if (index === layers.length - 1) {
+      // 显示当前蒙层
+      this.hideLayer = false
+
+      // 重置下面的蒙层
+      layers.slice(0, -1).forEach(layer => {
+        layer.layerZIndex = layer.contentZIndex
+        layer.hideLayer = true
+      })
+    }
+  }
+
+  onAfterLeave() {
+    const index = layers.indexOf(this)
+
+    // 重置下一层蒙层
+    if (index) {
+      layers[index - 1].layerZIndex = layers[index - 1].contentZIndex
+    }
+    // 移除当前组件
+    layers.splice(index, 1)
+  }
+
+  onClick() {
+    if (this.closeOnClickOverlayer && !this.preventClose) {
+      if (this.pushState) {
+        this.clicked = true
+        window.history.back()
+      } else {
+        this.$emit('input', false)
+      }
+    }
+
+    // 确保history.forward()真正执行完成
+    setTimeout(() => {
+      this.$emit('click', this.preventClose)
+    }, 50)
+  }
+
+  onPopState({ state }: PopStateEvent) {
+    if (!state || !state[this.$options.name!]) {
+      // 外部主动关闭或者不阻止内部关闭
+      if (!this.value || !this.preventClose) {
+        window.removeEventListener('popstate', this.onPopState)
+        this.$emit('input', false)
+      } else {
+        window.history.forward()
+      }
+      // 非外部主动关闭且非click关闭（返回关闭）
+      this.value &&
+        !this.clicked &&
+        setTimeout(() => {
+          // 确保history.forward()真正执行完成
+          this.$emit('back', this.preventClose)
+        }, 50)
+      this.clicked = false
+    }
+  }
+
+  mounted() {
+    // 将根dom节点移到body下
+    document.body.appendChild(this.$el)
+  }
+
+  beforeDestroy() {
+    this.onVisibilityChange(false)
+  }
+}
+</script>

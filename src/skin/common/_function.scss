@@ -1,39 +1,51 @@
-@use './config';
+@use './config' as *;
 
-@function selectorToString($selector) {
+@function get-block-selector($block) {
+  @return #{$namespace}#{$block-separator}#{$block};
+}
+
+@function selector-to-string($selector) {
   $selector: inspect($selector);
   // $selector: str-slice($selector, 2, -2);
   @return $selector;
 }
 
-// 检查选择器中是否包含BEM命名的分隔符
-@function containsSeparator($selector) {
-  /* stylelint-disable-next-line function-name-case */
-  $selector: selectorToString($selector);
+@function end-with($string, $find) {
+  $string: selector-to-string($string);
+  $find: selector-to-string($find);
 
-  @if str-index($selector, config.$element-separator) or str-index($selector, config.$modifier-separator) {
+  @if (str-index($string, $find) == (str-length($string) - str-length($find) + 1)) {
     @return true;
   } @else {
     @return false;
   }
 }
 
-@function containsElement($selector) {
-  /* stylelint-disable-next-line function-name-case */
-  $selector: selectorToString($selector);
+// 检查选择器中是否包含BEM命名的block块
+@function contain-block($selector) {
+  $selector: selector-to-string($selector);
 
-  @if str-index($selector, config.$element-separator) {
+  @if str-index($selector, "." + $namespace + $block-separator) {
     @return true;
   } @else {
     @return false;
   }
 }
 
-@function containsModifier($selector) {
-  /* stylelint-disable-next-line function-name-case */
-  $selector: selectorToString($selector);
+@function contain-element($selector) {
+  $selector: selector-to-string($selector);
 
-  @if str-index($selector, config.$modifier-separator) {
+  @if contain-block($selector) and str-index($selector, $element-separator) {
+    @return true;
+  } @else {
+    @return false;
+  }
+}
+
+@function contain-modifier($selector) {
+  $selector: selector-to-string($selector);
+
+  @if contain-block($selector) and str-index($selector, $modifier-separator) {
     @return true;
   } @else {
     @return false;
@@ -61,7 +73,7 @@
 // }
 
 // @function hitAllSpecialNestRule($selector) {
-//   @return containsModifier($selector) or containWhenFlag($selector) or containPseudoClass($selector);
+//   @return contain-modifier($selector) or containWhenFlag($selector) or containPseudoClass($selector);
 // }
 
 @function get-side($val, $side) {

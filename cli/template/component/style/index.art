@@ -1,7 +1,7 @@
 @use '../../../skin/var' as *;
 @use '../../../skin/common/mixin' as *;
 
-@include B({{enName}}) {
+@include B({{lowerEnName}}) {
   font-size: 34px;
 
   @include E(e) {

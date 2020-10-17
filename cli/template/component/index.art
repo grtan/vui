@@ -2,7 +2,7 @@ import { Vue } from 'vue-property-decorator'
 import Component from './component.vue'
 
 Component.install = function (vue: typeof Vue) {
-  vue.component('{{componentName}}', Component)
+  vue.component('Vui{{enName}}', Component)
 }
 
 export default Component

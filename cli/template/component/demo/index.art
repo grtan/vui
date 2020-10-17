@@ -1,16 +1,16 @@
 <template>
-  <vui-{{enName}}>xxxx</vui-{{enName}}>
+  <vui-{{lowerEnName}}>xxxx</vui-{{lowerEnName}}>
 </template>
 
 <style lang="scss" src="../style/index.scss"></style>
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
-import {{moduleName}} from '../index'
+import Vui{{enName}} from '../index'
 
 @Component({
   components: {
-    {{componentName}}: {{moduleName}}
+    Vui{{enName}}
   }
 })
 export default class VComponent extends Vue {}

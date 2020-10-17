@@ -1,18 +1,35 @@
 /* eslint-disable */
 import Vue from 'vue'
-{{each packages}}import {{$value.name}} from '{{$value.path}}'
+import { update } from '@/utils/store'
+{{each modules}}import {{$value.enName}} from '@/modules/{{$value.lowerEnName}}'
 {{/each}}
-function install(vue: typeof Vue) {
-  [{{components.map(item=>item.name).join(', ')}}, {{directives.map(item=>item.name).join(', ')}}].forEach(function (item) {
-    vue.use(item)
-  })
+function install(
+  vue: typeof Vue,
+  options?: {
+    // 全局配置
+    config?: Parameters<typeof update>[0]
+    // 插件参数
+    plugins?: Record<string, any>
+  }
+) {
+  const names: string[] = [{{@ modules.map(item=>`'${item.enName}'`).join(', ')}}]
+
+  if (options?.config) {
+    update(options.config)
+  }
+
+  ;[{{modules.map(item=>item.enName).join(', ')}}].forEach(
+    function (item, index) {
+      vue.use(item, options?.plugins?.[names[index]])
+    }
+  )
 }
 
 if (typeof window !== 'undefined' && window.Vue) {
   install(window.Vue)
 }
 
-export { install, {{packages.map(item=>item.name).join(', ')}} }
+export { install, {{modules.map(item=>item.enName).join(', ')}} }
 export default {
   install
 }

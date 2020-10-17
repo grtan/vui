@@ -1,0 +1,140 @@
+@use '../../../skin/var' as *;
+@use '../../../skin/common/config' as *;
+@use '../../../skin/common/function' as *;
+@use '../../../skin/common/mixin' as *;
+@use '../../../skin/common/transition';
+@use '../../overlayer/style/index' as overlayer;
+@use '../../button/style/index' as button;
+
+@include B(dialog) {
+  @include E(wrapper) {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    box-sizing: border-box;
+    margin: auto;
+    border-radius: $dialog-border-radius;
+    padding: $dialog-padding;
+    width: $dialog-width;
+    background: $dialog-background;
+
+    &:not(.#{$namespace}-slide-bottom-enter):not(.#{$namespace}-slide-bottom-leave-active) {
+      transform: translateY(-$dialog-spacing-bottom);
+    }
+  }
+
+  @include E(close) {
+    display: none;
+  }
+
+  @include E(header) {
+    padding: $dialog-header-padding;
+    color: $dialog-title-color;
+    font-size: $dialog-title-font-size;
+    line-height: $dialog-title-line-height;
+    text-align: center;
+
+    @include M(left) {
+      text-align: left;
+    }
+
+    @include M(right) {
+      text-align: right;
+    }
+  }
+
+  @include E(content) {
+    padding: $dialog-content-padding;
+    color: $dialog-content-color;
+    font-size: $dialog-content-font-size;
+    line-height: $dialog-content-line-height;
+    text-align: justify;
+  }
+
+  @include E(footer) {
+    padding: $dialog-footer-padding;
+    font-size: $dialog-footer-font-size;
+    text-align: center;
+
+    @include M(left) {
+      text-align: left;
+    }
+
+    @include M(right) {
+      text-align: right;
+    }
+  }
+
+  @include E(button-wrapper) {
+    display: flex;
+    justify-content: center;
+
+    @include B(button) {
+      flex: auto;
+      max-width: $dialog-button-max-width;
+    }
+
+    // @include B("button + .vui-button") {
+    //   margin-left: $dialog-button-spacing;
+    // }
+
+    .#{get-block-selector(button)} + .#{get-block-selector(button)} {
+      margin-left: $dialog-button-spacing;
+    }
+  }
+
+  // pc端样式
+  @include pc {
+    @include E(wrapper) {
+      bottom: 50%;
+      border-radius: $dialog-border-radius-pc;
+      padding: $dialog-padding-pc;
+      width: $dialog-width-pc;
+      max-width: $dialog-max-width-pc;
+      min-width: $dialog-min-width-pc;
+
+      &:not(.#{$namespace}-slide-bottom-enter):not(.#{$namespace}-slide-bottom-leave-active) {
+        transform: translateY(50%);
+      }
+
+      &.#{$namespace}-slide-bottom-enter-active,
+      &.#{$namespace}-slide-bottom-leave-active {
+        transition-property: transform, opacity;
+      }
+
+      &.#{$namespace}-slide-bottom-enter,
+      &.#{$namespace}-slide-bottom-leave-active {
+        opacity: 0;
+        transform: translate3d(0, -20px, 0);
+      }
+    }
+
+    @include E(close) {
+      display: block;
+      position: absolute;
+      right: $dialog-close-right-pc;
+      top: $dialog-close-top-pc;
+      padding: 0.5em;
+      font-size: $dialog-close-size-pc;
+      cursor: pointer;
+    }
+
+    @include E(header) {
+      padding: $dialog-header-padding-pc;
+      font-size: $dialog-title-font-size-pc;
+      line-height: $dialog-title-line-height-pc;
+    }
+
+    @include E(content) {
+      padding: $dialog-content-padding-pc;
+      font-size: $dialog-content-font-size-pc;
+      line-height: $dialog-content-line-height-pc;
+    }
+
+    @include E(footer) {
+      padding: $dialog-footer-padding-pc;
+      font-size: $dialog-footer-font-size-pc;
+    }
+  }
+}

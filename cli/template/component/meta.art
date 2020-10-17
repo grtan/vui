@@ -1,7 +1,9 @@
 {
-  "enName": "{{enName}}",
   "zhName": "{{zhName}}",
   "type": "{{type}}",
   "category": "基础",
-  "author": "{{author.name}}"
+  "author": {
+    "name": "{{author.name}}",
+    "email": "{{author.email}}"
+  }
 }

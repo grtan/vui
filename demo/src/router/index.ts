@@ -30,18 +30,9 @@ const routes: Array<RouteConfig> = [
   // }))
   ...manifest.map(module => {
     return {
-      path: `/${module.enName}`,
-      name: module.enName,
-      component: () => {
-        switch (module.type) {
-          case '组件':
-            return import(`../../../src/component/${module.enName}/demo/index.vue`)
-          case '指令':
-            return import(`../../../src/directive/${module.enName}/demo/index.vue`)
-          case '插件':
-            return import(`../../../src/plugin/${module.enName}/demo/index.vue`)
-        }
-      }
+      path: `/${module.lowerEnName}`,
+      name: module.lowerEnName,
+      component: () => import(`../../../src/modules/${module.lowerEnName}/demo/index.vue`)
     }
   })
 ]

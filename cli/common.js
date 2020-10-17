@@ -2,17 +2,23 @@ const path = require('path')
 const glob = require('glob')
 const fse = require('fs-extra')
 const artTemplate = require('art-template')
-const pascalcase = require('pascalcase')
+const pascalCase = require('change-case').pascalCase
 // 哪几种模块类型
 const types = {
   组件: 'component',
+  指令: 'directive',
   插件: 'plugin'
 }
 
-function getModules(type) {
-  return glob.sync(`src/${type}/*`).map(pt => {
+function getModules() {
+  return glob.sync(`src/modules/*`).map(pt => {
+    const meta = require(`../${pt}/meta.json`)
+    const lowerEnName = pt.replace(/^.*\/([^/]*)$/g, '$1')
+
     return {
-      name: pascalcase(pt.replace(/^.*\/([^/]*)$/g, '$1')),
+      ...meta,
+      enName: pascalCase(lowerEnName),
+      lowerEnName,
       path: pt
     }
   })
@@ -20,45 +26,26 @@ function getModules(type) {
 
 // 生成入口文件
 function genEntry() {
-  const components = getModules('component')
-  const directives = getModules('directive')
-  const plugins = getModules('plugin')
-  const packages = [...components, ...directives, ...plugins]
-
-  const list = glob.sync(`src/{component,directive,plugin}/!(_template)*`).map(pt => {
-    return require(path.resolve(__dirname, `../${pt}/meta.json`))
-  })
+  const modules = getModules()
 
   // ts入口文件
   fse.outputFileSync(
     path.resolve(__dirname, '../src/index.ts'),
     artTemplate(path.resolve(__dirname, 'template/entry.art'), {
-      packages: packages.map(({ name, path: pt }) => {
-        return {
-          name,
-          path: './' + path.relative('src', pt)
-        }
-      }),
-      components,
-      directives
+      modules
     })
   )
   // scss入口文件
   fse.outputFileSync(
     path.resolve(__dirname, '../src/skin/index.scss'),
     artTemplate(path.resolve(__dirname, 'template/style-entry.art'), {
-      list: components.map(({ name, path: pt }) => {
-        return {
-          name,
-          path: path.relative('src/skin', `${pt}/style/index`)
-        }
-      })
+      modules
     })
   )
   // demo manifest.ts
   fse.outputFileSync(
     path.resolve(__dirname, '../demo/src/manifest.ts'),
-    `/* eslint-disable */\nexport default ${JSON.stringify(list, null, '  ')}`
+    `/* eslint-disable */\nexport default ${JSON.stringify(modules, null, '  ')}`
   )
 }
 

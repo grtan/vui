@@ -1,29 +1,28 @@
-@use './config';
+@use './config' as *;
 @use './function' as *;
 
 // BEM
 @mixin B($block) {
-  $B: config.$namespace + "-" + $block !global;
-  // $selector: "";
+  $selector: get-block-selector($block);
 
-  // @each $block in $blocks {
-  //   $selector: #{$selector + config.$namespace + config.$block-separator + $block + ","};
-  // }
+  // 祖先选择器中不包含block块时才更新$B
+  @if not contain-block(&) {
+    $B: $selector !global;
+  }
 
-  .#{$B} {
+  #{if(&, '&', '')} .#{$selector} {
     @content;
   }
 }
 
 @mixin E($elements) {
-  // $E: $elements !global;
   $selector: "";
 
   @each $parent in & {
-    @if containsElement($parent) or containsModifier($parent) {
+    @if contain-element($parent) or contain-modifier($parent) {
       // 父选择器已经包含了EM，进行选择器嵌套
       @each $element in $elements {
-        $selector: #{$selector + "." + $B + config.$element-separator + $element + ","};
+        $selector: #{$selector + "." + $B + $element-separator + $element + ","};
       }
 
       @at-root {
@@ -36,7 +35,7 @@
     } @else {
       // 父选择器未包含EM，在选择器后面加上E
       @each $element in $elements {
-        $selector: #{$selector + $parent + config.$element-separator + $element + ","};
+        $selector: #{$selector + $parent + $element-separator + $element + ","};
       }
 
       @at-root {
@@ -52,18 +51,17 @@
   $selector: "";
 
   @each $parent in & {
-    @if containsModifier($parent) {
+    @if contain-modifier($parent) {
       // 父选择器已经包含M，则组合选择器
       @each $modifier in $modifiers {
-        /* stylelint-disable-next-line function-name-case */
-        $prefix: selectorToString($parent);
-        $index: str-index($prefix, config.$modifier-separator);
+        $prefix: selector-to-string($parent);
+        $index: str-index($prefix, $modifier-separator);
         $prefix: str-slice($prefix, 1, $index - 1);
-        $selector: #{$selector + $parent + $prefix + config.$modifier-separator + $modifier + ","};
+        $selector: #{$selector + $parent + $prefix + $modifier-separator + $modifier + ","};
       }
     } @else {
       @each $modifier in $modifiers {
-        $selector: #{$selector + $parent + config.$modifier-separator + $modifier + ","};
+        $selector: #{$selector + $parent + $modifier-separator + $modifier + ","};
       }
     }
   }
@@ -78,7 +76,7 @@
 // pc端样式
 @mixin pc {
   @at-root {
-    html.#{config.$pc-class-name} & {
+    html.#{$pc-class-name} & {
       @content;
     }
   }

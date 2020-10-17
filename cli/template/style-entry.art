@@ -1,3 +1,1 @@
-{{each list}}
-@use '{{$value.path}}' as {{$value.name}};
-{{/each}}
+{{each modules}}{{$index?'\n':''}}@use '{{`../modules/${$value.lowerEnName}/style/index`}}' as {{$value.lowerEnName}};{{/each}}

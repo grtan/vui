@@ -1,0 +1,7 @@
+/*
+!/dist/
+!/lib/
+!/src/
+!package.json
+!README.md
+!CHANGELOG.md
