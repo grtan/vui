@@ -12,6 +12,18 @@ export default [
     "path": "src/modules/appear"
   },
   {
+    "zhName": "头像",
+    "type": "组件",
+    "category": "基础",
+    "author": {
+      "name": "谭新",
+      "email": "xin.tan@vivo.com"
+    },
+    "enName": "Avatar",
+    "lowerEnName": "avatar",
+    "path": "src/modules/avatar"
+  },
+  {
     "zhName": "按钮",
     "type": "组件",
     "category": "基础",
@@ -47,6 +59,17 @@ export default [
     "path": "src/modules/disappear"
   },
   {
+    "zhName": "历史动作",
+    "type": "插件",
+    "author": {
+      "name": "谭新",
+      "email": "xin.tan@vivo.com"
+    },
+    "enName": "HistoryAction",
+    "lowerEnName": "history-action",
+    "path": "src/modules/history-action"
+  },
+  {
     "zhName": "交叉",
     "type": "指令",
     "author": {
@@ -56,6 +79,18 @@ export default [
     "enName": "Intersect",
     "lowerEnName": "intersect",
     "path": "src/modules/intersect"
+  },
+  {
+    "zhName": "加载",
+    "type": "组件",
+    "category": "基础",
+    "author": {
+      "name": "谭新",
+      "email": "xin.tan@vivo.com"
+    },
+    "enName": "Loading",
+    "lowerEnName": "loading",
+    "path": "src/modules/loading"
   },
   {
     "zhName": "遮罩层",
@@ -101,5 +136,29 @@ export default [
     "enName": "ScrollTop",
     "lowerEnName": "scroll-top",
     "path": "src/modules/scroll-top"
+  },
+  {
+    "zhName": "轻提示",
+    "type": "组件",
+    "category": "基础",
+    "author": {
+      "name": "谭新",
+      "email": "xin.tan@vivo.com"
+    },
+    "enName": "Toast",
+    "lowerEnName": "toast",
+    "path": "src/modules/toast"
+  },
+  {
+    "zhName": "过渡",
+    "type": "组件",
+    "category": "反馈",
+    "author": {
+      "name": "谭新",
+      "email": "xin.tan@vivo.com"
+    },
+    "enName": "Transition",
+    "lowerEnName": "transition",
+    "path": "src/modules/transition"
   }
 ]

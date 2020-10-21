@@ -1,24 +1,25 @@
 @use '../../../skin/var' as *;
-@use '../../../skin/common/config' as *;
 @use '../../../skin/common/function' as *;
 @use '../../../skin/common/mixin' as *;
+@use '../../transition/style/index' as *;
 @use '../../overlayer/style/index' as *;
 @use '../../button/style/index' as *;
 
 @include b(dialog) {
+  $popup-bottom: #{get-block-selector(transition)}-popup-bottom;
+
   @include e(wrapper) {
     position: fixed;
     left: 0;
     right: 0;
     bottom: 0;
-    box-sizing: border-box;
     margin: auto;
     border-radius: $dialog-border-radius;
     padding: $dialog-padding;
     width: $dialog-width;
     background: $dialog-background;
 
-    &:not(.#{$namespace}-slide-bottom-enter):not(.#{$namespace}-slide-bottom-leave-active) {
+    &:not(.#{$popup-bottom}-enter):not(.#{$popup-bottom}-leave-active) {
       transform: translateY(-$dialog-spacing-bottom);
     }
   }
@@ -74,10 +75,6 @@
       max-width: $dialog-button-max-width;
     }
 
-    // @include b("button + .vui-button") {
-    //   margin-left: $dialog-button-spacing;
-    // }
-
     .#{get-block-selector(button)} + .#{get-block-selector(button)} {
       margin-left: $dialog-button-spacing;
     }
@@ -93,17 +90,17 @@
       max-width: $dialog-max-width-pc;
       min-width: $dialog-min-width-pc;
 
-      &:not(.#{$namespace}-slide-bottom-enter):not(.#{$namespace}-slide-bottom-leave-active) {
+      &:not(.#{$popup-bottom}-enter):not(.#{$popup-bottom}-leave-active) {
         transform: translateY(50%);
       }
 
-      &.#{$namespace}-slide-bottom-enter-active,
-      &.#{$namespace}-slide-bottom-leave-active {
+      &.#{$popup-bottom}-enter-active,
+      &.#{$popup-bottom}-leave-active {
         transition-property: transform, opacity;
       }
 
-      &.#{$namespace}-slide-bottom-enter,
-      &.#{$namespace}-slide-bottom-leave-active {
+      &.#{$popup-bottom}-enter,
+      &.#{$popup-bottom}-leave-active {
         opacity: 0;
         transform: translate3d(0, -20px, 0);
       }

@@ -76,7 +76,7 @@ function genDistSkin(cb) {
 
   fse.removeSync(skinTemp)
   gulp
-    .src(`${src}/modules/index.scss`)
+    .src(`${src}/modules/style/index.scss`)
     .pipe(
       gulpModifyFile((content, pt) => {
         return new Promise(resolve => {

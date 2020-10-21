@@ -3,7 +3,7 @@
     <vui-overlayer v-slot="slotProps" v-model="show2" :push-state="true" :before-close="beforeClose">
       <div v-show="slotProps.show" class="box"></div>
     </vui-overlayer>
-    <vui-overlayer v-slot="slotProps" v-model="show" :push-state="true">
+    <vui-overlayer v-slot="slotProps" v-model="show" appear :push-state="true">
       <button v-show="slotProps.show" @click="show2 = !show2">开关2</button>
     </vui-overlayer>
     <button @click="show = !show">开关</button>
@@ -36,7 +36,7 @@ import Overlayer from '../index'
   }
 })
 export default class VComponent extends Vue {
-  show = false
+  show = true
   show2 = false
 
   beforeClose(close: Function) {

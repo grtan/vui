@@ -3,11 +3,6 @@ declare module '*.vue' {
   export default VuiComponent
 }
 
-declare module '*.png' {
-  const image: string
-  export default image
-}
-
 interface HTMLElement {
   _intersect?: {
     init: boolean

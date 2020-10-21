@@ -1,10 +1,12 @@
 /* ------------------- 过渡动效 ------------------- */
-$transition-fade-in: 300ms cubic-bezier(0.4, 0, 0.6, 1) !default;
-$transition-fade-out: 300ms cubic-bezier(0.4, 0, 0.6, 1) !default;
+$transition-fade-in: 300ms cubic-bezier(0.33, 0.1, 0.67, 1) !default;
+$transition-fade-out: 300ms cubic-bezier(0.33, 0, 0.67, 1) !default;
+$transition-zoom-in: 300ms cubic-bezier(0.28, 0.85, 0.36, 1) !default;
+$transition-zoom-out: 300ms cubic-bezier(0.25, 0.1, 0.25, 1) !default;
+$transition-popup-in: 250ms cubic-bezier(0.37, 0.75, 0.46, 1) !default;
+$transition-popup-out: 300ms cubic-bezier(0.5, 0.2, 0.5, 1) !default;
 $transition-slide-in: 300ms cubic-bezier(0.4, 0, 0.6, 1) !default;
 $transition-slide-out: 300ms cubic-bezier(0.4, 0, 0.6, 1) !default;
-$transition-zoom-in: 300ms cubic-bezier(0.4, 0, 0.6, 1) !default;
-$transition-zoom-out: 300ms cubic-bezier(0.4, 0, 0.6, 1) !default;
 
 /* ------------------- 基础颜色 ------------------- */
 $color-primary: #ff8a00 !default;
@@ -115,3 +117,38 @@ $dialog-title-line-height-pc: 24px !default;
 $dialog-content-font-size-pc: 14px !default;
 $dialog-content-line-height-pc: 40px !default;
 $dialog-footer-font-size-pc: 14px !default;
+
+/* ------------------- toast ------------------- */
+$toast-z-index: 999999;
+$toast-position-bottom: 192px;
+$toast-background: rgba(71, 71, 71, 0.8);
+$toast-radius: 30px;
+$toast-padding: 15px 24px;
+$toast-max-width: 984px;
+$toast-color: $color-white;
+$toast-font-size: 45px;
+$toast-line-height: 60px;
+
+/* ------------------- 头像 ------------------- */
+$avatar-size-big: 102px;
+$avatar-size-regular: 90px;
+$avatar-size-small: 72px;
+$avatar-size-mini: 60px;
+$avatar-font-size-big: 42px;
+$avatar-font-size-regular: 39px;
+$avatar-font-size-small: 33px;
+$avatar-font-size-mini: 30px;
+$avatar-square-radius: 9px;
+$avatar-color: rgba(0, 0, 0, 0.3);
+$avatar-background: #f2f2f2;
+
+// pc端
+$avatar-size-big-pc: 50px;
+$avatar-size-regular-pc: 40px;
+$avatar-size-small-pc: 36px;
+$avatar-size-mini-pc: 28px;
+$avatar-font-size-big-pc: 18px;
+$avatar-font-size-regular-pc: 16px;
+$avatar-font-size-small-pc: 14px;
+$avatar-font-size-mini-pc: 12px;
+$avatar-square-radius-pc: 4px;

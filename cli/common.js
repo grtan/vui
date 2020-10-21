@@ -13,7 +13,7 @@ const types = {
 function getModules() {
   return glob
     .sync('src/modules/*', {
-      ignore: ['src/modules/index.*']
+      ignore: ['src/modules/index.ts', 'src/modules/style']
     })
     .map(pt => {
       const meta = require(`../${pt}/meta.json`)
@@ -41,7 +41,7 @@ function genEntry() {
   )
   // scss入口文件
   fse.outputFileSync(
-    path.resolve(__dirname, '../src/modules/index.scss'),
+    path.resolve(__dirname, '../src/modules/style/index.scss'),
     artTemplate(path.resolve(__dirname, 'template/style-entry.art'), {
       modules
     })

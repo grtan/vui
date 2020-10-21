@@ -1,6 +1,6 @@
 @use '../../../skin/var' as *;
 @use '../../../skin/common/mixin' as *;
-@use '../../../skin/common/transition';
+@use '../../transition/style/index' as *;
 
 @include b(overlayer) {
   // 阻止滚动溢出行为

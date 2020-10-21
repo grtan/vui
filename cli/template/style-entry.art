@@ -1,1 +1,1 @@
-{{each modules}}{{$index?'\n':''}}@use '{{`./${$value.lowerEnName}/style/index`}}' as {{$value.lowerEnName}};{{/each}}
+{{each modules}}{{$index?'\n':''}}@use '{{`../${$value.lowerEnName}/style/index`}}' as {{$value.lowerEnName}};{{/each}}

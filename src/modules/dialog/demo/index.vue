@@ -1,6 +1,6 @@
 <template>
   <div>
-    <vui-dialog :show-close="true" :before-close="beforeClose" v-model="show">
+    <vui-dialog v-model="show" :show-close="false" :before-close="beforeClose">
       <div>内容</div>
       <span slot="footer">asdgas</span>
     </vui-dialog>
@@ -29,12 +29,12 @@ import Dialog from '../index'
 })
 export default class VComponent extends Vue {
   show = false
-  order=0
+  order = 0
 
-  beforeClose(close:Function) {
+  beforeClose(close: Function) {
     close()
   }
-  
+
   showDialogPlugin() {
     this.order++
     Dialog.dialog({
@@ -43,7 +43,7 @@ export default class VComponent extends Vue {
       showClose: true,
       headerAlign: 'left',
       content: `阿斯顿噶撒大<em>${this.order}撒大噶</em>噶说的阿斯顿噶撒大<em>${this.order}撒大噶</em>噶说的`,
-      beforeClose(action,close) {
+      beforeClose(action, close) {
         console.log(action)
         close()
       }

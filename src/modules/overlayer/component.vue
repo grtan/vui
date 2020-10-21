@@ -1,14 +1,17 @@
 <template>
   <div class="vui-overlayer">
-    <transition name="vui-fade" @after-enter="onAfterEnter" @after-leave="onAfterLeave" :appear="$attrs.appear">
+    <vui-transition v-bind="$attrs" type="fade" @after-enter="onAfterEnter" @after-leave="onAfterLeave">
       <div
         v-show="show"
-        :class="['vui-overlayer__layer', { 'vui-overlayer__layer--hide': hideLayer,'vui-overlayer__layer--light':light }]"
+        :class="[
+          'vui-overlayer__layer',
+          { 'vui-overlayer__layer--hide': hideLayer, 'vui-overlayer__layer--light': light }
+        ]"
         :style="{ zIndex: layerZIndex }"
         @click="onClick"
         @touchmove="$event.preventDefault()"
       ></div>
-    </transition>
+    </vui-transition>
     <div class="vui-overlayer__content" :style="{ zIndex: contentZIndex }">
       <slot :show="show"></slot>
     </div>
@@ -17,6 +20,7 @@
 
 <script lang="ts">
 import { Vue, Component, Prop, Watch } from 'vue-property-decorator'
+import VuiTransition from '../transition'
 import { zIndex, update } from '@/utils/store'
 
 // 当前显示的蒙层组件列表
@@ -24,7 +28,10 @@ const layers: any[] = []
 
 @Component({
   name: 'VuiOverlayer',
-  inheritAttrs: false
+  inheritAttrs: false,
+  components: {
+    VuiTransition
+  }
 })
 export default class VComponent extends Vue {
   // 遮罩层z-index
@@ -39,6 +46,7 @@ export default class VComponent extends Vue {
   back = false
 
   @Prop({
+    type: Boolean,
     default: false
   })
   readonly value!: boolean
@@ -47,18 +55,21 @@ export default class VComponent extends Vue {
 
   // 浅色还是深色
   @Prop({
+    type: Boolean,
     default: false
   })
   readonly light!: boolean
 
   // 打开蒙层时是否pushState，如果是的话返回时关闭蒙层而不是页面后退
   @Prop({
+    type: Boolean,
     default: true
   })
   readonly pushState!: boolean
 
   // 点击蒙层是否自动关闭
   @Prop({
+    type: Boolean,
     default: true
   })
   readonly closeOnClickOverlayer!: boolean

@@ -42,6 +42,9 @@ module.exports = {
          */
         parser: require.resolve('@typescript-eslint/parser'),
         extraFileExtensions: ['.vue']
+      },
+      rules: {
+        'vue/no-v-html': 'off'
       }
     }
   ]

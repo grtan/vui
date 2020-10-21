@@ -1,13 +1,13 @@
 @use '../../../skin/var' as *;
 @use '../../../skin/common/mixin' as *;
 
-@include B({{lowerEnName}}) {
+@include b({{lowerEnName}}) {
   font-size: 34px;
 
-  @include E(e) {
+  @include e(e) {
     color: $color-primary;
 
-    @include M((m1, m2)) {
+    @include m((m1, m2)) {
       background: red;
     }
   }
@@ -16,10 +16,10 @@
   @include pc {
     font-size: 12px;
 
-    @include E(e) {
+    @include e(e) {
       color: #333;
 
-      @include M((m1, m2)) {
+      @include m((m1, m2)) {
         background: white;
       }
     }

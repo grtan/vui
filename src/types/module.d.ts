@@ -8,11 +8,13 @@ interface Plugin {
 declare module 'vue/types/vue' {
   interface Vue {
     // readonly $attrs: Record<string, any>
-    $vui: Record<string, any>
+    $vui: Record<string, any> & {
+      historyAction: 'new' | 'forward' | 'back' | 'refresh' | 'replace'
+    }
   }
 
   interface VueConstructor {
-    $vui: Record<string, any>
+    $vui: Vue['$vui']
   }
 }
 

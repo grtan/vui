@@ -1,5 +1,5 @@
 <template>
-  <button :class="['vui-button', ...classNames]" :disabled="disabled" @click="!disabled&&$emit('click')">
+  <button :class="['vui-button', ...classNames]" :disabled="disabled" @click="!disabled && $emit('click')">
     <div v-if="icon && iconPosition === 'before'">icon</div>
     <slot></slot>
     <div v-if="icon && iconPosition === 'after'">icon</div>
@@ -16,17 +16,20 @@ import { size } from '@/utils/store'
 export default class VComponent extends Vue {
   // 按钮类型
   @Prop({
+    type: String,
     default: 'regular'
   })
   readonly type!: 'gorgeous' | 'plain' | 'gradient' | 'text' | 'regular'
 
   // 色调
   @Prop({
+    type: String,
     default: 'regular'
   })
   readonly hue!: 'primary' | 'regular' | 'success' | 'fail'
 
   @Prop({
+    type: String,
     default() {
       return size
     }
@@ -34,18 +37,21 @@ export default class VComponent extends Vue {
   readonly size!: 'big' | 'regular' | 'small' | 'mini'
 
   @Prop({
+    type: String,
     default: 'regular'
   })
   readonly corner!: 'regular' | 'round' | 'circle'
 
   // 是内联小按钮还是块按钮
   @Prop({
+    type: Boolean,
     default: false
   })
   readonly block!: boolean
 
   // 禁用
   @Prop({
+    type: Boolean,
     default: false
   })
   readonly disabled!: boolean
@@ -56,6 +62,7 @@ export default class VComponent extends Vue {
 
   // 图标位置
   @Prop({
+    type: String,
     default: 'before'
   })
   readonly iconPosition!: 'before' | 'after'
