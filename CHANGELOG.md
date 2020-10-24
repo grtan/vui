@@ -1,3 +1,12 @@
+# [1.17.0](http://gitlab.vmic.xyz/game-fed/vui/compare/v1.16.0...v1.17.0) (2020-10-24)
+
+
+### Features
+
+* **track:** track插件新增options.reExpose属性 ([de09ea4](http://gitlab.vmic.xyz/game-fed/vui/commit/de09ea4))
+
+
+
 # [1.16.0](http://gitlab.vmic.xyz/game-fed/vui/compare/v1.15.2...v1.16.0) (2019-11-29)
 
 
