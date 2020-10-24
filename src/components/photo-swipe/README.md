@@ -60,10 +60,10 @@ export default {
 
 ## 属性
 
-|  名称   |  类型  | 必填 | 默认值 |                                    描述                                    |
-| :-----: | :----: | :--: | :----: | :------------------------------------------------------------------------: |
-|  items  | Array  | `Y`  |  `-`   |                             展示的图片列表信息                             |
-| options | Object | `N`  |  `-`   | [photoswipe 的配置信息](https://photoswipe.com/documentation/options.html) |
+|  名称   |  类型  | 必填 | 默认值 |                                                           描述                                                           |
+| :-----: | :----: | :--: | :----: | :----------------------------------------------------------------------------------------------------------------------: |
+|  items  | Array  | `Y`  |  `-`   |                                                    展示的图片列表信息                                                    |
+| options | Object | `N`  |  `-`   | [photoswipe 的配置信息](https://photoswipe.com/documentation/options.html) {showTopBar:true //是否展示 topbar，默认显示} |
 
 #### items 属性
 
@@ -84,13 +84,11 @@ export default {
 
 ## 方法
 
-|        名称         |   参数    |                 说明                 |
-| :-----------------: | :-------: | :----------------------------------: |
-|   openPhotoSwipe    | `(index)` |             打开的索引值             |
-|   getCurrentIndex   |    `-`    |             当前的索引值             |
-| invalidateCurrItems |    `-`    | 设置应更新幻灯片的标志，在更新前调用 |
-|     updateSize      |    `-`    |                 更新                 |
-|        close        |    `-`    |                 关闭                 |
-|        goTo         | `(index)` |            跳转到特定图片            |
-|        prev         |    `-`    |             跳转到上一张             |
-|        next         |    `-`    |             跳转到下一张             |
+|      名称       |   参数    |      说明      |
+| :-------------: | :-------: | :------------: |
+| openPhotoSwipe  | `(index)` |  打开的索引值  |
+| getCurrentIndex |    `-`    |  当前的索引值  |
+|      close      |    `-`    |      关闭      |
+|      goTo       | `(index)` | 跳转到特定图片 |
+|      prev       |    `-`    |  跳转到上一张  |
+|      next       |    `-`    |  跳转到下一张  |

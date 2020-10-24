@@ -1,39 +1,7 @@
 // 工具
 export { default as addStyle } from './tools/add-style/index'
 export { default as ajax } from './tools/ajax/index'
-export {
-  linear,
-  sineEaseIn,
-  sineEaseOut,
-  sineEaseInOut,
-  quadEaseIn,
-  quadEaseOut,
-  quadEaseInOut,
-  cubicEaseIn,
-  cubicEaseOut,
-  cubicEaseInOut,
-  quartEaseIn,
-  quartEaseOut,
-  quartEaseInOut,
-  quintEaseIn,
-  quintEaseOut,
-  quintEaseInOut,
-  expoEaseIn,
-  expoEaseOut,
-  expoEaseInOut,
-  circEaseIn,
-  circEaseOut,
-  circEaseInOut,
-  backEaseIn,
-  backEaseOut,
-  backEaseInOut,
-  elasticEaseIn,
-  elasticEaseOut,
-  elasticEaseInOut,
-  bounceEaseIn,
-  bounceEaseOut,
-  bounceEaseInOut
-} from './tools/easing/index'
+export { linear, sineEaseIn, sineEaseOut, sineEaseInOut, quadEaseIn, quadEaseOut, quadEaseInOut, cubicEaseIn, cubicEaseOut, cubicEaseInOut, quartEaseIn, quartEaseOut, quartEaseInOut, quintEaseIn, quintEaseOut, quintEaseInOut, expoEaseIn, expoEaseOut, expoEaseInOut, circEaseIn, circEaseOut, circEaseInOut, backEaseIn, backEaseOut, backEaseInOut, elasticEaseIn, elasticEaseOut, elasticEaseInOut, bounceEaseIn, bounceEaseOut, bounceEaseInOut } from './tools/easing/index'
 export { prefixed, raf, caf } from './tools/prefix/index'
 export { default as setSkin } from './tools/set-skin/index'
 export { default as setType } from './tools/set-type/index'
@@ -70,7 +38,7 @@ export { default as Swiper } from './components/swiper/index.vue'
 export { default as SwiperItem } from './components/swiper/item.vue'
 export { default as Marquee } from './components/marquee/index.vue'
 export { default as Img } from './components/img/index.vue'
-// export { default as PhotoSwipe } from './components/photo-swipe/index.vue'
+export { default as PhotoSwipe } from './components/photo-swipe/index.vue'
 // 过渡
 export { default as Cutover } from './components/cutover/index.vue'
 // 其他

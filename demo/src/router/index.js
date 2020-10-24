@@ -1,14 +1,14 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import store from '../store/'
-import { loadComponent } from 'vui'
+import Vue from 'vue';
+import Router from 'vue-router';
+import store from '../store/';
+import { loadComponent } from 'vui';
 
-Vue.use(Router)
+Vue.use(Router);
 
-loadComponent.Loading = require('@/views/tools/load-component/skeleton.vue')
-loadComponent.Error = require('@/views/tools/load-component/error.vue')
-loadComponent.delay = 0
-loadComponent.duration = 2000
+loadComponent.Loading = require('@/views/tools/load-component/skeleton.vue');
+loadComponent.Error = require('@/views/tools/load-component/error.vue');
+loadComponent.delay = 0;
+loadComponent.duration = 2000;
 
 let router = new Router({
   routes: [
@@ -27,8 +27,7 @@ let router = new Router({
       meta: {
         title: 'timer 计时器'
       },
-      component: () =>
-        import(/* webpackChunkName: "timer" */ '@/views/tools/timer/index.vue')
+      component: () => import(/* webpackChunkName: "timer" */ '@/views/tools/timer/index.vue')
     },
     {
       name: 'clock',
@@ -36,8 +35,7 @@ let router = new Router({
       meta: {
         title: 'clock 日期时钟'
       },
-      component: () =>
-        import(/* webpackChunkName: "clock" */ '@/views/tools/clock/index.vue')
+      component: () => import(/* webpackChunkName: "clock" */ '@/views/tools/clock/index.vue')
     },
     {
       name: 'loadComponent',
@@ -57,14 +55,14 @@ let router = new Router({
         title: 'button 按钮'
       },
       component: () => import(/* webpackChunkName: "button" */ '@/views/components/button/index.vue')
-    }, {
+    },
+    {
       name: 'icon',
       path: '/components/icon',
       meta: {
         title: 'icon 图标'
       },
-      component: () =>
-        import(/* webpackChunkName: "icon" */ '@/views/components/icon/index.vue')
+      component: () => import(/* webpackChunkName: "icon" */ '@/views/components/icon/index.vue')
     },
     // 导航
     {
@@ -73,8 +71,7 @@ let router = new Router({
       meta: {
         title: 'navbar 导航栏'
       },
-      component: () =>
-        import(/* webpackChunkName: "navbar" */ '@/views/components/navbar/index.vue')
+      component: () => import(/* webpackChunkName: "navbar" */ '@/views/components/navbar/index.vue')
     },
     {
       name: 'tab',
@@ -82,8 +79,7 @@ let router = new Router({
       meta: {
         title: 'tab 标签栏'
       },
-      component: () =>
-        import(/* webpackChunkName: "tab" */ '@/views/components/tab/index.vue')
+      component: () => import(/* webpackChunkName: "tab" */ '@/views/components/tab/index.vue')
     },
     {
       name: 'pagination',
@@ -91,8 +87,7 @@ let router = new Router({
       meta: {
         title: 'pagination 分页'
       },
-      component: () =>
-        import(/* webpackChunkName: "pagination" */ '@/views/components/pagination/index.vue')
+      component: () => import(/* webpackChunkName: "pagination" */ '@/views/components/pagination/index.vue')
     },
     // 反馈
     {
@@ -101,40 +96,39 @@ let router = new Router({
       meta: {
         title: 'layer 蒙层'
       },
-      component: () =>
-        import(/* webpackChunkName: "layer" */ '@/views/components/layer/index.vue')
-    }, {
+      component: () => import(/* webpackChunkName: "layer" */ '@/views/components/layer/index.vue')
+    },
+    {
       name: 'popup',
       path: '/components/popup',
       meta: {
         title: 'popup 弹层'
       },
-      component: () =>
-        import(/* webpackChunkName: "popup" */ '@/views/components/popup/index.vue')
-    }, {
+      component: () => import(/* webpackChunkName: "popup" */ '@/views/components/popup/index.vue')
+    },
+    {
       name: 'toast',
       path: '/components/toast',
       meta: {
         title: 'toast 提示'
       },
-      component: () =>
-        import(/* webpackChunkName: "toast" */ '@/views/components/toast/index.vue')
-    }, {
+      component: () => import(/* webpackChunkName: "toast" */ '@/views/components/toast/index.vue')
+    },
+    {
       name: 'dialog',
       path: '/components/dialog',
       meta: {
         title: 'dialog 对话框'
       },
-      component: () =>
-        import(/* webpackChunkName: "dialog" */ '@/views/components/dialog/index.vue')
-    }, {
+      component: () => import(/* webpackChunkName: "dialog" */ '@/views/components/dialog/index.vue')
+    },
+    {
       name: 'loading',
       path: '/components/loading',
       meta: {
         title: 'loading 加载提示'
       },
-      component: () =>
-        import(/* webpackChunkName: "loading" */ '@/views/components/loading/index.vue')
+      component: () => import(/* webpackChunkName: "loading" */ '@/views/components/loading/index.vue')
     },
     // 数据输入
     {
@@ -143,25 +137,25 @@ let router = new Router({
       meta: {
         title: 'picker 滚动选择器'
       },
-      component: () =>
-        import(/* webpackChunkName: "picker" */ '@/views/components/picker/index.vue')
-    }, {
+      component: () => import(/* webpackChunkName: "picker" */ '@/views/components/picker/index.vue')
+    },
+    {
       name: 'popup-picker',
       path: '/components/popup-picker',
       meta: {
         title: 'popup-picker 弹层选择器'
       },
-      component: () =>
-        import(/* webpackChunkName: "popup-picker" */ '@/views/components/popup-picker/index.vue')
-    }, {
+      component: () => import(/* webpackChunkName: "popup-picker" */ '@/views/components/popup-picker/index.vue')
+    },
+    {
       name: 'city-picker',
       path: '/components/city-picker',
       meta: {
         title: 'city-picker 省市区选择'
       },
-      component: () =>
-        import(/* webpackChunkName: "city-picker" */ '@/views/components/city-picker/index.vue')
-    }, /*{
+      component: () => import(/* webpackChunkName: "city-picker" */ '@/views/components/city-picker/index.vue')
+    },
+    /*{
       name: 'datetime-picker',
       path: '/components/datetime-picker',
       meta: {
@@ -175,16 +169,15 @@ let router = new Router({
       meta: {
         title: 'switch 开关'
       },
-      component: () =>
-        import(/* webpackChunkName: "switch" */ '@/views/components/switch/index.vue')
-    }, {
+      component: () => import(/* webpackChunkName: "switch" */ '@/views/components/switch/index.vue')
+    },
+    {
       name: 'upload',
       path: '/components/upload',
       meta: {
         title: 'upload 文件上传'
       },
-      component: () =>
-        import(/* webpackChunkName: "upload" */ '@/views/components/upload/index.vue')
+      component: () => import(/* webpackChunkName: "upload" */ '@/views/components/upload/index.vue')
     },
     // 数据展示
     {
@@ -193,8 +186,7 @@ let router = new Router({
       meta: {
         title: 'marquee 跑马灯'
       },
-      component: () =>
-        import(/* webpackChunkName: "marquee" */ '@/views/components/marquee/index.vue')
+      component: () => import(/* webpackChunkName: "marquee" */ '@/views/components/marquee/index.vue')
     },
     {
       name: 'swiper',
@@ -202,8 +194,7 @@ let router = new Router({
       meta: {
         title: 'swiper 轮播'
       },
-      component: () =>
-        import(/* webpackChunkName: "swiper" */ '@/views/components/swiper/index.vue')
+      component: () => import(/* webpackChunkName: "swiper" */ '@/views/components/swiper/index.vue')
     },
     {
       name: 'load-more',
@@ -211,8 +202,7 @@ let router = new Router({
       meta: {
         title: 'load-more 加载更多'
       },
-      component: () =>
-        import(/* webpackChunkName: "load-more" */ '@/views/components/load-more/index.vue')
+      component: () => import(/* webpackChunkName: "load-more" */ '@/views/components/load-more/index.vue')
     },
     {
       name: 'img',
@@ -220,18 +210,16 @@ let router = new Router({
       meta: {
         title: 'img 图片'
       },
-      component: () =>
-        import(/* webpackChunkName: "img" */ '@/views/components/img/index.vue')
+      component: () => import(/* webpackChunkName: "img" */ '@/views/components/img/index.vue')
     },
-    /*{
+    {
       name: 'photo-swipe',
       path: '/components/photo-swipe',
       meta: {
         title: 'photo-swipe 图片查看'
       },
-      component: () =>
-        import(/!* webpackChunkName: "load-more" *!/ '@/views/components/photo-swipe/index.vue')
-    },*/
+      component: () => import(/* webpackChunkName: "load-more" */ '@/views/components/photo-swipe/index.vue')
+    },
     // 过渡
     {
       name: 'cutover',
@@ -239,8 +227,7 @@ let router = new Router({
       meta: {
         title: 'cutover 过渡'
       },
-      component: () =>
-        import(/* webpackChunkName: "cutover" */ '@/views/components/cutover/index.vue')
+      component: () => import(/* webpackChunkName: "cutover" */ '@/views/components/cutover/index.vue')
     },
     // 其他
     {
@@ -249,24 +236,23 @@ let router = new Router({
       meta: {
         title: 'cache 页面缓存'
       },
-      component: () =>
-        import(/* webpackChunkName: "cache" */ '@/views/components/cache/index.vue')
-    }, {
+      component: () => import(/* webpackChunkName: "cache" */ '@/views/components/cache/index.vue')
+    },
+    {
       name: 'cache-page1',
       path: '/components/cache/page1',
       meta: {
         title: 'cache page1'
       },
-      component: () =>
-        import(/* webpackChunkName: "cache-page1" */ '@/views/components/cache/page1.vue')
-    }, {
+      component: () => import(/* webpackChunkName: "cache-page1" */ '@/views/components/cache/page1.vue')
+    },
+    {
       name: 'cache-page2',
       path: '/components/cache/page2',
       meta: {
         title: 'cache page2'
       },
-      component: () =>
-        import(/* webpackChunkName: "cache-page2" */ '@/views/components/cache/page2.vue')
+      component: () => import(/* webpackChunkName: "cache-page2" */ '@/views/components/cache/page2.vue')
     }
     // =======插件=======
     /*{
@@ -277,42 +263,43 @@ let router = new Router({
       },
       component: () =>
         import(/!* webpackChunkName: "track" *!/ '@/views/plugins/track/index.vue')
-    }*/]
-})
+    }*/
+  ]
+});
 
-router.beforeResolve(function (to, from, next) {
+router.beforeResolve(function(to, from, next) {
   store.commit('updateLoadingStatus', {
     isLoading: true,
     immediately: true
-  })
-  next()
-})
+  });
+  next();
+});
 
-router.afterEach(function (transition) {
+router.afterEach(function(transition) {
   if (transition.matched.length === 0) {
     store.commit('updateLoadingStatus', {
       isLoading: false
-    })
+    });
     store.commit('setError', {
       msg: '页面飞走了，请检查您访问的页面地址',
       show: true
-    })
-    return
+    });
+    return;
   } else {
     // 防止404恢复
     store.commit('setError', {
       show: false
-    })
+    });
   }
   store.commit('updateLoadingStatus', {
     isLoading: false
-  })
+  });
   // 路由切换动态更改title
-  document.title = transition.meta.title || transition.meta.name || ''
+  document.title = transition.meta.title || transition.meta.name || '';
   store.commit({
     type: 'setTitle',
     title: transition.meta.title
-  })
-})
+  });
+});
 
-export default router
+export default router;
