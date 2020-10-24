@@ -107,14 +107,15 @@ class Track {
           {
             root: null,
             rootMargin: '0px 0px 0px 0px',
-            threshold: 0
+            threshold: 0,
+            reExpose: true  // 默认采用重复曝光
           },
           options
         )
         // 精度要高，确保1px的变化达不到这种精度，这样1px的变化就能区分是进入还是离开
         options.threshold += 0.000001
 
-        const { rootMargin, threshold } = options
+        const { rootMargin, threshold, reExpose } = options
         const root = options.root || viewport
         const observerKey = `${rootMargin}_${threshold}`
         /**
@@ -147,6 +148,10 @@ class Track {
                   // 显示
                   if (intersectionRatio >= threshold) {
                     callback()
+                    // 不再重复曝光，清除曝光监听
+                    if(!reExpose) {
+                      this.clear(target)
+                    }
                   }
 
                   // 每个observer只触发一次自定义事件
