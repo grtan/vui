@@ -13,8 +13,6 @@ export function dialog(option: {
   showConfirmButton?: boolean
   cancelButtonText?: string
   confirmButtonText?: string
-  headerAlign?: 'left' | 'center' | 'right'
-  footerAlign?: 'left' | 'center' | 'right'
   pushState?: boolean
   closeOnClickOverlayer?: boolean
   beforeClose?: (action: 'other' | 'cancel' | 'confirm', close: (close: boolean) => void) => void
@@ -46,8 +44,6 @@ export function dialog(option: {
           appear={true}
           class={options.className}
           showClose={options.showClose}
-          headerAlign={options.headerAlign}
-          footerAlign={options.footerAlign}
           pushState={options.pushState}
           closeOnClickOverlayer={options.closeOnClickOverlayer}
           beforeClose={this.beforeClose}
@@ -61,7 +57,7 @@ export function dialog(option: {
             {options.allowHtml ? <div domPropsInnerHTML={options.content}></div> : options.content}
           </template>
           {options.showCancelButton || options.showConfirmButton ? (
-            <div slot="footer" class="vui-dialog__button-wrapper">
+            <template slot="footer">
               {options.showCancelButton ? (
                 <vui-button
                   hue="primary"
@@ -91,7 +87,7 @@ export function dialog(option: {
                   {options.confirmButtonText}
                 </vui-button>
               ) : null}
-            </div>
+            </template>
           ) : null}
         </vui-dialog>
       )
@@ -150,8 +146,6 @@ export function alert(option: {
   allowHtml?: boolean
   showClose?: boolean
   confirmButtonText?: string
-  headerAlign?: 'left' | 'center' | 'right'
-  footerAlign?: 'left' | 'center' | 'right'
   pushState?: boolean
   closeOnClickOverlayer?: boolean
   beforeClose?: (action: 'other' | 'cancel' | 'confirm', close: (close: boolean) => void) => void
@@ -171,8 +165,6 @@ export function confirm(option: {
   showClose?: boolean
   cancelButtonText?: string
   confirmButtonText?: string
-  headerAlign?: 'left' | 'center' | 'right'
-  footerAlign?: 'left' | 'center' | 'right'
   pushState?: boolean
   closeOnClickOverlayer?: boolean
   beforeClose?: (action: 'other' | 'cancel' | 'confirm', close: (close: boolean) => void) => void

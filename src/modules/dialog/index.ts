@@ -1,6 +1,7 @@
 import { Vue } from 'vue-property-decorator'
 import Component from './component.vue'
 import { dialog, alert, confirm } from './extend'
+import { extendVue } from '@/utils/extend'
 
 const Dialog = Component as typeof Component & {
   dialog: typeof dialog
@@ -13,12 +14,9 @@ Dialog.alert = alert
 Dialog.confirm = confirm
 Dialog.install = function (vue: typeof Vue) {
   vue.component('VuiDialog', Dialog)
-  vue.$vui = vue.prototype.$vui = vue.prototype.$vui ?? {}
-  Object.assign(vue.prototype.$vui, {
-    dialog,
-    alert,
-    confirm
-  })
+  extendVue('dialog', dialog)
+  extendVue('alert', alert)
+  extendVue('confirm', confirm)
 }
 
 export default Dialog

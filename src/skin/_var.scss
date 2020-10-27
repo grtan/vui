@@ -43,7 +43,6 @@ $button-color-primary: $color-primary !default;
 $button-color-regular: $color-regular !default;
 $button-color-success: $color-success !default;
 $button-color-fail: $color-fail !default;
-$button-color-warning: $color-warning !default;
 // 字体大小
 $button-font-size-big: 48px !default;
 $button-font-size-regular: 42px !default;
@@ -152,3 +151,32 @@ $avatar-font-size-regular-pc: 16px;
 $avatar-font-size-small-pc: 14px;
 $avatar-font-size-mini-pc: 12px;
 $avatar-square-radius-pc: 4px;
+
+/* ------------------- Tag标签 ------------------- */
+// 色调
+$tag-color-primary: $color-primary !default;
+$tag-color-regular: $color-regular !default;
+$tag-color-success: $color-success !default;
+$tag-color-fail: $color-fail !default;
+// 圆角
+$tag-border-radius-big: 9px !default;
+$tag-border-radius-regular: 9px !default;
+$tag-border-radius-small: 9px !default;
+$tag-border-radius-mini: 6px !default;
+// 边框
+$tag-border-width-big: 2px !default;
+$tag-border-width-regular: 1px !default;
+$tag-border-width-small: 1px !default;
+$tag-border-width-mini: 1px !default;
+// 内边距
+$tag-padding-big: 19.5px 31.5px !default;
+$tag-padding-regular: 10.5px 12px !default;
+$tag-padding-small: 9.5px 15px !default;
+$tag-padding-mini: 7.5px 9px !default;
+// 关闭图标间距
+$tag-close-margin: 0 0 0 0.5em !default;
+// 字体大小
+$tag-font-size-big: 36px;
+$tag-font-size-regular: 30px;
+$tag-font-size-small: 27px;
+$tag-font-size-mini: 24px;

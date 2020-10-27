@@ -3,6 +3,8 @@ import VueRouter, { RouteConfig } from 'vue-router'
 import Home from '../views/Home.vue'
 import manifest from '../manifest'
 
+type ArrayElem<A> = A extends Array<infer Elem> ? Elem : never
+
 Vue.use(VueRouter)
 
 const routes: Array<RouteConfig> = [
@@ -11,28 +13,19 @@ const routes: Array<RouteConfig> = [
     name: 'Home',
     component: Home
   },
-  {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  },
-  // ...(manifest.map(item => {
-  //   return item.list
-  // }).flat().map(item => {
-  //   return {
-  //     path: `/${item.enName}`,
-  //     name: item.enName,
-  //     component: () => import(`../../../src/component/${item.enName}/demo/index.vue`)
-  //   }
-  // }))
-  ...manifest.map(module => {
+  ...manifest.map(({ list }) => {
+    return (list as Array<ArrayElem<typeof list>>).map((item) => {
+      if (!(item as any).list) {
+        return item
+      }
+
+      return (item as any).list
+    }).flat()
+  }).flat().map(({ lowerEnName }) => {
     return {
-      path: `/${module.lowerEnName}`,
-      name: module.lowerEnName,
-      component: () => import(`../../../src/modules/${module.lowerEnName}/demo/index.vue`)
+      path: `/${lowerEnName}`,
+      name: lowerEnName,
+      component: () => import(`../../../src/modules/${lowerEnName}/demo/index.vue`)
     }
   })
 ]

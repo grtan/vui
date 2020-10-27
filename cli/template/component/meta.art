@@ -1,7 +1,7 @@
 {
   "zhName": "{{zhName}}",
   "type": "{{type}}",
-  "category": "基础",
+  "category": "{{category}}",
   "author": {
     "name": "{{author.name}}",
     "email": "{{author.email}}"

@@ -2,7 +2,7 @@ const path = require('path')
 const fse = require('fs-extra')
 const inquirer = require('inquirer')
 const paramCase = require('change-case').paramCase
-const { genEntry, genSidebar } = require('./common')
+const { genEntry, genDocManifest, genDemoManifest } = require('./common')
 
 module.exports = async function () {
   let modulePath
@@ -29,9 +29,8 @@ module.exports = async function () {
   ])
 
   fse.removeSync(modulePath)
-  // 生成入口文件
   genEntry()
-  // // 生成文档站点侧边栏
-  // genSidebar()
-  // console.log('删除成功')
+  genDocManifest()
+  genDemoManifest()
+  console.log('删除成功')
 }

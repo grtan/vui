@@ -1,6 +1,6 @@
 {
   "name": "@game/vui",
-  "version": "1.0.0-beta.2",
+  "version": "1.0.0-beta.3",
   "description": "a vue component lib",
   "main": "lib/modules/index.js",
   "module": "lib/modules/index.js",
@@ -24,6 +24,7 @@
     "@typescript-eslint/eslint-plugin": "^4.2.0",
     "@typescript-eslint/parser": "^4.2.0",
     "@vue/babel-preset-jsx": "^1.2.1",
+    "@vuepress/plugin-back-to-top": "^1.7.1",
     "art-template": "^4.13.2",
     "autoprefixer": "^10.0.1",
     "change-case": "^4.1.1",
@@ -68,7 +69,8 @@
     "typescript": "^4.0.3",
     "vue": "^2.6.12",
     "vue-router": "^3.4.7",
-    "vue-template-compiler": "^2.6.12"
+    "vue-template-compiler": "^2.6.12",
+    "vuepress": "^1.7.1"
   },
   "peerDependencies": {
     "vue": "^2.6.12"
@@ -78,7 +80,9 @@
     "delete": "node cli/index.js delete",
     "c": "git-cz",
     "build:skin": "gulp --gulpfile build/gulpfile.skin.js",
-    "build:component": "rollup --config build/rollup.component.js"
+    "build:component": "rollup --config build/rollup.component.js",
+    "docs:dev": "vuepress dev .",
+    "docs:build": "vuepress build ."
   },
   "husky": {
     "hooks": {

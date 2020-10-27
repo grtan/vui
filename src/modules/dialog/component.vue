@@ -3,7 +3,7 @@
     <vui-transition v-bind="$attrs" type="popup-bottom">
       <div v-show="slotProps.show" class="vui-dialog__wrapper">
         <div v-if="showClose" class="vui-dialog__close" @click="$emit('input', false)">X</div>
-        <div v-if="title || $slots.header" :class="['vui-dialog__header', `vui-dialog__header--${headerAlign}`]">
+        <div v-if="title || $slots.header" class="vui-dialog__header">
           <slot name="header">
             {{ title }}
           </slot>
@@ -11,7 +11,7 @@
         <div class="vui-dialog__content">
           <slot></slot>
         </div>
-        <div v-if="$slots.footer" :class="['vui-dialog__footer', `vui-dialog__footer--${footerAlign}`]">
+        <div v-if="$slots.footer" class="vui-dialog__footer">
           <slot name="footer"></slot>
         </div>
       </div>
@@ -51,17 +51,5 @@ export default class VComponent extends Vue {
     default: ''
   })
   title!: string
-
-  @Prop({
-    type: String,
-    default: 'center'
-  })
-  headerAlign!: 'left' | 'center' | 'right'
-
-  @Prop({
-    type: String,
-    default: 'center'
-  })
-  footerAlign!: 'left' | 'center' | 'right'
 }
 </script>

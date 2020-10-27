@@ -1,0 +1,93 @@
+@use '../../../skin/var' as *;
+@use '../../../skin/common/mixin' as *;
+@use '../../../skin/common/function' as *;
+
+@include b(tag) {
+  display: inline-block;
+  border-radius: $tag-border-radius-regular;
+  border: $tag-border-width-regular solid currentColor;
+  padding: $tag-padding-regular;
+  color: $tag-color-regular;
+  font-size: $tag-font-size-regular;
+  line-height: 1;
+
+  @include e(close) {
+    margin: $tag-close-margin;
+    cursor: pointer;
+  }
+
+  // 色调
+  @include m(primary) {
+    color: $tag-color-primary;
+  }
+
+  @include m(success) {
+    color: $tag-color-success;
+  }
+
+  @include m(fail) {
+    color: $tag-color-fail;
+  }
+
+  // 尺寸
+  @include m(big) {
+    border-radius: $tag-border-radius-big;
+    border-width: $tag-border-width-big;
+    padding: $tag-padding-big;
+    font-size: $tag-font-size-big;
+  }
+
+  @include m(small) {
+    border-radius: $tag-border-radius-small;
+    border-width: $tag-border-width-small;
+    padding: $tag-padding-small;
+    font-size: $tag-font-size-small;
+  }
+
+  @include m(mini) {
+    border-radius: $tag-border-radius-mini;
+    border-width: $tag-border-width-mini;
+    padding: $tag-padding-mini;
+    font-size: $tag-font-size-mini;
+  }
+
+  // 类型
+  @include m(plain) {
+    background: light-background($tag-color-regular);
+
+    @include m(primary) {
+      background: light-background($tag-color-primary);
+    }
+
+    @include m(success) {
+      background: light-background($tag-color-success);
+    }
+
+    @include m(fail) {
+      background: light-background($tag-color-fail);
+    }
+  }
+
+  @include m(gorgeous) {
+    color: $color-white;
+    border-color: transparent;
+    background: $tag-color-regular;
+
+    // 色调
+    @include m(primary) {
+      background: $tag-color-primary;
+    }
+
+    @include m(success) {
+      background: $tag-color-success;
+    }
+
+    @include m(fail) {
+      background: $tag-color-fail;
+    }
+  }
+
+  // pc端样式
+  @include pc {
+  }
+}

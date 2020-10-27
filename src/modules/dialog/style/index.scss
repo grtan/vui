@@ -34,14 +34,6 @@
     font-size: $dialog-title-font-size;
     line-height: $dialog-title-line-height;
     text-align: center;
-
-    @include m(left) {
-      text-align: left;
-    }
-
-    @include m(right) {
-      text-align: right;
-    }
   }
 
   @include e(content) {
@@ -53,22 +45,11 @@
   }
 
   @include e(footer) {
-    padding: $dialog-footer-padding;
-    font-size: $dialog-footer-font-size;
-    text-align: center;
-
-    @include m(left) {
-      text-align: left;
-    }
-
-    @include m(right) {
-      text-align: right;
-    }
-  }
-
-  @include e(button-wrapper) {
     display: flex;
     justify-content: center;
+    align-items: center;
+    padding: $dialog-footer-padding;
+    font-size: $dialog-footer-font-size;
 
     @include b(button) {
       flex: auto;

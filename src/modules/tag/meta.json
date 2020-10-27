@@ -1,7 +1,7 @@
 {
-  "zhName": "加载",
+  "zhName": "标签",
   "type": "组件",
-  "category": "反馈",
+  "category": "数据展示",
   "author": {
     "name": "谭新",
     "email": "xin.tan@vivo.com"

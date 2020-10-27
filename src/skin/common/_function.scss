@@ -1,3 +1,4 @@
+@use '../var' as *;
 @use './config' as *;
 
 @function get-block-selector($block) {
@@ -52,30 +53,6 @@
   }
 }
 
-// @function containWhenFlag($selector) {
-//   $selector: selectortostring($selector);
-
-//   @if str-index($selector, "." + $state-prefix) {
-//     @return true;
-//   } @else {
-//     @return false;
-//   }
-// }
-
-// @function containPseudoClass($selector) {
-//   $selector: selectortostring($selector);
-
-//   @if str-index($selector, ":") {
-//     @return true;
-//   } @else {
-//     @return false;
-//   }
-// }
-
-// @function hitAllSpecialNestRule($selector) {
-//   @return contain-modifier($selector) or containWhenFlag($selector) or containPseudoClass($selector);
-// }
-
 @function get-side($val, $side) {
   $length: length($val);
 
@@ -115,4 +92,9 @@
       $side
     );
   }
+}
+
+// 淡化背景色
+@function light-background($color, $percentage: 88%) {
+  @return scale-color($color, $lightness: $percentage);
 }

@@ -5,17 +5,26 @@ const inquirer = require('inquirer')
 const paramCase = require('change-case').paramCase
 const artTemplate = require('art-template')
 const gitConfig = require('git-config')
-const { types, genEntry, genSidebar } = require('./common')
+const { types, categories, genEntry, genDocManifest, genDemoManifest } = require('./common')
 
 module.exports = async function () {
   console.log('创建模块')
 
-  const { type, enName, zhName } = await inquirer.prompt([
+  const { type, category, enName, zhName } = await inquirer.prompt([
     {
       name: 'type',
       type: 'list',
       message: '请选择要创建模块的类型',
-      choices: Object.keys(types)
+      choices: types.map(({ zhName }) => zhName)
+    },
+    {
+      name: 'category',
+      type: 'list',
+      choices: categories,
+      message: '请选择组件的类型',
+      when(answer) {
+        return answer.type === '组件'
+      }
     },
     {
       name: 'enName',
@@ -44,7 +53,7 @@ module.exports = async function () {
       }
     }
   ])
-  const templatePath = path.resolve(__dirname, `./template/${types[type]}`)
+  const templatePath = path.resolve(__dirname, `./template/${types.find(({ zhName }) => zhName === type).enName}`)
   const modulePath = path.resolve(__dirname, `../src/modules/${paramCase(enName)}`)
   const config = gitConfig.sync()
 
@@ -60,6 +69,7 @@ module.exports = async function () {
         lowerEnName: paramCase(enName),
         zhName,
         type,
+        category,
         author: config.user
       })
     )
@@ -76,9 +86,8 @@ module.exports = async function () {
     fse.moveSync(`${modulePath}/component.art`, `${modulePath}/component.vue`)
   }
 
-  // 生成入口文件
   genEntry()
-  // // 生成文档站点侧边栏
-  // genSidebar()
-  // console.log('创建成功')
+  genDocManifest()
+  genDemoManifest()
+  console.log('创建成功')
 }

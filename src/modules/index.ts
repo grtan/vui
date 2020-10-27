@@ -13,6 +13,7 @@ import Overlayer from './overlayer'
 import Scroll from './scroll'
 import ScrollBottom from './scroll-bottom'
 import ScrollTop from './scroll-top'
+import Tag from './tag'
 import Toast from './toast'
 import Transition from './transition'
 
@@ -25,13 +26,13 @@ function install(
     plugins?: Record<string, any>
   }
 ) {
-  const names: string[] = ['Appear', 'Avatar', 'Button', 'Dialog', 'Disappear', 'HistoryAction', 'Intersect', 'Loading', 'Overlayer', 'Scroll', 'ScrollBottom', 'ScrollTop', 'Toast', 'Transition']
+  const names: string[] = ['Appear', 'Avatar', 'Button', 'Dialog', 'Disappear', 'HistoryAction', 'Intersect', 'Loading', 'Overlayer', 'Scroll', 'ScrollBottom', 'ScrollTop', 'Tag', 'Toast', 'Transition']
 
   if (options?.config) {
     update(options.config)
   }
 
-  ;[Appear, Avatar, Button, Dialog, Disappear, HistoryAction, Intersect, Loading, Overlayer, Scroll, ScrollBottom, ScrollTop, Toast, Transition].forEach(
+  ;[Appear, Avatar, Button, Dialog, Disappear, HistoryAction, Intersect, Loading, Overlayer, Scroll, ScrollBottom, ScrollTop, Tag, Toast, Transition].forEach(
     function (item, index) {
       vue.use(item, options?.plugins?.[names[index]])
     }
@@ -42,7 +43,7 @@ if (typeof window !== 'undefined' && window.Vue) {
   install(window.Vue)
 }
 
-export { install, Appear, Avatar, Button, Dialog, Disappear, HistoryAction, Intersect, Loading, Overlayer, Scroll, ScrollBottom, ScrollTop, Toast, Transition }
+export { install, Appear, Avatar, Button, Dialog, Disappear, HistoryAction, Intersect, Loading, Overlayer, Scroll, ScrollBottom, ScrollTop, Tag, Toast, Transition }
 export default {
   install
 }
