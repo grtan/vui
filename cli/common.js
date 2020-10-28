@@ -109,14 +109,14 @@ function genDocManifest() {
       }
 
       item.children.sort((a, b) => {
-        return categories.indexOf(a.title || '其他') - categories.indexOf(b.title || '其他')
+        return categories.indexOf(a.title) - categories.indexOf(b.title)
       })
     })
   })
 
   fse.outputFileSync(
     path.resolve(__dirname, '../.vuepress/manifest.js'),
-    `module.exports = ${JSON.stringify(modules, null, '  ')}\n`
+    `/* eslint-disable */\nmodule.exports = ${JSON.stringify(modules, null, '  ')}\n`
   )
 }
 
@@ -167,7 +167,7 @@ function genDemoManifest() {
       }
 
       item.list.sort((a, b) => {
-        return categories.indexOf(a.categories || '其他') - categories.indexOf(b.categories || '其他')
+        return categories.indexOf(a.categories) - categories.indexOf(b.categories)
       })
     })
   })

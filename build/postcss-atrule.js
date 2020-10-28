@@ -15,7 +15,7 @@ module.exports = (opts = {}) => {
        * 替换@规则的名称、路径
        * 目前只支持@import和@use，且支持@use的别名写法
        */
-      '*': async (atRule) => {
+      '*': async atRule => {
         if (!['import', 'use'].includes(atRule.name)) {
           return
         }

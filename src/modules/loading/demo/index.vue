@@ -2,8 +2,6 @@
   <vui-loading>xxxx</vui-loading>
 </template>
 
-<style lang="scss" src="../style/index.scss"></style>
-
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
 import VuiLoading from '../index'
@@ -15,3 +13,5 @@ import VuiLoading from '../index'
 })
 export default class VComponent extends Vue {}
 </script>
+
+<style lang="scss" src="../style/index.scss"></style>

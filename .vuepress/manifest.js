@@ -1,3 +1,4 @@
+/* eslint-disable */
 module.exports = [
   {
     "title": "组件",

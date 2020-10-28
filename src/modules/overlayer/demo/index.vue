@@ -10,6 +10,25 @@
   </div>
 </template>
 
+<script lang="ts">
+import { Vue, Component } from 'vue-property-decorator'
+import Overlayer from '../index'
+
+@Component({
+  components: {
+    VuiOverlayer: Overlayer
+  }
+})
+export default class VComponent extends Vue {
+  show = true
+  show2 = false
+
+  beforeClose(close: () => void) {
+    setTimeout(close, 1000)
+  }
+}
+</script>
+
 <style lang="scss" src="../style/index.scss"></style>
 
 <style lang="scss">
@@ -25,22 +44,3 @@
   background: #fff;
 }
 </style>
-
-<script lang="ts">
-import { Vue, Component } from 'vue-property-decorator'
-import Overlayer from '../index'
-
-@Component({
-  components: {
-    VuiOverlayer: Overlayer
-  }
-})
-export default class VComponent extends Vue {
-  show = true
-  show2 = false
-
-  beforeClose(close: Function) {
-    setTimeout(close, 1000)
-  }
-}
-</script>

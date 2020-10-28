@@ -9,15 +9,6 @@
   </div>
 </template>
 
-<style lang="scss" src="../style/index.scss"></style>
-
-<style lang="scss">
-.top {
-  position: fixed;
-  z-index: 9999;
-}
-</style>
-
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
 import Dialog from '../index'
@@ -31,7 +22,7 @@ export default class VComponent extends Vue {
   show = false
   order = 0
 
-  beforeClose(close: Function) {
+  beforeClose(close: () => void) {
     close()
   }
 
@@ -41,11 +32,10 @@ export default class VComponent extends Vue {
       title: 'asdgsadg',
       allowHtml: true,
       showClose: true,
-      headerAlign: 'left',
       content: `阿斯顿噶撒大<em>${this.order}撒大噶</em>噶说的阿斯顿噶撒大<em>${this.order}撒大噶</em>噶说的`,
       beforeClose(action, close) {
         console.log(action)
-        close()
+        close(true)
       }
     })
   }
@@ -57,3 +47,12 @@ export default class VComponent extends Vue {
   }
 }
 </script>
+
+<style lang="scss" src="../style/index.scss"></style>
+
+<style lang="scss">
+.top {
+  position: fixed;
+  z-index: 9999;
+}
+</style>

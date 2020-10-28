@@ -8,6 +8,20 @@
   </div>
 </template>
 
+<script lang="ts">
+import { Vue, Component } from 'vue-property-decorator'
+import VuiTransition from '../index'
+
+@Component({
+  components: {
+    VuiTransition
+  }
+})
+export default class VComponent extends Vue {
+  show = false
+}
+</script>
+
 <style lang="scss" src="../style/index.scss"></style>
 <style lang="scss" module>
 .box {
@@ -22,17 +36,3 @@
   background: black;
 }
 </style>
-
-<script lang="ts">
-import { Vue, Component } from 'vue-property-decorator'
-import VuiTransition from '../index'
-
-@Component({
-  components: {
-    VuiTransition
-  }
-})
-export default class VComponent extends Vue {
-  show = false
-}
-</script>

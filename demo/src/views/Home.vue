@@ -1,15 +1,24 @@
 <template>
   <div :class="$style.root">
-    <div v-for="({type,list}) in manifest" :key="type" :class="$style.type">
-      <div :class="$style.name">{{type}}</div>
-      <template v-for="(item,index) in list">
+    <div v-for="{ type, list } in manifest" :key="type" :class="$style.type">
+      <div :class="$style.name">
+        {{ type }}
+      </div>
+      <template v-for="(item, index) in list">
         <router-link v-if="!item.list" :key="index" :class="$style.module" :to="`/${item.lowerEnName}`">
-          {{item.enName}} {{item.zhName}}
+          {{ item.enName }} {{ item.zhName }}
         </router-link>
         <div v-else :key="index" :class="$style.category">
-          <div :class="$style.name">{{item.category}}</div>
-          <router-link v-for="({enName,zhName,lowerEnName},idx) in item.list" :key="idx" :class="$style.module" :to="`/${lowerEnName}`">
-            {{enName}} {{zhName}}
+          <div :class="$style.name">
+            {{ item.category }}
+          </div>
+          <router-link
+            v-for="({ enName, zhName, lowerEnName }, idx) in item.list"
+            :key="idx"
+            :class="$style.module"
+            :to="`/${lowerEnName}`"
+          >
+            {{ enName }} {{ zhName }}
           </router-link>
         </div>
       </template>
@@ -62,7 +71,7 @@
   }
 
   &::after {
-    content: "";
+    content: '';
     position: absolute;
     top: 50%;
     right: 0;
@@ -70,8 +79,8 @@
     border-color: #ccc;
     border-style: solid;
     border-width: 3px 3px 0 0;
-    width: .4em;
-    height: .4em;
+    width: 0.4em;
+    height: 0.4em;
   }
 }
 </style>

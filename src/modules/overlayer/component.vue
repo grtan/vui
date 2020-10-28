@@ -77,7 +77,7 @@ export default class VComponent extends Vue {
   // 关闭前勾子
   @Prop({
     type: Function,
-    default(close: Function) {
+    default(close: () => void) {
       close()
     }
   })

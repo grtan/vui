@@ -13,10 +13,5 @@ import { Vue, Component } from 'vue-property-decorator'
 })
 export default class VComponent extends Vue {
   text = 'sadgasd'
-
-  // 为了支持服务端渲染，只能使用特定的生命周期勾子
-  beforeCreate() {}
-
-  created() {}
 }
 </script>

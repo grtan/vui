@@ -11,10 +11,10 @@ module.exports = {
   arrowParens: 'avoid',
   overrides: [
     {
-        "files": ["**/*.css", "**/*.scss", "**/*.html"],
-        "options": {
-            "singleQuote": false
-        }
+      files: ['**/*.css', '**/*.scss', '**/*.html'],
+      options: {
+        singleQuote: false
+      }
     }
   ]
 }

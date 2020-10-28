@@ -4,6 +4,33 @@
   "description": "a vue component lib",
   "main": "lib/modules/index.js",
   "module": "lib/modules/index.js",
+  "scripts": {
+    "create": "node cli/index.js create",
+    "delete": "node cli/index.js delete",
+    "build:skin": "gulp --gulpfile build/gulpfile.skin.js",
+    "build:component": "rollup --config build/rollup.component.js",
+    "docs:dev": "vuepress dev .",
+    "docs:build": "vuepress build .",
+    "docs:server": "pm2 start .vuepress/server.js --name utils-doc-server",
+    "release": "[ -e CHANGELOG.md ] && (HUSKY_SKIP_HOOKS=1 standard-version --skip.tag) || (HUSKY_SKIP_HOOKS=1 standard-version -f --skip.tag)",
+    "tag": "standard-version --skip.bump --skip.changelog --skip.commit",
+    "lint": "eslint ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.vmic.xyz/game-common/vui.git"
+  },
+  "keywords": [
+    "vue",
+    "component",
+    "lib"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.vmic.xyz/game-common/vui/issues"
+  },
+  "homepage": "https://gitlab.vmic.xyz/game-common/vui#readme",
   "dependencies": {
     "@babel/runtime-corejs3": "^7.11.2",
     "tslib": "^2.0.1",
@@ -39,7 +66,7 @@
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
-    "eslint-plugin-vue": "^6.2.2",
+    "eslint-plugin-vue": "^7.1.0",
     "fs-extra": "^9.0.1",
     "git-config": "^0.0.7",
     "glob": "^7.1.6",
@@ -48,15 +75,14 @@
     "gulp-rename": "^2.0.0",
     "husky": "^4.3.0",
     "inquirer": "^7.3.3",
-    "json-templater": "^1.2.0",
+    "koa": "^2.13.0",
+    "koa-static": "^5.0.0",
     "postcss": "^8.0.9",
     "postcss-scss": "^3.0.1",
     "postcss-url": "^8.0.0",
     "prettier": "2.1.2",
     "rollup": "^2.28.2",
-    "rollup-plugin-css-only": "^2.0.0",
     "rollup-plugin-delete": "^2.0.0",
-    "rollup-plugin-sass": "^1.2.2",
     "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript2": "^0.27.3",
     "rollup-plugin-vue": "^5.1.9",
@@ -75,41 +101,17 @@
   "peerDependencies": {
     "vue": "^2.6.12"
   },
-  "scripts": {
-    "create": "node cli/index.js create",
-    "delete": "node cli/index.js delete",
-    "c": "git-cz",
-    "build:skin": "gulp --gulpfile build/gulpfile.skin.js",
-    "build:component": "rollup --config build/rollup.component.js",
-    "docs:dev": "vuepress dev .",
-    "docs:build": "vuepress build ."
-  },
   "husky": {
     "hooks": {
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
   "lint-staged": {
-    "src/**/*.{ts,tsx,js,jsx}": "eslint"
+    "**": "eslint"
   },
   "config": {
     "commitizen": {
       "path": "cz-conventional-changelog"
     }
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/grtan/cli-template.git"
-  },
-  "keywords": [
-    "vue",
-    "component",
-    "lib"
-  ],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/grtan/cli-template/issues"
-  },
-  "homepage": "https://github.com/grtan/cli-template#readme"
+  }
 }

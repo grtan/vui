@@ -1,9 +1,13 @@
 <template>
-  <iframe :class="$style.iframe" :style="{backgroundImage:`url(${$withBase('/images/phone.png')})`}" src="//localhost:8080"></iframe>
+  <iframe
+    :class="$style.iframe"
+    :style="{ backgroundImage: `url(${$withBase('/images/phone.png')})` }"
+    src="//localhost:8080"
+  ></iframe>
 </template>
 
 <style module>
-.iframe { 
+.iframe {
   position: fixed;
   z-index: 99999;
   right: 5px;

@@ -13,21 +13,26 @@ const routes: Array<RouteConfig> = [
     name: 'Home',
     component: Home
   },
-  ...manifest.map(({ list }) => {
-    return (list as Array<ArrayElem<typeof list>>).map((item) => {
-      if (!(item as any).list) {
-        return item
-      }
+  ...manifest
+    .map(({ list }) => {
+      return (list as Array<ArrayElem<typeof list>>)
+        .map(item => {
+          if (!(item as any).list) {
+            return item
+          }
 
-      return (item as any).list
-    }).flat()
-  }).flat().map(({ lowerEnName }) => {
-    return {
-      path: `/${lowerEnName}`,
-      name: lowerEnName,
-      component: () => import(`../../../src/modules/${lowerEnName}/demo/index.vue`)
-    }
-  })
+          return (item as any).list
+        })
+        .flat()
+    })
+    .flat()
+    .map(({ lowerEnName }) => {
+      return {
+        path: `/${lowerEnName}`,
+        name: lowerEnName,
+        component: () => import(`../../../src/modules/${lowerEnName}/demo/index.vue`)
+      }
+    })
 ]
 
 const router = new VueRouter({

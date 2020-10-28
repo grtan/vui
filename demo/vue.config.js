@@ -8,7 +8,7 @@ module.exports = {
         plugins: [
           require('postcss-pxtorem')({
             rootValue: 100,
-            minPixelValue: 1,
+            minPixelValue: 2,
             propList: ['*']
           })
         ]
@@ -16,14 +16,7 @@ module.exports = {
     }
   },
   chainWebpack: config => {
-    config.resolve.alias
-      .set('@', path.resolve(__dirname, '../src'))
-
-    config.module
-      .rule('eslint')
-      // .uses
-      // .clear()
-      .exclude
-      .add(path.resolve(__dirname, '../src'))
+    config.resolve.alias.set('@', path.resolve(__dirname, '../src'))
+    config.module.rule('eslint').exclude.add(path.resolve(__dirname, '../src'))
   }
 }

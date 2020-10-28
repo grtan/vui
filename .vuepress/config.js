@@ -1,7 +1,7 @@
 const manifest = require('./manifest')
 
 module.exports = {
-  title: 'vui',
+  title: 'Vui 2',
   description: 'vivo游戏事业部前端技术组vue组件库',
   // 过滤掉src/{{name}}目录
   patterns: ['src/**/*.md', 'docs/*.md', '*.md'],
