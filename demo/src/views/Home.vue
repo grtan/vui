@@ -45,22 +45,31 @@
 
 .category {
   > .name {
-    padding: 0 1em;
     background: #f6f6f6;
-
-    + .module {
-      border: none;
-    }
+    padding: 0 1em;
   }
 }
 
 .module {
-  position: relative;
-  display: block;
-  margin: 0 1em;
   border-top: 1px solid #f6f6f6;
   color: #666;
+  display: block;
+  margin: 0 1em;
+  position: relative;
   text-decoration: none;
+
+  &::after {
+    border-color: #ccc;
+    border-style: solid;
+    border-width: 3px 3px 0 0;
+    content: '';
+    height: 0.4em;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%) rotate(45deg);
+    width: 0.4em;
+  }
 
   &:hover {
     color: #000;
@@ -70,17 +79,8 @@
     }
   }
 
-  &::after {
-    content: '';
-    position: absolute;
-    top: 50%;
-    right: 0;
-    transform: translateY(-50%) rotate(45deg);
-    border-color: #ccc;
-    border-style: solid;
-    border-width: 3px 3px 0 0;
-    width: 0.4em;
-    height: 0.4em;
+  .category > .name + & {
+    border: 0;
   }
 }
 </style>

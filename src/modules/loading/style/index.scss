@@ -8,7 +8,7 @@
     color: $color-primary;
 
     @include m((m1, m2)) {
-      background: red;
+      background: #fff;
     }
   }
 
@@ -20,7 +20,7 @@
       color: #333;
 
       @include m((m1, m2)) {
-        background: white;
+        background: #fff;
       }
     }
   }

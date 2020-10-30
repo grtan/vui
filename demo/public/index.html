@@ -8,26 +8,26 @@
     <title><%= htmlWebpackPlugin.options.title %></title>
     <script>
       ;(function () {
-        var scale = 1 / devicePixelRatio,
-          meta = document.querySelector("meta[name=viewport]")
+        var scale = 1 / devicePixelRatio
+        var meta = document.querySelector('meta[name=viewport]')
 
-        !meta && (meta = document.createElement("meta"))
-        meta.setAttribute("name", "viewport")
+        !meta && (meta = document.createElement('meta'))
+        meta.setAttribute('name', 'viewport')
         meta.setAttribute(
-          "content",
-          "width=device-width,initial-scale=" +
+          'content',
+          'width=device-width,initial-scale=' +
             scale +
-            ",maximum-scale=" +
+            ',maximum-scale=' +
             scale +
-            ",minimum-scale=" +
+            ',minimum-scale=' +
             scale +
-            ",user-scalable=no"
+            ',user-scalable=no'
         )
         document.head.appendChild(meta)
-        //设置rem，当调整系统或者浏览器字体大小时，html元素的默认字体大小也会相应变化
-        originalHtmlFontSize = parseFloat(getComputedStyle(document.documentElement, null).fontSize)
+        // 设置rem，当调整系统或者浏览器字体大小时，html元素的默认字体大小也会相应变化
+        var originalHtmlFontSize = parseFloat(getComputedStyle(document.documentElement, null).fontSize)
         document.documentElement.style.fontSize =
-          (document.documentElement.clientWidth * 1000) / (108 * originalHtmlFontSize) + "%"
+          (document.documentElement.clientWidth * 1000) / (108 * originalHtmlFontSize) + '%'
       })()
     </script>
   </head>

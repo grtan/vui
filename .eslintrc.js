@@ -1,16 +1,5 @@
 module.exports = {
   root: true,
-  env: {
-    browser: true,
-    node: true,
-    es2021: true
-  },
-  parserOptions: {
-    sourceType: 'module',
-    ecmaFeatures: {
-      jsx: true
-    }
-  },
   extends: ['./.eslint-config.js'],
   rules: {
     '@typescript-eslint/explicit-function-return-type': 'off',

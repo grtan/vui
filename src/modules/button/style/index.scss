@@ -5,17 +5,17 @@
 @include b(button) {
   $block: &;
 
-  outline: none;
+  background: transparent;
   border: $button-border-width solid currentColor;
   border-radius: $button-radius-regular;
-  padding: $button-padding-regular;
-  background: transparent;
   color: $button-color-regular;
+  cursor: pointer;
   font-size: $button-font-size-regular;
   line-height: 1;
-  white-space: nowrap;
+  outline: none;
+  padding: $button-padding-regular;
   text-align: center;
-  cursor: pointer;
+  white-space: nowrap;
 
   // 禁用状态
   &[disabled] {
@@ -37,6 +37,7 @@
     background: mix($color-white, $button-color-regular, 80%);
   }
 
+  /* stylelint-disable-next-line order/order */
   @include m(primary) {
     color: $button-color-primary;
 
@@ -76,8 +77,8 @@
   // 尺寸
   @include m(big) {
     border-radius: $button-radius-big;
-    padding: $button-padding-big;
     font-size: $button-font-size-big;
+    padding: $button-padding-big;
 
     #{$block} + & {
       margin-left: $button-spacing-big;
@@ -86,8 +87,8 @@
 
   @include m(small) {
     border-radius: $button-radius-small;
-    padding: $button-padding-small;
     font-size: $button-font-size-small;
+    padding: $button-padding-small;
 
     #{$block} + & {
       margin-left: $button-spacing-small;
@@ -96,8 +97,8 @@
 
   @include m(mini) {
     border-radius: $button-radius-mini;
-    padding: $button-padding-mini;
     font-size: $button-font-size-mini;
+    padding: $button-padding-mini;
 
     #{$block} + & {
       margin-left: $button-spacing-mini;
@@ -122,8 +123,8 @@
   }
 
   @include m(circle) {
-    padding: 0.7em;
     border-radius: 50%;
+    padding: 0.7em;
   }
 
   // 块级按钮
@@ -135,75 +136,77 @@
   // 实心背景
   @include m(gorgeous) {
     background: $button-color-regular;
+    border-color: $button-color-regular;
     color: #fff;
 
     &:not([disabled]):hover {
-      border-color: mix($color-white, $button-color-regular, 20%);
       background: mix($color-white, $button-color-regular, 20%);
+      border-color: mix($color-white, $button-color-regular, 20%);
     }
 
     &:not([disabled]):active {
-      border-color: mix($color-black, $button-color-regular, 10%);
       background: mix($color-black, $button-color-regular, 10%);
+      border-color: mix($color-black, $button-color-regular, 10%);
     }
 
     // 色调
+    /* stylelint-disable-next-line order/order */
     @include m(primary) {
-      border-color: $button-color-primary;
       background: $button-color-primary;
+      border-color: $button-color-primary;
 
       &:not([disabled]):hover {
-        border-color: mix($color-white, $button-color-primary, 20%);
         background: mix($color-white, $button-color-primary, 20%);
+        border-color: mix($color-white, $button-color-primary, 20%);
       }
 
       &:not([disabled]):active {
-        border-color: mix($color-black, $button-color-primary, 10%);
         background: mix($color-black, $button-color-primary, 10%);
+        border-color: mix($color-black, $button-color-primary, 10%);
       }
     }
 
     @include m(success) {
-      border-color: $button-color-success;
       background: $button-color-success;
+      border-color: $button-color-success;
 
       &:not([disabled]):hover {
-        border-color: mix($color-white, $button-color-success, 20%);
         background: mix($color-white, $button-color-success, 20%);
+        border-color: mix($color-white, $button-color-success, 20%);
       }
 
       &:not([disabled]):active {
-        border-color: mix($color-black, $button-color-success, 10%);
         background: mix($color-black, $button-color-success, 10%);
+        border-color: mix($color-black, $button-color-success, 10%);
       }
     }
 
     @include m(fail) {
-      border-color: $button-color-fail;
       background: $button-color-fail;
+      border-color: $button-color-fail;
 
       &:not([disabled]):hover {
-        border-color: mix($color-white, $button-color-fail, 20%);
         background: mix($color-white, $button-color-fail, 20%);
+        border-color: mix($color-white, $button-color-fail, 20%);
       }
 
       &:not([disabled]):active {
-        border-color: mix($color-black, $button-color-fail, 10%);
         background: mix($color-black, $button-color-fail, 10%);
+        border-color: mix($color-black, $button-color-fail, 10%);
       }
     }
   }
 
   // 渐变按钮
   @include m(gradient) {
-    color: #fff;
-    border-color: transparent;
     background: linear-gradient(
         to right,
         mix($color-white, $button-color-regular, 5%),
         mix($color-black, $button-color-regular, 20%)
       )
       border-box;
+    border-color: transparent;
+    color: #fff;
 
     &:not([disabled]):hover {
       background: linear-gradient(
@@ -223,6 +226,7 @@
         border-box;
     }
 
+    /* stylelint-disable-next-line order/order */
     @include m(primary) {
       background: linear-gradient(
           to right,
@@ -307,74 +311,75 @@
 
   // 颜色淡一些的实心背景
   @include m(plain) {
-    border-color: mix($color-white, $button-color-regular, 50%);
     background-color: mix($color-white, $button-color-regular, 90%);
+    border-color: mix($color-white, $button-color-regular, 50%);
 
     &:not([disabled]):hover {
-      color: #fff;
-      border-color: $button-color-regular;
       background: $button-color-regular;
+      border-color: $button-color-regular;
+      color: #fff;
     }
 
     &:not([disabled]):active {
-      border-color: mix($color-black, $button-color-regular, 10%);
       background: mix($color-black, $button-color-regular, 10%);
+      border-color: mix($color-black, $button-color-regular, 10%);
     }
 
+    /* stylelint-disable-next-line order/order */
     @include m(primary) {
-      border-color: mix($color-white, $button-color-primary, 50%);
       background-color: mix($color-white, $button-color-primary, 90%);
+      border-color: mix($color-white, $button-color-primary, 50%);
 
       &:not([disabled]):hover {
-        border-color: $button-color-primary;
         background: $button-color-primary;
+        border-color: $button-color-primary;
       }
 
       &:not([disabled]):active {
-        border-color: mix($color-black, $button-color-primary, 10%);
         background: mix($color-black, $button-color-primary, 10%);
+        border-color: mix($color-black, $button-color-primary, 10%);
       }
     }
 
     @include m(success) {
-      border-color: mix($color-white, $button-color-success, 50%);
       background-color: mix($color-white, $button-color-success, 90%);
+      border-color: mix($color-white, $button-color-success, 50%);
 
       &:not([disabled]):hover {
-        border-color: $button-color-success;
         background: $button-color-success;
+        border-color: $button-color-success;
       }
 
       &:not([disabled]):active {
-        border-color: mix($color-black, $button-color-success, 10%);
         background: mix($color-black, $button-color-success, 10%);
+        border-color: mix($color-black, $button-color-success, 10%);
       }
     }
 
     @include m(fail) {
-      border-color: mix($color-white, $button-color-fail, 50%);
       background-color: mix($color-white, $button-color-fail, 90%);
+      border-color: mix($color-white, $button-color-fail, 50%);
 
       &:not([disabled]):hover {
-        border-color: $button-color-fail;
         background: $button-color-fail;
+        border-color: $button-color-fail;
       }
 
       &:not([disabled]):active {
-        border-color: mix($color-black, $button-color-fail, 10%);
         background: mix($color-black, $button-color-fail, 10%);
+        border-color: mix($color-black, $button-color-fail, 10%);
       }
     }
   }
 
   // 纯文本按钮
   @include m(text) {
+    background: none;
+    border: 0;
     display: inline-block;
-    border: none;
+    line-height: inherit;
     padding: 0;
     width: auto;
-    line-height: inherit;
-    background: none;
 
     &:not([disabled]):hover {
       background: none;
@@ -388,15 +393,4 @@
   }
 
   // pc端样式
-  @include pc {
-    font-size: 34px;
-
-    @include e(e) {
-      color: #333;
-
-      @include m((m1, m2)) {
-        background: white;
-      }
-    }
-  }
 }

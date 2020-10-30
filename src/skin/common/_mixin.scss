@@ -5,9 +5,9 @@
 @mixin b($block) {
   $selector: get-block-selector($block);
 
-  // 祖先选择器中不包含block块时才更新$B
+  // 祖先选择器中不包含block块时才更新$b
   @if not contain-block(&) {
-    $B: $selector !global;
+    $b: $selector !global;
   }
 
   #{if(&, '&', '')} .#{$selector} {
@@ -22,7 +22,7 @@
     @if contain-element($parent) or contain-modifier($parent) {
       // 父选择器已经包含了EM，进行选择器嵌套
       @each $element in $elements {
-        $selector: #{$selector + "." + $B + $element-separator + $element + ","};
+        $selector: #{$selector + "." + $b + $element-separator + $element + ","};
       }
 
       @at-root {

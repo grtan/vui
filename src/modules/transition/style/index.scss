@@ -5,11 +5,11 @@
   overflow: hidden;
 
   > * {
-    float: left;
     box-sizing: border-box;
-    width: 100%;
+    float: left;
     // 任何情况下过渡，transition组件都会将enter元素添加到尾部，这里利用opacity不为1时形成层叠上下文，保证层叠顺序跟元素dom顺序一致
     opacity: 0.99999;
+    width: 100%;
 
     /*
       第一个非display:none的元素必须要有高度，否则后面的元素会移动到容器外
@@ -98,18 +98,18 @@
   &-slide {
     &-vt {
       &-enter-active {
-        transition: height $transition-slide-in;
         overflow: hidden;
+        transition: height $transition-slide-in;
       }
 
       &-leave-active {
-        transition: height $transition-slide-out;
         overflow: hidden;
+        transition: height $transition-slide-out;
       }
 
       &-enter {
-        transition-duration: 0ms !important;
         height: 0 !important;
+        transition-duration: 0ms !important;
       }
 
       &-leave-to {
@@ -119,13 +119,13 @@
 
     &-hz {
       &-enter-active {
-        transition: width $transition-slide-in;
         overflow: hidden;
+        transition: width $transition-slide-in;
       }
 
       &-leave-active {
-        transition: width $transition-slide-out;
         overflow: hidden;
+        transition: width $transition-slide-out;
       }
 
       &-enter {

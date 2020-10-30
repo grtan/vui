@@ -9,7 +9,7 @@ import vue from 'rollup-plugin-vue'
 import { terser } from 'rollup-plugin-terser'
 import del from 'rollup-plugin-delete'
 
-const src = path.resolve(__dirname, `..${path.sep}src`)
+const src = path.resolve(__dirname, '../src')
 
 export default [
   // 构建es模块
@@ -94,61 +94,59 @@ export default [
         // 外置helper方法
         babelHelpers: 'runtime'
       }),
-      vue({
-        defaultLang: {
-          style: 'scss',
-          script: 'ts'
-        }
-      }),
+      vue(),
       del({
         targets: 'lib/*'
       })
     ]
-  }
+  },
   // 构建umd模块
-  // {
-  //   input: 'src/index.ts',
-  //   output: [
-  //     {
-  //       dir: 'dist',
-  //       entryFileNames: 'vui.js',
-  //       format: 'umd',
-  //       name: 'VUI'
-  //     },
-  //     {
-  //       dir: 'dist',
-  //       entryFileNames: 'vui.min.js',
-  //       format: 'umd',
-  //       name: 'VUI',
-  //       compact: true,
-  //       plugins: [terser()]
-  //     }
-  //   ],
-  //   plugins: [
-  //     alias({
-  //       entries: {
-  //         '@': src
-  //       }
-  //     }),
-  //     nodeResolve({
-  //       extensions: ['.vue', '.ts', '.tsx', '.js', '.jsx']
-  //     }),
-  //     commonjs(),
-  //     typescript(),
-  //     babel({
-  //       extensions: ['.ts', '.tsx', '.js', '.jsx'],
-  //       exclude: 'node_modules/**',
-  //       babelHelpers: 'runtime'
-  //     }),
-  //     vue({
-  //       defaultLang: {
-  //         style: 'scss',
-  //         script: 'ts'
-  //       }
-  //     }),
-  //     del({
-  //       targets: 'dist/*'
-  //     })
-  //   ]
-  // }
+  {
+    input: 'src/modules/index.ts',
+    output: [
+      {
+        dir: 'dist',
+        entryFileNames: 'vui.js',
+        format: 'umd',
+        name: 'VUI',
+        external: ['vue'],
+        globals: {
+          vue: 'Vue'
+        }
+      },
+      {
+        dir: 'dist',
+        entryFileNames: 'vui.min.js',
+        format: 'umd',
+        name: 'VUI',
+        external: ['vue'],
+        globals: {
+          vue: 'Vue'
+        },
+        compact: true,
+        plugins: [terser()]
+      }
+    ],
+    plugins: [
+      alias({
+        entries: {
+          '@': src
+        }
+      }),
+      nodeResolve({
+        extensions: ['.vue', '.ts', '.tsx', '.js', '.jsx']
+      }),
+      commonjs(),
+      typescript(),
+      babel({
+        extensions: ['.ts', '.tsx', '.js', '.jsx'],
+        exclude: 'node_modules/**',
+        babelHelpers: 'runtime'
+      }),
+      vue(),
+      del({
+        targets: 'dist/*'
+      })
+    ]
+  }
 ]

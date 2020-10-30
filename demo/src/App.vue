@@ -6,16 +6,17 @@
 
 <style lang="scss">
 body {
-  margin: 0;
   background: #fff;
+  margin: 0;
 }
 
+/* stylelint-disable-next-line */
 #app {
+  color: #2c3e50;
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-size-adjust: none;
   text-align: center;
-  color: #2c3e50;
+  text-size-adjust: none;
 }
 </style>

@@ -8,17 +8,17 @@
 
 <style module>
 .iframe {
+  background: center / contain no-repeat;
+  border: 0;
+  box-sizing: border-box;
+  height: 705px;
+  padding: 89px 23px 93px;
   position: fixed;
-  z-index: 99999;
   right: 5px;
   top: 50%;
   transform: translateY(-50%);
-  box-sizing: border-box;
-  padding: 89px 24px 93px;
-  width: 341px;
-  height: 705px;
-  border: none;
-  background: center / contain no-repeat;
   user-select: none;
+  width: 341px;
+  z-index: 99999;
 }
 </style>

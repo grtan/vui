@@ -2,36 +2,36 @@
 @use '../../../skin/common/mixin' as *;
 
 @include b(avatar) {
-  display: inline-block;
-  overflow: hidden;
-  border-radius: $avatar-square-radius;
-  width: $avatar-size-regular;
-  height: $avatar-size-regular;
-  font-size: $avatar-font-size-regular;
-  line-height: $avatar-size-regular;
-  text-align: center;
   background: $avatar-background;
+  border-radius: $avatar-square-radius;
+  display: inline-block;
+  font-size: $avatar-font-size-regular;
+  height: $avatar-size-regular;
+  line-height: $avatar-size-regular;
+  overflow: hidden;
+  text-align: center;
+  width: $avatar-size-regular;
 
   // 尺寸
   @include m(big) {
-    width: $avatar-size-big;
-    height: $avatar-size-big;
     font-size: $avatar-font-size-big;
+    height: $avatar-size-big;
     line-height: $avatar-size-big;
+    width: $avatar-size-big;
   }
 
   @include m(small) {
-    width: $avatar-size-small;
-    height: $avatar-size-small;
     font-size: $avatar-font-size-small;
+    height: $avatar-size-small;
     line-height: $avatar-size-small;
+    width: $avatar-size-small;
   }
 
   @include m(mini) {
-    width: $avatar-size-mini;
-    height: $avatar-size-mini;
     font-size: $avatar-font-size-mini;
+    height: $avatar-size-mini;
     line-height: $avatar-size-mini;
+    width: $avatar-size-mini;
   }
 
   // 形状
@@ -41,38 +41,38 @@
 
   @include e(img) {
     display: block;
-    width: 100%;
     height: 100%;
+    width: 100%;
   }
 
   // pc端样式
   @include pc {
     border-radius: $avatar-square-radius-pc;
-    width: $avatar-size-regular-pc;
-    height: $avatar-size-regular-pc;
     font-size: $avatar-font-size-regular-pc;
+    height: $avatar-size-regular-pc;
     line-height: $avatar-size-regular-pc;
+    width: $avatar-size-regular-pc;
 
     // 尺寸
     @include m(big) {
-      width: $avatar-size-big-pc;
-      height: $avatar-size-big-pc;
       font-size: $avatar-font-size-big-pc;
+      height: $avatar-size-big-pc;
       line-height: $avatar-size-big-pc;
+      width: $avatar-size-big-pc;
     }
 
     @include m(small) {
-      width: $avatar-size-small-pc;
-      height: $avatar-size-small-pc;
       font-size: $avatar-font-size-small-pc;
+      height: $avatar-size-small-pc;
       line-height: $avatar-size-small-pc;
+      width: $avatar-size-small-pc;
     }
 
     @include m(mini) {
-      width: $avatar-size-mini-pc;
-      height: $avatar-size-mini-pc;
       font-size: $avatar-font-size-mini-pc;
+      height: $avatar-size-mini-pc;
       line-height: $avatar-size-mini-pc;
+      width: $avatar-size-mini-pc;
     }
   }
 }

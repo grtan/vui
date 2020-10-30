@@ -3,17 +3,17 @@
 @use '../../../skin/common/function' as *;
 
 @include b(tag) {
-  display: inline-block;
-  border-radius: $tag-border-radius-regular;
   border: $tag-border-width-regular solid currentColor;
-  padding: $tag-padding-regular;
+  border-radius: $tag-border-radius-regular;
   color: $tag-color-regular;
+  display: inline-block;
   font-size: $tag-font-size-regular;
   line-height: 1;
+  padding: $tag-padding-regular;
 
   @include e(close) {
-    margin: $tag-close-margin;
     cursor: pointer;
+    margin: $tag-close-margin;
   }
 
   // 色调
@@ -33,22 +33,22 @@
   @include m(big) {
     border-radius: $tag-border-radius-big;
     border-width: $tag-border-width-big;
-    padding: $tag-padding-big;
     font-size: $tag-font-size-big;
+    padding: $tag-padding-big;
   }
 
   @include m(small) {
     border-radius: $tag-border-radius-small;
     border-width: $tag-border-width-small;
-    padding: $tag-padding-small;
     font-size: $tag-font-size-small;
+    padding: $tag-padding-small;
   }
 
   @include m(mini) {
     border-radius: $tag-border-radius-mini;
     border-width: $tag-border-width-mini;
-    padding: $tag-padding-mini;
     font-size: $tag-font-size-mini;
+    padding: $tag-padding-mini;
   }
 
   // 类型
@@ -69,9 +69,9 @@
   }
 
   @include m(gorgeous) {
-    color: $color-white;
-    border-color: transparent;
     background: $tag-color-regular;
+    border-color: transparent;
+    color: $color-white;
 
     // 色调
     @include m(primary) {
@@ -85,9 +85,5 @@
     @include m(fail) {
       background: $tag-color-fail;
     }
-  }
-
-  // pc端样式
-  @include pc {
   }
 }

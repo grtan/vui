@@ -3,20 +3,20 @@
 @use '../../transition/style/index' as *;
 
 @include b(toast) {
-  position: fixed;
-  z-index: $toast-z-index;
-  left: 50%;
-  bottom: $toast-position-bottom;
-  transform: translateX(-50%);
   border-radius: $toast-radius;
+  bottom: $toast-position-bottom;
+  left: 50%;
   max-width: $toast-max-width;
+  position: fixed;
+  transform: translateX(-50%);
+  z-index: $toast-z-index;
 
   @include e(content) {
-    padding: $toast-padding;
     background: $toast-background;
     color: $toast-color;
     font-size: $toast-font-size;
     line-height: $toast-line-height;
+    padding: $toast-padding;
     text-align: justify;
   }
 }

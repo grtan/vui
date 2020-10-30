@@ -33,14 +33,14 @@ export default class VComponent extends Vue {
 
 <style lang="scss">
 .box {
-  position: fixed;
-  margin: auto;
+  background: #fff;
+  bottom: 0;
+  height: 100px;
   left: 0;
+  margin: auto;
+  position: fixed;
   right: 0;
   top: 0;
-  bottom: 0;
   width: 100px;
-  height: 100px;
-  background: #fff;
 }
 </style>

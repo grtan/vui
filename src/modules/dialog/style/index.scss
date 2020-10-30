@@ -9,15 +9,15 @@
   $popup-bottom: #{get-block-selector(transition)}-popup-bottom;
 
   @include e(wrapper) {
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    margin: auto;
-    border-radius: $dialog-border-radius;
-    padding: $dialog-padding;
-    width: $dialog-width;
     background: $dialog-background;
+    border-radius: $dialog-border-radius;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    padding: $dialog-padding;
+    position: fixed;
+    right: 0;
+    width: $dialog-width;
 
     &:not(.#{$popup-bottom}-enter):not(.#{$popup-bottom}-leave-active) {
       transform: translateY(-$dialog-spacing-bottom);
@@ -29,27 +29,27 @@
   }
 
   @include e(header) {
-    padding: $dialog-header-padding;
     color: $dialog-title-color;
     font-size: $dialog-title-font-size;
     line-height: $dialog-title-line-height;
+    padding: $dialog-header-padding;
     text-align: center;
   }
 
   @include e(content) {
-    padding: $dialog-content-padding;
     color: $dialog-content-color;
     font-size: $dialog-content-font-size;
     line-height: $dialog-content-line-height;
+    padding: $dialog-content-padding;
     text-align: justify;
   }
 
   @include e(footer) {
-    display: flex;
-    justify-content: center;
     align-items: center;
-    padding: $dialog-footer-padding;
+    display: flex;
     font-size: $dialog-footer-font-size;
+    justify-content: center;
+    padding: $dialog-footer-padding;
 
     @include b(button) {
       flex: auto;
@@ -64,12 +64,12 @@
   // pc端样式
   @include pc {
     @include e(wrapper) {
-      bottom: 50%;
       border-radius: $dialog-border-radius-pc;
-      padding: $dialog-padding-pc;
-      width: $dialog-width-pc;
+      bottom: 50%;
       max-width: $dialog-max-width-pc;
       min-width: $dialog-min-width-pc;
+      padding: $dialog-padding-pc;
+      width: $dialog-width-pc;
 
       &:not(.#{$popup-bottom}-enter):not(.#{$popup-bottom}-leave-active) {
         transform: translateY(50%);
@@ -88,30 +88,30 @@
     }
 
     @include e(close) {
+      cursor: pointer;
       display: block;
+      font-size: $dialog-close-size-pc;
+      padding: 0.5em;
       position: absolute;
       right: $dialog-close-right-pc;
       top: $dialog-close-top-pc;
-      padding: 0.5em;
-      font-size: $dialog-close-size-pc;
-      cursor: pointer;
     }
 
     @include e(header) {
-      padding: $dialog-header-padding-pc;
       font-size: $dialog-title-font-size-pc;
       line-height: $dialog-title-line-height-pc;
+      padding: $dialog-header-padding-pc;
     }
 
     @include e(content) {
-      padding: $dialog-content-padding-pc;
       font-size: $dialog-content-font-size-pc;
       line-height: $dialog-content-line-height-pc;
+      padding: $dialog-content-padding-pc;
     }
 
     @include e(footer) {
-      padding: $dialog-footer-padding-pc;
       font-size: $dialog-footer-font-size-pc;
+      padding: $dialog-footer-padding-pc;
     }
   }
 }

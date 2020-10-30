@@ -35,6 +35,5 @@
     "resolvePluginsRelativeTo": "",
     "configFile": ""
   },
-  "eslint.validate": ["vue", "html", "javascript", "typescript", "javascriptreact", "typescriptreact"],
   "liveServer.settings.root": "/.vuepress/dist"
 }

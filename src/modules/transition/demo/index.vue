@@ -25,14 +25,14 @@ export default class VComponent extends Vue {
 <style lang="scss" src="../style/index.scss"></style>
 <style lang="scss" module>
 .box {
+  background: #f00;
   // width: 200px;
   height: 200px;
-  background: red;
 }
 
 .box2 {
+  background: #000;
   // width: 200px;
   height: 200px;
-  background: black;
 }
 </style>

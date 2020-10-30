@@ -14,7 +14,7 @@
     "docs:server": "pm2 start .vuepress/server.js --name utils-doc-server",
     "release": "[ -e CHANGELOG.md ] && (HUSKY_SKIP_HOOKS=1 standard-version --skip.tag) || (HUSKY_SKIP_HOOKS=1 standard-version -f --skip.tag)",
     "tag": "standard-version --skip.bump --skip.changelog --skip.commit",
-    "lint": "eslint ."
+    "lint": "eslint . && stylelint '?(.)**/*.{scss,css,vue,html}'"
   },
   "repository": {
     "type": "git",
@@ -61,6 +61,7 @@
     "eslint": "^7.10.0",
     "eslint-config-prettier": "^6.12.0",
     "eslint-config-standard-with-typescript": "^19.0.1",
+    "eslint-plugin-html": "^6.1.0",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^3.1.4",
@@ -77,6 +78,7 @@
     "inquirer": "^7.3.3",
     "koa": "^2.13.0",
     "koa-static": "^5.0.0",
+    "lint-staged": "^10.5.0",
     "postcss": "^8.0.9",
     "postcss-scss": "^3.0.1",
     "postcss-url": "^8.0.0",
@@ -88,26 +90,28 @@
     "rollup-plugin-vue": "^5.1.9",
     "stylelint": "^13.7.2",
     "stylelint-config-prettier": "^8.0.2",
+    "stylelint-config-sass-guidelines": "^7.1.0",
     "stylelint-config-standard": "^20.0.0",
-    "stylelint-order": "^4.1.0",
     "stylelint-prettier": "^1.1.2",
-    "stylelint-scss": "^3.18.0",
     "typescript": "^4.0.3",
     "vue": "^2.6.12",
     "vue-router": "^3.4.7",
     "vue-template-compiler": "^2.6.12",
-    "vuepress": "^1.7.1"
+    "vuepress": "^1.7.1",
+    "webhook": "^1.0.0"
   },
   "peerDependencies": {
     "vue": "^2.6.12"
   },
   "husky": {
     "hooks": {
+      "pre-commit": "lint-staged",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
   "lint-staged": {
-    "**": "eslint"
+    "*.{js,jsx,ts,tsx,vue,html}": "eslint",
+    "*.{scss,css,vue,html}": "stylelint"
   },
   "config": {
     "commitizen": {
