@@ -43,7 +43,7 @@ if (typeof window !== 'undefined' && window.Vue) {
   install(window.Vue)
 }
 
-export { install, Appear, Avatar, Button, Dialog, Disappear, HistoryAction, Intersect, Loading, Overlayer, Scroll, ScrollBottom, ScrollTop, Tag, Toast, Transition }
+export { Appear, Avatar, Button, Dialog, Disappear, HistoryAction, Intersect, Loading, Overlayer, Scroll, ScrollBottom, ScrollTop, Tag, Toast, Transition }
 export default {
   install
 }

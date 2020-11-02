@@ -28,7 +28,7 @@ if (typeof window !== 'undefined' && window.Vue) {
   install(window.Vue)
 }
 
-export { install, {{modules.map(item=>item.enName).join(', ')}} }
+export { {{modules.map(item=>item.enName).join(', ')}} }
 export default {
   install
 }

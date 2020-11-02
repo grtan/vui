@@ -1,8 +1,10 @@
-import { Vue } from 'vue-property-decorator'
+import { VuiComponent } from '@/types/module'
 import Component from './component.vue'
 
-Component.install = function (vue: typeof Vue) {
+const Avatar = Component as typeof Component & typeof VuiComponent
+
+Avatar.install = function (vue) {
   vue.component('VuiAvatar', Component)
 }
 
-export default Component
+export default Avatar

@@ -1,8 +1,10 @@
-import { Vue } from 'vue-property-decorator'
+import { VuiComponent } from '@/types/module'
 import Component from './component.vue'
 
-Component.install = function (vue: typeof Vue) {
-  vue.component('VuiOverlayer', Component)
+const Overlayer = Component as typeof Component & typeof VuiComponent
+
+Overlayer.install = function (Vue) {
+  Vue.component('VuiOverlayer', Component)
 }
 
-export default Component
+export default Overlayer

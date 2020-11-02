@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import Vue, { VueConstructor, DirectiveOptions, DirectiveFunction, PluginObject, PluginFunction } from 'vue'
+import Vue, { DirectiveOptions, DirectiveFunction, PluginObject, PluginFunction } from 'vue'
 
 interface Plugin {
   install: PluginFunction<any>

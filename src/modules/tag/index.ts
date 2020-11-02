@@ -1,8 +1,10 @@
-import { Vue } from 'vue-property-decorator'
+import { VuiComponent } from '@/types/module'
 import Component from './component.vue'
 
-Component.install = function (vue: typeof Vue) {
-  vue.component('VuiTag', Component)
+const Tag = Component as typeof Component & typeof VuiComponent
+
+Tag.install = function (Vue) {
+  Vue.component('VuiTag', Component)
 }
 
-export default Component
+export default Tag

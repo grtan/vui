@@ -3,7 +3,7 @@ import { extendVue } from '@/utils/extend'
 
 let vm: InstanceType<typeof Component>
 
-function toast(content: string, options?: { duration?: number; allowHtml?: boolean; className?: string }) {
+function Toast(content: string, options?: { duration?: number; allowHtml?: boolean; className?: string }) {
   if (!vm) {
     vm = new Component()
     vm.$mount(document.body.appendChild(document.createElement('div')))
@@ -12,8 +12,8 @@ function toast(content: string, options?: { duration?: number; allowHtml?: boole
   ;(vm as any).show(content, options)
 }
 
-toast.install = function () {
-  extendVue('toast', toast)
+Toast.install = function () {
+  extendVue('toast', Toast)
 }
 
-export default toast
+export default Toast

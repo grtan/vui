@@ -1,5 +1,5 @@
 // opts = {
-//   modifier(name,path) {
+//   modifier(name,importee,importer) {
 //     return {
 //       name: 'xxx',
 //       path: 'xxx'
@@ -9,7 +9,7 @@
 
 module.exports = (opts = {}) => {
   return {
-    postcssPlugin: 'my-postcss-plugin',
+    postcssPlugin: 'postcss-at-rule',
     AtRule: {
       /**
        * 替换@规则的名称、路径
@@ -24,7 +24,7 @@ module.exports = (opts = {}) => {
         const modulePath = atRule.params.replace(/\s+as\s+[^'"]+$/, '').replace(/^('|")|('|")$/g, '')
         // 别名部分
         const alias = atRule.params.replace(/^.*?(\s+as\s+[^'"]+)?$/, '$1')
-        const { name, path } = (await opts.modifier(atRule.name, modulePath)) || {}
+        const { name, path } = (await opts.modifier(atRule.name, modulePath, atRule.source.input.file)) || {}
 
         atRule.name = name || atRule.name
         // @import不支持as别名

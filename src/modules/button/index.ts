@@ -1,8 +1,10 @@
-import { Vue } from 'vue-property-decorator'
+import { VuiComponent } from '@/types/module'
 import Component from './component.vue'
 
-Component.install = function (vue: typeof Vue) {
-  vue.component('VuiButton', Component)
+const Button = Component as typeof Component & typeof VuiComponent
+
+Button.install = function (Vue) {
+  Vue.component('VuiButton', Component)
 }
 
-export default Component
+export default Button

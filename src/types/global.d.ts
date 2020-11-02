@@ -1,6 +1,6 @@
 declare module '*.vue' {
-  import { VuiComponent } from '@/types/module'
-  export default VuiComponent
+  import Vue from 'vue'
+  export default Vue
 }
 
 interface HTMLElement {

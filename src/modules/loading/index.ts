@@ -1,8 +1,10 @@
-import { Vue } from 'vue-property-decorator'
+import { VuiComponent } from '@/types/module'
 import Component from './component.vue'
 
-Component.install = function (vue: typeof Vue) {
-  vue.component('VuiLoading', Component)
+const Loading = Component as typeof Component & typeof VuiComponent
+
+Loading.install = function (Vue) {
+  Vue.component('VuiLoading', Component)
 }
 
-export default Component
+export default Loading
