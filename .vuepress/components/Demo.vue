@@ -2,9 +2,22 @@
   <iframe
     :class="$style.iframe"
     :style="{ backgroundImage: `url(${$withBase('/images/phone.png')})` }"
-    :src="`//${location.hostname}:3003`"
+    :src="src"
   ></iframe>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      src: ''
+    }
+  },
+  beforeMount() {
+    this.src = `//${window.location.hostname}:3003`
+  }
+}
+</script>
 
 <style module>
 .iframe {
