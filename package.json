@@ -13,7 +13,7 @@
     "build": "npm run build:component && npm run build:skin",
     "docs:dev": "vuepress dev .",
     "docs:build": "vuepress build .",
-    "docs:server": "pm2 start .vuepress/server.js --name vui-doc-server",
+    "server": "pm2 start .vuepress/server.js --name vui-server",
     "webhook": "pm2 start webhook.js --name vui-webhook",
     "lint": "eslint . && stylelint '?(.)**/*.{scss,css,vue,html}'",
     "release": "[ -e CHANGELOG.md ] && (HUSKY_SKIP_HOOKS=1 standard-version --skip.tag) || (HUSKY_SKIP_HOOKS=1 standard-version -f --skip.tag)",

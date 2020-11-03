@@ -1,12 +1,19 @@
 const path = require('path')
 const Koa = require('koa')
 const serve = require('koa-static')
-const app = new Koa()
+const docServer = new Koa()
+const demoServer = new Koa()
 
-app.use(
+docServer.use(
   serve(path.resolve(__dirname, 'dist'), {
     maxage: 30000
   })
 )
+demoServer.use(
+  serve(path.resolve(__dirname, '../demo/dist'), {
+    maxage: 30000
+  })
+)
 
-app.listen(3002)
+docServer.listen(3002)
+demoServer.listen(3003)

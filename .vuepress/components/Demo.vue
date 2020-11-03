@@ -2,7 +2,7 @@
   <iframe
     :class="$style.iframe"
     :style="{ backgroundImage: `url(${$withBase('/images/phone.png')})` }"
-    src="//localhost:8080"
+    :src="`//${location.hostname}:3003`"
   ></iframe>
 </template>
 
