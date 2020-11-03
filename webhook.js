@@ -7,4 +7,4 @@ new WebHook({
     spawnSync('git', ['pull'])
     spawnSync('npm', ['run', 'docs:build'])
   }
-}).listen(3001)
+}).listen(3003)

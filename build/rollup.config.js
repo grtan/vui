@@ -14,7 +14,9 @@ const src = path.resolve(__dirname, '../src')
 
 // 同时构建es、umd会有bug，目前不清楚原因，暂时先分开构建
 export default args => {
-  if (args.lib) {
+  if (args.format === 'es') {
+    delete args.format
+
     // 构建es模块
     return {
       input: (() => {
@@ -62,24 +64,40 @@ export default args => {
        */
       external(id, parentId) {
         /**
-         * input文件本身、@/开头、后缀名为.vue、vue处理后的模块不能外置
-         * @/开头、后缀名为.vue的模块的路径经过alias插件处理后，alias插件又会调用this.resolve方法，最终又会调用该external判断，从而外置模块
+         * input文件本身、@/开头、后缀名为.mjs、.vue、vue处理后的模块不能外置
+         * 后缀名为.mjs、.vue的模块的路径经过alias插件处理后，alias插件又会调用this.resolve方法，最终又会调用该external判断，从而外置模块
          */
-        if (!parentId || id.startsWith('@/') || id.endsWith('.vue') || /\?rollup-plugin-vue=/.test(id)) {
+        if (
+          !parentId ||
+          id.startsWith('@/') ||
+          id.endsWith('.mjs') ||
+          id.endsWith('.vue') ||
+          /\?rollup-plugin-vue=/.test(id)
+        ) {
           return false
         }
 
         return true
       },
       plugins: [
+        /**
+         * 插件默认过滤了input入口文件本身
+         * 默认是一个一个规则来顺序替换
+         * 前面匹配的规则替换后，如果替换后的路径被external外置了，就不会执行后续的替换了
+         */
         alias({
-          /**
-           * 默认是一个一个规则来顺序替换
-           * 前面匹配的规则替换后，如果替换后的路径被external外置了，就不会执行后续的替换了
-           */
           entries: [
             {
               find: /^(.*)\.vue$/,
+              replacement: '$1'
+            },
+            /**
+             * 第三方包可能存在.mjs（比如vue-runtime-helpers），但.mjs可能是es6的语法
+             * 由于webpack默认的后缀名查找顺序为['.wasm', '.mjs', '.js', '.json']
+             * 所以需要明确指定.js后缀名
+             */
+            {
+              find: /^(.*)\.mjs$/,
               replacement: '$1.js'
             }
           ]
@@ -90,17 +108,35 @@ export default args => {
           tsconfigOverride: {
             compilerOptions: {
               plugins: [
-                { transform: 'typescript-transform-paths' },
-                { transform: 'typescript-transform-paths', afterDeclarations: true }
+                /**
+                 * typescript-transform-paths目前只能用1.x版本，2.x版本有bug
+                 * https://github.com/LeDDGroup/typescript-transform-paths/issues/72
+                 */
+                {
+                  transform: 'typescript-transform-paths'
+                },
+                {
+                  transform: 'typescript-transform-paths',
+                  afterDeclarations: true
+                }
               ]
             }
           }
         }),
         // 必须放在babel前，否则babel处理后会添加import bael-helper语句，导致该插件无法识别代码为commonjs模块
-        commonjs(),
+        commonjs({
+          extensions: ['.js', '.jsx']
+        }),
         babel({
-          // 必须包括ts文件，否则不会对ts进行转码
-          extensions: ['.js', '.jsx', '.ts', '.tsx'],
+          /**
+           * 必须包括ts文件，否则不会对ts进行转码
+           * rollup-plugin-vue插件解析vue文件时，会自动插入一些辅助代码，但这些代码中包含const等es6语法
+           * 所以需要添加.vue后缀支持，将辅助代码转换成es5
+           * importee —— component.vue?rollup-plugin-vue=script.ts
+           * importer —— /Users/vivo/Code/Project/vui/src/modules/button/component.vue
+           * https://github.com/rollup/rollup-plugin-babel/issues/260
+           */
+          extensions: ['.js', '.jsx', '.ts', '.tsx', '.vue'],
           // 外置helper方法
           babelHelpers: 'runtime'
         }),
@@ -148,9 +184,16 @@ export default args => {
     external: ['vue'],
     plugins: [
       alias({
-        entries: {
-          '@': src
-        }
+        entries: [
+          {
+            find: /^@(\/.*)$/,
+            replacement: `${src}$1`
+          },
+          {
+            find: /^(.*)\.mjs$/,
+            replacement: '$1.js'
+          }
+        ]
       }),
       nodeResolve({
         extensions: ['.vue', '.ts', '.tsx', '.js', '.jsx']
@@ -163,9 +206,11 @@ export default args => {
           }
         }
       }),
-      commonjs(),
+      commonjs({
+        extensions: ['.js', '.jsx']
+      }),
       babel({
-        extensions: ['.ts', '.tsx', '.js', '.jsx'],
+        extensions: ['.ts', '.tsx', '.js', '.jsx', '.vue'],
         exclude: 'node_modules/**',
         babelHelpers: 'runtime'
       }),
@@ -224,24 +269,40 @@ export default args => {
 //      */
 //     external(id, parentId) {
 //       /**
-//        * input文件本身、@/开头、后缀名为.vue、vue处理后的模块不能外置
-//        * @/开头、后缀名为.vue的模块的路径经过alias插件处理后，alias插件又会调用this.resolve方法，最终又会调用该external判断，从而外置模块
+//        * input文件本身、@/开头、后缀名为.mjs、.vue、vue处理后的模块不能外置
+//        * 后缀名为.mjs、.vue的模块的路径经过alias插件处理后，alias插件又会调用this.resolve方法，最终又会调用该external判断，从而外置模块
 //        */
-//       if (!parentId || id.startsWith('@/') || id.endsWith('.vue') || /\?rollup-plugin-vue=/.test(id)) {
+//       if (
+//         !parentId ||
+//         id.startsWith('@/') ||
+//         id.endsWith('.mjs') ||
+//         id.endsWith('.vue') ||
+//         /\?rollup-plugin-vue=/.test(id)
+//       ) {
 //         return false
 //       }
 
 //       return true
 //     },
 //     plugins: [
+//       /**
+//        * 插件默认过滤了input入口文件本身
+//        * 默认是一个一个规则来顺序替换
+//        * 前面匹配的规则替换后，如果替换后的路径被external外置了，就不会执行后续的替换了
+//        */
 //       alias({
-//         /**
-//          * 默认是一个一个规则来顺序替换
-//          * 前面匹配的规则替换后，如果替换后的路径被external外置了，就不会执行后续的替换了
-//          */
 //         entries: [
 //           {
 //             find: /^(.*)\.vue$/,
+//             replacement: '$1'
+//           },
+//           /**
+//            * 第三方包可能存在.mjs（比如vue-runtime-helpers），但.mjs可能是es6的语法
+//            * 由于webpack默认的后缀名查找顺序为['.wasm', '.mjs', '.js', '.json']
+//            * 所以需要明确指定.js后缀名
+//            */
+//           {
+//             find: /^(.*)\.mjs$/,
 //             replacement: '$1.js'
 //           }
 //         ]
@@ -252,17 +313,35 @@ export default args => {
 //         tsconfigOverride: {
 //           compilerOptions: {
 //             plugins: [
-//               { transform: 'typescript-transform-paths' },
-//               { transform: 'typescript-transform-paths', afterDeclarations: true }
+//               /**
+//                * typescript-transform-paths目前只能用1.x版本，2.x版本有bug
+//                * https://github.com/LeDDGroup/typescript-transform-paths/issues/72
+//                */
+//               {
+//                 transform: 'typescript-transform-paths'
+//               },
+//               {
+//                 transform: 'typescript-transform-paths',
+//                 afterDeclarations: true
+//               }
 //             ]
 //           }
 //         }
 //       }),
 //       // 必须放在babel前，否则babel处理后会添加import bael-helper语句，导致该插件无法识别代码为commonjs模块
-//       commonjs(),
+//       commonjs({
+//         extensions: ['.js', '.jsx']
+//       }),
 //       babel({
-//         // 必须包括ts文件，否则不会对ts进行转码
-//         extensions: ['.js', '.jsx', '.ts', '.tsx'],
+//         /**
+//          * 必须包括ts文件，否则不会对ts进行转码
+//          * rollup-plugin-vue插件解析vue文件时，会自动插入一些辅助代码，但这些代码中包含const等es6语法
+//          * 所以需要添加.vue后缀支持，将辅助代码转换成es5
+//          * importee —— component.vue?rollup-plugin-vue=script.ts
+//          * importer —— /Users/vivo/Code/Project/vui/src/modules/button/component.vue
+//          * https://github.com/rollup/rollup-plugin-babel/issues/260
+//          */
+//         extensions: ['.js', '.jsx', '.ts', '.tsx', '.vue'],
 //         // 外置helper方法
 //         babelHelpers: 'runtime'
 //       }),
@@ -308,9 +387,16 @@ export default args => {
 //     external: ['vue'],
 //     plugins: [
 //       alias({
-//         entries: {
-//           '@': src
-//         }
+//         entries: [
+//           {
+//             find: /^@(\/.*)$/,
+//             replacement: `${src}$1`
+//           },
+//           {
+//             find: /^(.*)\.mjs$/,
+//             replacement: '$1.js'
+//           }
+//         ]
 //       }),
 //       nodeResolve({
 //         extensions: ['.vue', '.ts', '.tsx', '.js', '.jsx']
@@ -323,9 +409,11 @@ export default args => {
 //           }
 //         }
 //       }),
-//       commonjs(),
+//       commonjs({
+//         extensions: ['.js', '.jsx']
+//       }),
 //       babel({
-//         extensions: ['.ts', '.tsx', '.js', '.jsx'],
+//         extensions: ['.ts', '.tsx', '.js', '.jsx', '.vue'],
 //         exclude: 'node_modules/**',
 //         babelHelpers: 'runtime'
 //       }),

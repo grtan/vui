@@ -15,9 +15,7 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"]
-    },
-    "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
+    }
   },
-  "include": ["src/**/*", "src/**/*.vue", ".vuepress/**/*.vue"],
-  "exclude": ["node_modules"]
+  "include": ["src/**/*", "src/**/*.vue", ".vuepress/**/*.vue"]
 }
