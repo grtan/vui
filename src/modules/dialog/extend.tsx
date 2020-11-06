@@ -1,4 +1,3 @@
-/* eslint-disable no-new */
 import { Vue } from 'vue-property-decorator'
 import VuiDialog from './component.vue'
 import VuiButton from '../button/component.vue'
@@ -15,7 +14,7 @@ export function dialog(option: {
   confirmButtonText?: string
   pushState?: boolean
   closeOnClickOverlayer?: boolean
-  beforeClose?: (action: 'other' | 'cancel' | 'confirm', close: (close: boolean) => void) => void
+  beforeClose?: (action: 'other' | 'cancel' | 'confirm', close: (close?: boolean) => void) => void
 }) {
   const options = Object.assign(
     {
@@ -96,36 +95,29 @@ export function dialog(option: {
       const data: {
         show: boolean
         action: 'other' | 'cancel' | 'confirm'
-        timeoutId: number
       } = {
         show: true,
-        action: 'other',
-        timeoutId: 0
+        action: 'other'
       }
 
       return data
-    },
-    watch: {
-      show(value) {
-        // beforeClose有可能阻止关闭，导致value变化多次
-        clearTimeout(this.timeoutId)
-
-        if (value) {
-          return
-        }
-
-        this.timeoutId = window.setTimeout(() => {
-          this.$destroy()
-        }, 500)
-      }
     },
     methods: {
       onButtonClick(action: 'cancel' | 'confirm') {
         this.action = action
         this.show = false
       },
-      beforeClose(close: Function) {
-        options.beforeClose(this.action, close)
+      beforeClose(callback: Function) {
+        options.beforeClose(this.action, (close = true) => {
+          callback(close)
+
+          // 关闭时销毁组件
+          if (close) {
+            setTimeout(() => {
+              this.$destroy()
+            }, 500)
+          }
+        })
         this.action = 'other'
       }
     }
@@ -148,7 +140,7 @@ export function alert(option: {
   confirmButtonText?: string
   pushState?: boolean
   closeOnClickOverlayer?: boolean
-  beforeClose?: (action: 'other' | 'cancel' | 'confirm', close: (close: boolean) => void) => void
+  beforeClose?: (action: 'other' | 'cancel' | 'confirm', close: (close?: boolean) => void) => void
 }) {
   return dialog({
     ...option,
@@ -167,7 +159,7 @@ export function confirm(option: {
   confirmButtonText?: string
   pushState?: boolean
   closeOnClickOverlayer?: boolean
-  beforeClose?: (action: 'other' | 'cancel' | 'confirm', close: (close: boolean) => void) => void
+  beforeClose?: (action: 'other' | 'cancel' | 'confirm', close: (close?: boolean) => void) => void
 }) {
   return dialog({
     ...option,

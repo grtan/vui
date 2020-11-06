@@ -1,6 +1,6 @@
 <template>
   <div class="vui-overlayer">
-    <vui-transition v-bind="$attrs" type="fade" @after-enter="onAfterEnter" @after-leave="onAfterLeave">
+    <vui-transition v-bind="$attrs" @after-enter="onAfterEnter" @after-leave="onAfterLeave">
       <div
         v-show="show"
         :class="[
@@ -81,7 +81,7 @@ export default class VComponent extends Vue {
       close()
     }
   })
-  readonly beforeClose!: (close: (close: boolean) => void) => void
+  readonly beforeClose!: (callback: (close?: boolean) => void) => void
 
   @Watch('value')
   async onValueChange() {

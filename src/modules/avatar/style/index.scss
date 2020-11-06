@@ -2,8 +2,8 @@
 @use '../../../skin/common/mixin' as *;
 
 @include b(avatar) {
-  background: $avatar-background;
   border-radius: $avatar-square-radius;
+  color: $avatar-color;
   display: inline-block;
   font-size: $avatar-font-size-regular;
   height: $avatar-size-regular;
@@ -11,6 +11,11 @@
   overflow: hidden;
   text-align: center;
   width: $avatar-size-regular;
+
+  // 文字头像
+  @include m(text) {
+    background: $avatar-background;
+  }
 
   // 尺寸
   @include m(big) {

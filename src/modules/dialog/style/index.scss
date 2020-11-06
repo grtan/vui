@@ -17,10 +17,15 @@
     padding: $dialog-padding;
     position: fixed;
     right: 0;
-    width: $dialog-width;
 
     &:not(.#{$popup-bottom}-enter):not(.#{$popup-bottom}-leave-active) {
       transform: translateY(-$dialog-spacing-bottom);
+    }
+  }
+
+  @include b(transition) {
+    @include e(wrapper) {
+      width: $dialog-width;
     }
   }
 

@@ -1,8 +1,13 @@
 module.exports = {
-  extends: ['stylelint-config-standard', 'stylelint-config-sass-guidelines', 'stylelint-prettier/recommended'],
+  extends: [
+    'stylelint-config-standard',
+    'stylelint-config-css-modules',
+    'stylelint-config-sass-guidelines',
+    'stylelint-prettier/recommended'
+  ],
   rules: {
     // 'prettier/prettier': [true, { singleQuote: false }],
     // 'order/properties-alphabetical-order': null,
-    'max-nesting-depth': 2
+    'max-nesting-depth': 5
   }
 }

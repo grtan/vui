@@ -1,17 +1,13 @@
 <template>
   <div v-if="!multiple" class="vui-transition">
-    <transition
-      :name="disabled ? 'vui_notransition' : `vui-transition-${type}`"
-      :appear="$attrs.appear"
-      v-on="listeners"
-    >
+    <transition v-bind="$attrs" :name="disabled ? 'vui_notransition' : `vui-transition-${type}`" v-on="listeners">
       <slot></slot>
     </transition>
   </div>
   <transition-group
     v-else
+    v-bind="$attrs"
     :name="disabled ? 'vui_notransition' : `vui-transition-${type}`"
-    :appear="$attrs.appear"
     tag="div"
     class="vui-transition"
     v-on="listeners"
@@ -62,11 +58,12 @@ export default class VComponent extends Vue {
   get listeners() {
     return {
       ...this.$listeners,
+      // apper为true时，如果没有监听appear事件，会直接触发enter对应事件
       ...(this.$listeners.appear && {
         appear: (...args: any[]) => {
           if (this.$listeners.appear instanceof Array) {
             this.$listeners.appear.forEach(fn => fn(...args))
-          } else if (this.$listeners.appear) {
+          } else {
             this.$listeners.appear(...args)
           }
 
@@ -77,7 +74,7 @@ export default class VComponent extends Vue {
         'after-appear': (...args: any[]) => {
           if (this.$listeners['after-appear'] instanceof Array) {
             this.$listeners['after-appear'].forEach(fn => fn(...args))
-          } else if (this.$listeners['after-appear']) {
+          } else {
             this.$listeners['after-appear'](...args)
           }
 
@@ -126,37 +123,47 @@ export default class VComponent extends Vue {
 
   /**
    * vue过渡enter顺序
-   * 执行beforeEnter钩子->添加enter,enter-active类并显示元素->执行enter钩子->下一帧去掉enter类并添加enter-to类
-   * 执行beforeEnter钩子->添加enter,enter-active类并显示元素->执行enter钩子  是在同一个事件循环中同步执行的
+   * 执行beforeEnter钩子->添加enter,enter-active类并插入元素到dom树->执行enter钩子->下一帧去掉enter类并添加enter-to类
+   * 执行beforeEnter钩子->添加enter,enter-active类并插入元素到dom树->执行enter钩子  是在同一个事件循环中同步执行的
    *
    * vue过渡leave顺序
    * 执行beforeLeave钩子->添加leave,leave-active类->执行leave钩子->下一帧去掉leave类并添加leave-to类
    */
   onEnter(el: HTMLElement) {
-    if (!['slide-hz', 'slide-vt'].includes(this.type) || this.originalStyle) {
+    // 非slide过渡或者正在过渡
+    if (this.disabled || !['slide-hz', 'slide-vt'].includes(this.type) || this.originalStyle) {
       return
     }
 
+    // 获取初始style中的尺寸
     this.originalStyle = {
       priority: el.style.getPropertyPriority(this.sizeProp),
       value: el.style.getPropertyValue(this.sizeProp)
     }
+    // 禁止过渡
+    el.classList.add(`vui-transition__disabled`)
     el.classList.remove(`vui-transition-${this.type}-enter`)
+    // 设置尺寸为明确的数字，以便后续过渡
     el.style.setProperty(this.sizeProp, `${el.getBoundingClientRect()[this.sizeProp]}px`)
     el.classList.add(`vui-transition-${this.type}-enter`)
+    // 确保重新渲染
+    el.getBoundingClientRect()
+    // 恢复过渡
+    el.classList.remove(`vui-transition__disabled`)
   }
 
   onAfterEnter(el: HTMLElement) {
-    if (!['slide-hz', 'slide-vt'].includes(this.type)) {
+    if (this.disabled || !['slide-hz', 'slide-vt'].includes(this.type)) {
       return
     }
 
+    // 恢复初始style尺寸
     el.style.setProperty(this.sizeProp, this.originalStyle!.value, this.originalStyle!.priority)
     this.originalStyle = undefined
   }
 
   onLeave(el: HTMLElement) {
-    if (!['slide-hz', 'slide-vt'].includes(this.type) || this.originalStyle) {
+    if (this.disabled || !['slide-hz', 'slide-vt'].includes(this.type) || this.originalStyle) {
       return
     }
 
@@ -168,7 +175,7 @@ export default class VComponent extends Vue {
   }
 
   onAfterLeave(el: HTMLElement) {
-    if (!['slide-hz', 'slide-vt'].includes(this.type)) {
+    if (this.disabled || !['slide-hz', 'slide-vt'].includes(this.type)) {
       return
     }
 

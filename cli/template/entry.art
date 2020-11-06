@@ -24,11 +24,22 @@ function install(
   )
 }
 
+// 设置是移动端还是pc端风格
+function setType(type: 'mobile' | 'pc' = 'mobile') {
+  if (type === 'pc') {
+    document.documentElement.classList.add('vuipc')
+    return
+  }
+
+  document.documentElement.classList.remove('vuipc')
+}
+
 if (typeof window !== 'undefined' && window.Vue) {
   install(window.Vue)
 }
 
-export { {{modules.map(item=>item.enName).join(', ')}} }
+export { setType, {{modules.map(item=>item.enName).join(', ')}} }
 export default {
-  install
+  install,
+  setType
 }

@@ -14,9 +14,24 @@ body {
 #app {
   color: #2c3e50;
   font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-size: 0.5rem;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   text-size-adjust: none;
+}
+
+.demo {
+  &__wrapper {
+    margin-top: 100px;
+  }
+
+  &__title {
+    font-size: 54px;
+  }
+
+  &__content {
+    font-size: 40px;
+    margin-top: 46px;
+  }
 }
 </style>

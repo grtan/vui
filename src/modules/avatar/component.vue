@@ -1,6 +1,15 @@
 <template>
-  <div :class="['vui-avatar', `vui-avatar--${type}`, `vui-avatar--${size}`]">
-    <img v-if="src" class="vui-avatar__img" :src="src" :style="{ 'object-fit': fit }" />
+  <div
+    :class="[
+      'vui-avatar',
+      {
+        [`vui-avatar--${type}`]: ['circle'].includes(type),
+        [`vui-avatar--${size}`]: ['big', 'small', 'mini'].includes(size),
+        'vui-avatar--text': !src
+      }
+    ]"
+  >
+    <img v-if="src" class="vui-avatar__img" :style="{ 'object-fit': fit }" :src="src" />
     <slot v-else></slot>
   </div>
 </template>
@@ -25,7 +34,8 @@ export default class VComponent extends Vue {
   size!: 'big' | 'regular' | 'small' | 'mini'
 
   @Prop({
-    type: String
+    type: String,
+    default: ''
   })
   src!: string
 

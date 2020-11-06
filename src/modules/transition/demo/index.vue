@@ -1,38 +1,30 @@
 <template>
-  <div>
-    <button @click="show = !show">开关</button>
-    <vui-transition type="fade" appear>
-      <div v-if="show" key="box1" :class="$style.box"></div>
-      <div v-else key="box2" :class="$style.box2"></div>
-    </vui-transition>
+  <div class="demo">
+    <div v-for="(demo, index) in demos" :key="index" class="demo__wrapper">
+      <div class="demo__title">{{ demo.title }}</div>
+      <div class="demo__content">
+        <component :is="demo"></component>
+      </div>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
-import VuiTransition from '../index'
+import Demo0 from './demo0.vue'
+import Demo1 from './demo1.vue'
+import Demo2 from './demo2.vue'
+import Demo3 from './demo3.vue'
+import Demo4 from './demo4.vue'
+import Demo5 from './demo5.vue'
+import Demo6 from './demo6.vue'
+import Demo7 from './demo7.vue'
 
-@Component({
-  components: {
-    VuiTransition
-  }
-})
+@Component
 export default class VComponent extends Vue {
-  show = false
+  demos = [Demo0, Demo1, Demo2, Demo3, Demo4, Demo5, Demo6, Demo7]
 }
 </script>
 
+<style lang="scss" src="../../button/style/index.scss"></style>
 <style lang="scss" src="../style/index.scss"></style>
-<style lang="scss" module>
-.box {
-  background: #f00;
-  // width: 200px;
-  height: 200px;
-}
-
-.box2 {
-  background: #000;
-  // width: 200px;
-  height: 200px;
-}
-</style>

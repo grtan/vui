@@ -1,4 +1,4 @@
-# dialog 对话框
+# Dialog 对话框
 
 > 这里输入描述
 
@@ -41,7 +41,7 @@ this.$vui.confirm({
 })
 ```
 
-```html
+```vue
 <template>
   <vui-dialog v-model="show" title="标题">
     正文内容
@@ -53,15 +53,15 @@ this.$vui.confirm({
 </template>
 
 <script>
-  import { Dialog as VuiDialog, Button as VuiButton } from '@game/vui';
+import { Dialog as VuiDialog, Button as VuiButton } from '@game/vui';
 
-  export default {
-    components: {
-      VuiDialog,
-      VuiButton
-    },
-    ...
-  };
+export default {
+  components: {
+    VuiDialog,
+    VuiButton
+  },
+  ...
+};
 </script>
 ```
 
@@ -75,20 +75,20 @@ this.$vui.confirm({
 
 ## options
 
-|       名称        |    类型    | 必填 | 默认值  |              描述              |
-| :---------------: | :--------: | :--: | :-----: | :----------------------------: |
-|     className     |  `String`  | `N`  |   `-`   |           自定义类名           |
-|       title       |  `String`  | `N`  |   `-`   |              标题              |
-|      content      |  `String`  | `Y`  |   `-`   |            正文内容            |
-|     allowHtml     | `Boolean`  | `N`  | `false` |       是否允许渲染 html        |
-|     showClose     | `Boolean`  | `N`  | `false` | 是否显示关闭按钮（移动端无效） |
-| showCancelButton  | `Boolean`  | `N`  |   `-`   |        是否显示取消按钮        |
-| showConfirmButton | `Boolean`  | `N`  |   `-`   |        是否显示确定按钮        |
-| cancelButtonText  |  `String`  | `N`  |   `-`   |          取消按钮文本          |
-| confirmButtonText |  `String`  | `N`  |   `-`   |          确定按钮文本          |
-|    beforeClose    | `Function` | `N`  |   `-`   |         关闭之前的回调         |
+|       名称        |       类型        |   必填   |                        默认值                         |                  描述                  |
+| :---------------: | :---------------: | :------: | :---------------------------------------------------: | :------------------------------------: |
+|     className     |     `String`      |   `N`    |                          `-`                          |               自定义类名               |
+|       title       |     `String`      |   `N`    |                          `-`                          |                  标题                  |
+|      content      |     `String`      |   `Y`    |                          `-`                          |                正文内容                |
+|     allowHtml     |     `Boolean`     |   `N`    |                        `false`                        |           是否允许渲染 html            |
+|     showClose     |     `Boolean`     |   `N`    |                        `false`                        |     是否显示关闭按钮（移动端无效）     |
+| showCancelButton  |     `Boolean`     |   `N`    |                        `true`                         | 是否显示取消按钮，只对 dialog 方法有效 |
+| showConfirmButton |     `Boolean`     |   `N`    |                        `true`                         | 是否显示确定按钮，只对 dialog 方法有效 |
+| cancelButtonText  |     `String`      |   `N`    |                        `取消`                         |              取消按钮文本              |
+| confirmButtonText |     `String`      |   `N`    |                        `确定`                         |              确定按钮文本              |
+|    beforeClose    | `(action: 'other' | 'cancel' | 'confirm', close: (close?: boolean) => void) => void` |                  `N`                   | `(action, close) => close()` | 关闭之前的回调，`action`为 cancel 表示点击了取消按钮，为 confirm 表示点击了确定按钮，other 为其他方式；`close()`回调将会关闭对话框，`close(false)`会阻止关闭 |
 
-`pushState`、`closeOnClickOverlayer`与[overlayer 组件](../overlayer/README.md)一致
+`pushState`、`closeOnClickOverlayer`与[Overlayer](../overlayer/README.md)组件一致
 
 ## 属性
 
@@ -97,19 +97,19 @@ this.$vui.confirm({
 | show-close | `Boolean` | `N`  | `false` | 是否显示关闭按钮 **（移动端无效）** |
 |   title    | `String`  | `N`  |   `-`   |                标题                 |
 
-`v-model`、`light`、`push-state`、`close-on-click-overlayer`、`before-close`属性与[overlayer](../button/README.md)组件一致。
+`v-model`、`light`、`push-state`、`close-on-click-overlayer`、`before-close`属性与[Overlayer](../overlayer/README.md)组件一致。
 
 ## 插槽
 
-|  名称  | 必填 |    说明     |
-| :----: | :--: | :---------: |
-|  默认  | `Y`  |  正文内容   |
-| header | `N`  | header 内容 |
-| footer | `N`  | footer 内容 |
+|  名称   | 必填 |                     说明                     |
+| :-----: | :--: | :------------------------------------------: |
+| default | `Y`  |                   正文内容                   |
+| header  | `N`  | header 内容，未设置 title 时显示 header 内容 |
+| footer  | `N`  |                 footer 内容                  |
 
 ## 作者
 
-tanxin
+谭新 <xin.tan@vivo.com>
 
 ## 更新日志
 

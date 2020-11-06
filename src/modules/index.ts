@@ -8,7 +8,6 @@ import Dialog from './dialog'
 import Disappear from './disappear'
 import HistoryAction from './history-action'
 import Intersect from './intersect'
-import Loading from './loading'
 import Overlayer from './overlayer'
 import Scroll from './scroll'
 import ScrollBottom from './scroll-bottom'
@@ -26,24 +25,35 @@ function install(
     plugins?: Record<string, any>
   }
 ) {
-  const names: string[] = ['Appear', 'Avatar', 'Button', 'Dialog', 'Disappear', 'HistoryAction', 'Intersect', 'Loading', 'Overlayer', 'Scroll', 'ScrollBottom', 'ScrollTop', 'Tag', 'Toast', 'Transition']
+  const names: string[] = ['Appear', 'Avatar', 'Button', 'Dialog', 'Disappear', 'HistoryAction', 'Intersect', 'Overlayer', 'Scroll', 'ScrollBottom', 'ScrollTop', 'Tag', 'Toast', 'Transition']
 
   if (options?.config) {
     update(options.config)
   }
 
-  ;[Appear, Avatar, Button, Dialog, Disappear, HistoryAction, Intersect, Loading, Overlayer, Scroll, ScrollBottom, ScrollTop, Tag, Toast, Transition].forEach(
+  ;[Appear, Avatar, Button, Dialog, Disappear, HistoryAction, Intersect, Overlayer, Scroll, ScrollBottom, ScrollTop, Tag, Toast, Transition].forEach(
     function (item, index) {
       vue.use(item, options?.plugins?.[names[index]])
     }
   )
 }
 
+// 设置是移动端还是pc端风格
+function setType(type: 'mobile' | 'pc' = 'mobile') {
+  if (type === 'pc') {
+    document.documentElement.classList.add('vuipc')
+    return
+  }
+
+  document.documentElement.classList.remove('vuipc')
+}
+
 if (typeof window !== 'undefined' && window.Vue) {
   install(window.Vue)
 }
 
-export { Appear, Avatar, Button, Dialog, Disappear, HistoryAction, Intersect, Loading, Overlayer, Scroll, ScrollBottom, ScrollTop, Tag, Toast, Transition }
+export { setType, Appear, Avatar, Button, Dialog, Disappear, HistoryAction, Intersect, Overlayer, Scroll, ScrollBottom, ScrollTop, Tag, Toast, Transition }
 export default {
-  install
+  install,
+  setType
 }

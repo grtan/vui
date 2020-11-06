@@ -4,6 +4,10 @@
 @include b(transition) {
   overflow: hidden;
 
+  @include e(disabled) {
+    transition: none !important;
+  }
+
   > * {
     box-sizing: border-box;
     float: left;
@@ -36,7 +40,7 @@
     }
 
     &-enter,
-    &-leave-active {
+    &-leave-to {
       opacity: 0;
     }
   }
@@ -52,7 +56,7 @@
     }
 
     &-enter,
-    &-leave-active {
+    &-leave-to {
       transform: scale(0);
     }
   }
@@ -74,67 +78,69 @@
     }
 
     &-left-enter,
-    &-left-leave-active {
+    &-left-leave-to {
       transform: translate3d(-100%, 0, 0);
     }
 
     &-right-enter,
-    &-right-leave-active {
+    &-right-leave-to {
       transform: translate3d(100%, 0, 0);
     }
 
     &-top-enter,
-    &-top-leave-active {
+    &-top-leave-to {
       transform: translate3d(0, -100%, 0);
     }
 
     &-bottom-enter,
-    &-bottom-leave-active {
+    &-bottom-leave-to {
       transform: translate3d(0, 100%, 0);
     }
   }
 
   // 折叠展开
   &-slide {
-    &-vt {
-      &-enter-active {
-        overflow: hidden;
-        transition: height $transition-slide-in;
-      }
-
-      &-leave-active {
-        overflow: hidden;
-        transition: height $transition-slide-out;
-      }
-
+    &-hz {
       &-enter {
-        height: 0 !important;
-        transition-duration: 0ms !important;
+        width: 0 !important;
+
+        &-active {
+          overflow: hidden;
+          transition: width $transition-slide-in;
+        }
       }
 
-      &-leave-to {
-        height: 0 !important;
+      &-leave {
+        &-active {
+          overflow: hidden;
+          transition: width $transition-slide-out;
+        }
+
+        &-to {
+          width: 0 !important;
+        }
       }
     }
 
-    &-hz {
-      &-enter-active {
-        overflow: hidden;
-        transition: width $transition-slide-in;
-      }
-
-      &-leave-active {
-        overflow: hidden;
-        transition: width $transition-slide-out;
-      }
-
+    &-vt {
       &-enter {
-        transition-duration: 0ms !important;
-        width: 0 !important;
+        height: 0 !important;
+
+        &-active {
+          overflow: hidden;
+          transition: height $transition-slide-in;
+        }
       }
 
-      &-leave-to {
-        width: 0 !important;
+      &-leave {
+        &-active {
+          overflow: hidden;
+          transition: height $transition-slide-out;
+        }
+
+        &-to {
+          height: 0 !important;
+        }
       }
     }
   }

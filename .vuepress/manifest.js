@@ -17,7 +17,6 @@ module.exports = [
         "collapsable": false,
         "children": [
           "/src/modules/dialog/",
-          "/src/modules/loading/",
           "/src/modules/overlayer/",
           "/src/modules/toast/"
         ]

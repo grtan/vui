@@ -1,5 +1,18 @@
 <template>
-  <button :class="['vui-button', ...classNames]" :disabled="disabled" @click="!disabled && $emit('click')">
+  <button
+    :class="[
+      'vui-button',
+      {
+        [`vui-button--${type}`]: ['gorgeous', 'plain', 'gradient', 'text'].includes(type),
+        [`vui-button--${hue}`]: ['primary', 'success', 'fail'].includes(hue),
+        [`vui-button--${size}`]: ['big', 'small', 'mini'].includes(size),
+        [`vui-button--${corner}`]: ['round', 'circle'].includes(corner),
+        'vui-button--block': block
+      }
+    ]"
+    :disabled="disabled"
+    @click="!disabled && $emit('click')"
+  >
     <div v-if="icon && iconPosition === 'before'">icon</div>
     <slot></slot>
     <div v-if="icon && iconPosition === 'after'">icon</div>
@@ -36,6 +49,7 @@ export default class VComponent extends Vue {
   })
   readonly size!: 'big' | 'regular' | 'small' | 'mini'
 
+  // 圆角
   @Prop({
     type: String,
     default: 'regular'
@@ -57,7 +71,10 @@ export default class VComponent extends Vue {
   readonly disabled!: boolean
 
   // 图标名称
-  @Prop(String)
+  @Prop({
+    type: String,
+    default: ''
+  })
   readonly icon?: string
 
   // 图标位置
@@ -66,26 +83,5 @@ export default class VComponent extends Vue {
     default: 'before'
   })
   readonly iconPosition!: 'before' | 'after'
-
-  get classNames() {
-    const blockClassName = 'vui-button'
-    const classNames: string[] = []
-
-    ;[this.type, this.hue, this.size, this.corner].forEach(prop => {
-      if (prop && prop !== 'regular') {
-        classNames.push(`${blockClassName}--${prop}`)
-      }
-    })
-
-    if (this.block) {
-      classNames.push(`${blockClassName}--block`)
-    }
-
-    if (this.disabled) {
-      classNames.push(`${blockClassName}--disabled`)
-    }
-
-    return classNames
-  }
 }
 </script>

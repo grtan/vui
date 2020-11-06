@@ -5,8 +5,8 @@
       'vui-tag',
       {
         [`vui-tag--${type}`]: ['gorgeous', 'plain'].includes(type),
-        [`vui-tag--${hue}`]: ['primary', 'success', 'fail'].includes(type),
-        [`vui-tag--${size}`]: ['big', 'small', 'mini'].includes(type)
+        [`vui-tag--${hue}`]: ['primary', 'success', 'fail'].includes(hue),
+        [`vui-tag--${size}`]: ['big', 'small', 'mini'].includes(size)
       }
     ]"
   >

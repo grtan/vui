@@ -1,31 +1,29 @@
 import { PluginObject } from 'vue'
 import VueRouter from 'vue-router'
-import { Vue, Component } from 'vue-property-decorator'
 import { namespace } from '@/utils/store'
 import { extendVue } from '@/utils/extend'
 
 // 记录访问时间的state名称
 const name = `${namespace}Time`
-let replace: InstanceType<typeof VueRouter>['replace']
+let replace: InstanceType<typeof VueRouter>['replace'] | undefined
 let previousTime: number // 上一次时间
 let replaceTime: number // replace前的历史记录的访问时间
 
-@Component
-class HistoryAction extends Vue {
-  created() {
-    if (!this.$router || replace) {
+const plugin: PluginObject<InstanceType<typeof VueRouter>> = {
+  install(Vue, router) {
+    if (replace) {
       return
     }
 
     // replace时history.state会被重置成null，所以要劫持（但仍无法解决location.replace的问题）
-    replace = this.$router.replace.bind(this.$router)
-    this.$router.replace = function (...args: Parameters<HistoryAction['$router']['replace']>) {
+    replace = router!.replace.bind(router)
+    router!.replace = function (...args: Parameters<VueRouter['replace']>) {
       replaceTime = history?.state?.[name] ?? Date.now()
 
-      return replace(...args)
+      return replace!(...args)
     } as any
 
-    this.$router.afterEach(() => {
+    router!.afterEach(() => {
       let action: 'new' | 'forward' | 'back' | 'refresh' | 'replace' // 操作：新建、前进、后退、刷新还是replace
 
       switch (true) {
@@ -56,12 +54,6 @@ class HistoryAction extends Vue {
       previousTime = history.state[name]
       replaceTime = 0
     })
-  }
-}
-
-const plugin: PluginObject<any> = {
-  install(Vue) {
-    Vue.mixin(HistoryAction)
   }
 }
 

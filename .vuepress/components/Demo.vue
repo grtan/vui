@@ -3,6 +3,7 @@
     :class="$style.iframe"
     :style="{ backgroundImage: `url(${$withBase('/images/phone.png')})` }"
     :src="src"
+    @load="postMessage"
   ></iframe>
 </template>
 
@@ -13,8 +14,28 @@ export default {
       src: ''
     }
   },
+  watch: {
+    '$route.path': 'postMessage'
+  },
   beforeMount() {
     this.src = `//${window.location.hostname}:3003`
+  },
+  methods: {
+    postMessage() {
+      let module = ''
+
+      if (this.$route.path.startsWith('/src/modules/')) {
+        module = this.$route.path.replace(/^\/src\/modules\/([^/]+).*$/, '$1')
+      }
+
+      this.$el.contentWindow.postMessage(
+        {
+          type: 'vui',
+          module
+        },
+        '*'
+      )
+    }
   }
 }
 </script>

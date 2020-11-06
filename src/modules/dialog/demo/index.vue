@@ -1,58 +1,27 @@
 <template>
-  <div>
-    <vui-dialog v-model="show" :show-close="false" :before-close="beforeClose">
-      <div>内容</div>
-      <span slot="footer">asdgas</span>
-    </vui-dialog>
-    <button @click="show = !show">对话框开关</button>
-    <button class="top" @click="showDialogPlugin()">对话框插件</button>
+  <div class="demo">
+    <div v-for="(demo, index) in demos" :key="index" class="demo__wrapper">
+      <div class="demo__title">{{ demo.title }}</div>
+      <div class="demo__content">
+        <component :is="demo"></component>
+      </div>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
-import Dialog from '../index'
+import Demo0 from './demo0.vue'
+import Demo1 from './demo1.vue'
+import Demo2 from './demo2.vue'
+import Demo3 from './demo3.vue'
 
-@Component({
-  components: {
-    VuiDialog: Dialog
-  }
-})
+@Component
 export default class VComponent extends Vue {
-  show = false
-  order = 0
-
-  beforeClose(close: () => void) {
-    close()
-  }
-
-  showDialogPlugin() {
-    this.order++
-    Dialog.dialog({
-      title: 'asdgsadg',
-      allowHtml: true,
-      showClose: true,
-      content: `阿斯顿噶撒大<em>${this.order}撒大噶</em>噶说的阿斯顿噶撒大<em>${this.order}撒大噶</em>噶说的`,
-      beforeClose(action, close) {
-        console.log(action)
-        close(true)
-      }
-    })
-  }
-
-  created() {
-    // setTimeout(this.showDialogPlugin.bind(this,2),3000)
-    // setTimeout(this.showDialogPlugin.bind(this,3),6000)
-    // setTimeout(this.showDialogPlugin.bind(this,4),9000)
-  }
+  demos = [Demo0, Demo1, Demo2, Demo3]
 }
 </script>
 
 <style lang="scss" src="../style/index.scss"></style>
-
-<style lang="scss">
-.top {
-  position: fixed;
-  z-index: 9999;
-}
-</style>
+<style lang="scss" src="../../button/style/index.scss"></style>
+<style lang="scss" src="../../toast/style/index.scss"></style>

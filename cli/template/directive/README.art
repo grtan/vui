@@ -10,7 +10,7 @@
 </template>
 
 <script>
-  import { {{enName}} as Vui{{enName}} } from 'vui';
+  import { {{enName}} as Vui{{enName}} } from '@game/vui';
 
   export default {
     components: {
@@ -45,7 +45,7 @@
 
 ## 作者
 
-{{author.name}}<{{author.email}}>
+{{author.name}} <{{author.email}}>
 
 ## 更新日志
 

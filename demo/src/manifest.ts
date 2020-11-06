@@ -45,17 +45,6 @@ export default [
             "lowerEnName": "dialog"
           },
           {
-            "zhName": "加载",
-            "type": "组件",
-            "category": "反馈",
-            "author": {
-              "name": "谭新",
-              "email": "xin.tan@vivo.com"
-            },
-            "enName": "Loading",
-            "lowerEnName": "loading"
-          },
-          {
             "zhName": "遮罩层",
             "type": "组件",
             "category": "反馈",

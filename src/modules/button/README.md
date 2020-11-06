@@ -1,21 +1,21 @@
-# button 按钮
+# Button 按钮
 
 ## 使用方法
 
-```html
+```vue
 <template>
   <vui-button type="gradient" hue="primary">渐变按钮</vui-button>
 </template>
 
 <script>
-  import {Button as VuiButton} from '@game/vui';
+import {Button as VuiButton} from '@game/vui';
 
-  export default {
-    components: {
-      VuiButton
-    },
-    ...
-  };
+export default {
+  components: {
+    VuiButton
+  },
+  ...
+};
 </script>
 ```
 
@@ -32,9 +32,9 @@
 
 ## 插槽
 
-| 名称 | 必填 |   说明   |
-| :--: | :--: | :------: |
-| 默认 | `Y`  | 按钮内容 |
+|  名称   | 必填 |   说明   |
+| :-----: | :--: | :------: |
+| default | `Y`  | 按钮内容 |
 
 ## 事件
 
@@ -44,7 +44,7 @@
 
 ## 作者
 
-tanxin
+谭新 <xin.tan@vivo.com>
 
 ## 更新日志
 

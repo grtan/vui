@@ -16,11 +16,11 @@
 }
 
 @mixin e($elements) {
-  $selector: "";
-
   @each $parent in & {
-    @if contain-element($parent) or contain-modifier($parent) {
-      // 父选择器已经包含了EM，进行选择器嵌套
+    $selector: "";
+
+    @if contain-element($parent) or contain-modifier($parent) or not end-with($parent, $b) {
+      // 祖先选择器已经包含了EM或者父级块选择器不是当前块，进行选择器嵌套
       @each $element in $elements {
         $selector: #{$selector + "." + $b + $element-separator + $element + ","};
       }
@@ -51,10 +51,13 @@
   $selector: "";
 
   @each $parent in & {
+    $parent: selector-to-string($parent);
+
     @if contain-modifier($parent) {
       // 父选择器已经包含M，则组合选择器
       @each $modifier in $modifiers {
-        $prefix: selector-to-string($parent);
+        // 祖先选择器中的最后一个，即父级选择器
+        $prefix: str-slice($parent, (str-last-index($parent, " ") or 0) + 1, str-length($parent));
         $index: str-index($prefix, $modifier-separator);
         $prefix: str-slice($prefix, 1, $index - 1);
         $selector: #{$selector + $parent + $prefix + $modifier-separator + $modifier + ","};

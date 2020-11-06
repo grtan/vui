@@ -1,75 +1,27 @@
 <template>
-  <div>
-    <div class="line">
-      <vui-button type="" hue="" size="" corner="" :block="false" :disabled="false">按钮</vui-button>
-      <vui-button type="" hue="primary" size="" corner="" :block="false" :disabled="false">按钮</vui-button>
-      <vui-button type="" hue="success" size="" corner="" :block="false" :disabled="false">按钮</vui-button>
-      <vui-button type="" hue="fail" size="" corner="" :block="false" :disabled="false">按钮</vui-button>
-      <vui-button type="" hue="warning" size="" corner="" :block="false" :disabled="false">按钮</vui-button>
-    </div>
-    <div class="line">
-      <vui-button type="gorgeous" hue="" size="" corner="" :block="false" :disabled="false">按钮</vui-button>
-      <vui-button type="gorgeous" hue="primary" size="" corner="" :block="false" :disabled="false">按钮</vui-button>
-      <vui-button type="gorgeous" hue="success" size="" corner="" :block="false" :disabled="false">按钮</vui-button>
-      <vui-button type="gorgeous" hue="fail" size="" corner="" :block="false" :disabled="false">按钮</vui-button>
-      <vui-button type="gorgeous" hue="warning" size="" corner="" :block="false" :disabled="false">按钮</vui-button>
-    </div>
-    <div class="line">
-      <vui-button type="plain" hue="" size="" corner="" :block="false" :disabled="false">按钮</vui-button>
-      <vui-button type="plain" hue="primary" size="" corner="" :block="false" :disabled="false">按钮</vui-button>
-      <vui-button type="plain" hue="success" size="" corner="" :block="false" :disabled="false">按钮</vui-button>
-      <vui-button type="plain" hue="fail" size="" corner="" :block="false" :disabled="false">按钮</vui-button>
-      <vui-button type="plain" hue="warning" size="" corner="" :block="false" :disabled="false">按钮</vui-button>
-    </div>
-    <div class="line">
-      <vui-button type="gradient" hue="" size="" corner="" :block="false" :disabled="false">按钮</vui-button>
-      <vui-button type="gradient" hue="primary" size="" corner="" :block="false" :disabled="false">按钮</vui-button>
-      <vui-button type="gradient" hue="success" size="" corner="" :block="false" :disabled="false">按钮</vui-button>
-      <vui-button type="gradient" hue="fail" size="" corner="" :block="false" :disabled="false">按钮</vui-button>
-      <vui-button type="gradient" hue="warning" size="" corner="" :block="false" :disabled="false">按钮</vui-button>
-    </div>
-    <div class="line">
-      <vui-button type="text" hue="" size="" corner="" :block="false" :disabled="false">按钮</vui-button>
-      <vui-button type="text" hue="primary" size="" corner="" :block="false" :disabled="false">按钮</vui-button>
-      <vui-button type="text" hue="success" size="" corner="" :block="false" :disabled="false">按钮</vui-button>
-      <vui-button type="text" hue="fail" size="" corner="" :block="false" :disabled="false">按钮</vui-button>
-      <vui-button type="text" hue="warning" size="" corner="" :block="false" :disabled="false">按钮</vui-button>
-    </div>
-
-    <div class="line">
-      <vui-button type="gradient" hue="" size="" corner="" :block="false" :disabled="true">按钮</vui-button>
-      <vui-button type="gradient" hue="primary" size="" corner="" :block="false" :disabled="true">按钮</vui-button>
-      <vui-button type="gradient" hue="success" size="" corner="" :block="false" :disabled="true">按钮</vui-button>
-      <vui-button type="gradient" hue="fail" size="" corner="" :block="false" :disabled="true">按钮</vui-button>
-      <vui-button type="gradient" hue="warning" size="" corner="" :block="false" :disabled="true">按钮</vui-button>
-    </div>
-
-    <div class="line">
-      <vui-button type="gradient" hue="" size="big" corner="round">按钮</vui-button>
-      <vui-button type="gradient" hue="" size="" corner="round">按钮</vui-button>
-      <vui-button type="gradient" hue="" size="small" corner="round">按钮</vui-button>
-      <vui-button type="gradient" hue="" size="mini" corner="round">按钮</vui-button>
-    </div>
-
-    <div class="line">
-      <vui-button type="gorgeous" hue="" size="big" corner="circle">按</vui-button>
-      <vui-button type="gorgeous" hue="" size="" corner="circle">按</vui-button>
-      <vui-button type="gorgeous" hue="" size="small" corner="circle">钮</vui-button>
-      <vui-button type="gorgeous" hue="" size="mini" corner="circle">钮</vui-button>
+  <div class="demo">
+    <div v-for="(demo, index) in demos" :key="index" class="demo__wrapper">
+      <div class="demo__title">{{ demo.title }}</div>
+      <div class="demo__content">
+        <component :is="demo"></component>
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
-import Button from '../index'
+import Demo0 from './demo0.vue'
+import Demo1 from './demo1.vue'
+import Demo2 from './demo2.vue'
+import Demo3 from './demo3.vue'
+import Demo4 from './demo4.vue'
+import Demo5 from './demo5.vue'
 
-@Component({
-  components: {
-    VuiButton: Button
-  }
-})
-export default class VComponent extends Vue {}
+@Component
+export default class VComponent extends Vue {
+  demos = [Demo0, Demo1, Demo2, Demo3, Demo4, Demo5]
+}
 </script>
 
 <style lang="scss" src="../style/index.scss"></style>
