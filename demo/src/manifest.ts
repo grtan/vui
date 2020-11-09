@@ -181,5 +181,20 @@ export default [
         "lowerEnName": "history-action"
       }
     ]
+  },
+  {
+    "type": "工具方法",
+    "list": [
+      {
+        "zhName": "全局配置",
+        "type": "工具方法",
+        "author": {
+          "name": "谭新",
+          "email": "xin.tan@vivo.com"
+        },
+        "enName": "Config",
+        "lowerEnName": "config"
+      }
+    ]
   }
 ]

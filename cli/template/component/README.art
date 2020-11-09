@@ -4,20 +4,20 @@
 
 ## 使用方法
 
-```html
+```vue
 <template>
   <vui-{{lowerEnName}} v-model="show" :title="title" @btn-click="onBtnClick"> 内容内容 </vui-{{lowerEnName}}>
 </template>
 
 <script>
-  import { {{enName}} as Vui{{enName}} } from '@game/vui';
+import { {{enName}} as Vui{{enName}} } from '@game/vui';
 
-  export default {
-    components: {
-      Vui{{enName}}
-    },
-    ...
-  };
+export default {
+  components: {
+    Vui{{enName}}
+  },
+  ...
+};
 </script>
 ```
 

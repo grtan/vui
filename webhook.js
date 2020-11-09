@@ -6,7 +6,8 @@ new WebHook({
   onTagEvent() {
     spawnSync('git', ['checkout', '2.x'])
     spawnSync('git', ['pull'])
-    spawnSync('npm', ['run', 'docs:build'])
+    spawnSync('pnpm', ['i'])
+    spawnSync('pnpm', ['docs:build'])
     spawnSync('npm', ['run', 'build'], {
       cwd: path.resolve(__dirname, 'demo')
     })

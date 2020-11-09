@@ -1,9 +1,9 @@
 /* eslint-disable */
 import Vue from 'vue'
-import { update } from '@/utils/store'
 import Appear from './appear'
 import Avatar from './avatar'
 import Button from './button'
+import Config from './config'
 import Dialog from './dialog'
 import Disappear from './disappear'
 import HistoryAction from './history-action'
@@ -18,42 +18,24 @@ import Transition from './transition'
 
 function install(
   vue: typeof Vue,
-  options?: {
-    // 全局配置
-    config?: Parameters<typeof update>[0]
-    // 插件参数
-    plugins?: Record<string, any>
-  }
+  // 插件参数
+  options?: Record<string, any>
 ) {
-  const names: string[] = ['Appear', 'Avatar', 'Button', 'Dialog', 'Disappear', 'HistoryAction', 'Intersect', 'Overlayer', 'Scroll', 'ScrollBottom', 'ScrollTop', 'Tag', 'Toast', 'Transition']
+  const names: string[] = ['Appear', 'Avatar', 'Button', 'Config', 'Dialog', 'Disappear', 'HistoryAction', 'Intersect', 'Overlayer', 'Scroll', 'ScrollBottom', 'ScrollTop', 'Tag', 'Toast', 'Transition']
 
-  if (options?.config) {
-    update(options.config)
-  }
-
-  ;[Appear, Avatar, Button, Dialog, Disappear, HistoryAction, Intersect, Overlayer, Scroll, ScrollBottom, ScrollTop, Tag, Toast, Transition].forEach(
+  ;[Appear, Avatar, Button, Config, Dialog, Disappear, HistoryAction, Intersect, Overlayer, Scroll, ScrollBottom, ScrollTop, Tag, Toast, Transition].forEach(
     function (item, index) {
-      vue.use(item, options?.plugins?.[names[index]])
+      if (typeof (item as any).install !== 'function') {
+        return
+      }
+
+      vue.use(item as any, options?.[names[index]])
     }
   )
 }
 
-// 设置是移动端还是pc端风格
-function setType(type: 'mobile' | 'pc' = 'mobile') {
-  if (type === 'pc') {
-    document.documentElement.classList.add('vuipc')
-    return
-  }
-
-  document.documentElement.classList.remove('vuipc')
-}
-
-if (typeof window !== 'undefined' && window.Vue) {
-  install(window.Vue)
-}
-
-export { setType, Appear, Avatar, Button, Dialog, Disappear, HistoryAction, Intersect, Overlayer, Scroll, ScrollBottom, ScrollTop, Tag, Toast, Transition }
+export { Appear, Avatar, Button, Config, Dialog, Disappear, HistoryAction, Intersect, Overlayer, Scroll, ScrollBottom, ScrollTop, Tag, Toast, Transition }
 export default {
   install,
-  setType
+  config: Config
 }

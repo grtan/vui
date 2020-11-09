@@ -55,5 +55,12 @@ module.exports = [
     "children": [
       "/src/modules/history-action/"
     ]
+  },
+  {
+    "title": "工具方法",
+    "collapsable": false,
+    "children": [
+      "/src/modules/config/"
+    ]
   }
 ]

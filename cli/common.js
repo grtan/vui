@@ -17,6 +17,10 @@ const types = [
   {
     zhName: '插件',
     enName: 'plugin'
+  },
+  {
+    zhName: '工具方法',
+    enName: 'util'
   }
 ]
 
