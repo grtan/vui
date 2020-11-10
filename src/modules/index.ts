@@ -1,0 +1,41 @@
+/* eslint-disable */
+import Vue from 'vue'
+import Appear from './appear'
+import Avatar from './avatar'
+import Button from './button'
+import Config from './config'
+import Dialog from './dialog'
+import Disappear from './disappear'
+import HistoryAction from './history-action'
+import Intersect from './intersect'
+import Overlayer from './overlayer'
+import Scroll from './scroll'
+import ScrollBottom from './scroll-bottom'
+import ScrollTop from './scroll-top'
+import Tag from './tag'
+import Toast from './toast'
+import Transition from './transition'
+
+function install(
+  vue: typeof Vue,
+  // 插件参数
+  options?: Record<string, any>
+) {
+  const names: string[] = ['Appear', 'Avatar', 'Button', 'Config', 'Dialog', 'Disappear', 'HistoryAction', 'Intersect', 'Overlayer', 'Scroll', 'ScrollBottom', 'ScrollTop', 'Tag', 'Toast', 'Transition']
+
+  ;[Appear, Avatar, Button, Config, Dialog, Disappear, HistoryAction, Intersect, Overlayer, Scroll, ScrollBottom, ScrollTop, Tag, Toast, Transition].forEach(
+    function (item, index) {
+      if (typeof (item as any).install !== 'function') {
+        return
+      }
+
+      vue.use(item as any, options?.[names[index]])
+    }
+  )
+}
+
+export { Appear, Avatar, Button, Config, Dialog, Disappear, HistoryAction, Intersect, Overlayer, Scroll, ScrollBottom, ScrollTop, Tag, Toast, Transition }
+export default {
+  install,
+  config: Config
+}

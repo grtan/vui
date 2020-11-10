@@ -1,0 +1,32 @@
+{
+  // 文件保存时自动格式化
+  "editor.formatOnSave": true,
+  // 开启lint自动修复
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true
+  },
+  // 设置prettier为所有文件的默认格式化器
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  // 禁止prettier格式化js、ts、css、vue文件，统一使用eslint/stylelint
+  "prettier.disableLanguages": [
+    "javascript",
+    "javascriptreact",
+    "typescript",
+    "typescriptreact",
+    "css",
+    "less",
+    "scss",
+    "vue"
+  ],
+  // 禁用vetur自动格式化，防止与lint自动修复冲突
+  "vetur.format.enable": false,
+  "typescript.tsdk": "node_modules/typescript/lib",
+  // 使用项目中的eslint包和配置
+  "eslint.nodePath": "",
+  "eslint.options": {
+    // 每一项都要赋值
+    "resolvePluginsRelativeTo": "",
+    "configFile": ""
+  },
+  "liveServer.settings.root": "/.vuepress/dist"
+}

@@ -1,0 +1,86 @@
+@use './config' as *;
+@use './function' as *;
+
+// BEM
+@mixin b($block) {
+  $selector: get-block-selector($block);
+
+  // 祖先选择器中不包含block块时才更新$b
+  @if not contain-block(&) {
+    $b: $selector !global;
+  }
+
+  #{if(&, '&', '')} .#{$selector} {
+    @content;
+  }
+}
+
+@mixin e($elements) {
+  @each $parent in & {
+    $selector: "";
+
+    @if contain-element($parent) or contain-modifier($parent) or not end-with($parent, $b) {
+      // 祖先选择器已经包含了EM或者父级块选择器不是当前块，进行选择器嵌套
+      @each $element in $elements {
+        $selector: #{$selector + "." + $b + $element-separator + $element + ","};
+      }
+
+      @at-root {
+        #{$parent} {
+          #{$selector} {
+            @content;
+          }
+        }
+      }
+    } @else {
+      // 父选择器未包含EM，在选择器后面加上E
+      @each $element in $elements {
+        $selector: #{$selector + $parent + $element-separator + $element + ","};
+      }
+
+      @at-root {
+        #{$selector} {
+          @content;
+        }
+      }
+    }
+  }
+}
+
+@mixin m($modifiers) {
+  $selector: "";
+
+  @each $parent in & {
+    $parent: selector-to-string($parent);
+
+    @if contain-modifier($parent) {
+      // 父选择器已经包含M，则组合选择器
+      @each $modifier in $modifiers {
+        // 祖先选择器中的最后一个，即父级选择器
+        $prefix: str-slice($parent, (str-last-index($parent, " ") or 0) + 1, str-length($parent));
+        $index: str-index($prefix, $modifier-separator);
+        $prefix: str-slice($prefix, 1, $index - 1);
+        $selector: #{$selector + $parent + $prefix + $modifier-separator + $modifier + ","};
+      }
+    } @else {
+      @each $modifier in $modifiers {
+        $selector: #{$selector + $parent + $modifier-separator + $modifier + ","};
+      }
+    }
+  }
+
+  @at-root {
+    #{$selector} {
+      @content;
+    }
+  }
+}
+
+// pc端样式
+@mixin pc {
+  @at-root {
+    html.#{$pc-class-name} & {
+      @content;
+    }
+  }
+}

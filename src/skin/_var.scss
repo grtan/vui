@@ -1,0 +1,179 @@
+/* ------------------- 过渡动效 ------------------- */
+$transition-fade-in: 300ms cubic-bezier(0.33, 0.1, 0.67, 1) !default;
+$transition-fade-out: 300ms cubic-bezier(0.33, 0, 0.67, 1) !default;
+$transition-zoom-in: 300ms cubic-bezier(0.28, 0.85, 0.36, 1) !default;
+$transition-zoom-out: 300ms cubic-bezier(0.25, 0.1, 0.25, 1) !default;
+$transition-popup-in: 250ms cubic-bezier(0.37, 0.75, 0.46, 1) !default;
+$transition-popup-out: 300ms cubic-bezier(0.5, 0.2, 0.5, 1) !default;
+$transition-slide-in: 300ms cubic-bezier(0.4, 0, 0.6, 1) !default;
+$transition-slide-out: 300ms cubic-bezier(0.4, 0, 0.6, 1) !default;
+
+/* ------------------- 基础颜色 ------------------- */
+$color-primary: #ff8a00 !default;
+$color-success: #38c797 !default;
+$color-fail: #f55353 !default;
+$color-warning: #f88138 !default;
+$color-regular: #999 !default;
+$color-white: #fff !default;
+$color-black: #000 !default;
+
+/* ------------------- 常用文字颜色 ------------------- */
+$text-color-dark: $color-black !default;
+$text-color-regular: #333 !default;
+$text-color-light: #999 !default;
+$text-color-lighter: #ccc !default;
+
+/* ------------------- 常用边框颜色 ------------------- */
+$border-color-dark: #aaa !default;
+$border-color-regular: #cfcfcf !default;
+$border-color-light: #eee !default;
+
+/* ------------------- 常用背景色 ------------------- */
+$border-color-regular: #f8f8f8 !default;
+$border-color-light: #f2f2f2 !default;
+
+/* ------------------- 常用字体大小 ------------------- */
+
+/* ------------------- 按钮 ------------------- */
+// 色调
+$button-color-primary: $color-primary !default;
+$button-color-regular: $color-regular !default;
+$button-color-success: $color-success !default;
+$button-color-fail: $color-fail !default;
+// 字体大小
+$button-font-size-big: 48px !default;
+$button-font-size-regular: 42px !default;
+$button-font-size-small: 39px !default;
+$button-font-size-mini: 36px !default;
+// 内边距
+$button-padding-big: 36px 60px !default;
+$button-padding-regular: 28.5px 57px !default;
+$button-padding-small: 19.5px 42px !default;
+$button-padding-mini: 18px 36px !default;
+// 圆角
+$button-radius-big: 12px !default;
+$button-radius-regular: 12px !default;
+$button-radius-small: 12px !default;
+$button-radius-mini: 12px !default;
+// 边框宽度
+$button-border-width: 3px !default;
+// 图标与文字间距
+$button-icon-spacing-big: 9px !default;
+$button-icon-spacing-regular: 9px !default;
+$button-icon-spacing-small: 6px !default;
+$button-icon-spacing-mini: 6px !default;
+// 相邻按钮间距
+$button-spacing-big: 65px !default;
+$button-spacing-regular: 55px !default;
+$button-spacing-small: 45px !default;
+$button-spacing-mini: 35px !default;
+// pc端样式
+$button-font-size-big-pc: 46px !default;
+$button-font-size-regular-pc: 40px !default;
+$button-font-size-small-pc: 34px !default;
+$button-font-size-mini-pc: 28px !default;
+
+/* ------------------- 遮罩层 ------------------- */
+$overlayer-background: rgba(0, 0, 0, 0.8) !default;
+$overlayer-background-light: rgba(0, 0, 0, 0.4) !default;
+
+/* ------------------- 对话框 ------------------- */
+$dialog-background: $color-white !default;
+$dialog-padding: 60px 48px 43px !default;
+$dialog-header-padding: 0 0 42px !default;
+$dialog-content-padding: 0 !default;
+$dialog-footer-padding: 43px 0 0 !default;
+$dialog-spacing-bottom: 174px !default;
+$dialog-width: 984px !default;
+$dialog-border-radius: 48px !default;
+$dialog-title-color: $color-black !default;
+$dialog-title-font-size: 48px !default;
+$dialog-title-line-height: 60px !default;
+$dialog-content-color: $color-black !default;
+$dialog-content-font-size: 42px !default;
+$dialog-content-line-height: 54px !default;
+$dialog-footer-font-size: $dialog-content-font-size !default;
+$dialog-button-spacing: 48px !default;
+$dialog-button-max-width: 840px !default;
+
+// pc端样式
+$dialog-padding-pc: 20px !default;
+$dialog-header-padding-pc: 5px 0 5px !default;
+$dialog-content-padding-pc: 5px 0 0 !default;
+$dialog-footer-padding-pc: 10px 0 0 !default;
+$dialog-width-pc: 60% !default;
+$dialog-max-width-pc: 800px !default;
+$dialog-min-width-pc: 400px !default;
+$dialog-border-radius-pc: 5px !default;
+$dialog-close-right-pc: 10px !default;
+$dialog-close-top-pc: 10px !default;
+$dialog-close-size-pc: 16px !default;
+$dialog-title-font-size-pc: 18px !default;
+$dialog-title-line-height-pc: 24px !default;
+$dialog-content-font-size-pc: 14px !default;
+$dialog-content-line-height-pc: 40px !default;
+$dialog-footer-font-size-pc: 14px !default;
+
+/* ------------------- toast ------------------- */
+$toast-z-index: 999999;
+$toast-position-bottom: 192px;
+$toast-background: rgba(71, 71, 71, 0.8);
+$toast-radius: 30px;
+$toast-padding: 15px 24px;
+$toast-max-width: 984px;
+$toast-color: $color-white;
+$toast-font-size: 45px;
+$toast-line-height: 60px;
+
+/* ------------------- 头像 ------------------- */
+$avatar-size-big: 102px;
+$avatar-size-regular: 90px;
+$avatar-size-small: 72px;
+$avatar-size-mini: 60px;
+$avatar-font-size-big: 42px;
+$avatar-font-size-regular: 39px;
+$avatar-font-size-small: 33px;
+$avatar-font-size-mini: 30px;
+$avatar-square-radius: 9px;
+$avatar-color: rgba(0, 0, 0, 0.3);
+$avatar-background: #f2f2f2;
+
+// pc端
+$avatar-size-big-pc: 50px;
+$avatar-size-regular-pc: 40px;
+$avatar-size-small-pc: 36px;
+$avatar-size-mini-pc: 28px;
+$avatar-font-size-big-pc: 18px;
+$avatar-font-size-regular-pc: 16px;
+$avatar-font-size-small-pc: 14px;
+$avatar-font-size-mini-pc: 12px;
+$avatar-square-radius-pc: 4px;
+
+/* ------------------- Tag标签 ------------------- */
+// 色调
+$tag-color-primary: $color-primary !default;
+$tag-color-regular: $color-regular !default;
+$tag-color-success: $color-success !default;
+$tag-color-fail: $color-fail !default;
+// 圆角
+$tag-border-radius-big: 9px !default;
+$tag-border-radius-regular: 9px !default;
+$tag-border-radius-small: 9px !default;
+$tag-border-radius-mini: 6px !default;
+// 边框
+$tag-border-width-big: 2px !default;
+$tag-border-width-regular: 1px !default;
+$tag-border-width-small: 1px !default;
+$tag-border-width-mini: 1px !default;
+// 内边距
+$tag-padding-big: 19.5px 31.5px !default;
+$tag-padding-regular: 10.5px 12px !default;
+$tag-padding-small: 9.5px 15px !default;
+$tag-padding-mini: 7.5px 9px !default;
+// 关闭图标间距
+$tag-close-margin: 0 0 0 0.5em !default;
+// 字体大小
+$tag-font-size-big: 36px;
+$tag-font-size-regular: 30px;
+$tag-font-size-small: 27px;
+$tag-font-size-mini: 24px;

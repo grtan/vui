@@ -1,0 +1,22 @@
+@use '../../../skin/var' as *;
+@use '../../../skin/common/mixin' as *;
+@use '../../transition/style/index' as *;
+
+@include b(toast) {
+  border-radius: $toast-radius;
+  bottom: $toast-position-bottom;
+  left: 50%;
+  max-width: $toast-max-width;
+  position: fixed;
+  transform: translateX(-50%);
+  z-index: $toast-z-index;
+
+  @include e(content) {
+    background: $toast-background;
+    color: $toast-color;
+    font-size: $toast-font-size;
+    line-height: $toast-line-height;
+    padding: $toast-padding;
+    text-align: justify;
+  }
+}

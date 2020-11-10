@@ -1,0 +1,10 @@
+import { VuiDirective } from '@/types/module'
+
+const directive: VuiDirective = {
+  bind() {},
+  install(Vue) {
+    Vue.directive('vui-{{lowerEnName}}', directive)
+  }
+}
+
+export default directive

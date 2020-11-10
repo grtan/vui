@@ -1,0 +1,29 @@
+@use '../../../skin/var' as *;
+@use '../../../skin/common/mixin' as *;
+@use '../../transition/style/index' as *;
+
+@include b(overlayer) {
+  // 阻止滚动溢出行为
+  overscroll-behavior: contain;
+
+  @include e(layer) {
+    background: $overlayer-background;
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    right: 0;
+    top: 0;
+
+    @include m(hide) {
+      display: none;
+    }
+
+    @include m(light) {
+      background: $overlayer-background-light;
+    }
+  }
+
+  @include e(content) {
+    position: fixed;
+  }
+}

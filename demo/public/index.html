@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" class="vui-p2c">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <link rel="icon" href="<%= BASE_URL %>favicon.ico" />
+    <title><%= htmlWebpackPlugin.options.title %></title>
+    <script>
+      ;(function () {
+        var scale = 1 / devicePixelRatio
+        var meta = document.querySelector('meta[name=viewport]')
+
+        !meta && (meta = document.createElement('meta'))
+        meta.setAttribute('name', 'viewport')
+        meta.setAttribute(
+          'content',
+          'width=device-width,initial-scale=' +
+            scale +
+            ',maximum-scale=' +
+            scale +
+            ',minimum-scale=' +
+            scale +
+            ',user-scalable=no'
+        )
+        document.head.appendChild(meta)
+        // 设置rem，当调整系统或者浏览器字体大小时，html元素的默认字体大小也会相应变化
+        var originalHtmlFontSize = parseFloat(getComputedStyle(document.documentElement, null).fontSize)
+        document.documentElement.style.fontSize =
+          (document.documentElement.clientWidth * 1000) / (108 * originalHtmlFontSize) + '%'
+      })()
+    </script>
+  </head>
+  <body>
+    <noscript>
+      <strong
+        >We're sorry but <%= htmlWebpackPlugin.options.title %> doesn't work properly without JavaScript enabled. Please
+        enable it to continue.</strong
+      >
+    </noscript>
+    <div id="app"></div>
+    <!-- built files will be auto injected -->
+  </body>
+</html>

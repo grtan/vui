@@ -1,0 +1,59 @@
+# Transition 过渡
+
+## 使用方法
+
+```vue
+<template>
+  <div>
+    <!--单个元素-->
+    <vui-transition type="zoom">
+      <div v-show="show">元素内容</div>
+    </vui-transition>
+
+    <!--多个元素-->
+    <vui-transition type="popup-bottom">
+      <div key="1" v-if="value === 1">元素内容</div>
+      <div key="2" v-else-if="value === 2">元素内容</div>
+      <div key="3" v-else>元素内容</div>
+    </vui-transition>
+  </div>
+</template>
+
+<script>
+import { Transition as VuiTransition } from 'vui';
+
+export default {
+  components: {
+    VuiTransition
+  },
+  ...
+};
+</script>
+```
+
+## 属性
+
+|   名称   |                                                                    类型                                                                    | 必填 | 默认值  |       描述       |
+| :------: | :----------------------------------------------------------------------------------------------------------------------------------------: | :--: | :-----: | :--------------: |
+|   type   | `fade` &#124; `zoom` &#124; `popup-bottom` &#124; `popup-top` &#124; `popup-left` &#124; `popup-right` &#124; `slide-hz` &#124; `slide-vt` | `N`  | `fade`  |     动画类型     |
+| disabled |                                                                 `Boolean`                                                                  | `N`  | `false` | 是否禁用过渡动画 |
+
+其他`appear`、`mode`等属性支持跟 vue 内置 [transition](https://cn.vuejs.org/v2/api/#transition) 组件一致。
+
+## 插槽
+
+|  名称   | 必填 |             说明             |
+| :-----: | :--: | :--------------------------: |
+| default | `Y`  | 过渡的元素，同时只能存在一个 |
+
+## 事件
+
+跟 vue 内置 [transition](https://cn.vuejs.org/v2/api/#transition) 组件事件一致。
+
+## 作者
+
+谭新 <xin.tan@vivo.com>
+
+## 更新日志
+
+- v1.0.0 发布

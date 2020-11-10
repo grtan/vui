@@ -1,0 +1,10 @@
+import { VuiComponent } from '@/types/module'
+import Component from './component.vue'
+
+const {{enName}} = Component as typeof Component & typeof VuiComponent
+
+{{enName}}.install = function (Vue) {
+  Vue.component('Vui{{enName}}', Component)
+}
+
+export default {{enName}}

@@ -1,0 +1,7 @@
+import { PluginObject } from 'vue'
+
+const plugin: PluginObject<any> = {
+  install(Vue) {}
+}
+
+export default plugin

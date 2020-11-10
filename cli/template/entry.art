@@ -1,0 +1,26 @@
+/* eslint-disable */
+import Vue from 'vue'
+{{each modules}}import {{$value.enName}} from './{{$value.lowerEnName}}'{{'\n'}}{{/each}}
+function install(
+  vue: typeof Vue,
+  // 插件参数
+  options?: Record<string, any>
+) {
+  const names: string[] = [{{@ modules.map(item=>`'${item.enName}'`).join(', ')}}]
+
+  ;[{{modules.map(item=>item.enName).join(', ')}}].forEach(
+    function (item, index) {
+      if (typeof (item as any).install !== 'function') {
+        return
+      }
+
+      vue.use(item as any, options?.[names[index]])
+    }
+  )
+}
+
+export { {{modules.map(item=>item.enName).join(', ')}} }
+export default {
+  install,
+  config: Config
+}

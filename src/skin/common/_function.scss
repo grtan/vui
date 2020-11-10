@@ -1,0 +1,117 @@
+@use '../var' as *;
+@use './config' as *;
+
+@function get-block-selector($block) {
+  @return #{$namespace}#{$block-separator}#{$block};
+}
+
+@function selector-to-string($selector) {
+  $selector: inspect($selector);
+  // $selector: str-slice($selector, 2, -2);
+  @return $selector;
+}
+
+@function end-with($string, $find) {
+  $string: selector-to-string($string);
+  $find: selector-to-string($find);
+
+  @if (str-index($string, $find) == (str-length($string) - str-length($find) + 1)) {
+    @return true;
+  } @else {
+    @return false;
+  }
+}
+
+@function str-last-index($string, $find) {
+  $string: selector-to-string($string);
+  $find: selector-to-string($find);
+  $index: str-index($string, $find);
+  $result: $index;
+
+  @if $index {
+    @for $i from $index + str-length($find) through str-length($string) {
+      @if str-slice($string, $i, $i + str-length($find) - 1) == $find {
+        $result: $i;
+      }
+    }
+  }
+
+  @return $result;
+}
+
+// 检查选择器中是否包含BEM命名的block块
+@function contain-block($selector) {
+  $selector: selector-to-string($selector);
+
+  @if str-index($selector, "." + $namespace + $block-separator) {
+    @return true;
+  } @else {
+    @return false;
+  }
+}
+
+@function contain-element($selector) {
+  $selector: selector-to-string($selector);
+
+  @if contain-block($selector) and str-index($selector, $element-separator) {
+    @return true;
+  } @else {
+    @return false;
+  }
+}
+
+@function contain-modifier($selector) {
+  $selector: selector-to-string($selector);
+
+  @if contain-block($selector) and str-index($selector, $modifier-separator) {
+    @return true;
+  } @else {
+    @return false;
+  }
+}
+
+@function get-side($val, $side) {
+  $length: length($val);
+
+  @if $length == 1 {
+    @return $val;
+  }
+  @if $length == 2 {
+    @return map-get(
+      (
+        top: nth($val, 1),
+        bottom: nth($val, 1),
+        left: nth($val, 2),
+        right: nth($val, 2)
+      ),
+      $side
+    );
+  }
+  @if $length == 3 {
+    @return map-get(
+      (
+        top: nth($val, 1),
+        left: nth($val, 2),
+        right: nth($val, 2),
+        bottom: nth($val, 3)
+      ),
+      $side
+    );
+  }
+  @if $length == 4 {
+    @return map-get(
+      (
+        top: nth($val, 1),
+        right: nth($val, 2),
+        bottom: nth($val, 3),
+        left: nth($val, 4)
+      ),
+      $side
+    );
+  }
+}
+
+// 淡化背景色
+@function light-background($color, $percentage: 88%) {
+  @return scale-color($color, $lightness: $percentage);
+}

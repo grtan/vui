@@ -1,0 +1,8 @@
+{
+  "zhName": "{{zhName}}",
+  "type": "{{type}}",
+  "author": {
+    "name": "{{author.name}}",
+    "email": "{{author.email}}"
+  }
+}

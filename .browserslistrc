@@ -1,0 +1,7 @@
+> 0.5% in CN
+Android >= 4.4
+iOS >= 9
+ie >= 11
+not Android < 4.4
+not iOS < 9
+not ie < 11

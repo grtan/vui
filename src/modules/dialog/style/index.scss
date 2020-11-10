@@ -1,0 +1,122 @@
+@use '../../../skin/var' as *;
+@use '../../../skin/common/function' as *;
+@use '../../../skin/common/mixin' as *;
+@use '../../transition/style/index' as *;
+@use '../../overlayer/style/index' as *;
+@use '../../button/style/index' as *;
+
+@include b(dialog) {
+  $popup-bottom: #{get-block-selector(transition)}-popup-bottom;
+
+  @include e(wrapper) {
+    background: $dialog-background;
+    border-radius: $dialog-border-radius;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+    padding: $dialog-padding;
+    position: fixed;
+    right: 0;
+
+    &:not(.#{$popup-bottom}-enter):not(.#{$popup-bottom}-leave-active) {
+      transform: translateY(-$dialog-spacing-bottom);
+    }
+  }
+
+  @include b(transition) {
+    @include e(wrapper) {
+      width: $dialog-width;
+    }
+  }
+
+  @include e(close) {
+    display: none;
+  }
+
+  @include e(header) {
+    color: $dialog-title-color;
+    font-size: $dialog-title-font-size;
+    line-height: $dialog-title-line-height;
+    padding: $dialog-header-padding;
+    text-align: center;
+  }
+
+  @include e(content) {
+    color: $dialog-content-color;
+    font-size: $dialog-content-font-size;
+    line-height: $dialog-content-line-height;
+    padding: $dialog-content-padding;
+    text-align: justify;
+  }
+
+  @include e(footer) {
+    align-items: center;
+    display: flex;
+    font-size: $dialog-footer-font-size;
+    justify-content: center;
+    padding: $dialog-footer-padding;
+
+    @include b(button) {
+      flex: auto;
+      max-width: $dialog-button-max-width;
+    }
+
+    .#{get-block-selector(button)} + .#{get-block-selector(button)} {
+      margin-left: $dialog-button-spacing;
+    }
+  }
+
+  // pc端样式
+  @include pc {
+    @include e(wrapper) {
+      border-radius: $dialog-border-radius-pc;
+      bottom: 50%;
+      max-width: $dialog-max-width-pc;
+      min-width: $dialog-min-width-pc;
+      padding: $dialog-padding-pc;
+      width: $dialog-width-pc;
+
+      &:not(.#{$popup-bottom}-enter):not(.#{$popup-bottom}-leave-active) {
+        transform: translateY(50%);
+      }
+
+      &.#{$popup-bottom}-enter-active,
+      &.#{$popup-bottom}-leave-active {
+        transition-property: transform, opacity;
+      }
+
+      &.#{$popup-bottom}-enter,
+      &.#{$popup-bottom}-leave-active {
+        opacity: 0;
+        transform: translate3d(0, -20px, 0);
+      }
+    }
+
+    @include e(close) {
+      cursor: pointer;
+      display: block;
+      font-size: $dialog-close-size-pc;
+      padding: 0.5em;
+      position: absolute;
+      right: $dialog-close-right-pc;
+      top: $dialog-close-top-pc;
+    }
+
+    @include e(header) {
+      font-size: $dialog-title-font-size-pc;
+      line-height: $dialog-title-line-height-pc;
+      padding: $dialog-header-padding-pc;
+    }
+
+    @include e(content) {
+      font-size: $dialog-content-font-size-pc;
+      line-height: $dialog-content-line-height-pc;
+      padding: $dialog-content-padding-pc;
+    }
+
+    @include e(footer) {
+      font-size: $dialog-footer-font-size-pc;
+      padding: $dialog-footer-padding-pc;
+    }
+  }
+}

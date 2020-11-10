@@ -1,0 +1,29 @@
+version: '3.7'
+
+services:
+  gitlab-runner:
+    image: gitlab/gitlab-runner:alpine
+    environment:
+      TZ: Asia/Shanghai
+    restart: unless-stopped
+    expose:
+      - 8093
+    volumes:
+      - type: bind
+        source: /var/run/docker.sock
+        target: /var/run/docker.sock
+      - type: volume
+        source: gitlab-runner
+        target: /etc/gitlab-runner  
+
+volumes:
+  gitlab-runner:
+
+# 为了不与办公网络冲突，自定义其他网段
+networks:
+  default:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 182.88.12.0/24

@@ -1,0 +1,396 @@
+@use '../../../skin/var' as *;
+@use '../../../skin/common/mixin' as *;
+@use '../../../skin/common/function' as *;
+
+@include b(button) {
+  $block: &;
+
+  background: transparent;
+  border: $button-border-width solid currentColor;
+  border-radius: $button-radius-regular;
+  color: $button-color-regular;
+  cursor: pointer;
+  font-size: $button-font-size-regular;
+  line-height: 1;
+  outline: none;
+  padding: $button-padding-regular;
+  text-align: center;
+  white-space: nowrap;
+
+  // 禁用状态
+  &[disabled] {
+    cursor: not-allowed;
+    opacity: 0.3;
+  }
+
+  // 按钮间间距
+  & + & {
+    margin-left: $button-spacing-regular;
+  }
+
+  // 普通按钮色调
+  &:not([disabled]):hover {
+    background: mix($color-white, $button-color-regular, 90%);
+  }
+
+  &:not([disabled]):active {
+    background: mix($color-white, $button-color-regular, 80%);
+  }
+
+  /* stylelint-disable-next-line order/order */
+  @include m(primary) {
+    color: $button-color-primary;
+
+    &:not([disabled]):hover {
+      background: mix($color-white, $button-color-primary, 90%);
+    }
+
+    &:not([disabled]):active {
+      background: mix($color-white, $button-color-primary, 80%);
+    }
+  }
+
+  @include m(success) {
+    color: $button-color-success;
+
+    &:not([disabled]):hover {
+      background: mix($color-white, $button-color-success, 90%);
+    }
+
+    &:not([disabled]):active {
+      background: mix($color-white, $button-color-success, 80%);
+    }
+  }
+
+  @include m(fail) {
+    color: $button-color-fail;
+
+    &:not([disabled]):hover {
+      background: mix($color-white, $button-color-fail, 90%);
+    }
+
+    &:not([disabled]):active {
+      background: mix($color-white, $button-color-fail, 80%);
+    }
+  }
+
+  // 尺寸
+  @include m(big) {
+    border-radius: $button-radius-big;
+    font-size: $button-font-size-big;
+    padding: $button-padding-big;
+
+    #{$block} + & {
+      margin-left: $button-spacing-big;
+    }
+  }
+
+  @include m(small) {
+    border-radius: $button-radius-small;
+    font-size: $button-font-size-small;
+    padding: $button-padding-small;
+
+    #{$block} + & {
+      margin-left: $button-spacing-small;
+    }
+  }
+
+  @include m(mini) {
+    border-radius: $button-radius-mini;
+    font-size: $button-font-size-mini;
+    padding: $button-padding-mini;
+
+    #{$block} + & {
+      margin-left: $button-spacing-mini;
+    }
+  }
+
+  // 圆角、圆形
+  @include m(round) {
+    border-radius: #{$button-font-size-regular/2 + get-side($button-padding-regular, top) + $button-border-width} / 50%;
+
+    @include m(big) {
+      border-radius: #{$button-font-size-big/2 + get-side($button-padding-big, top) + $button-border-width} / 50%;
+    }
+
+    @include m(small) {
+      border-radius: #{$button-font-size-small/2 + get-side($button-padding-small, top) + $button-border-width} / 50%;
+    }
+
+    @include m(mini) {
+      border-radius: #{$button-font-size-mini/2 + get-side($button-padding-mini, top) + $button-border-width} / 50%;
+    }
+  }
+
+  @include m(circle) {
+    border-radius: 50%;
+    padding: 0.7em;
+  }
+
+  // 块级按钮
+  @include m(block) {
+    display: block;
+    width: 100%;
+  }
+
+  // 实心背景
+  @include m(gorgeous) {
+    background: $button-color-regular;
+    border-color: $button-color-regular;
+    color: #fff;
+
+    &:not([disabled]):hover {
+      background: mix($color-white, $button-color-regular, 20%);
+      border-color: mix($color-white, $button-color-regular, 20%);
+    }
+
+    &:not([disabled]):active {
+      background: mix($color-black, $button-color-regular, 10%);
+      border-color: mix($color-black, $button-color-regular, 10%);
+    }
+
+    // 色调
+    /* stylelint-disable-next-line order/order */
+    @include m(primary) {
+      background: $button-color-primary;
+      border-color: $button-color-primary;
+
+      &:not([disabled]):hover {
+        background: mix($color-white, $button-color-primary, 20%);
+        border-color: mix($color-white, $button-color-primary, 20%);
+      }
+
+      &:not([disabled]):active {
+        background: mix($color-black, $button-color-primary, 10%);
+        border-color: mix($color-black, $button-color-primary, 10%);
+      }
+    }
+
+    @include m(success) {
+      background: $button-color-success;
+      border-color: $button-color-success;
+
+      &:not([disabled]):hover {
+        background: mix($color-white, $button-color-success, 20%);
+        border-color: mix($color-white, $button-color-success, 20%);
+      }
+
+      &:not([disabled]):active {
+        background: mix($color-black, $button-color-success, 10%);
+        border-color: mix($color-black, $button-color-success, 10%);
+      }
+    }
+
+    @include m(fail) {
+      background: $button-color-fail;
+      border-color: $button-color-fail;
+
+      &:not([disabled]):hover {
+        background: mix($color-white, $button-color-fail, 20%);
+        border-color: mix($color-white, $button-color-fail, 20%);
+      }
+
+      &:not([disabled]):active {
+        background: mix($color-black, $button-color-fail, 10%);
+        border-color: mix($color-black, $button-color-fail, 10%);
+      }
+    }
+  }
+
+  // 渐变按钮
+  @include m(gradient) {
+    background: linear-gradient(
+        to right,
+        mix($color-white, $button-color-regular, 5%),
+        mix($color-black, $button-color-regular, 20%)
+      )
+      border-box;
+    border-color: transparent;
+    color: #fff;
+
+    &:not([disabled]):hover {
+      background: linear-gradient(
+          to right,
+          mix($color-white, mix($color-white, $button-color-regular, 20%), 20%),
+          mix($color-white, mix($color-black, $button-color-regular, 20%), 20%)
+        )
+        border-box;
+    }
+
+    &:not([disabled]):active {
+      background: linear-gradient(
+          to right,
+          mix($color-black, mix($color-white, $button-color-regular, 20%), 10%),
+          mix($color-black, mix($color-black, $button-color-regular, 20%), 10%)
+        )
+        border-box;
+    }
+
+    /* stylelint-disable-next-line order/order */
+    @include m(primary) {
+      background: linear-gradient(
+          to right,
+          mix($color-white, $button-color-primary, 20%),
+          mix($color-black, $button-color-primary, 20%)
+        )
+        border-box;
+
+      &:not([disabled]):hover {
+        background: linear-gradient(
+            to right,
+            mix($color-white, mix($color-white, $button-color-primary, 20%), 20%),
+            mix($color-white, mix($color-black, $button-color-primary, 20%), 20%)
+          )
+          border-box;
+      }
+
+      &:not([disabled]):active {
+        background: linear-gradient(
+            to right,
+            mix($color-black, mix($color-white, $button-color-primary, 20%), 10%),
+            mix($color-black, mix($color-black, $button-color-primary, 20%), 10%)
+          )
+          border-box;
+      }
+    }
+
+    @include m(success) {
+      background: linear-gradient(
+          to right,
+          mix($color-white, $button-color-success, 20%),
+          mix($color-black, $button-color-success, 20%)
+        )
+        border-box;
+
+      &:not([disabled]):hover {
+        background: linear-gradient(
+            to right,
+            mix($color-white, mix($color-white, $button-color-success, 20%), 20%),
+            mix($color-white, mix($color-black, $button-color-success, 20%), 20%)
+          )
+          border-box;
+      }
+
+      &:not([disabled]):active {
+        background: linear-gradient(
+            to right,
+            mix($color-black, mix($color-white, $button-color-success, 20%), 10%),
+            mix($color-black, mix($color-black, $button-color-success, 20%), 10%)
+          )
+          border-box;
+      }
+    }
+
+    @include m(fail) {
+      background: linear-gradient(
+          to right,
+          mix($color-white, $button-color-fail, 20%),
+          mix($color-black, $button-color-fail, 20%)
+        )
+        border-box;
+
+      &:not([disabled]):hover {
+        background: linear-gradient(
+            to right,
+            mix($color-white, mix($color-white, $button-color-fail, 20%), 20%),
+            mix($color-white, mix($color-black, $button-color-fail, 20%), 20%)
+          )
+          border-box;
+      }
+
+      &:not([disabled]):active {
+        background: linear-gradient(
+            to right,
+            mix($color-black, mix($color-white, $button-color-fail, 20%), 10%),
+            mix($color-black, mix($color-black, $button-color-fail, 20%), 10%)
+          )
+          border-box;
+      }
+    }
+  }
+
+  // 颜色淡一些的实心背景
+  @include m(plain) {
+    background-color: mix($color-white, $button-color-regular, 90%);
+    border-color: mix($color-white, $button-color-regular, 50%);
+
+    &:not([disabled]):hover {
+      background: $button-color-regular;
+      border-color: $button-color-regular;
+      color: #fff;
+    }
+
+    &:not([disabled]):active {
+      background: mix($color-black, $button-color-regular, 10%);
+      border-color: mix($color-black, $button-color-regular, 10%);
+    }
+
+    /* stylelint-disable-next-line order/order */
+    @include m(primary) {
+      background-color: mix($color-white, $button-color-primary, 90%);
+      border-color: mix($color-white, $button-color-primary, 50%);
+
+      &:not([disabled]):hover {
+        background: $button-color-primary;
+        border-color: $button-color-primary;
+      }
+
+      &:not([disabled]):active {
+        background: mix($color-black, $button-color-primary, 10%);
+        border-color: mix($color-black, $button-color-primary, 10%);
+      }
+    }
+
+    @include m(success) {
+      background-color: mix($color-white, $button-color-success, 90%);
+      border-color: mix($color-white, $button-color-success, 50%);
+
+      &:not([disabled]):hover {
+        background: $button-color-success;
+        border-color: $button-color-success;
+      }
+
+      &:not([disabled]):active {
+        background: mix($color-black, $button-color-success, 10%);
+        border-color: mix($color-black, $button-color-success, 10%);
+      }
+    }
+
+    @include m(fail) {
+      background-color: mix($color-white, $button-color-fail, 90%);
+      border-color: mix($color-white, $button-color-fail, 50%);
+
+      &:not([disabled]):hover {
+        background: $button-color-fail;
+        border-color: $button-color-fail;
+      }
+
+      &:not([disabled]):active {
+        background: mix($color-black, $button-color-fail, 10%);
+        border-color: mix($color-black, $button-color-fail, 10%);
+      }
+    }
+  }
+
+  // 纯文本按钮
+  @include m(text) {
+    background: none;
+    border: 0;
+    display: inline-block;
+    line-height: inherit;
+    padding: 0;
+    width: auto;
+
+    &:not([disabled]):hover {
+      background: none;
+      opacity: 0.8;
+    }
+
+    &:not([disabled]):active {
+      background: none;
+      opacity: 1;
+    }
+  }
+
+  // pc端样式
+}

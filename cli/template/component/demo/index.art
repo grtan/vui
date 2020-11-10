@@ -1,0 +1,17 @@
+<template>
+  <vui-{{lowerEnName}}>xxxx</vui-{{lowerEnName}}>
+</template>
+
+<style lang="scss" src="../style/index.scss"></style>
+
+<script lang="ts">
+import { Vue, Component } from 'vue-property-decorator'
+import Vui{{enName}} from '../index'
+
+@Component({
+  components: {
+    Vui{{enName}}
+  }
+})
+export default class VComponent extends Vue {}
+</script>
