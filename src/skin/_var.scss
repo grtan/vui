@@ -180,20 +180,34 @@ $tag-border-radius-big: 9px !default;
 $tag-border-radius-regular: 9px !default;
 $tag-border-radius-small: 9px !default;
 $tag-border-radius-mini: 6px !default;
+
+$tag-border-radius-pc: 4px !default;
 // 边框
 $tag-border-width-big: 2px !default;
 $tag-border-width-regular: 1px !default;
 $tag-border-width-small: 1px !default;
 $tag-border-width-mini: 1px !default;
+
+$tag-border-width-pc: 1px !default;
 // 内边距
 $tag-padding-big: 19.5px 31.5px !default;
 $tag-padding-regular: 10.5px 12px !default;
 $tag-padding-small: 9.5px 15px !default;
 $tag-padding-mini: 7.5px 9px !default;
+
+$tag-padding-big-pc: 11px 10px !default;
+$tag-padding-regular-pc: 7px 10px !default;
+$tag-padding-small-pc: 5px 8px !default;
+$tag-padding-mini-pc: 3px 5px !default;
 // 关闭图标间距
 $tag-close-margin: 0 0 0 0.5em !default;
+
+$tag-close-margin-pc: 5px !default;
 // 字体大小
 $tag-font-size-big: 36px;
 $tag-font-size-regular: 30px;
 $tag-font-size-small: 27px;
 $tag-font-size-mini: 24px;
+
+// 字体大小
+$tag-font-size-pc: 12px;

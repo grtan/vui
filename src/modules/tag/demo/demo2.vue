@@ -1,19 +1,19 @@
 <template>
   <div :class="$style.root">
     <div :class="$style.item">
-      <vui-tag type="gorgeous" hue="primary" size="big">标签</vui-tag>
+      <vui-tag type="gorgeous" hue="primary" size="big" closable="true">大型标签</vui-tag>
       big
     </div>
     <div :class="$style.item">
-      <vui-tag type="gorgeous" hue="primary">标签</vui-tag>
+      <vui-tag type="gorgeous" hue="primary" closable="true">常规标签</vui-tag>
       regular
     </div>
     <div :class="$style.item">
-      <vui-tag type="gorgeous" hue="primary" size="small">标签</vui-tag>
+      <vui-tag type="gorgeous" hue="primary" size="small" closable="true">小型标签</vui-tag>
       small
     </div>
     <div :class="$style.item">
-      <vui-tag type="gorgeous" hue="primary" size="mini">标签</vui-tag>
+      <vui-tag type="gorgeous" hue="primary" size="mini" closable="true">超小标签</vui-tag>
       mini
     </div>
   </div>
