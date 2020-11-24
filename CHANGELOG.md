@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.1.0-beta.0](http://gitlab.vmic.xyz/game-common/vui/compare/v2.0.0-beta.0...v2.1.0-beta.0) (2020-11-24)
+
+
+### Features
+
+* 新增支持Transition组件的type自定义过渡效果；完善Transition、HistoryAction的demo和文档；展示demo添加转场动效 ([4a24c91](http://gitlab.vmic.xyz/game-common/vui/commit/4a24c914d256c76025ed226f752f2ea3144f7abf))
+
 ## 2.0.0 (2020-11-10)
 
 
