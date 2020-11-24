@@ -1,10 +1,10 @@
 <template>
-  <span
+  <a
     :class="[
       'vui-link',
       {
         [`vui-link--${vue}`]: ['primary', 'regular', 'success', 'fail'].includes(vue),
-        [`vui-link--${size}`]: ['big', 'small', 'mini'].includes(size)
+        [`vui-link--${size}`]: ['big', 'regular', 'small', 'mini'].includes(size)
       }
     ]"
     :disabled="disabled"
@@ -15,7 +15,7 @@
     <div v-if="icon && iconPosition === 'before'">icon</div>
     <slot></slot>
     <div v-if="icon && iconPosition === 'after'">icon</div>
-  </span>
+  </a>
 </template>
 
 <script lang="ts">

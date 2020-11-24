@@ -1,10 +1,28 @@
 <template>
   <div :class="$style.root">
     <div :class="$style.item">
-      <vui-link vue="primary" href="www.baidu.com" icon="">primary链接</vui-link>
-      <vui-link vue="success" href="www.baidu.com" :underline="false">success链接</vui-link>
-      <vui-link vue="fail" href="www.baidu.com">fail链接</vui-link>
-      <vui-link vue="regular" href="www.baidu.com">regular链接</vui-link>
+      <vui-link vue="primary" href="#" size="big" icon="">大链接</vui-link>
+      <vui-link vue="success" href="#" size="big">大链接</vui-link>
+      <vui-link vue="fail" href="#" size="big">大链接</vui-link>
+      <vui-link vue="regular" href="#" size="big">大链接</vui-link>
+    </div>
+    <div :class="$style.item">
+      <vui-link vue="primary" href="#" size="regular" icon="">正常链接</vui-link>
+      <vui-link vue="success" href="#" size="regular">正常链接</vui-link>
+      <vui-link vue="fail" href="#" size="regular">正常链接</vui-link>
+      <vui-link vue="regular" href="#" size="regular">正常链接</vui-link>
+    </div>
+    <div :class="$style.item">
+      <vui-link vue="primary" href="#" size="small" icon="">小链接</vui-link>
+      <vui-link vue="success" href="#" size="small">小链接</vui-link>
+      <vui-link vue="fail" href="#" size="small">小链接</vui-link>
+      <vui-link vue="regular" href="#" size="small">小链接</vui-link>
+    </div>
+    <div :class="$style.item">
+      <vui-link vue="primary" href="#" size="mini" icon="">超小链接</vui-link>
+      <vui-link vue="success" href="#" size="mini">超小链接</vui-link>
+      <vui-link vue="fail" href="#" size="mini">超小链接</vui-link>
+      <vui-link vue="regular" href="#" size="mini">超小链接</vui-link>
     </div>
   </div>
 </template>
@@ -19,14 +37,15 @@ import VuiLink from '../component.vue'
   }
 })
 export default class VComponent extends Vue {
-  static title = '链接类型'
+  static title = '链接大小'
 }
 </script>
 
 <style lang="scss" module>
 .root {
-  align-items: flex-end;
+  align-items: flex-start;
   display: flex;
+  flex-direction: column;
   flex-wrap: wrap;
   margin-top: -40px;
 }
@@ -37,9 +56,5 @@ export default class VComponent extends Vue {
   flex: none;
   flex-direction: row;
   margin-top: 40px;
-
-  &:not(:first-child) {
-    margin-left: 50px;
-  }
 }
 </style>

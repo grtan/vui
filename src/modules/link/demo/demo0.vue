@@ -1,10 +1,10 @@
 <template>
   <div :class="$style.root">
     <div :class="$style.item">
-      <vui-link vue="primary" href="www.baidu.com">primary链接</vui-link>
-      <vui-link vue="success" href="www.baidu.com">success链接</vui-link>
-      <vui-link vue="fail" href="www.baidu.com">fail链接</vui-link>
-      <vui-link vue="regular" href="www.baidu.com">regular链接</vui-link>
+      <vui-link vue="primary" href="#">primary链接</vui-link>
+      <vui-link vue="success" href="#">success链接</vui-link>
+      <vui-link vue="fail" href="#">fail链接</vui-link>
+      <vui-link vue="regular" href="#">regular链接</vui-link>
     </div>
   </div>
 </template>

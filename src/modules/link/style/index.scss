@@ -22,7 +22,7 @@
   }
 
   // 下划线状态
-  &[underline] :not([disabled]) :hover {
+  &[underline]:not([disabled]):hover {
     text-decoration: underline;
   }
 
@@ -83,7 +83,6 @@
 
   @include m(small) {
     font-size: $link-font-size-small;
-
     #{$block} + & {
       margin-left: $link-spacing-small;
     }
@@ -97,4 +96,38 @@
     }
   }
   // pc端样式
+
+  @include pc {
+    $block: &;
+
+    font-size: $link-font-size-regular-pc;
+
+    @include m(big) {
+      font-size: $link-font-size-big-pc;
+
+      &:not(:first-child) {
+        margin-left: $link-spacing-big-pc;
+      }
+    }
+
+    @include m(small) {
+      font-size: $link-font-size-small-pc;
+      &:not(:first-child) {
+        margin-left: $link-spacing-small-pc;
+      }
+    }
+
+    @include m(mini) {
+      font-size: $link-font-size-mini-pc;
+
+      &:not(:first-child) {
+        margin-left: $link-spacing-mini-pc;
+      }
+    }
+
+    // 按钮间间距
+    &:not(:first-child) {
+      margin-left: $link-spacing-regular-pc;
+    }
+  }
 }

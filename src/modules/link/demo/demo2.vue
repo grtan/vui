@@ -1,10 +1,10 @@
 <template>
   <div :class="$style.root">
     <div :class="$style.item">
-      <vui-link vue="primary" href="www.baidu.com" :disabled="true">链接禁用</vui-link>
-      <vui-link vue="success" href="www.baidu.com" :disabled="true">链接禁用</vui-link>
-      <vui-link vue="fail" href="www.baidu.com" :disabled="true">链接禁用</vui-link>
-      <vui-link vue="regular" href="www.baidu.com" :disabled="true">链接禁用</vui-link>
+      <vui-link vue="primary" href="#" :disabled="true">链接禁用</vui-link>
+      <vui-link vue="success" href="#" :disabled="true">链接禁用</vui-link>
+      <vui-link vue="fail" href="#" :disabled="true">链接禁用</vui-link>
+      <vui-link vue="regular" href="#" :disabled="true">链接禁用</vui-link>
     </div>
   </div>
 </template>

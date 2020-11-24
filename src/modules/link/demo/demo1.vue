@@ -1,10 +1,10 @@
 <template>
   <div :class="$style.root">
     <div :class="$style.item">
-      <vui-link vue="primary" href="www.baidu.com" :underline="false">无下划线</vui-link>
-      <vui-link vue="success" href="www.baidu.com" :underline="false">无下划线</vui-link>
-      <vui-link vue="fail" href="www.baidu.com">有下划线</vui-link>
-      <vui-link vue="regular" href="www.baidu.com">有下划线</vui-link>
+      <vui-link vue="primary" href="#" :underline="false">无下划线</vui-link>
+      <vui-link vue="success" href="#" :underline="false">无下划线</vui-link>
+      <vui-link vue="fail" href="#">有下划线</vui-link>
+      <vui-link vue="regular" href="#">有下划线</vui-link>
     </div>
   </div>
 </template>
