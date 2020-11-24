@@ -45,33 +45,53 @@ $button-font-size-big: 48px !default;
 $button-font-size-regular: 42px !default;
 $button-font-size-small: 39px !default;
 $button-font-size-mini: 36px !default;
+
+$button-font-size-big-pc: 14px !default;
+$button-font-size-regular-pc: 14px !default;
+$button-font-size-small-pc: 12px !default;
+$button-font-size-mini-pc: 12px !default;
 // 内边距
 $button-padding-big: 36px 60px !default;
 $button-padding-regular: 28.5px 57px !default;
 $button-padding-small: 19.5px 42px !default;
 $button-padding-mini: 18px 36px !default;
+
+$button-padding-big-pc: 12px 20px !default;
+$button-padding-regular-pc: 10px 20px !default;
+$button-padding-small-pc: 9px 15px !default;
+$button-padding-mini-pc: 7px 15px !default;
 // 圆角
 $button-radius-big: 12px !default;
 $button-radius-regular: 12px !default;
 $button-radius-small: 12px !default;
 $button-radius-mini: 12px !default;
+
+$button-radius-pc: 4px !default;
+$border-radius-round-pc: 20px !default;
 // 边框宽度
 $button-border-width: 3px !default;
+
+$button-border-width-pc: 1px !default;
 // 图标与文字间距
 $button-icon-spacing-big: 9px !default;
 $button-icon-spacing-regular: 9px !default;
 $button-icon-spacing-small: 6px !default;
 $button-icon-spacing-mini: 6px !default;
+
+$button-icon-spacing-big-pc: 9px !default;
+$button-icon-spacing-regular-pc: 9px !default;
+$button-icon-spacing-small-pc: 6px !default;
+$button-icon-spacing-mini-pc: 6px !default;
 // 相邻按钮间距
 $button-spacing-big: 65px !default;
 $button-spacing-regular: 55px !default;
 $button-spacing-small: 45px !default;
 $button-spacing-mini: 35px !default;
-// pc端样式
-$button-font-size-big-pc: 46px !default;
-$button-font-size-regular-pc: 40px !default;
-$button-font-size-small-pc: 34px !default;
-$button-font-size-mini-pc: 28px !default;
+
+$button-spacing-big-pc: 65px !default;
+$button-spacing-regular-pc: 55px !default;
+$button-spacing-small-pc: 45px !default;
+$button-spacing-mini-pc: 35px !default;
 
 /* ------------------- 遮罩层 ------------------- */
 $overlayer-background: rgba(0, 0, 0, 0.8) !default;
