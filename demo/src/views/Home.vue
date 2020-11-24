@@ -27,6 +27,10 @@
 </template>
 
 <style lang="scss" module>
+.root {
+  padding: 0 !important;
+}
+
 .type {
   color: #666;
   font-size: 50px;

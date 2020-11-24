@@ -1,3 +1,4 @@
+import { PluginFunction } from 'vue'
 import Component from './component.vue'
 import { extendVue } from '@/utils/extend'
 
@@ -12,8 +13,8 @@ function Toast(content: string, options?: { duration?: number; allowHtml?: boole
   ;(vm as any).show(content, options)
 }
 
-Toast.install = function () {
-  extendVue('toast', Toast)
-}
+Toast.install = function (Vue) {
+  extendVue(Vue, 'toast', Toast)
+} as PluginFunction<any>
 
 export default Toast
