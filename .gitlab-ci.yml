@@ -3,21 +3,22 @@ image: node:12.18.3
 
 # 步骤
 stages:
-  - test
+  # - test
   - tag
+  - publish-beta
   - publish
 
 # 开发分支有提交时进行测试
-test:
-  stage: test
-  script:
-    # 暂时用构建来代替测试
-    - echo "测试"
-    - npm i --registry http://npm.vivo.com.cn/
-    - npm run build
-  # 在哪些分支上可用
-  only:
-    - dev_2.x
+# test:
+#   stage: test
+#   script:
+#     # 暂时用构建来代替测试
+#     - echo "测试"
+#     - npm i --registry http://npm.vivo.com.cn/
+#     - npm run build
+#   # 在哪些分支上可用
+#   only:
+#     - dev_2.x
 
 # 2.x分支有提交时打tag
 tag:
@@ -27,21 +28,42 @@ tag:
     - git config user.name "${GITLAB_USER_FULL_NAME}"
     - git config user.email "${GITLAB_USER_EMAIL}"
     - git remote set-url origin https://$GITLAB_USER_NAME:$GITLAB_USER_PWD@gitlab.vmic.xyz/game-common/vui.git
-    - npm i --only=dev --registry http://npm.vivo.com.cn/
+    - npm config set registry http://npm.vivo.com.cn/
+    - npm i -D standard-version
     - npm run tag
-    - git push origin --tags
   only:
     - 2.x
 
-# 打tag后发布到私有npm仓库
+# 打beta版本tag时发布beta包
+publish-beta:
+  stage: publish-beta
+  script:
+    - echo "发布beta版本包到公司内部npm"
+    - npm config set registry http://npm.vivo.com.cn/
+    - npm i -g npm-cli-login
+    # 这里仓库地址后面不能加/，否则登录失败
+    - npm-cli-login -u tanxin -p vivo -e xintan@vivo.com -r http://npm.vivo.com.cn
+    - npm i
+    - npm publish --tag beta --unsafe-perm
+  only:
+    - tags
+  except:
+    # 正式版本标签
+    - /^v[\d.]+$/
+
+# 打正式版本tag时发布正式包
 publish:
   stage: publish
   script:
-    - echo "发布到公司内部npm"
-    - npm install -g npm-cli-login
+    - echo "发布正式版本包到公司内部npm"
+    - npm config set registry http://npm.vivo.com.cn/
+    - npm i -g npm-cli-login
     # 这里仓库地址后面不能加/，否则登录失败
-    - npm-cli-login -u $NPM_USER_NAME -p $NPM_USER_PWD -e $NPM_USER_EMAIL -r http://npm.vivo.com.cn
-    - npm i --registry http://npm.vivo.com.cn/
-    - npm publish --registry http://npm.vivo.com.cn/
+    - npm-cli-login -u tanxin -p vivo -e xintan@vivo.com -r http://npm.vivo.com.cn
+    - npm i
+    - npm publish --unsafe-perm
   only:
     - tags
+  except:
+    # 非正式版本标签
+    - /^v[\d.]+-.*$/
