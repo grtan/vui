@@ -79,5 +79,10 @@
       line-height: $avatar-size-mini-pc;
       width: $avatar-size-mini-pc;
     }
+
+    // 形状
+    @include m(circle) {
+      border-radius: 50%;
+    }
   }
 }
