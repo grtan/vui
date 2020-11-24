@@ -117,11 +117,11 @@ $dialog-button-spacing: 48px !default;
 $dialog-button-max-width: 840px !default;
 
 // pc端样式
-$dialog-padding-pc: 20px !default;
-$dialog-header-padding-pc: 5px 0 5px !default;
-$dialog-content-padding-pc: 5px 0 0 !default;
-$dialog-footer-padding-pc: 10px 0 0 !default;
-$dialog-width-pc: 60% !default;
+$dialog-padding-pc: 0 !default;
+$dialog-header-padding-pc: 20px 20px 10px !default;
+$dialog-content-padding-pc: 20px 20px !default;
+$dialog-footer-padding-pc: 10px 20px 20px !default;
+$dialog-width-pc: 30% !default;
 $dialog-max-width-pc: 800px !default;
 $dialog-min-width-pc: 400px !default;
 $dialog-border-radius-pc: 5px !default;
@@ -133,6 +133,8 @@ $dialog-title-line-height-pc: 24px !default;
 $dialog-content-font-size-pc: 14px !default;
 $dialog-content-line-height-pc: 40px !default;
 $dialog-footer-font-size-pc: 14px !default;
+$dialog-button-max-width-pc: 160px !default;
+$dialog-button-spacing-pc: 40px !default;
 
 /* ------------------- toast ------------------- */
 $toast-z-index: 999999;
