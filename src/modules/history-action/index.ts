@@ -15,6 +15,9 @@ const plugin: PluginObject<InstanceType<typeof VueRouter>> = {
       return
     }
 
+    // 先初始化$vui，防止应用初始化渲染时$vui为undefined，导致$vui.historyAction报错
+    extendVue(Vue, 'historyAction', undefined)
+
     // replace时history.state会被重置成null，所以要劫持（但仍无法解决location.replace的问题）
     replace = router!.replace.bind(router)
     router!.replace = function (...args: Parameters<VueRouter['replace']>) {
