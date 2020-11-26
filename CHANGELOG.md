@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.1.0-beta.1](http://gitlab.vmic.xyz/game-common/vui/compare/v2.1.0-beta.0...v2.1.0-beta.1) (2020-11-26)
+
+
+### Bug Fixes
+
+* 修复应用初始化渲染时$vui为undefined，导致$vui.historyAction报错的问题 ([0c78b7c](http://gitlab.vmic.xyz/game-common/vui/commit/0c78b7cedcd86f09ee965717a897a3949f137155))
+
 ## [2.1.0-beta.0](http://gitlab.vmic.xyz/game-common/vui/compare/v2.0.0-beta.0...v2.1.0-beta.0) (2020-11-24)
 
 
