@@ -394,8 +394,8 @@
 
   // pc端样式
   @include pc {
-    border: $button-border-width-pc solid currentColor;
     border-radius: $button-radius-pc;
+    border-width: $button-border-width-pc;
     font-size: $button-font-size-regular-pc;
     padding: $button-padding-regular-pc;
 
