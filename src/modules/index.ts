@@ -15,15 +15,16 @@ import ScrollTop from './scroll-top'
 import Tag from './tag'
 import Toast from './toast'
 import Transition from './transition'
+import Link from './link'
 
 function install(
   vue: typeof Vue,
   // 插件参数
   options?: Record<string, any>
 ) {
-  const names: string[] = ['Appear', 'Avatar', 'Button', 'Config', 'Dialog', 'Disappear', 'HistoryAction', 'Intersect', 'Overlayer', 'Scroll', 'ScrollBottom', 'ScrollTop', 'Tag', 'Toast', 'Transition']
+  const names: string[] = ['Appear', 'Avatar', 'Button', 'Config', 'Dialog', 'Disappear', 'HistoryAction', 'Intersect', 'Overlayer', 'Scroll', 'ScrollBottom', 'ScrollTop', 'Tag', 'Toast', 'Transition', 'Link']
 
-  ;[Appear, Avatar, Button, Config, Dialog, Disappear, HistoryAction, Intersect, Overlayer, Scroll, ScrollBottom, ScrollTop, Tag, Toast, Transition].forEach(
+  ;[Appear, Avatar, Button, Config, Dialog, Disappear, HistoryAction, Intersect, Overlayer, Scroll, ScrollBottom, ScrollTop, Tag, Toast, Transition, Link].forEach(
     function (item, index) {
       if (typeof (item as any).install !== 'function') {
         return
@@ -34,7 +35,7 @@ function install(
   )
 }
 
-export { Appear, Avatar, Button, Config, Dialog, Disappear, HistoryAction, Intersect, Overlayer, Scroll, ScrollBottom, ScrollTop, Tag, Toast, Transition }
+export { Appear, Avatar, Button, Config, Dialog, Disappear, HistoryAction, Intersect, Overlayer, Scroll, ScrollBottom, ScrollTop, Tag, Toast, Transition, Link }
 export default {
   install,
   config: Config

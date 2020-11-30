@@ -177,3 +177,32 @@ $tag-font-size-big: 36px;
 $tag-font-size-regular: 30px;
 $tag-font-size-small: 27px;
 $tag-font-size-mini: 24px;
+
+/* ------------------- Link链接 ------------------- */
+// 字体大小
+$link-font-size-big: 48px !default;
+$link-font-size-regular: 42px !default;
+$link-font-size-small: 39px !default;
+$link-font-size-mini: 36px !default;
+
+$link-font-size-big-pc: 18px !default;
+$link-font-size-regular-pc: 16px !default;
+$link-font-size-small-pc: 14px !default;
+$link-font-size-mini-pc: 12px !default;
+
+// 链接类型
+$link-color-primary: $color-primary !default;
+$link-color-regular: $color-regular !default;
+$link-color-success: $color-success !default;
+$link-color-fail: $color-fail !default;
+
+// 相邻链接间距
+$link-spacing-big: 30px !default;
+$link-spacing-regular: 25px !default;
+$link-spacing-small: 20px !default;
+$link-spacing-mini: 15px !default;
+
+$link-spacing-big-pc: 6px !default;
+$link-spacing-regular-pc: 6px !default;
+$link-spacing-small-pc: 2px !default;
+$link-spacing-mini-pc: 2px !default;

@@ -27,6 +27,17 @@ export default [
             },
             "enName": "Button",
             "lowerEnName": "button"
+          },
+          {
+            "zhName": "链接",
+            "type": "组件",
+            "category": "基础",
+            "author": {
+              "name": "魏星",
+              "email": "weixing.wx@vivo.com"
+            },
+            "enName": "Link",
+            "lowerEnName": "link"
           }
         ]
       },
