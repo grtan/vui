@@ -15,6 +15,9 @@ const plugin: PluginObject<InstanceType<typeof VueRouter>> = {
       return
     }
 
+    // 先初始化$vui，防止应用初始化渲染时$vui为undefined，导致$vui.historyAction报错
+    extendVue(Vue, 'historyAction', undefined)
+
     // replace时history.state会被重置成null，所以要劫持（但仍无法解决location.replace的问题）
     replace = router!.replace.bind(router)
     router!.replace = function (...args: Parameters<VueRouter['replace']>) {
@@ -27,30 +30,40 @@ const plugin: PluginObject<InstanceType<typeof VueRouter>> = {
       let action: 'new' | 'forward' | 'back' | 'refresh' | 'replace' // 操作：新建、前进、后退、刷新还是replace
 
       switch (true) {
-        case !history?.state?.[name]: // 新建历史记录，或者replace（history.state会被清除）
-          action = replaceTime ? 'replace' : 'new'
+        // replace，老版本vue-router replace时会清除原来的history.state，新版本会保留
+        case !!replaceTime:
+          action = 'replace'
           history.replaceState(
             Object.assign({}, history.state || {}, {
-              [name]: replaceTime || Date.now()
+              [name]: replaceTime
             }),
             ''
           )
-
           break
-        case !previousTime || history.state[name] === previousTime: // 刷新，不会清除history.state
+        // 新建历史记录
+        case !history?.state?.[name]:
+          action = 'new'
+          history.replaceState(
+            Object.assign({}, history.state || {}, {
+              [name]: Date.now()
+            }),
+            ''
+          )
+          break
+        // 刷新，不会清除history.state
+        case !previousTime || history.state[name] === previousTime:
           action = 'refresh'
-
           break
-        case history.state[name] < previousTime: // 后退
+        // 后退
+        case history.state[name] < previousTime:
           action = 'back'
-
           break
+        // 前进
         default:
-          // 前进
           action = 'forward'
       }
 
-      extendVue('historyAction', action)
+      extendVue(Vue, 'historyAction', action)
       previousTime = history.state[name]
       replaceTime = 0
     })

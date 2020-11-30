@@ -1,0 +1,133 @@
+@use '../../../skin/var' as *;
+@use '../../../skin/common/mixin' as *;
+@use '../../../skin/common/function' as *;
+
+@include b(link) {
+  $block: &;
+
+  color: $button-color-regular;
+  cursor: pointer;
+  font-size: $link-font-size-regular;
+  text-decoration: none;
+
+  // 禁用状态
+  &[disabled] {
+    cursor: not-allowed;
+    opacity: 0.3;
+  }
+
+  // 按钮间间距
+  & + & {
+    margin-left: $link-spacing-regular;
+  }
+
+  // 下划线状态
+  &[underline]:not([disabled]):hover {
+    text-decoration: underline;
+  }
+
+  // 普通按钮色调
+  &:not([disabled]):hover {
+    color: mix($color-white, $link-color-regular, 90%);
+  }
+
+  &:not([disabled]):active {
+    color: mix($color-white, $link-color-regular, 80%);
+  }
+
+  /* stylelint-disable-next-line order/order */
+  @include m(primary) {
+    color: $link-color-primary;
+
+    &:not([disabled]):hover {
+      color: mix($color-white, $link-color-primary, 90%);
+    }
+
+    &:not([disabled]):active {
+      color: mix($color-white, $link-color-primary, 80%);
+    }
+  }
+
+  @include m(success) {
+    color: $link-color-success;
+
+    &:not([disabled]):hover {
+      color: mix($color-white, $link-color-success, 90%);
+    }
+
+    &:not([disabled]):active {
+      color: mix($color-white, $link-color-success, 80%);
+    }
+  }
+
+  @include m(fail) {
+    color: $link-color-fail;
+
+    &:not([disabled]):hover {
+      color: mix($color-white, $link-color-fail, 90%);
+    }
+
+    &:not([disabled]):active {
+      color: mix($color-white, $link-color-fail, 80%);
+    }
+  }
+
+  // 尺寸
+  @include m(big) {
+    font-size: $link-font-size-big;
+
+    #{$block} + & {
+      margin-left: $link-spacing-big;
+    }
+  }
+
+  @include m(small) {
+    font-size: $link-font-size-small;
+    #{$block} + & {
+      margin-left: $link-spacing-small;
+    }
+  }
+
+  @include m(mini) {
+    font-size: $link-font-size-mini;
+
+    #{$block} + & {
+      margin-left: $link-spacing-mini;
+    }
+  }
+  // pc端样式
+
+  @include pc {
+    $block: &;
+
+    font-size: $link-font-size-regular-pc;
+
+    @include m(big) {
+      font-size: $link-font-size-big-pc;
+
+      &:not(:first-child) {
+        margin-left: $link-spacing-big-pc;
+      }
+    }
+
+    @include m(small) {
+      font-size: $link-font-size-small-pc;
+      &:not(:first-child) {
+        margin-left: $link-spacing-small-pc;
+      }
+    }
+
+    @include m(mini) {
+      font-size: $link-font-size-mini-pc;
+
+      &:not(:first-child) {
+        margin-left: $link-spacing-mini-pc;
+      }
+    }
+
+    // 按钮间间距
+    &:not(:first-child) {
+      margin-left: $link-spacing-regular-pc;
+    }
+  }
+}

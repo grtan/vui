@@ -1,7 +1,7 @@
-import { Vue } from 'vue-property-decorator'
+import Vue from 'vue'
 
 // 扩展vue
-export function extendVue(prop: string, value: any) {
-  Vue.$vui = Vue.prototype.$vui = Vue.prototype.$vui ?? {}
-  Vue.prototype.$vui[prop] = value
+export function extendVue(vue: typeof Vue, prop: string, value: any) {
+  vue.$vui = vue.prototype.$vui = vue.prototype.$vui ?? {}
+  vue.prototype.$vui[prop] = value
 }

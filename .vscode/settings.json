@@ -1,4 +1,6 @@
 {
+  "files.eol": "\n",
+  "files.insertFinalNewline": true,
   // 文件保存时自动格式化
   "editor.formatOnSave": true,
   // 开启lint自动修复
@@ -18,6 +20,13 @@
     "scss",
     "vue"
   ],
+  // 禁用内置js/ts的格式化，统一使用eslint
+  "javascript.format.enable": false,
+  "typescript.format.enable": false,
+  // 禁用内置css校验，统一使用stylelint
+  "css.validate": false,
+  "less.validate": false,
+  "scss.validate": false,
   // 禁用vetur自动格式化，防止与lint自动修复冲突
   "vetur.format.enable": false,
   "typescript.tsdk": "node_modules/typescript/lib",
