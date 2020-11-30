@@ -77,6 +77,7 @@ module.exports = async function () {
 
   // 修改文件名
   fse.moveSync(`${modulePath}/demo/index.art`, `${modulePath}/demo/index.vue`)
+  fse.moveSync(`${modulePath}/demo/demo0.art`, `${modulePath}/demo/demo0.vue`)
   fse.moveSync(`${modulePath}/style/index.art`, `${modulePath}/style/index.scss`)
   fse.moveSync(`${modulePath}/index.art`, `${modulePath}/index.ts`)
   fse.moveSync(`${modulePath}/meta.art`, `${modulePath}/meta.json`)
