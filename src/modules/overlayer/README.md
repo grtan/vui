@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { Overlayer as VuiOverlayer } from 'vui';
+import { Overlayer as VuiOverlayer } from '@game/vui';
 
 export default {
   components: {

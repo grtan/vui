@@ -8,7 +8,7 @@
 </template>
 
 <script>
-import { Tag as VuiTag } from 'vui';
+import { Tag as VuiTag } from '@game/vui';
 
 export default {
   components: {

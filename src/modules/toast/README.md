@@ -3,7 +3,7 @@
 ## 使用方法
 
 ```js
-import { Toast } from 'vui'
+import { Toast } from '@game/vui'
 
 Toast('xxx', options)
 
