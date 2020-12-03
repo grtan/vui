@@ -38,6 +38,17 @@ export default [
             },
             "enName": "Link",
             "lowerEnName": "link"
+          },
+          {
+            "zhName": "弹出",
+            "type": "组件",
+            "category": "基础",
+            "author": {
+              "name": "weixing",
+              "email": "11101493@bbktel.com"
+            },
+            "enName": "Popup",
+            "lowerEnName": "popup"
           }
         ]
       },

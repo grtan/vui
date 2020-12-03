@@ -9,7 +9,9 @@ module.exports = [
         "collapsable": false,
         "children": [
           "/src/modules/avatar/",
-          "/src/modules/button/"
+          "/src/modules/button/",
+          "/src/modules/link/",
+          "/src/modules/popup/"
         ]
       },
       {
