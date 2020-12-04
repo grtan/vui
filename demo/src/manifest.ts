@@ -67,6 +67,17 @@ export default [
             "lowerEnName": "overlayer"
           },
           {
+            "zhName": "弹出",
+            "type": "组件",
+            "category": "反馈",
+            "author": {
+              "name": "weixing",
+              "email": "11101493@bbk.com"
+            },
+            "enName": "Popup",
+            "lowerEnName": "popup"
+          },
+          {
             "zhName": "轻提示",
             "type": "组件",
             "category": "反馈",
