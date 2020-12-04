@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.1.0-beta.2](http://gitlab.vmic.xyz/game-common/vui/compare/v2.1.0-beta.1...v2.1.0-beta.2) (2020-12-04)
+
+
+### Features
+
+* button按钮pc端样式适配 ([33444b7](http://gitlab.vmic.xyz/game-common/vui/commit/33444b79a5bbffe1ba192cac55bfba7b6159a887))
+* Link链接增加pc端样式适配 ([d71e2b9](http://gitlab.vmic.xyz/game-common/vui/commit/d71e2b98d8b490e4e4fd3b9e54e877a98341d73c))
+* tag标签新增pc端样式适配 ([6260df7](http://gitlab.vmic.xyz/game-common/vui/commit/6260df7a774ccf570eb6727bcbb45816d8890a14))
+* tag标签新增pc端样式适配 ([2b05da2](http://gitlab.vmic.xyz/game-common/vui/commit/2b05da281d269bed7cf0f6cf25b56b4056f4a395))
+* 新增dialog弹窗pc端样式适配 ([4087935](http://gitlab.vmic.xyz/game-common/vui/commit/40879358fbe5f617b64d552fd0860ab687862fa8))
+* 新增link链接组件 ([09fb1ae](http://gitlab.vmic.xyz/game-common/vui/commit/09fb1aeb2532cbbd15c17adb3f8e810c1007ea3b))
+* 新增popup弹层组件 ([3be26fe](http://gitlab.vmic.xyz/game-common/vui/commit/3be26fe0dd338526616592cc69333ac52eb697aa))
+
+
+### Bug Fixes
+
+* 优化popup组件 ([1c38b35](http://gitlab.vmic.xyz/game-common/vui/commit/1c38b356e1c940f51a59efd97f54dd3522c1ca51))
+* 修复button边框样式覆盖导致的缩放异常 ([d42846c](http://gitlab.vmic.xyz/game-common/vui/commit/d42846ce825c5ec3ac88ba75724e44698321e2b3))
+* 修复文字button内边距 ([3556259](http://gitlab.vmic.xyz/game-common/vui/commit/35562596968d95b6e2cd99c46115e68166f436ec))
+* 调整标签padding，居中显示 ([8dc247f](http://gitlab.vmic.xyz/game-common/vui/commit/8dc247f4e22b7d7e2295ba076654b83335368e41))
+
 ## [2.1.0-beta.1](http://gitlab.vmic.xyz/game-common/vui/compare/v2.1.0-beta.0...v2.1.0-beta.1) (2020-11-26)
 
 
