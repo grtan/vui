@@ -1,39 +1,33 @@
-@use '../../../skin/var' as *;
 @use '../../../skin/common/mixin' as *;
 @use '../../../skin/common/function' as *;
 @use '../../overlayer/style/index' as *;
+@use '../../transition/style/index' as *;
 
 @include b(popup) {
-  $block: &;
-
   @include m(nolayer) {
-    .#{get-block-selector(overlayer)}__layer {
+    > #{get-bem-selector(transition)} {
       display: none;
     }
   }
 
   @include e(content) {
+    bottom: 0;
+    left: 0;
     position: fixed;
-    @include m(up) {
-      bottom: 0;
-      left: 0;
-      right: 0;
-    }
-    @include m(down) {
-      left: 0;
-      right: 0;
+    right: 0;
+
+    @include m(top) {
+      bottom: auto;
       top: 0;
     }
 
     @include m(left) {
-      bottom: 0;
-      right: 0;
+      right: auto;
       top: 0;
     }
 
     @include m(right) {
-      bottom: 0;
-      left: 0;
+      left: auto;
       top: 0;
     }
   }

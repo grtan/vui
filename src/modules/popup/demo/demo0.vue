@@ -1,10 +1,10 @@
 <template>
   <div :class="$style.root">
     <vui-button type="gorgeous" hue="primary" @click="show = true">显示</vui-button>
-    <vui-popup v-model="show" direction="up" :class="$style.wrapper">
+    <vui-popup v-model="show">
       <div :class="$style.content">
         <div>popup-up</div>
-        <VuiButton type="gorgeous" @click="show = false" hue="success" :block="true" :class="$style.close"
+        <VuiButton type="gorgeous" hue="success" :block="true" :class="$style.close" @click="show = false"
           >关闭</VuiButton
         >
       </div>
@@ -14,9 +14,8 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
-import VuiPopup from '../index'
+import VuiPopup from '../component.vue'
 import VuiButton from '../../button/component.vue'
-import VuiDialog from '../../dialog'
 
 @Component({
   components: {
@@ -25,20 +24,12 @@ import VuiDialog from '../../dialog'
   }
 })
 export default class VComponent extends Vue {
-  static title = '向上弹出'
+  static title = '底部弹出'
   show = false
 }
 </script>
 
-<style lang="scss" src="../style/index.scss"></style>
 <style lang="scss" module>
-.root {
-  display: flex;
-  flex-direction: column;
-}
-.wrapper {
-  width: 100%;
-}
 .content {
   align-items: center;
   background: #f2f2f2;

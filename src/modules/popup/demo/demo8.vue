@@ -1,10 +1,12 @@
 <template>
   <div :class="$style.root">
     <vui-button type="gorgeous" hue="primary" @click="show = true">显示</vui-button>
-    <vui-popup v-model="show" direction="up" :overlayer="true" :class="$style.wrapper" :light="true">
+    <vui-popup v-model="show" :light="true">
       <div :class="$style.content">
         <div>popup-up</div>
-        <VuiButton @click="show = false" type="gorgeous" hue="success" :block="true" :class="$style.close">关闭</VuiButton>
+        <VuiButton type="gorgeous" hue="success" :block="true" :class="$style.close" @click="show = false"
+          >关闭</VuiButton
+        >
       </div>
     </vui-popup>
   </div>
@@ -14,8 +16,6 @@
 import { Vue, Component } from 'vue-property-decorator'
 import VuiPopup from '../index'
 import VuiButton from '../../button/component.vue'
-import VuiDialog from '../../dialog'
-
 
 @Component({
   components: {
@@ -29,15 +29,7 @@ export default class VComponent extends Vue {
 }
 </script>
 
-<style lang="scss" src="../style/index.scss"></style>
 <style lang="scss" module>
-.root {
-  display: flex;
-  flex-direction: column;
-}
-.wrapper {
-  width: 100%;
-}
 .content {
   align-items: center;
   background: #f2f2f2;
@@ -48,6 +40,7 @@ export default class VComponent extends Vue {
   justify-content: center;
   padding: 40px;
 }
+
 .close {
   margin-top: 40px;
 }

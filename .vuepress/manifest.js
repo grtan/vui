@@ -10,8 +10,7 @@ module.exports = [
         "children": [
           "/src/modules/avatar/",
           "/src/modules/button/",
-          "/src/modules/link/",
-          "/src/modules/popup/"
+          "/src/modules/link/"
         ]
       },
       {
@@ -20,6 +19,7 @@ module.exports = [
         "children": [
           "/src/modules/dialog/",
           "/src/modules/overlayer/",
+          "/src/modules/popup/",
           "/src/modules/toast/"
         ]
       },

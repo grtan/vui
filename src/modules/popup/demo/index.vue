@@ -11,8 +11,6 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
-import VuiPopup from '../index'
-import VuiButton from '../../button/component.vue'
 import Demo0 from './demo0.vue'
 import Demo1 from './demo1.vue'
 import Demo2 from './demo2.vue'
@@ -23,44 +21,12 @@ import Demo6 from './demo6.vue'
 import Demo7 from './demo7.vue'
 import Demo8 from './demo8.vue'
 
-@Component({
-  components: {
-    VuiPopup,
-    VuiButton,
-    Demo0,
-    Demo1,
-    Demo2,
-    Demo3,
-    Demo4,
-    Demo5,
-    Demo6,
-    Demo7,
-    Demo8
-  }
-})
+@Component
 export default class VComponent extends Vue {
   demos = [Demo0, Demo1, Demo2, Demo3, Demo4, Demo5, Demo6, Demo7, Demo8]
-  static title = '弹层'
-  show = false
 }
 </script>
+
 <style lang="scss" src="../style/index.scss"></style>
 <style lang="scss" src="../../button/style/index.scss"></style>
 <style lang="scss" src="../../dialog/style/index.scss"></style>
-<style lang="scss" module>
-.root {
-  display: flex;
-  flex-direction: column;
-}
-.wrapper {
-  width: 100%;
-}
-.content {
-  align-items: center;
-  background: #f2f2f2;
-  display: flex;
-  height: 300px;
-  justify-content: center;
-  width: 100%;
-}
-</style>
