@@ -16,27 +16,45 @@
       <div key="2" v-else-if="value === 2">元素内容</div>
       <div key="3" v-else>元素内容</div>
     </vui-transition>
+
+    <!--自定义过渡-->
+    <vui-transition type="custom">
+      <div v-show="show">custom</div>
+    </vui-transition>
   </div>
 </template>
 
 <script>
-import { Transition as VuiTransition } from 'vui';
+import { Transition } from '@game/vui';
 
 export default {
   components: {
-    VuiTransition
+    VuiTransition: Transition
   },
   ...
 };
 </script>
+
+<style lang="scss">
+.custom-enter,
+.custom-leave-to {
+  transform: rotate(90deg);
+}
+
+.custom-enter-active,
+.custom-leave-active {
+  transform-origin: left bottom;
+  transition: transform 300ms;
+}
+</style>
 ```
 
 ## 属性
 
-|   名称   |                                                                    类型                                                                    | 必填 | 默认值  |       描述       |
-| :------: | :----------------------------------------------------------------------------------------------------------------------------------------: | :--: | :-----: | :--------------: |
-|   type   | `fade` &#124; `zoom` &#124; `popup-bottom` &#124; `popup-top` &#124; `popup-left` &#124; `popup-right` &#124; `slide-hz` &#124; `slide-vt` | `N`  | `fade`  |     动画类型     |
-| disabled |                                                                 `Boolean`                                                                  | `N`  | `false` | 是否禁用过渡动画 |
+|   名称   |                                                                                       类型                                                                                        | 必填 | 默认值  |       描述       |
+| :------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :--: | :-----: | :--------------: |
+|   type   | `String`**(自定义值，v2.1.0+)** &#124; `fade` &#124; `zoom` &#124; `popup-bottom` &#124; `popup-top` &#124; `popup-left` &#124; `popup-right` &#124; `slide-hz` &#124; `slide-vt` | `N`  | `fade`  |     动画类型     |
+| disabled |                                                                                     `Boolean`                                                                                     | `N`  | `false` | 是否禁用过渡动画 |
 
 其他`appear`、`mode`等属性支持跟 vue 内置 [transition](https://cn.vuejs.org/v2/api/#transition) 组件一致。
 
@@ -56,4 +74,5 @@ export default {
 
 ## 更新日志
 
-- v1.0.0 发布
+- v2.1.0 `type`属性支持自定义值
+- v2.0.0 发布

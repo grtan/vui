@@ -1,6 +1,18 @@
 <template>
   <div v-if="!multiple" class="vui-transition">
-    <transition v-bind="$attrs" :name="disabled ? 'vui_notransition' : `vui-transition-${type}`" v-on="listeners">
+    <transition
+      v-bind="$attrs"
+      :name="
+        disabled
+          ? 'vui_notransition'
+          : ['fade', 'zoom', 'popup-left', 'popup-right', 'popup-top', 'popup-bottom', 'slide-vt', 'slide-hz'].includes(
+              type
+            )
+          ? `vui-transition-${type}`
+          : type
+      "
+      v-on="listeners"
+    >
       <slot></slot>
     </transition>
   </div>

@@ -15,9 +15,9 @@ Dialog.alert = alert
 Dialog.confirm = confirm
 Dialog.install = function (Vue) {
   Vue.component('VuiDialog', Dialog)
-  extendVue('dialog', dialog)
-  extendVue('alert', alert)
-  extendVue('confirm', confirm)
+  extendVue(Vue, 'dialog', dialog)
+  extendVue(Vue, 'alert', alert)
+  extendVue(Vue, 'confirm', confirm)
 }
 
 export default Dialog

@@ -4,6 +4,8 @@
 
 ## 使用方法
 
+`main.js`
+
 ```js
 import Vue from 'vue'
 import VueRouter from 'vue-router'
@@ -19,6 +21,74 @@ Vue.use(HistoryAction, router)
 console.log(Vue.$vui.historyAction)
 // 组件中使用
 console.log(this.$vui.historyAction)
+```
+
+`App.vue`
+
+结合`Transition`和`router-view`组件，根据页面浏览是前进还是后退，实现不同的转场动效
+
+```vue
+<template>
+  <vui-transition :type="$vui.historyAction === 'back' ? 'cover-back' : 'cover'">
+    <router-view />
+  </vui-transition>
+</template>
+
+<script>
+import { Transition } from '@game/vui'
+
+export default {
+  components: {
+    VuiTransition: Transition
+  }
+}
+</script>
+
+<style lang="scss">
+$transition-duration: 300ms;
+
+.cover {
+  &-enter {
+    transform: translateX(100%);
+
+    &-active {
+      transition: transform $transition-duration;
+    }
+  }
+
+  &-leave {
+    &-active {
+      transition: opacity $transition-duration;
+    }
+
+    &-to {
+      opacity: 0 !important;
+    }
+  }
+
+  &-back {
+    &-enter {
+      opacity: 0 !important;
+
+      &-active {
+        transition: opacity $transition-duration;
+      }
+    }
+
+    &-leave {
+      &-active {
+        position: relative;
+        transition: transform $transition-duration;
+        z-index: 1;
+      }
+
+      &-to {
+        transform: translateX(100%);
+      }
+    }
+  }
+}
+</style>
 ```
 
 ## historyAction
@@ -41,4 +111,4 @@ console.log(this.$vui.historyAction)
 
 ## 更新日志
 
-- v1.0.0 发布
+- v2.0.0 发布

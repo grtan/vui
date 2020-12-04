@@ -86,4 +86,34 @@
       background: $tag-color-fail;
     }
   }
+
+  // pc端
+  @include pc {
+    border-radius: $tag-border-radius-pc;
+    border-width: $tag-border-width-pc;
+    box-sizing: border-box;
+    font-size: $tag-font-size-pc;
+    padding: $tag-padding-regular-pc;
+
+    // 尺寸
+    @include m(big) {
+      padding: $tag-padding-big-pc;
+    }
+
+    @include m(regular) {
+      padding: $tag-padding-regular-pc;
+    }
+
+    @include m(small) {
+      padding: $tag-padding-small-pc;
+    }
+
+    @include m(mini) {
+      padding: $tag-padding-mini-pc;
+    }
+
+    @include e(close) {
+      margin: $tag-close-margin-pc;
+    }
+  }
 }

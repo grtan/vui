@@ -1,6 +1,12 @@
 @use '../var' as *;
 @use './config' as *;
 
+// 根据bem生成选择器
+@function get-bem-selector($b, $e: null, $m: null) {
+  @return "." + $namespace + $block-separator + $b + if($e, $element-separator + $e, "") +
+    if($m, $modifier-separator + $m, "");
+}
+
 @function get-block-selector($block) {
   @return #{$namespace}#{$block-separator}#{$block};
 }

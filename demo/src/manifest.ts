@@ -27,6 +27,17 @@ export default [
             },
             "enName": "Button",
             "lowerEnName": "button"
+          },
+          {
+            "zhName": "链接",
+            "type": "组件",
+            "category": "基础",
+            "author": {
+              "name": "魏星",
+              "email": "weixing.wx@vivo.com"
+            },
+            "enName": "Link",
+            "lowerEnName": "link"
           }
         ]
       },
@@ -54,6 +65,17 @@ export default [
             },
             "enName": "Overlayer",
             "lowerEnName": "overlayer"
+          },
+          {
+            "zhName": "弹出",
+            "type": "组件",
+            "category": "反馈",
+            "author": {
+              "name": "weixing",
+              "email": "11101493@bbk.com"
+            },
+            "enName": "Popup",
+            "lowerEnName": "popup"
           },
           {
             "zhName": "轻提示",

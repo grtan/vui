@@ -19,4 +19,13 @@
     padding: $toast-padding;
     text-align: justify;
   }
+
+  @include pc {
+    max-width: $toast-max-width-pc;
+    position: fixed;
+    @include e(content) {
+      font-size: $toast-font-size-pc;
+      padding: $toast-padding-pc;
+    }
+  }
 }

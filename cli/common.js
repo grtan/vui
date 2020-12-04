@@ -106,15 +106,13 @@ function genDocManifest() {
   })
 
   // 组件类别排序
-  modules.forEach(({ children }) => {
-    children.forEach(item => {
-      if (!item.children) {
-        return
-      }
+  modules.forEach(({ title, children }) => {
+    if (title !== '组件') {
+      return
+    }
 
-      item.children.sort((a, b) => {
-        return categories.indexOf(a.title) - categories.indexOf(b.title)
-      })
+    children.sort((a, b) => {
+      return categories.indexOf(a.title) - categories.indexOf(b.title)
     })
   })
 
@@ -164,15 +162,13 @@ function genDemoManifest() {
   })
 
   // 组件类别排序
-  modules.forEach(({ list }) => {
-    list.forEach(item => {
-      if (!item.list) {
-        return
-      }
+  modules.forEach(({ type, list }) => {
+    if (type !== '组件') {
+      return
+    }
 
-      item.list.sort((a, b) => {
-        return categories.indexOf(a.categories) - categories.indexOf(b.categories)
-      })
+    list.sort((a, b) => {
+      return categories.indexOf(a.category) - categories.indexOf(b.category)
     })
   })
 

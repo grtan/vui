@@ -68,27 +68,29 @@
 
   // pc端样式
   @include pc {
-    @include e(wrapper) {
-      border-radius: $dialog-border-radius-pc;
-      bottom: 50%;
-      max-width: $dialog-max-width-pc;
-      min-width: $dialog-min-width-pc;
-      padding: $dialog-padding-pc;
-      width: $dialog-width-pc;
+    @include b(transition) {
+      @include e(wrapper) {
+        border-radius: $dialog-border-radius-pc;
+        bottom: 50%;
+        max-width: $dialog-max-width-pc;
+        min-width: $dialog-min-width-pc;
+        padding: $dialog-padding-pc;
+        width: $dialog-width-pc;
 
-      &:not(.#{$popup-bottom}-enter):not(.#{$popup-bottom}-leave-active) {
-        transform: translateY(50%);
-      }
+        &:not(.#{$popup-bottom}-enter):not(.#{$popup-bottom}-leave-active) {
+          transform: translateY(50%);
+        }
 
-      &.#{$popup-bottom}-enter-active,
-      &.#{$popup-bottom}-leave-active {
-        transition-property: transform, opacity;
-      }
+        &.#{$popup-bottom}-enter-active,
+        &.#{$popup-bottom}-leave-active {
+          transition-property: transform, opacity;
+        }
 
-      &.#{$popup-bottom}-enter,
-      &.#{$popup-bottom}-leave-active {
-        opacity: 0;
-        transform: translate3d(0, -20px, 0);
+        &.#{$popup-bottom}-enter,
+        &.#{$popup-bottom}-leave-active {
+          opacity: 0;
+          transform: translate3d(0, -20px, 0);
+        }
       }
     }
 
@@ -117,6 +119,13 @@
     @include e(footer) {
       font-size: $dialog-footer-font-size-pc;
       padding: $dialog-footer-padding-pc;
+      @include b(button) {
+        flex: auto;
+        max-width: $dialog-button-max-width-pc;
+      }
+      .#{get-block-selector(button)} + .#{get-block-selector(button)} {
+        margin-left: $dialog-button-spacing-pc;
+      }
     }
   }
 }

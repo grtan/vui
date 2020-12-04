@@ -1,0 +1,17 @@
+<template>
+  <vui-{{lowerEnName}}>xxxx</vui-{{lowerEnName}}>
+</template>
+
+<script lang="ts">
+import { Vue, Component } from 'vue-property-decorator'
+import Vui{{enName}} from '../component.vue'
+
+@Component({
+  components: {
+    Vui{{enName}}
+  }
+})
+export default class VComponent extends Vue {
+  static title = '样例1'
+}
+</script>

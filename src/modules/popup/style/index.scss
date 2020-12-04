@@ -1,0 +1,40 @@
+@use '../../../skin/common/mixin' as *;
+@use '../../../skin/common/function' as *;
+@use '../../overlayer/style/index' as *;
+@use '../../transition/style/index' as *;
+
+@include b(popup) {
+  @include m(nolayer) {
+    > #{get-bem-selector(transition)} {
+      display: none;
+    }
+  }
+
+  @include e(content) {
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    right: 0;
+
+    @include m(top) {
+      bottom: auto;
+      top: 0;
+    }
+
+    @include m(left) {
+      right: auto;
+      top: 0;
+    }
+
+    @include m(right) {
+      left: auto;
+      top: 0;
+    }
+  }
+
+  @include e(box) {
+    height: 100%;
+  }
+
+  // pc端样式
+}
