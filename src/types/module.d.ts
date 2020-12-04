@@ -1,4 +1,4 @@
-import Vue, { DirectiveOptions, DirectiveFunction, PluginObject, PluginFunction } from 'vue'
+import { DirectiveOptions, DirectiveFunction, PluginObject, PluginFunction } from 'vue'
 /**
  * 必须要引入'vue/types/vue'，否则demo中ts编译器不会包含该声明文件，导致编译会报错
  * 最佳实践是扩展哪个模块，就手动import该模块
@@ -28,8 +28,8 @@ declare module 'vue/types/vue' {
 //   }
 // }
 
-export class VuiComponent extends Vue {
-  static install: PluginFunction<any>
+export interface VuiComponent {
+  install: PluginFunction<any>
 }
 
 export type VuiDirective = (DirectiveOptions | DirectiveFunction) & PluginObject<any>
