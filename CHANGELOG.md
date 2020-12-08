@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.1.1-beta.1](http://gitlab.vmic.xyz/game-common/vui/compare/v2.1.1-beta.0...v2.1.1-beta.1) (2020-12-08)
+
+
+### Bug Fixes
+
+* 修复umd包中还存在process.env.NODE_ENV的问题；文档中添加在线编辑、预览的功能 ([84b31c5](http://gitlab.vmic.xyz/game-common/vui/commit/84b31c52363be011c64d88814369dc785eef830f))
+
 ### [2.1.1-beta.0](http://gitlab.vmic.xyz/game-common/vui/compare/v2.1.0-beta.2...v2.1.1-beta.0) (2020-12-04)
 
 
