@@ -19,10 +19,28 @@ module.exports = {
     repoLabel: 'GitLab',
     repo: 'https://gitlab.vmic.xyz/game-common/vui'
   },
+  extraWatchFiles: ['dist/vui.css', 'dist/vui.js'],
   plugins: [
-    '@vuepress/plugin-back-to-top',
+    '@vuepress/back-to-top',
     {
       globalUIComponents: ['Demo']
-    }
+    },
+    [
+      'run',
+      {
+        reverse: true,
+        cssLabs: ['http://localhost:8001/vui.css'],
+        jsLabs: ['http://localhost:8001/vui.js'],
+        js: [
+          'document.documentElement.classList.add("vuipc")',
+          `Vue.use(VUI.default, {
+            HistoryAction: {
+              replace: function(){},
+              afterEach: function(){}
+            }
+          })`
+        ]
+      }
+    ]
   ]
 }

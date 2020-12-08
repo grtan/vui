@@ -11,8 +11,8 @@
     "build:skin": "gulp --gulpfile build/gulpfile.js",
     "build:component": "rollup -c build/rollup.config.js -f es && rollup -c build/rollup.config.js",
     "build": "npm run build:component && npm run build:skin",
-    "docs:dev": "vuepress dev .",
-    "docs:build": "vuepress build .",
+    "docs:dev": "rollup -c build/rollup.config.js -w & gulp watch --gulpfile build/gulpfile.js & node .vuepress/server.js -d & vuepress dev .",
+    "docs:build": "rollup -c build/rollup.config.js && npm run build:skin && vuepress build .",
     "server": "pm2 start .vuepress/server.js --name vui-server",
     "webhook": "pm2 start webhook.js --name vui-webhook",
     "lint": "eslint . && stylelint '?(.)**/*.{scss,css,vue,html}'",
@@ -54,6 +54,7 @@
     "@rollup/plugin-babel": "^5.2.1",
     "@rollup/plugin-commonjs": "^16.0.0",
     "@rollup/plugin-node-resolve": "^10.0.0",
+    "@rollup/plugin-replace": "^2.3.4",
     "@typescript-eslint/eslint-plugin": "^4.6.1",
     "@typescript-eslint/parser": "^4.6.1",
     "@vue/babel-preset-jsx": "^1.2.4",
@@ -110,6 +111,7 @@
     "vue-router": "^3.4.8",
     "vue-template-compiler": "^2.6.12",
     "vuepress": "^1.7.1",
+    "vuepress-plugin-run": "^1.0.2",
     "webhook": "^1.0.0"
   },
   "peerDependencies": {

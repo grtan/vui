@@ -23,7 +23,7 @@ npm i @game/vui --registry http://npm.vivo.com.cn
 
 ### 整体引入
 
-```javascript
+```js
 import Vue from 'vue'
 import Vui from '@game/vui'
 import '@game/vui/lib/modules/style/index.css'
@@ -64,11 +64,15 @@ module.exports = {
 }
 ```
 
-```javascript
-import { Button, Dialog } from '@game/vui'
+```js
+// 由于babel-plugin-component插件的限制，暂不支持如下别名
+// import { Button as VuiButton } from '@game/vui'
+
+import { Button, Dialog, HistoryAction } from '@game/vui'
 
 Vue.use(Button)
 Vue.use(Dialog)
+Vue.use(HistoryAction, router)
 ```
 
 ## 全局设置
@@ -78,17 +82,20 @@ Vue.use(Dialog)
 ```html
 <script src="xxx/node_modules/@game/vui/dist/vui.min.js"></script>
 <script>
+  // 方式1
   VUI.default.config(options)
 </script>
 ```
 
 ```js
+// 方式2
 import Vui from '@game/vui'
 
 Vui.config(options)
 ```
 
 ```js
+// 方式3
 import { Config } from '@game/vui'
 
 Config(options)
