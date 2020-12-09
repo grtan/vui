@@ -53,17 +53,62 @@ this.$vui.confirm({
 </template>
 
 <script>
-import { Dialog as VuiDialog, Button as VuiButton } from '@game/vui';
+import { Dialog, Button } from '@game/vui';
 
 export default {
   components: {
-    VuiDialog,
-    VuiButton
+    VuiDialog: Dialog,
+    VuiButton: Button
   },
   ...
 };
 </script>
 ```
+
+::: run
+
+```vue
+<template>
+  <div>
+    <vui-dialog v-model="show" title="标题">
+      正文内容
+      <template slot="footer">
+        <vui-button hue="primary" @click="onCancel">取消</vui-button>
+        <vui-button type="gorgeous" hue="primary" @click="onConfirm">确定</vui-button>
+      </template>
+    </vui-dialog>
+    <vui-button type="gorgeous" hue="primary" @click="show = !show">{{ show ? '隐藏' : '显示' }}</vui-button>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      show: false
+    }
+  },
+  methods: {
+    onCancel() {
+      this.show = false
+      this.$vui.toast('取消')
+    },
+    onConfirm() {
+      this.show = false
+      this.$vui.toast('确定')
+    }
+  }
+}
+</script>
+
+<style>
+body {
+  min-height: 300px;
+}
+</style>
+```
+
+:::
 
 ## api
 
@@ -76,7 +121,7 @@ export default {
 ## options
 
 |       名称        |       类型        |   必填   |                        默认值                         |                  描述                  |
-| :---------------: | :---------------: | :------: | :---------------------------------------------------: | :------------------------------------: |
+| :---------------: | :---------------: | :------: | :---------------------------------------------------: | :------------------------------------: | ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 |     className     |     `String`      |   `N`    |                          `-`                          |               自定义类名               |
 |       title       |     `String`      |   `N`    |                          `-`                          |                  标题                  |
 |      content      |     `String`      |   `Y`    |                          `-`                          |                正文内容                |

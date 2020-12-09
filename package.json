@@ -109,6 +109,7 @@
     "typescript-transform-paths": "^1.1.15",
     "vue": "^2.6.12",
     "vue-router": "^3.4.8",
+    "vue-run-sfc": "link:.vuepress/plugins/vue-run-sfc",
     "vue-template-compiler": "^2.6.12",
     "vuepress": "^1.7.1",
     "vuepress-plugin-run": "^1.0.2",
