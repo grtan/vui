@@ -8,16 +8,30 @@
 </template>
 
 <script>
-import {Button as VuiButton} from '@game/vui';
+import { Button } from '@game/vui';
 
 export default {
   components: {
-    VuiButton
+    VuiButton: Button
   },
   ...
 };
 </script>
 ```
+
+::: run
+
+```vue
+<template>
+  <div>
+    <vui-button hue="primary">按钮</vui-button>
+    <vui-button hue="primary" size="mini">按钮</vui-button>
+    <vui-button type="gradient" hue="primary">渐变按钮</vui-button>
+  </div>
+</template>
+```
+
+:::
 
 ## 属性
 
