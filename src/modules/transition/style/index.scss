@@ -2,17 +2,23 @@
 @use '../../../skin/common/mixin' as *;
 
 @include b(transition) {
-  overflow: hidden;
-
   @include e(disabled) {
     transition: none !important;
   }
 
+  // 清除浮动
+  &::after {
+    clear: both;
+    content: "";
+    display: block;
+  }
+
+  // *不会匹配伪元素
   > * {
     box-sizing: border-box;
     float: left;
     // 任何情况下过渡，transition组件都会将enter元素添加到尾部，这里利用opacity不为1时形成层叠上下文，保证层叠顺序跟元素dom顺序一致
-    opacity: 0.99999;
+    opacity: 0.99;
     width: 100%;
 
     /*

@@ -2,6 +2,26 @@
 
 ## 使用方法
 
+```vue
+<template>
+  <div>
+    <vui-avatar src="xxx"></vui-avatar>
+    <vui-avatar type="circle">user</vui-avatar>
+  </div>
+</template>
+
+<script>
+import { Avatar } from '@game/vui';
+
+export default {
+  components: {
+    VuiAvatar: Avatar
+  },
+  ...
+};
+</script>
+```
+
 ::: run
 
 ```vue
@@ -62,4 +82,4 @@ export default {
 
 ## 更新日志
 
-- v1.0.0 发布
+- v2.0.0 发布

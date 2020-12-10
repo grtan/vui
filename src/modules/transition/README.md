@@ -49,6 +49,69 @@ export default {
 </style>
 ```
 
+::: run
+
+```vue
+<template>
+  <div>
+    <vui-button @click="el = 1">元素1</vui-button>
+    <vui-button @click="el = 2">元素2</vui-button>
+    <vui-button @click="el = 3">元素3</vui-button>
+    <vui-transition class="box" type="custom">
+      <div class="el1" key="1" v-if="el === 1">元素1</div>
+      <div class="el2" key="2" v-else-if="el === 2">元素2</div>
+      <div class="el3" key="3" v-else>元素3</div>
+    </vui-transition>
+  </div>
+</template>
+
+<script>
+export default {
+  data: {
+    el: 1
+  }
+}
+</script>
+
+<style>
+.box {
+  margin: 30px;
+}
+
+.el1,
+.el2,
+.el3 {
+  height: 100px;
+}
+
+.el1 {
+  background: grey;
+}
+
+.el2 {
+  background: green;
+}
+
+.el3 {
+  background: red;
+}
+
+.custom-enter,
+.custom-leave-to {
+  transform: rotate(90deg);
+  opacity: 0;
+}
+
+.custom-enter-active,
+.custom-leave-active {
+  transform-origin: left bottom;
+  transition: transform 300ms, opacity 300ms;
+}
+</style>
+```
+
+:::
+
 ## 属性
 
 |   名称   |                                                                                       类型                                                                                        | 必填 | 默认值  |       描述       |

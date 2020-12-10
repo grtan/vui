@@ -1,18 +1,20 @@
 @use '../../../skin/var' as *;
 @use '../../../skin/common/mixin' as *;
+@use '../../../skin/common/function' as *;
 @use '../../transition/style/index' as *;
 
 @include b(toast) {
-  border-radius: $toast-radius;
   bottom: $toast-position-bottom;
   left: 50%;
   max-width: $toast-max-width;
   position: fixed;
   transform: translateX(-50%);
+  width: fit-content;
   z-index: $toast-z-index;
 
   @include e(content) {
     background: $toast-background;
+    border-radius: $toast-radius;
     color: $toast-color;
     font-size: $toast-font-size;
     line-height: $toast-line-height;
@@ -21,11 +23,39 @@
   }
 
   @include pc {
-    max-width: $toast-max-width-pc;
-    position: fixed;
+    bottom: auto;
+    max-width: none;
+    min-width: $toast-min-width-pc;
+    top: $toast-position-top-pc;
+    // fit-content在pc端兼容性不行，为了一致性，pc端统一不用fit-content
+    width: auto;
+
     @include e(content) {
+      background: $toast-background-pc;
+      border: $toast-border-pc;
+      border-radius: $toast-radius-pc;
+      color: $toast-color-pc;
       font-size: $toast-font-size-pc;
+      line-height: $toast-line-height-pc;
       padding: $toast-padding-pc;
+    }
+
+    > #{get-bem-selector(transition)} {
+      &-fade {
+        &-enter-active {
+          transition: transform $transition-popup-in;
+        }
+
+        &-leave-active {
+          transition: transform $transition-popup-out;
+        }
+
+        &-enter,
+        &-leave-to {
+          opacity: 1;
+          transform: translateY(calc(-100% - #{$toast-position-top-pc}));
+        }
+      }
     }
   }
 }

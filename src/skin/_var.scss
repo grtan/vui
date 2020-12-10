@@ -29,8 +29,8 @@ $border-color-regular: #cfcfcf !default;
 $border-color-light: #eee !default;
 
 /* ------------------- 常用背景色 ------------------- */
-$border-color-regular: #f8f8f8 !default;
-$border-color-light: #f2f2f2 !default;
+$background-color-regular: #f8f8f8 !default;
+$background-color-light: #f2f2f2 !default;
 
 /* ------------------- 常用字体大小 ------------------- */
 
@@ -147,11 +147,15 @@ $toast-color: $color-white;
 $toast-font-size: 45px;
 $toast-line-height: 60px;
 
-$toast-font-size-pc: 14px;
-$toast-line-height: 18px;
+$toast-position-top-pc: 20px;
+$toast-background-pc: #edf2fc;
 $toast-radius-pc: 4px;
-$toast-padding-pc: 15px 15px;
-$toast-max-width-pc: 300px;
+$toast-border-pc: 1px solid #ebeef5;
+$toast-padding-pc: 12px 15px;
+$toast-min-width-pc: 380px;
+$toast-color-pc: #909399;
+$toast-font-size-pc: 14px;
+$toast-line-height-pc: 20px;
 
 /* ------------------- 头像 ------------------- */
 $avatar-size-big: 102px;

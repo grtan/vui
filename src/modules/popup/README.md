@@ -4,8 +4,10 @@
 
 ```vue
 <template>
-  <button @click="show = true">popup</button>
-  <vui-popup v-model="show" :before-close="onBeforeClose"> popup content </vui-popup>
+  <div>
+    <button @click="show = true">popup</button>
+    <vui-popup v-model="show" :before-close="onBeforeClose"> popup content </vui-popup>
+  </div>
 </template>
 
 <script>
@@ -32,6 +34,54 @@ export default {
 };
 </script>
 ```
+
+::: run
+
+```vue
+<template>
+  <div>
+    <vui-button @click="show = true">{{ show ? '隐藏' : '显示' }}</vui-button>
+    <vui-popup v-model="show" position="left" :before-close="onBeforeClose">
+      <div class="content">点击蒙层关闭</div>
+    </vui-popup>
+  </div>
+</template>
+
+<script>
+export default {
+  data: {
+    show: false
+  },
+  methods: {
+    onBeforeClose(close) {
+      this.$vui.confirm({
+        content: '确定关闭弹层？',
+        beforeClose(action, callback) {
+          callback()
+          close(action === 'confirm')
+        }
+      })
+    }
+  }
+}
+</script>
+
+<style>
+body {
+  min-height: 200px;
+}
+
+.content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  background: #fff;
+}
+</style>
+```
+
+:::
 
 ## 属性
 

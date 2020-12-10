@@ -8,16 +8,33 @@
 </template>
 
 <script>
-import { Tag as VuiTag } from '@game/vui';
+import { Tag } from '@game/vui';
 
 export default {
   components: {
-    VuiTag
+    VuiTag: Tag
   },
   ...
 };
 </script>
 ```
+
+::: run
+
+```vue
+<template>
+  <div>
+    <vui-tag type="gorgeous" hue="primary">标签</vui-tag>
+    <vui-tag type="plain" hue="primary">标签</vui-tag>
+    <vui-tag type="regular" hue="primary">标签</vui-tag>
+    <vui-tag type="gorgeous" hue="success">标签</vui-tag>
+    <vui-tag type="gorgeous" hue="fail">标签</vui-tag>
+    <vui-tag type="gorgeous" hue="regular">标签</vui-tag>
+  </div>
+</template>
+```
+
+:::
 
 ## 属性
 
@@ -33,4 +50,4 @@ export default {
 
 ## 更新日志
 
-- v1.0.0 发布
+- v2.0.0 发布
