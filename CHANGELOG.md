@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.1.1-beta.2](http://gitlab.vmic.xyz/game-common/vui/compare/v2.1.1-beta.1...v2.1.1-beta.2) (2020-12-16)
+
+
+### Bug Fixes
+
+* 修复toast pc端样式；给组件添加在线编辑、预览demo ([8db7de2](http://gitlab.vmic.xyz/game-common/vui/commit/8db7de2cc1b1c72ebe54fe678b65d6b8ac2adbf8))
+
 ### [2.1.1-beta.1](http://gitlab.vmic.xyz/game-common/vui/compare/v2.1.1-beta.0...v2.1.1-beta.1) (2020-12-08)
 
 
