@@ -1,6 +1,6 @@
 {
   "name": "@game/vui",
-  "version": "2.1.1-beta.2",
+  "version": "2.1.1-beta.3",
   "description": "A vue 2.x component lib",
   "main": "dist/vui.js",
   "module": "lib/modules/index.js",

@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.1.1-beta.3](http://gitlab.vmic.xyz/game-common/vui/compare/v2.1.1-beta.2...v2.1.1-beta.3) (2020-12-16)
+
+
+### Bug Fixes
+
+* 修复src目录未上传到npm导致无法自定义皮肤的问题；修复vue-run-sfc为link协议导致npm安装失败的问题；增加自定义皮肤的指导文档 ([9f9d185](http://gitlab.vmic.xyz/game-common/vui/commit/9f9d185ca355d68e0e417bce30c705a8da876148))
+
 ### [2.1.1-beta.2](http://gitlab.vmic.xyz/game-common/vui/compare/v2.1.1-beta.1...v2.1.1-beta.2) (2020-12-16)
 
 
