@@ -16,8 +16,8 @@
     "server": "pm2 start .vuepress/server.js --name vui-server",
     "webhook": "pm2 start webhook.js --name vui-webhook",
     "lint": "eslint . && stylelint '?(.)**/*.{scss,css,vue,html}'",
-    "beta": "HUSKY_SKIP_HOOKS=1 standard-version --prerelease beta && git push --follow-tags origin",
-    "release": "HUSKY_SKIP_HOOKS=1 standard-version --skip.tag && git push --follow-tags origin",
+    "beta": "HUSKY_SKIP_HOOKS=1 standard-version $([ -e CHANGELOG.md ] && echo '--prerelease beta' || echo '--release-as 1.0.0-beta.0') && git push --follow-tags origin",
+    "release": "HUSKY_SKIP_HOOKS=1 standard-version $([ -e CHANGELOG.md ] && echo '' || echo '--first-release') --skip.tag && git push origin",
     "tag": "standard-version --skip.bump --skip.changelog --skip.commit && git push origin --tags",
     "prepublishOnly": "npm run build",
     "commit": "cz"
