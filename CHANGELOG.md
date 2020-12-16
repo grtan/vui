@@ -2,6 +2,36 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.1.1](http://gitlab.vmic.xyz/game-common/vui/compare/v2.1.1-beta.3...v2.1.1) (2020-12-16)
+
+### [2.1.1-beta.3](http://gitlab.vmic.xyz/game-common/vui/compare/v2.1.1-beta.2...v2.1.1-beta.3) (2020-12-16)
+
+
+### Bug Fixes
+
+* 修复src目录未上传到npm导致无法自定义皮肤的问题；修复vue-run-sfc为link协议导致npm安装失败的问题；增加自定义皮肤的指导文档 ([9f9d185](http://gitlab.vmic.xyz/game-common/vui/commit/9f9d185ca355d68e0e417bce30c705a8da876148))
+
+### [2.1.1-beta.2](http://gitlab.vmic.xyz/game-common/vui/compare/v2.1.1-beta.1...v2.1.1-beta.2) (2020-12-16)
+
+
+### Bug Fixes
+
+* 修复toast pc端样式；给组件添加在线编辑、预览demo ([8db7de2](http://gitlab.vmic.xyz/game-common/vui/commit/8db7de2cc1b1c72ebe54fe678b65d6b8ac2adbf8))
+
+### [2.1.1-beta.1](http://gitlab.vmic.xyz/game-common/vui/compare/v2.1.1-beta.0...v2.1.1-beta.1) (2020-12-08)
+
+
+### Bug Fixes
+
+* 修复umd包中还存在process.env.NODE_ENV的问题；文档中添加在线编辑、预览的功能 ([84b31c5](http://gitlab.vmic.xyz/game-common/vui/commit/84b31c52363be011c64d88814369dc785eef830f))
+
+### [2.1.1-beta.0](http://gitlab.vmic.xyz/game-common/vui/compare/v2.1.0-beta.2...v2.1.1-beta.0) (2020-12-04)
+
+
+### Bug Fixes
+
+* 修复组件声明文件的问题 ([438b747](http://gitlab.vmic.xyz/game-common/vui/commit/438b7473f9135da729b14b0029e2ea2332d3ef53))
+
 ## [2.1.0](http://gitlab.vmic.xyz/game-common/vui/compare/v2.1.0-beta.2...v2.1.0) (2020-12-04)
 
 ## [2.1.0-beta.2](http://gitlab.vmic.xyz/game-common/vui/compare/v2.1.0-beta.1...v2.1.0-beta.2) (2020-12-04)

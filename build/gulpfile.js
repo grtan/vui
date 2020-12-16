@@ -225,3 +225,15 @@ function copyAssets() {
 }
 
 exports.default = gulp.parallel(genLibSkin, genDistSkin, copyAssets)
+
+// 监控模式
+exports.watch = function (cb) {
+  const config = {
+    delay: 500,
+    ignoreInitial: false
+  }
+
+  gulp.watch(`${src}/**/*.scss`, config, genDistSkin)
+  gulp.watch(`${src}/**/*.{jpg,jpeg,png,gif,webp}`, config, copyAssets)
+  cb()
+}

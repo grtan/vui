@@ -11,16 +11,55 @@
 </template>
 
 <script>
-import { Avatar as VuiAvatar } from '@game/vui';
+import { Avatar } from '@game/vui';
 
 export default {
   components: {
-    VuiAvatar
+    VuiAvatar: Avatar
   },
   ...
 };
 </script>
 ```
+
+::: run
+
+```vue
+<template>
+  <div class="title">
+    <vui-avatar
+      type="circle"
+      src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2881847611,2057975433&fm=26&gp=0.jpg"
+      >user</vui-avatar
+    >
+    <vui-avatar
+      type="circle"
+      size="small"
+      src="https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=2881847611,2057975433&fm=26&gp=0.jpg"
+      >user</vui-avatar
+    >
+    <vui-avatar size="mini">{{ name }}</vui-avatar>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      name: '李'
+    }
+  }
+}
+</script>
+
+<style>
+.title {
+  color: #3eaf7c;
+}
+</style>
+```
+
+:::
 
 ## 属性
 
@@ -43,4 +82,4 @@ export default {
 
 ## 更新日志
 
-- v1.0.0 发布
+- v2.0.0 发布

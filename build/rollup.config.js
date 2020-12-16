@@ -4,6 +4,7 @@ import fse from 'fs-extra'
 import alias from '@rollup/plugin-alias'
 import nodeResolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
+import replace from '@rollup/plugin-replace'
 import typescript from 'rollup-plugin-typescript2'
 import babel from '@rollup/plugin-babel'
 import vue from 'rollup-plugin-vue'
@@ -214,8 +215,11 @@ export default args => {
         exclude: 'node_modules/**',
         babelHelpers: 'runtime'
       }),
+      replace({
+        'process.env.NODE_ENV': JSON.stringify('production')
+      }),
       del({
-        targets: 'dist/*'
+        targets: 'dist/*.js'
       })
     ]
   }

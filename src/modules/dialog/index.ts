@@ -4,7 +4,7 @@ import { dialog, alert, confirm } from './extend'
 import { extendVue } from '@/utils/extend'
 
 const Dialog = Component as typeof Component &
-  typeof VuiComponent & {
+  VuiComponent & {
     dialog: typeof dialog
     alert: typeof alert
     confirm: typeof confirm

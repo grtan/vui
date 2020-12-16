@@ -3,7 +3,7 @@ const path = require('path')
 
 module.exports = {
   devServer: {
-    port: 3003
+    port: 3012
   },
   css: {
     loaderOptions: {

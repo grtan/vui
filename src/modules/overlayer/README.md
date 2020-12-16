@@ -12,16 +12,55 @@
 </template>
 
 <script>
-import { Overlayer as VuiOverlayer } from '@game/vui';
+import { Overlayer } from '@game/vui';
 
 export default {
   components: {
-    VuiOverlayer
+    VuiOverlayer: Overlayer
   },
   ...
 };
 </script>
 ```
+
+::: run
+
+```vue
+<template>
+  <div>
+    <vui-overlayer v-model="show" v-slot="slotProps">
+      <vui-transition class="content" type="zoom">
+        <div v-show="slotProps.show">点击蒙层关闭</div>
+      </vui-transition>
+    </vui-overlayer>
+    <vui-button @click="show = !show">{{ show ? '隐藏' : '显示' }}</vui-button>
+  </div>
+</template>
+
+<script>
+export default {
+  data: {
+    show: false
+  }
+}
+</script>
+
+<style>
+body {
+  min-height: 150px;
+}
+
+.content {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+}
+</style>
+```
+
+:::
 
 ## 属性
 
@@ -47,4 +86,4 @@ export default {
 
 ## 更新日志
 
-- v1.0.0 发布
+- v2.0.0 发布

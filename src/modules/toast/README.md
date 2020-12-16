@@ -15,6 +15,41 @@ Vue.$vui.toast('xxx', options)
 this.$vui.toast('xxx', options)
 ```
 
+::: run
+
+```vue
+<template>
+  <div>
+    <vui-button @click="showToast1">toast 1</vui-button>
+    <vui-button @click="showToast2">toast 2</vui-button>
+  </div>
+</template>
+
+<script>
+export default {
+  methods: {
+    showToast1() {
+      this.$vui.toast('<em>toast 1</em>')
+    },
+    showToast2() {
+      this.$vui.toast('<em>toast 2</em>', {
+        allowHtml: true
+        // duration: 3000000
+      })
+    }
+  }
+}
+</script>
+
+<style>
+body {
+  min-height: 150px;
+}
+</style>
+```
+
+:::
+
 ## options
 
 |   名称    |   类型    | 必填 | 默认值  |       描述        |

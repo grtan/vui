@@ -8,16 +8,31 @@
 </template>
 
 <script>
-import {Link as VuiLink} from '@game/vui';
+import { Link } from '@game/vui';
 
 export default {
   components: {
-    VuiLink
+    VuiLink: Link
   },
   ...
 };
 </script>
 ```
+
+::: run
+
+```vue
+<template>
+  <div>
+    <vui-link hue="primary" underline="false" href="#">示例链接</vui-link>
+    <vui-link hue="success" href="#" disabled="true">示例链接</vui-link>
+    <vui-link hue="fail" underline="false" href="#">示例链接</vui-link>
+    <vui-link hue="regular" underline="false" href="#">示例链接</vui-link>
+  </div>
+</template>
+```
+
+:::
 
 ## 属性
 
@@ -47,4 +62,4 @@ export default {
 
 ## 更新日志
 
-- v1.0.0 发布
+- v2.1.0 发布（样式有问题，待后续优化）
