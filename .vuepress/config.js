@@ -12,7 +12,7 @@ module.exports = {
         link: '/CHANGELOG'
       }
     ],
-    sidebar: ['/docs/guide', '/docs/development', ...manifest],
+    sidebar: ['/docs/guide', '/docs/skin', '/docs/development', ...manifest],
     displayAllHeaders: true,
     sidebarDepth: 0,
     lastUpdated: '最近更新',
