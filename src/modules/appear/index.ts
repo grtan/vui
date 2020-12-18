@@ -1,3 +1,4 @@
+import 'intersection-observer'
 import { VuiDirective } from '@/types/module'
 import ObserveVNodeDirective from './interface'
 
