@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.1.2-beta.0](http://gitlab.vmic.xyz/game-common/vui/compare/v2.1.1-beta.3...v2.1.2-beta.0) (2020-12-18)
+
+
+### Bug Fixes
+
+* 修复appear、disappear、intersect未引入IntersectionObserver polyfill导致的兼容性问题；设置"sideEffects": false ([5aa2ddc](http://gitlab.vmic.xyz/game-common/vui/commit/5aa2ddce3675fc1bdd93cbac2aa1d7cd1b5a4442))
+
 ### [2.1.1](http://gitlab.vmic.xyz/game-common/vui/compare/v2.1.1-beta.3...v2.1.1) (2020-12-16)
 
 ### [2.1.1-beta.3](http://gitlab.vmic.xyz/game-common/vui/compare/v2.1.1-beta.2...v2.1.1-beta.3) (2020-12-16)
