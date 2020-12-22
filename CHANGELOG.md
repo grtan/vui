@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.1.2-beta.1](http://gitlab.vmic.xyz/game-common/vui/compare/v2.1.2-beta.0...v2.1.2-beta.1) (2020-12-22)
+
+
+### Bug Fixes
+
+* 解决在安卓6等部分机型下，scrollHeight四舍五入导致计算偏差问题 ([d212a90](http://gitlab.vmic.xyz/game-common/vui/commit/d212a90ac4e7a76f6a9827ff21b0a2312d2a6e34))
+
 ### [2.1.2-beta.0](http://gitlab.vmic.xyz/game-common/vui/compare/v2.1.1-beta.3...v2.1.2-beta.0) (2020-12-18)
 
 
