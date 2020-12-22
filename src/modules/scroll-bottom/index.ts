@@ -17,7 +17,8 @@ function inserted(el: HTMLElement, binding: ScrollVNodeDirective) {
   if (!value) return
 
   const handler = () => {
-    if (el.scrollTop + el.clientHeight >= el.scrollHeight) {
+    // -1是为了 解决在安卓6等部分机型下，scrollHeight四舍五入导致计算偏差问题
+    if (Math.round(el.scrollTop) + el.clientHeight >= el.scrollHeight - 1) {
       value()
       once && unbind(el)
     }
