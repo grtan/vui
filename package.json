@@ -5,7 +5,10 @@
   "main": "dist/vui.js",
   "module": "lib/modules/index.js",
   "types": "lib/modules/index.d.ts",
-  "sideEffects": false,
+  "sideEffects": [
+    "*.css",
+    "*.scss"
+  ],
   "scripts": {
     "create": "node cli/index.js create",
     "delete": "node cli/index.js delete",
