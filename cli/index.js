@@ -1,7 +1,10 @@
 const { program } = require('commander')
 const create = require('./create')
 const del = require('./delete')
+const refresh = require('./refresh')
 
 program.command('create').description('创建模块').action(create)
 program.command('delete').description('删除模块').action(del)
+program.command('refresh').description('重新生成清单').action(refresh)
+program.version(require('../package.json').version)
 program.parse(process.argv)
