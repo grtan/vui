@@ -1,4 +1,3 @@
-/* eslint-disable */
 import Vue from 'vue'
 import Appear from './appear'
 import Avatar from './avatar'
@@ -23,21 +22,74 @@ function install(
   // 插件参数
   options?: Record<string, any>
 ) {
-  const names: string[] = ['Appear', 'Avatar', 'Button', 'Config', 'Dialog', 'Disappear', 'HistoryAction', 'Intersect', 'Link', 'Overlayer', 'Popup', 'Scroll', 'ScrollBottom', 'ScrollTop', 'Tag', 'Toast', 'Transition']
+  const names: string[] = [
+    'Appear',
+    'Avatar',
+    'Button',
+    'Config',
+    'Dialog',
+    'Disappear',
+    'HistoryAction',
+    'Intersect',
+    'Link',
+    'Overlayer',
+    'Popup',
+    'Scroll',
+    'ScrollBottom',
+    'ScrollTop',
+    'Tag',
+    'Toast',
+    'Transition'
+  ]
 
-  ;[Appear, Avatar, Button, Config, Dialog, Disappear, HistoryAction, Intersect, Link, Overlayer, Popup, Scroll, ScrollBottom, ScrollTop, Tag, Toast, Transition].forEach(
-    function (item, index) {
-      if (typeof (item as any).install !== 'function') {
-        return
-      }
-
-      vue.use(item as any, options?.[names[index]])
+  ;[
+    Appear,
+    Avatar,
+    Button,
+    Config,
+    Dialog,
+    Disappear,
+    HistoryAction,
+    Intersect,
+    Link,
+    Overlayer,
+    Popup,
+    Scroll,
+    ScrollBottom,
+    ScrollTop,
+    Tag,
+    Toast,
+    Transition
+  ].forEach(function (item, index) {
+    if (typeof (item as any).install !== 'function') {
+      return
     }
-  )
+
+    vue.use(item as any, options?.[names[index]])
+  })
 }
 
-export { Appear, Avatar, Button, Config, Dialog, Disappear, HistoryAction, Intersect, Link, Overlayer, Popup, Scroll, ScrollBottom, ScrollTop, Tag, Toast, Transition }
+export {
+  Appear,
+  Avatar,
+  Button,
+  Config,
+  Dialog,
+  Disappear,
+  HistoryAction,
+  Intersect,
+  Link,
+  Overlayer,
+  Popup,
+  Scroll,
+  ScrollBottom,
+  ScrollTop,
+  Tag,
+  Toast,
+  Transition
+}
 export default {
+  version: '2.1.3',
   install,
   config: Config
 }

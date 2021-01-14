@@ -3,6 +3,7 @@ const glob = require('glob')
 const fse = require('fs-extra')
 const artTemplate = require('art-template')
 const pascalCase = require('change-case').pascalCase
+const version = require('../package.json').version
 
 // 模块分类展示顺序
 const types = [
@@ -52,7 +53,8 @@ function genEntry() {
   fse.outputFileSync(
     path.resolve(__dirname, '../src/modules/index.ts'),
     artTemplate(path.resolve(__dirname, 'template/entry.art'), {
-      modules
+      modules,
+      version
     })
   )
   // scss入口文件
