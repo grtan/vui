@@ -18,6 +18,8 @@ npm i @game/vui --registry http://npm.vivo.com.cn
 <script src="xxx/node_modules/@game/vui/dist/vui.min.js"></script>
 <script>
   Vue.use(VUI.default, options)
+  // v2.1.3+才支持version字段
+  console.log(VUI.default.version)
 </script>
 ```
 
@@ -29,6 +31,7 @@ import Vui from '@game/vui'
 import '@game/vui/lib/modules/style/index.css'
 
 Vue.use(Vui, options)
+console.log(Vui.version)
 ```
 
 #### options
