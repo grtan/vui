@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.1.3-beta.1](http://gitlab.vmic.xyz/game-common/vui/compare/v2.1.3-beta.0...v2.1.3-beta.1) (2021-01-14)
+
+
+### Features
+
+* 全局引入时添加版本字段 ([a39cc2f](http://gitlab.vmic.xyz/game-common/vui/commit/a39cc2f1b74db8fadd22ea70619664321bc2b55d))
+
 ### [2.1.3-beta.0](http://gitlab.vmic.xyz/game-common/vui/compare/v2.1.2-beta.1...v2.1.3-beta.0) (2021-01-05)
 
 
