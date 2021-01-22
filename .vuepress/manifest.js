@@ -27,6 +27,7 @@ module.exports = [
         "title": "数据展示",
         "collapsable": false,
         "children": [
+          "/src/modules/image-previewer/",
           "/src/modules/tag/"
         ]
       },

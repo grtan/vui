@@ -1,0 +1,23 @@
+<template>
+  <div class="demo">
+    <div v-for="(demo, index) in demos" :key="index" class="demo__wrapper">
+      <div class="demo__title">{{ demo.title }}</div>
+      <div class="demo__content">
+        <component :is="demo"></component>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script lang="ts">
+import { Vue, Component } from 'vue-property-decorator'
+import Demo0 from './demo0.vue'
+
+@Component
+export default class VComponent extends Vue {
+  demos = [Demo0]
+}
+</script>
+
+<style lang="scss" src="../style/index.scss"></style>
+<style lang="scss" src="../../button/style/index.scss"></style>

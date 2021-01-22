@@ -94,6 +94,17 @@ export default [
         "category": "数据展示",
         "list": [
           {
+            "zhName": "图片预览",
+            "type": "组件",
+            "category": "数据展示",
+            "author": {
+              "name": "谭新",
+              "email": "xin.tan@vivo.com"
+            },
+            "enName": "ImagePreviewer",
+            "lowerEnName": "image-previewer"
+          },
+          {
             "zhName": "标签",
             "type": "组件",
             "category": "数据展示",

@@ -1,0 +1,106 @@
+@use '../../../skin/var' as *;
+@use '../../../skin/common/mixin' as *;
+@use '../../../skin/common/function' as *;
+@use '../../overlayer/style/index' as *;
+@use '../../button/style/index' as *;
+
+/*
+  gulp-sass的includePaths添加了node_modules，且其不像css-loader样，不是必须添加前缀~
+  而且demo中的sass-loader导入Partials文件时，不能省略前缀_
+*/
+// @import "photoswipe/src/css/_main-settings";
+// 这些css导入语句会保持原样，为了让css-loader识别，需要加~前缀
+@import "~photoswipe/dist/photoswipe.css";
+@import "~photoswipe/dist/default-skin/default-skin.css";
+// @use '~photoswipe/src/css/main' as *;
+// // @use 'photoswipe/src/css/default-skin/default-skin' as *;
+// @use '~photoswipe/src/css/default-skin/default-skin' as * with (
+//   // $pswp__assets-path: '../photoswipe/src/css/default-skin/',
+//   $pswp__assets-path: '~photoswipe/src/css/default-skin/',
+//   // $pswp__controls-transition-duration: 3330ms
+// );
+
+@include b(image-previewer) {
+  @include e(overlayer) {
+    visibility: hidden;
+  }
+
+  @include e(placeholder) {
+    display: none;
+  }
+
+  @include e(error) {
+    background: url("../image/error.png") center top / auto $image-previewer-error-padding-top no-repeat;
+    padding-top: $image-previewer-error-padding-top;
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+  }
+
+  @include e(reload) {
+    margin: $image-previewer-reload-margin-top;
+  }
+
+  @include e(download) {
+    background: url(../image/download.png) center / contain no-repeat;
+    bottom: $image-previewer-download-bottom;
+    cursor: pointer;
+    display: none;
+    height: $image-previewer-download-height;
+    opacity: 0.75;
+    position: absolute;
+    right: $image-previewer-download-right;
+    // transition: opacity $pswp__controls-transition-duration cubic-bezier(0.4, 0, 0.22, 1);
+    transition: opacity 333ms cubic-bezier(0.4, 0, 0.22, 1);
+    width: $image-previewer-download-width;
+
+    .pswp__ui--idle & {
+      opacity: 0;
+    }
+  }
+
+  @include pc {
+    .pswp__top-bar {
+      transform: none;
+    }
+
+    // 保证loading icon水平居中
+    .pswp__preloader {
+      left: 50%;
+    }
+  }
+
+  // 移动端放大按钮
+  .pswp__top-bar {
+    transform: scale($image-previewer-button-scale);
+    transform-origin: right top;
+  }
+
+  // 保证loading icon水平、垂直居中
+  .pswp__preloader {
+    left: 80%;
+    top: 20vh;
+  }
+
+  .pswp__button--arrow--left {
+    transform: scale($image-previewer-button-scale);
+    transform-origin: left center;
+  }
+
+  .pswp__button--arrow--right {
+    transform: scale($image-previewer-button-scale);
+    transform-origin: right center;
+  }
+
+  .pswp__counter {
+    bottom: $image-previewer-counter-bottom;
+    font-size: $image-previewer-counter-font-size;
+    left: $image-previewer-counter-left;
+    line-height: $image-previewer-counter-line-height;
+    // opacity: 1;
+    padding: 0;
+    top: auto;
+  }
+}
