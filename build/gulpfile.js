@@ -307,7 +307,10 @@ async function genLibSkin() {
                * importer !== importee表示不能是入口文件
                */
               done({
-                contents: `@import "${path.relative(path.dirname(dest), importeePath).replace(/\.[^./]*$/, '.css')}";`
+                // 统一成lib目录路径后计算相对路径
+                contents: `@import "${path
+                  .relative(path.dirname(dest), importeePath.replace(src, lib))
+                  .replace(/\.[^./]*$/, '.css')}";`
               })
             } else {
               /**

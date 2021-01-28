@@ -12,6 +12,7 @@
   "scripts": {
     "create": "node cli/index.js create",
     "delete": "node cli/index.js delete",
+    "refresh": "node cli/index.js refresh",
     "build:skin": "gulp --gulpfile build/gulpfile.js",
     "build:component": "rollup -c build/rollup.config.js -f es && rollup -c build/rollup.config.js",
     "build": "npm run build:component && npm run build:skin",
