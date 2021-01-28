@@ -93,7 +93,7 @@ export {
   Transition
 }
 export default {
-  version: '2.2.0-beta.0',
+  version: '2.2.0-beta.1',
   install,
   config: Config
 }
