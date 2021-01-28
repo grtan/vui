@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.2.0-beta.2](http://gitlab.vmic.xyz/game-common/vui/compare/v2.2.0-beta.1...v2.2.0-beta.2) (2021-01-28)
+
+
+### Bug Fixes
+
+* 修复样式文件lib构建后相对路径引用到src的问题 ([e00dc94](http://gitlab.vmic.xyz/game-common/vui/commit/e00dc940331cdffcb840a25e3b27e50f011e5ba4))
+
 ## [2.2.0-beta.1](http://gitlab.vmic.xyz/game-common/vui/compare/v2.2.0-beta.0...v2.2.0-beta.1) (2021-01-28)
 
 
