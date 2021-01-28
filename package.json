@@ -1,6 +1,6 @@
 {
   "name": "@game/vui",
-  "version": "2.2.0-beta.2",
+  "version": "2.2.0-beta.3",
   "description": "A vue 2.x component lib",
   "main": "dist/vui.js",
   "module": "lib/modules/index.js",
@@ -134,8 +134,7 @@
     }
   },
   "lint-staged": {
-    "*.{js,jsx,ts,tsx,vue,html}": "eslint",
-    "*.{scss,css,vue,html}": "stylelint"
+    "*.{js,jsx,ts,tsx,vue,html}": "eslint"
   },
   "config": {
     "commitizen": {
