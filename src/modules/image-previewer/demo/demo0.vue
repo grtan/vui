@@ -1,7 +1,7 @@
 <template>
   <div :class="$style.root">
-    <vui-button type="gorgeous" hue="primary" @click="index = 1">显示</vui-button>
-    <vui-image-previewer v-model="index" :list="list"></vui-image-previewer>
+    <vui-button type="gorgeous" hue="primary" @click="index = 0">显示</vui-button>
+    <vui-image-previewer v-model="index" :list="list" :options="options"></vui-image-previewer>
   </div>
 </template>
 
@@ -21,6 +21,9 @@ export default class VComponent extends Vue {
 
   index = -1
   list = [
+    {
+      src: 'https://shopstatic.vivo.com.cn/vivoshop/commodity/25/10002225_1608884553180_750x750.png.webp'
+    },
     {
       msrc: 'https://farm4.staticflickr.com/3894/15008518202_b016d7d289_m.jpg',
       src: 'https://farm4.staticflickr.com/3894/15008518202_c265dfa55f_h.jpg',
@@ -50,6 +53,13 @@ export default class VComponent extends Vue {
       h: 540
     }
   ]
+
+  options = {
+    pinchToClose: false,
+    closeOnScroll: false,
+    closeOnVerticalDrag: false,
+    tapToClose: true
+  }
 
   created() {
     // 动态添加图片

@@ -1,4 +1,4 @@
-# ImagePreviewer 图片预览器
+# ImagePreviewer 图片预览
 
 > ImagePreviewer 是基于[PhotoSwipe](https://photoswipe.com/)封装的图片预览组件。
 

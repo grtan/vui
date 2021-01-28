@@ -114,16 +114,17 @@ export default class VComponent extends Vue {
   })
   readonly options!: PhotoSwipe.Options
 
-  // 这里采用深拷贝，防止photoswipe修改this.list
   get items() {
+    // 这里采用深拷贝，防止photoswipe修改item时修改到this.list
     const list = JSON.parse(JSON.stringify(this.list)) as this['list']
 
-    // photoswipe必须要设置尺寸，否则报错
     list.forEach(item => {
-      // if (!item.msrc) {
-      //   item.msrc = item.src
-      // }
+      // 不设置msrc时，photoswipe会以灰色矩形区域替代
+      if (!item.msrc) {
+        item.msrc = item.src
+      }
 
+      // photoswipe必须要设置尺寸，否则报错
       if ([item.w, item.h].includes(undefined)) {
         item.w = 0
         item.h = 0
@@ -183,28 +184,28 @@ export default class VComponent extends Vue {
         img.onload = () => {
           item.w = img.width
           item.h = img.height
-          this.previewer!.updateSize(true)
+
+          if (this.previewer?.getCurrentIndex() === index) {
+            this.previewer?.invalidateCurrItems()
+          }
+
+          /**
+           * 这里会导致加载失败元素尺寸被设置成0
+           * 所以在css中给失败元素宽高强制设置!important
+           */
+          this.previewer?.updateSize(true)
         }
         img.src = item.src!
       }
     })
     this.previewer.listen('afterChange', () => {
-      this.$emit('input', this.previewer!.getCurrentIndex())
+      this.$emit('input', this.previewer?.getCurrentIndex())
     })
     this.previewer.listen('destroy', () => {
       this.previewer = undefined
       this.showOverlayer = false
       this.$emit('input', -1)
     })
-    // 图片加载完成
-    // this.previewer.listen('imageLoadComplete', (index, item: any) => {
-    //   console.log(444, index, item.loadError)
-    //   // 加载失败
-    //   if (item.loadError && item.container) {
-    //     console.log(555, this.$refs.fail, item)
-    //     item.container.innerHTML = (this.$refs.fail as HTMLElement).innerHTML
-    //   }
-    // })
     this.showOverlayer = true
   }
 

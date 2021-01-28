@@ -219,7 +219,7 @@ export default args => {
         'process.env.NODE_ENV': JSON.stringify('production')
       }),
       del({
-        targets: 'dist/*.js'
+        targets: 'dist/*'
       })
     ]
   }
