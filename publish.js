@@ -1,6 +1,9 @@
 const glob = require('glob')
 const KS3 = require('@vivo/ks3')
 const bucket = 'cdnjs'
+
+console.log(process.argv)
+
 const ks3 = new KS3(process.argv[2], process.argv[3], bucket, process.argv[4])
 const packageJson = require('./package.json')
 const distRelativePath = './dist'

@@ -191,7 +191,7 @@ export default class VComponent extends Vue {
 
           /**
            * 这里会导致加载失败元素尺寸被设置成0
-           * 所以在css中给失败元素宽高强制设置!important
+           * 所以在css中给失败元素宽高强制设置!important非0尺寸
            */
           this.previewer?.updateSize(true)
         }
@@ -256,6 +256,8 @@ export default class VComponent extends Vue {
   }
 
   async mounted() {
+    // 将根dom节点移到body下，防止业务方样式干扰
+    document.body.appendChild(this.$el)
     await this.$nextTick()
     this.show()
   }
