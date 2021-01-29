@@ -76,7 +76,16 @@
   }
 }
 
-// pc端样式
+// 仅移动端样式
+@mixin mobile {
+  @at-root {
+    html:not(.#{$pc-class-name}) & {
+      @content;
+    }
+  }
+}
+
+// 仅pc端样式
 @mixin pc {
   @at-root {
     html.#{$pc-class-name} & {

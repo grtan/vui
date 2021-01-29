@@ -10,7 +10,7 @@
       <!-- Container that holds slides. 
             PhotoSwipe keeps only 3 of them in the DOM to save memory.
             Don't modify these 3 pswp__item elements, data is added later on. -->
-      <div class="pswp__container" @click="onContainerClick">
+      <div ref="container" class="pswp__container" @click="onContainerClick">
         <div class="pswp__item"></div>
         <div class="pswp__item"></div>
         <div class="pswp__item"></div>
@@ -55,13 +55,16 @@
         <!-- 自定义按钮 -->
         <div class="pswp__counter"></div>
         <div class="vui-image-previewer__download" @click="onSave"></div>
+        <!-- 自定义渐变蒙层 -->
+        <div class="vui-image-previewer__layer"></div>
+        <div class="vui-image-previewer__layer vui-image-previewer__layer--bottom"></div>
       </div>
     </div>
     <!-- 加载出错区域 -->
     <div ref="error" class="vui-image-previewer__placeholder">
       <slot>
         <div class="vui-image-previewer__error">
-          <vui-button class="vui-image-previewer__reload">重新加载</vui-button>
+          <vui-button class="vui-image-previewer__reload" corner="round">重新加载</vui-button>
         </div>
       </slot>
     </div>
@@ -76,6 +79,7 @@ import PhotoSwipe from 'photoswipe'
 import PhotoSwipeUI from 'photoswipe/dist/photoswipe-ui-default'
 import VuiOverlayer from '../overlayer/component.vue'
 import VuiButton from '../button/component.vue'
+import { raf } from '../../utils/prefix'
 
 @Component({
   name: 'VuiImagePreviewer',
@@ -148,7 +152,7 @@ export default class VComponent extends Vue {
 
   // 预览指定图片
   @Watch('opts.index')
-  show() {
+  async show() {
     // dom还未挂载
     if (!this.$el) {
       return
@@ -178,13 +182,18 @@ export default class VComponent extends Vue {
     })
     // 未设置尺寸时加载图片后重新设置尺寸
     this.previewer.listen('gettingData', (index, item) => {
-      if (!item.w || !item.h) {
+      /**
+       * item.loadError为true时证明已经加载失败了，不能再尝试加载
+       * 否则会再次触发onerror中的updateSize，导致无限循环
+       */
+      if ((!item.w || !item.h) && !item.loadError) {
         const img = new Image()
 
         img.onload = () => {
           item.w = img.width
           item.h = img.height
 
+          // 这里是为了防止图片显示时出现从0尺寸开始放大的过渡效果
           if (this.previewer?.getCurrentIndex() === index) {
             this.previewer?.invalidateCurrItems()
           }
@@ -193,6 +202,13 @@ export default class VComponent extends Vue {
            * 这里会导致加载失败元素尺寸被设置成0
            * 所以在css中给失败元素宽高强制设置!important非0尺寸
            */
+          this.previewer?.updateSize(true)
+        }
+        img.onerror = () => {
+          if (this.previewer?.getCurrentIndex() === index) {
+            this.previewer?.invalidateCurrItems()
+          }
+
           this.previewer?.updateSize(true)
         }
         img.src = item.src!
@@ -207,6 +223,25 @@ export default class VComponent extends Vue {
       this.$emit('input', -1)
     })
     this.showOverlayer = true
+    await this.$nextTick()
+    // 在container元素监听pswpTap事件，framework在photoswipe init后才存在
+    this.previewer.framework.bind(this.$refs.container, 'pswpTap', this.onPswpTap)
+  }
+
+  // 当使用tapToClose时，移动端点击图片时不关闭预览组件
+  onPswpTap(e: any) {
+    // 非移动端，保持原样
+    if (e.detail && e.detail.pointerType === 'mouse') {
+      return
+    }
+
+    if (e.target.classList.contains('pswp__img')) {
+      e.target.classList.remove('pswp__img')
+      // 等photoswipe事件回掉后、浏览器渲染前恢复pswp__img类
+      raf(() => {
+        e.target.classList.add('pswp__img')
+      })
+    }
   }
 
   // 更新图片列表

@@ -184,8 +184,8 @@ async function handleImportee(from, to, isLib) {
     }),
     postcssUrl({
       url({ url, absolutePath }) {
-        // 资源路径为http地址或者包含sass变量
-        if (/^(https?:)?\/\/|\$/.test(url)) {
+        // 资源路径为http、base64或者其他协议地址，或者包含sass变量
+        if (/^([a-zA-Z]+:|\/\/)|\$/.test(url)) {
           return url
         }
 
