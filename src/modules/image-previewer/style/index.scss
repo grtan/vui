@@ -39,14 +39,14 @@
 
   @include e(download) {
     background: url(../image/download.png) center / contain no-repeat;
-    bottom: $image-previewer-download-bottom;
+    bottom: $image-previewer-counter-bottom;
     cursor: pointer;
     // 暂时先不显示下载按钮
     display: none;
     height: $image-previewer-download-height;
     opacity: 0.75;
     position: absolute;
-    right: $image-previewer-download-right;
+    right: $image-previewer-counter-left;
     transition: opacity $pswp__controls-transition-duration cubic-bezier(0.4, 0, 0.22, 1);
     width: $image-previewer-download-width;
 
@@ -75,14 +75,19 @@
   // 仅pc端样式
   @include pc {
     @include e(layer) {
-      height: 100px;
+      background-image: linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0));
+      height: 50px;
+
+      @include m(bottom) {
+        background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0));
+      }
     }
 
     @include e(download) {
       bottom: $image-previewer-counter-bottom-pc;
-      height: 28px;
+      height: $image-previewer-download-height-pc;
       right: $image-previewer-counter-left-pc;
-      width: 28px;
+      width: $image-previewer-download-width-pc;
     }
 
     .pswp__counter {
@@ -116,6 +121,13 @@
     .pswp__button--arrow--right {
       transform: scale($image-previewer-button-scale);
       transform-origin: right center;
+    }
+
+    // 图片描述文本
+    .pswp__caption__center {
+      max-width: 300px;
+      transform: translateY(-26px) scale(2.5);
+      transform-origin: center bottom;
     }
   }
 

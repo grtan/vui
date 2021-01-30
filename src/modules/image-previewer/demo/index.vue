@@ -12,10 +12,11 @@
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
 import Demo0 from './demo0.vue'
+import Demo1 from './demo1.vue'
 
 @Component
 export default class VComponent extends Vue {
-  demos = [Demo0]
+  demos = [Demo0, Demo1]
 }
 </script>
 

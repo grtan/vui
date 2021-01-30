@@ -1,7 +1,7 @@
 <template>
-  <div :class="$style.root">
+  <div>
     <vui-button type="gorgeous" hue="primary" @click="index = 0">显示</vui-button>
-    <vui-image-previewer v-model="index" :list="list" :options="options"></vui-image-previewer>
+    <vui-image-previewer v-model="index" :list="list"></vui-image-previewer>
   </div>
 </template>
 
@@ -17,21 +17,22 @@ import VuiButton from '../../button/component.vue'
   }
 })
 export default class VComponent extends Vue {
-  static title = '样例1'
+  static title = '无缩略图'
 
   index = -1
   list = [
     {
-      src: 'https://shopstatic.vivo.com.cn/vivoshop/commodity/25/10002225_1608884553180_750x750.png.webp'
+      src: 'https://shopstatic.vivo.com.cn/vivoshop/commodity/25/10002225_1608884553180_750x750.png.webp',
+      title: '这是一段<strong>描述文本</strong>'
     },
     {
-      msrc: 'https://farm4.staticflickr.com/3894/15008518202_b016d7d289_m.jpg',
-      src: 'https://farm4.staticflickr.com/3894/15008518202_c265dfa55f_h.jpg',
-      w: 1600,
-      h: 1600
+      // msrc: 'https://farm4.staticflickr.com/3894/15008518202_b016d7d289_m.jpg',
+      src: 'https://farm4.staticflickr.com/3894/15008518202_c265dfa55f_h.jpg'
+      // w: 1600,
+      // h: 1600
     },
     {
-      msrc: 'https://farm6.staticflickr.com/5591/15008867125_68a8ed88cc_m.jpg',
+      // msrc: 'https://farm6.staticflickr.com/5591/15008867125_68a8ed88cc_m.jpg',
       src: 'https://farm6.staticflickr.com/5591/15008867125_b61960af01_h.jpg',
       w: 1600,
       h: 1068
@@ -54,13 +55,6 @@ export default class VComponent extends Vue {
     }
   ]
 
-  options = {
-    pinchToClose: false,
-    closeOnScroll: false,
-    closeOnVerticalDrag: false,
-    tapToClose: true
-  }
-
   created() {
     // 动态添加图片
     setTimeout(() => {
@@ -82,11 +76,3 @@ export default class VComponent extends Vue {
   }
 }
 </script>
-
-<style lang="scss" module>
-.root {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-}
-</style>

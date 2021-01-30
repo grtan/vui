@@ -112,14 +112,14 @@ function getImporteeInfo(importer, importee) {
 
 /**
  * 替换css/css文件里url资源的路径
- * @param {*} from 被import的文件路径
- * @param {*} to 最终被打包到的文件路径
+ * @param {*} from 被import的文件绝对路径
+ * @param {*} to 最终被打包到的文件绝对路径
  * @param {*} isLib 是否为lib构建处理，此时需要保留按npm包引用的方式
  */
 async function handleImportee(from, to, isLib) {
   return postcss([
     postcssAtrule({
-      modifier(name, importee, importer) {
+      async modifier(name, importee, importer) {
         // 已经转换过
         if (importee.includes(importeeSeparator)) {
           return
@@ -158,6 +158,8 @@ async function handleImportee(from, to, isLib) {
 
           if (fse.pathExistsSync(importee)) {
             fse.copySync(importee, dest)
+            // css中有可能又引用了其他css或者图片等资源，需要递归处理
+            await handleImportee(importee, dest, isLib)
           } else {
             throw new Error(`${importer}中导入的资源${importee}不存在`)
           }
