@@ -3,6 +3,7 @@
 @use '../../../skin/common/function' as *;
 @use '../../overlayer/style/index' as *;
 @use '../../button/style/index' as *;
+@use './image' as *;
 // 从npm包中引入文件，需要加~前缀
 @use "~photoswipe/src/css/main-settings" as *;
 @import "~photoswipe/dist/photoswipe.css";
@@ -18,7 +19,7 @@
   }
 
   @include e(error) {
-    background: url("../image/error.png") center top / auto $image-previewer-error-padding-top no-repeat;
+    background: url($error) center top / auto $image-previewer-error-padding-top no-repeat;
     height: auto !important;
     padding-top: $image-previewer-error-padding-top;
     position: absolute;
@@ -26,6 +27,10 @@
     top: 50%;
     transform: translateY(-50%);
     width: 100% !important;
+
+    #{get-bem-selector(button)} {
+      color: #fff;
+    }
   }
 
   @include e(reload) {

@@ -152,15 +152,16 @@ export default {
 
 ## 属性
 
-|     名称     |   类型   | 必填 | 默认值 |                                                                                      描述                                                                                      |
-| :----------: | :------: | :--: | :----: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-|   v-model    | `Number` | `Y`  |  `-`   |                                                                       当前预览图的位置，-1 表示关闭预览                                                                        |
-|     list     | `Array`  | `Y`  |  `-`   |                                                                                   预览图列表                                                                                   |
-| list[{src}]  | `String` | `Y`  |  `-`   |                                                                                预览图 url 地址                                                                                 |
-| list[{msrc}] | `String` | `N`  |  `-`   |                                                   预览图对应缩略图 url 地址，提供缩略图时可让预览图有渐进式加载、显示的效果                                                    |
-|  list[{w}]   | `Number` | `N`  |  `-`   |                                                                            预览图的宽度，单位为`px`                                                                            |
-|  list[{h}]   | `Number` | `N`  |  `-`   |                                                                            预览图的高度，单位为`px`                                                                            |
-|   options    | `Object` | `N`  |  `-`   | `PhotoSwipe`的[Options](https://photoswipe.com/documentation/options.html)。不过对其做了一些修改，`showHideOpacity`默认值为`true`，`history`和`shareEl`始终为`false`且无法修改 |
+|     名称      |               类型               | 必填 | 默认值 |                                                                                                                                描述                                                                                                                                |
+| :-----------: | :------------------------------: | :--: | :----: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+|    v-model    |             `Number`             | `Y`  |  `-`   |                                                                                                                 当前预览图的位置，-1 表示关闭预览                                                                                                                  |
+|     list      |             `Array`              | `Y`  |  `-`   |                                                                                                                             预览图列表                                                                                                                             |
+|  list[{src}]  |             `String`             | `Y`  |  `-`   |                                                                                                                          预览图 url 地址                                                                                                                           |
+| list[{msrc}]  |             `String`             | `N`  |  `-`   |                                                                                             预览图对应缩略图 url 地址，提供缩略图时可让预览图有渐进式加载、显示的效果                                                                                              |
+|   list[{w}]   |             `Number`             | `N`  |  `-`   |                                                                                                                      预览图的宽度，单位为`px`                                                                                                                      |
+|   list[{h}]   |             `Number`             | `N`  |  `-`   |                                                                                                                      预览图的高度，单位为`px`                                                                                                                      |
+|    options    |             `Object`             | `N`  |  `-`   | `PhotoSwipe`的[Options](https://photoswipe.com/documentation/options.html)。不过对其做了一些修改，`showHideOpacity`、`tapToClose`、`history`默认值为`true`；`pinchToClose`、`closeOnVerticalDrag`默认值为`false`；而`index`、`getThumbBoundsFn`、`shareEl`已被废弃 |
+| get-thumbnail | `(index: number) => HTMLElement` | `N`  |  `-`   |                                                                                        获取预览图对应的缩略图元素。如果设置，打开、关闭图片预览时会有定位过渡效果，否则没有                                                                                        |
 
 ## 插槽
 

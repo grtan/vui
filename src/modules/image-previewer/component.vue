@@ -69,7 +69,8 @@
       </slot>
     </div>
     <!-- 利用overlayer创建历史记录 -->
-    <vui-overlayer v-model="showOverlayer" class="vui-image-previewer__overlayer"> </vui-overlayer>
+    <vui-overlayer v-model="showOverlayer" class="vui-image-previewer__overlayer" :push-state="options.history">
+    </vui-overlayer>
   </div>
 </template>
 
@@ -118,6 +119,12 @@ export default class VComponent extends Vue {
   })
   readonly options!: PhotoSwipe.Options
 
+  // 获取对应缩略图元素
+  @Prop({
+    type: Function
+  })
+  readonly getThumbnail?: (index: number) => HTMLElement
+
   get items() {
     // 这里采用深拷贝，防止photoswipe修改item时修改到this.list
     const list = JSON.parse(JSON.stringify(this.list)) as this['list']
@@ -142,9 +149,13 @@ export default class VComponent extends Vue {
 
   get opts() {
     return {
+      pinchToClose: false,
+      closeOnVerticalDrag: false,
+      tapToClose: true,
       showHideOpacity: true,
       ...this.options,
       index: this.value,
+      // 这里始终为false，避免photoswipe自己创建历史记录
       history: false,
       shareEl: false
     }
@@ -167,6 +178,7 @@ export default class VComponent extends Vue {
       return
     }
 
+    // 已经打开了预览组件
     if (this.previewer) {
       // 切换item
       if (this.opts.index !== this.previewer.getCurrentIndex()) {
@@ -176,9 +188,48 @@ export default class VComponent extends Vue {
       return
     }
 
+    // 如果提供了获取缩略图的方法，则提前获取当前预览图片的尺寸，以便打开动画能进行位移过渡
+    if (this.getThumbnail && (!this.items[this.opts.index].w || !this.items[this.opts.index].h)) {
+      await new Promise(resolve => {
+        const img = new Image()
+
+        img.onload = () => {
+          this.items[this.opts.index].w = img.width
+          this.items[this.opts.index].h = img.height
+          resolve('')
+        }
+        img.onerror = () => {
+          resolve('')
+        }
+        img.src = this.items[this.opts.index].src!
+        setTimeout(() => {
+          resolve('')
+        }, 300)
+      })
+    }
+
+    // 打开预览组件
     this.previewer = new PhotoSwipe(this.$el as HTMLElement, PhotoSwipeUI, JSON.parse(JSON.stringify(this.items)), {
       ...this.opts,
-      errorMsg: (this.$refs.error as HTMLElement).innerHTML
+      errorMsg: (this.$refs.error as HTMLElement).innerHTML,
+      getThumbBoundsFn: this.getThumbnail
+        ? index => {
+            // 获取缩略图元素
+            const thumbnail = this.getThumbnail!(index)
+            // get window scroll Y
+            const pageYScroll = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+            // optionally get horizontal scroll
+            const pageXScroll = window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft
+            // get position of element relative to viewport
+            const rect = thumbnail.getBoundingClientRect()
+
+            return {
+              x: rect.left + pageXScroll,
+              y: rect.top + pageYScroll,
+              w: rect.width
+            }
+          }
+        : undefined
     })
     // 未设置尺寸时加载图片后重新设置尺寸
     this.previewer.listen('gettingData', (index, item) => {
@@ -223,8 +274,8 @@ export default class VComponent extends Vue {
       this.$emit('input', -1)
     })
     this.showOverlayer = true
-    await this.$nextTick()
     // 在container元素监听pswpTap事件，framework在photoswipe init后才存在
+    await this.$nextTick()
     this.previewer.framework.bind(this.$refs.container, 'pswpTap', this.onPswpTap)
   }
 
@@ -266,7 +317,8 @@ export default class VComponent extends Vue {
     }
 
     if (this.showOverlayer) {
-      return this.previewer.init()
+      this.previewer.init()
+      return
     }
 
     this.previewer.close()
@@ -293,8 +345,9 @@ export default class VComponent extends Vue {
   async mounted() {
     // 将根dom节点移到body下，防止业务方样式干扰
     document.body.appendChild(this.$el)
+    // 等子组件都挂载完成后再显示，否则errorMsg的html可能获取不全
     await this.$nextTick()
-    this.show()
+    await this.show()
   }
 
   beforeDestroy() {
