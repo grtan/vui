@@ -252,3 +252,21 @@ $link-spacing-big-pc: 6px !default;
 $link-spacing-regular-pc: 6px !default;
 $link-spacing-small-pc: 2px !default;
 $link-spacing-mini-pc: 2px !default;
+
+// 图片预览
+$image-previewer-error-padding-top: 335px;
+$image-previewer-reload-margin-top: 66px;
+$image-previewer-button-scale: 2.5;
+$image-previewer-counter-left: 48px;
+$image-previewer-counter-bottom: 66px;
+$image-previewer-counter-font-size: 42px;
+$image-previewer-counter-line-height: 58px;
+$image-previewer-download-width: 72px;
+$image-previewer-download-height: 72px;
+// pc样式
+$image-previewer-counter-left-pc: 15px;
+$image-previewer-counter-bottom-pc: 15px;
+$image-previewer-counter-font-size-pc: 13px;
+$image-previewer-counter-line-height-pc: normal;
+$image-previewer-download-width-pc: 25px;
+$image-previewer-download-height-pc: 25px;

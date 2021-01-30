@@ -176,7 +176,7 @@ function genDemoManifest() {
 
   fse.outputFileSync(
     path.resolve(__dirname, '../demo/src/manifest.ts'),
-    `/* eslint-disable */\nexport default ${JSON.stringify(modules, null, '  ')}`
+    `/* eslint-disable */\nexport default ${JSON.stringify(modules, null, '  ')}\n`
   )
 }
 

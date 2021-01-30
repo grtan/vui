@@ -1,0 +1,187 @@
+@use '../../../skin/var' as *;
+@use '../../../skin/common/mixin' as *;
+@use '../../../skin/common/function' as *;
+@use '../../overlayer/style/index' as *;
+@use '../../button/style/index' as *;
+@use './image' as *;
+// 从npm包中引入文件，需要加~前缀
+@use "~photoswipe/src/css/main-settings" as *;
+@import "~photoswipe/dist/photoswipe.css";
+@import "~photoswipe/dist/default-skin/default-skin.css";
+
+@include b(image-previewer) {
+  @include e(overlayer) {
+    visibility: hidden;
+  }
+
+  @include e(placeholder) {
+    display: none;
+  }
+
+  @include e(error) {
+    background: url($error) center top / auto $image-previewer-error-padding-top no-repeat;
+    height: auto !important;
+    padding-top: $image-previewer-error-padding-top;
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100% !important;
+
+    #{get-bem-selector(button)} {
+      color: #fff;
+    }
+  }
+
+  @include e(reload) {
+    margin: $image-previewer-reload-margin-top;
+  }
+
+  @include e(download) {
+    background: url(../image/download.png) center / contain no-repeat;
+    bottom: $image-previewer-counter-bottom;
+    cursor: pointer;
+    // 暂时先不显示下载按钮
+    display: none;
+    height: $image-previewer-download-height;
+    opacity: 0.75;
+    position: absolute;
+    right: $image-previewer-counter-left;
+    transition: opacity $pswp__controls-transition-duration cubic-bezier(0.4, 0, 0.22, 1);
+    width: $image-previewer-download-width;
+
+    .pswp__ui--idle &,
+    .pswp__ui--hidden & {
+      opacity: 0;
+    }
+  }
+
+  @include e(layer) {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.24), rgba(0, 0, 0, 0));
+    height: 240px;
+    left: 0;
+    pointer-events: none;
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    @include m(bottom) {
+      background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.24), rgba(0, 0, 0, 0));
+      bottom: 0;
+      top: auto;
+    }
+  }
+
+  // 仅pc端样式
+  @include pc {
+    @include e(layer) {
+      background-image: linear-gradient(rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0));
+      height: 50px;
+
+      @include m(bottom) {
+        background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0));
+      }
+    }
+
+    @include e(download) {
+      bottom: $image-previewer-counter-bottom-pc;
+      height: $image-previewer-download-height-pc;
+      right: $image-previewer-counter-left-pc;
+      width: $image-previewer-download-width-pc;
+    }
+
+    .pswp__counter {
+      bottom: $image-previewer-counter-bottom-pc;
+      font-size: $image-previewer-counter-font-size-pc;
+      height: auto;
+      left: $image-previewer-counter-left-pc;
+      line-height: $image-previewer-counter-line-height-pc;
+    }
+
+    // 保证loading icon水平、垂直居中
+    .pswp__preloader {
+      left: 50%;
+      top: 50vh;
+    }
+  }
+
+  // 仅移动端生效
+  @include mobile {
+    // 放大按钮
+    .pswp__top-bar {
+      transform: scale($image-previewer-button-scale);
+      transform-origin: right top;
+    }
+
+    .pswp__button--arrow--left {
+      transform: scale($image-previewer-button-scale);
+      transform-origin: left center;
+    }
+
+    .pswp__button--arrow--right {
+      transform: scale($image-previewer-button-scale);
+      transform-origin: right center;
+    }
+
+    // 图片描述文本
+    .pswp__caption__center {
+      max-width: 300px;
+      transform: translateY(-26px) scale(2.5);
+      transform-origin: center bottom;
+    }
+  }
+
+  .pswp__top-bar {
+    background-color: transparent;
+  }
+
+  .pswp__counter {
+    bottom: $image-previewer-counter-bottom;
+    // 防止只有一张图片时隐藏
+    display: block !important;
+    font-size: $image-previewer-counter-font-size;
+    left: $image-previewer-counter-left;
+    line-height: $image-previewer-counter-line-height;
+    padding: 0;
+    top: auto;
+    transition: opacity $pswp__controls-transition-duration cubic-bezier(0.4, 0, 0.22, 1);
+  }
+
+  .pswp__ui--idle,
+  .pswp__ui--hidden {
+    .pswp__counter {
+      opacity: 0;
+    }
+  }
+
+  // 保证loading icon水平、垂直居中
+  .pswp__preloader {
+    // 防止媒体查询时覆盖
+    float: none;
+    left: 80%;
+    margin-left: -22px;
+    position: absolute;
+    top: 20vh;
+    transform: translateY(-50%);
+
+    // 防止图片加载成功后还盖在图片上
+    &:not(.pswp__preloader--active) {
+      display: none;
+    }
+  }
+
+  // 设置loading icon尺寸及位置
+  &.pswp--css_animation {
+    .pswp__preloader__cut {
+      height: 42px;
+      left: -14px;
+      top: -14px;
+      width: 21px;
+    }
+
+    .pswp__preloader__donut {
+      height: 100%;
+      width: 200%;
+    }
+  }
+}

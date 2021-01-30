@@ -2,6 +2,57 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.2.0](http://gitlab.vmic.xyz/game-common/vui/compare/v2.2.0-beta.6...v2.2.0) (2021-01-30)
+
+## [2.2.0-beta.6](http://gitlab.vmic.xyz/game-common/vui/compare/v2.2.0-beta.5...v2.2.0-beta.6) (2021-01-30)
+
+
+### Bug Fixes
+
+* 优化图片预览组件；完善文档、demo ([a7a5c27](http://gitlab.vmic.xyz/game-common/vui/commit/a7a5c276188d890fb1b31115147e2508eb7056e3))
+
+## [2.2.0-beta.5](http://gitlab.vmic.xyz/game-common/vui/compare/v2.2.0-beta.4...v2.2.0-beta.5) (2021-01-30)
+
+
+### Bug Fixes
+
+* 优化imagepreviewer图片预览组件 ([37620d0](http://gitlab.vmic.xyz/game-common/vui/commit/37620d09aec7d501fb4702b1259d2b72ac8f0bb2))
+
+## [2.2.0-beta.4](http://gitlab.vmic.xyz/game-common/vui/compare/v2.2.0-beta.3...v2.2.0-beta.4) (2021-01-29)
+
+
+### Bug Fixes
+
+* 修复图片预览组件的bug ([4733378](http://gitlab.vmic.xyz/game-common/vui/commit/4733378dc9411a99e7d4de783c840bd2d056e97f))
+
+## [2.2.0-beta.3](http://gitlab.vmic.xyz/game-common/vui/compare/v2.2.0-beta.2...v2.2.0-beta.3) (2021-01-28)
+
+
+### Bug Fixes
+
+* 修复图片预览组件的bug ([d6d368d](http://gitlab.vmic.xyz/game-common/vui/commit/d6d368d54483c0e97279f152d2b949eb96885610))
+
+## [2.2.0-beta.2](http://gitlab.vmic.xyz/game-common/vui/compare/v2.2.0-beta.1...v2.2.0-beta.2) (2021-01-28)
+
+
+### Bug Fixes
+
+* 修复样式文件lib构建后相对路径引用到src的问题 ([e00dc94](http://gitlab.vmic.xyz/game-common/vui/commit/e00dc940331cdffcb840a25e3b27e50f011e5ba4))
+
+## [2.2.0-beta.1](http://gitlab.vmic.xyz/game-common/vui/compare/v2.2.0-beta.0...v2.2.0-beta.1) (2021-01-28)
+
+
+### Bug Fixes
+
+* 修复依赖第三方包的样式时构建样式文件的问题；修复图片预览组件的一些bug ([57013ec](http://gitlab.vmic.xyz/game-common/vui/commit/57013ec1c8702fed87df1920dabac6c0116886eb))
+
+## [2.2.0-beta.0](http://gitlab.vmic.xyz/game-common/vui/compare/v2.1.3-beta.1...v2.2.0-beta.0) (2021-01-22)
+
+
+### Features
+
+* 新增ImagePreviewer组件 ([831631a](http://gitlab.vmic.xyz/game-common/vui/commit/831631a3f12af22a2a78076e0494e773b85c1940))
+
 ### [2.1.3](http://gitlab.vmic.xyz/game-common/vui/compare/v2.1.3-beta.1...v2.1.3) (2021-01-14)
 
 ### [2.1.3-beta.1](http://gitlab.vmic.xyz/game-common/vui/compare/v2.1.3-beta.0...v2.1.3-beta.1) (2021-01-14)

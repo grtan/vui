@@ -10,11 +10,11 @@
 </template>
 
 <script>
-import { {{enName}} as Vui{{enName}} } from '@game/vui';
+import { {{enName}} } from '@game/vui';
 
 export default {
   components: {
-    Vui{{enName}}
+    Vui{{enName}}: {{enName}}
   },
   ...
 };

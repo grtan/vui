@@ -25,3 +25,9 @@ interface HTMLElement {
     handler: EventListenerOrEventListenerObject
   }
 }
+
+interface Window {
+  mozRequestAnimationFrame: (callback: FrameRequestCallback) => number
+  oRequestAnimationFrame: (callback: FrameRequestCallback) => number
+  msRequestAnimationFrame: (callback: FrameRequestCallback) => number
+}
