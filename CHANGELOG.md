@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.2.0-beta.6](http://gitlab.vmic.xyz/game-common/vui/compare/v2.2.0-beta.5...v2.2.0-beta.6) (2021-01-30)
+
+
+### Bug Fixes
+
+* 优化图片预览组件；完善文档、demo ([a7a5c27](http://gitlab.vmic.xyz/game-common/vui/commit/a7a5c276188d890fb1b31115147e2508eb7056e3))
+
 ## [2.2.0-beta.5](http://gitlab.vmic.xyz/game-common/vui/compare/v2.2.0-beta.4...v2.2.0-beta.5) (2021-01-30)
 
 
