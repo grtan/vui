@@ -46,7 +46,7 @@ publish-beta:
     - npm i
     - npm publish --tag beta --unsafe-perm
     # 发布到cdn上，访问地址：https://game-cdnjs.vivo.com.cn/cdnjs/@game/vui/2.1.3/vui.js
-    - node ./publish.js ${GAIA_AK} ${GAIA_SK} ${GAIA_ENDPOINT}
+    - node ./publish.js $GAIA_AK $GAIA_SK $GAIA_ENDPOINT
   only:
     - tags
   except:
