@@ -29,6 +29,17 @@ export default [
             "lowerEnName": "button"
           },
           {
+            "zhName": "图标",
+            "type": "组件",
+            "category": "基础",
+            "author": {
+              "name": "谭新",
+              "email": "xin.tan@vivo.com"
+            },
+            "enName": "Icon",
+            "lowerEnName": "icon"
+          },
+          {
             "zhName": "链接",
             "type": "组件",
             "category": "基础",

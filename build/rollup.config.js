@@ -10,8 +10,77 @@ import babel from '@rollup/plugin-babel'
 import vue from 'rollup-plugin-vue'
 import { terser } from 'rollup-plugin-terser'
 import del from 'rollup-plugin-delete'
+import SVGSpriter from 'svg-sprite'
+import artTemplate from 'art-template'
+
+// 处理图标，获取生成的svg sprite内容
+async function getIconSvgSprite() {
+  const spriter = new SVGSpriter({
+    shape: {
+      id: {
+        generator: 'vui-icon-'
+      },
+      transform: [
+        {
+          svgo: {
+            plugins: [
+              {
+                removeXMLNS: true
+              }
+            ]
+          }
+        }
+      ]
+    },
+    svg: {
+      rootAttributes: {
+        class: 'vui-icon__symbols'
+      }
+    },
+    mode: {
+      symbol: {
+        inline: true
+      }
+    }
+  })
+
+  glob.sync(path.resolve(__dirname, '../src/modules/icon/image/*.svg')).forEach(pt => {
+    spriter.add(
+      pt,
+      null,
+      fse.readFileSync(pt, {
+        encoding: 'utf-8'
+      })
+    )
+  })
+
+  return new Promise(resolve => {
+    // eslint-disable-next-line handle-callback-err
+    spriter.compile(function (error, result) {
+      for (var mode in result) {
+        for (var resource in result[mode]) {
+          resolve(result[mode][resource].contents)
+          return
+        }
+      }
+    })
+  })
+}
 
 const src = path.resolve(__dirname, '../src')
+const modify = {
+  name: 'modify',
+  async transform(code, id) {
+    // 往icon组件中注入添加svg sprite的代码
+    if (/\/icon\/component.vue\?rollup-plugin-vue=/.test(id)) {
+      const svg = await getIconSvgSprite()
+
+      return `${code}\n\n${artTemplate(path.resolve(__dirname, '../src/modules/icon/inject.art'), {
+        svg
+      })}`
+    }
+  }
+}
 
 // 同时构建es、umd会有bug，目前不清楚原因，暂时先分开构建
 export default args => {
@@ -81,6 +150,7 @@ export default args => {
         return true
       },
       plugins: [
+        modify,
         /**
          * 插件默认过滤了input入口文件本身
          * 默认是一个一个规则来顺序替换
@@ -184,6 +254,7 @@ export default args => {
     ],
     external: ['vue'],
     plugins: [
+      modify,
       alias({
         entries: [
           {
@@ -219,7 +290,7 @@ export default args => {
         'process.env.NODE_ENV': JSON.stringify('production')
       }),
       del({
-        targets: 'dist/*'
+        targets: 'dist/*.js'
       })
     ]
   }

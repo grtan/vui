@@ -1,0 +1,37 @@
+@use '../../../skin/common/mixin' as *;
+
+// use引用的元素是以shadow dom的形式插入的，其会继承外层元素的样式
+@include b(icon) {
+  display: inline-block;
+  fill: currentColor;
+  height: 1em;
+  overflow: hidden;
+  stroke: currentColor;
+  vertical-align: -0.15em;
+  width: 1em;
+
+  /*
+    必须设置svg sprite中元素的样式
+    因为如果这些元素设置了fill、stroke属性，会覆盖从引用处继承的外层元素的样式
+    但css中设置的样式优先级又比fill、stroke等属性高
+  */
+  @include e(symbols) {
+    display: none;
+
+    [fill] {
+      fill: currentColor;
+    }
+
+    [fill*="none"] {
+      fill: none;
+    }
+
+    [stroke] {
+      stroke: currentColor;
+    }
+
+    [stroke*="none"] {
+      stroke: none;
+    }
+  }
+}

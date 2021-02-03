@@ -10,6 +10,7 @@ module.exports = [
         "children": [
           "/src/modules/avatar/",
           "/src/modules/button/",
+          "/src/modules/icon/",
           "/src/modules/link/"
         ]
       },
