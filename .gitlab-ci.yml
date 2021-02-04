@@ -64,7 +64,7 @@ publish:
     - npm-cli-login -u tanxin -p vivo -e xintan@vivo.com -r http://npm.vivo.com.cn
     - npm i
     - npm publish --unsafe-perm
-    - node ./publish.js ${GAIA_AK} ${GAIA_SK} ${GAIA_ENDPOINT}
+    - node ./publish.js $GAIA_AK $GAIA_SK $GAIA_ENDPOINT
   only:
     - tags
   except:
