@@ -39,6 +39,8 @@ publish-beta:
   stage: publish-beta
   script:
     - echo "发布beta版本包到公司内部npm"
+    - echo $GAIA_AK
+    - echo $GAIA_AK $GAIA_SK $GAIA_ENDPOINT
     - npm config set registry http://npm.vivo.com.cn/
     - npm i -g npm-cli-login
     # 这里仓库地址后面不能加/，否则登录失败
@@ -58,6 +60,8 @@ publish:
   stage: publish
   script:
     - echo "发布正式版本包到公司内部npm"
+    - echo $GAIA_AK
+    - echo $GAIA_AK $GAIA_SK $GAIA_ENDPOINT
     - npm config set registry http://npm.vivo.com.cn/
     - npm i -g npm-cli-login
     # 这里仓库地址后面不能加/，否则登录失败
