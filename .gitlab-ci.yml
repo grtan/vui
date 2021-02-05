@@ -39,7 +39,8 @@ publish-beta:
   stage: publish-beta
   script:
     - echo "发布beta版本包到公司内部npm"
-    - echo $GAIA_AK
+    - echo $GITLAB_USER_NAME "$GITLAB_USER_NAME"
+    - echo $GAIA_AK "$GAIA_AK"
     - echo $GAIA_AK $GAIA_SK $GAIA_ENDPOINT
     - npm config set registry http://npm.vivo.com.cn/
     - npm i -g npm-cli-login
