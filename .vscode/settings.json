@@ -1,40 +1,22 @@
 {
   "files.eol": "\n",
   "files.insertFinalNewline": true,
-  // 文件保存时自动格式化
   "editor.formatOnSave": true,
-  // 开启lint自动修复
   "editor.codeActionsOnSave": {
-    "source.fixAll": true
+    "source.fixAll.eslint": true,
+    "source.fixAll.stylelint": true
   },
-  // 设置prettier为所有文件的默认格式化器
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  // 禁止prettier格式化js、ts、css、vue文件，统一使用eslint/stylelint
-  "prettier.disableLanguages": [
-    "javascript",
-    "javascriptreact",
-    "typescript",
-    "typescriptreact",
-    "css",
-    "less",
-    "scss",
-    "vue"
-  ],
-  // 禁用内置js/ts的格式化，统一使用eslint
+  "prettier.configPath": "",
+  "prettier.disableLanguages": ["javascript", "javascriptreact", "typescript", "typescriptreact", "css", "scss", "vue"],
   "javascript.format.enable": false,
   "typescript.format.enable": false,
-  // 禁用内置css校验，统一使用stylelint
-  "css.validate": false,
-  "less.validate": false,
-  "scss.validate": false,
-  // 禁用vetur自动格式化，防止与lint自动修复冲突
-  "vetur.format.enable": false,
   "typescript.tsdk": "node_modules/typescript/lib",
-  // 使用项目中的eslint包和配置
+  "css.validate": false,
+  "scss.validate": false,
+  "vetur.format.enable": false,
   "eslint.nodePath": "",
   "eslint.options": {
-    // 每一项都要赋值
-    "resolvePluginsRelativeTo": "",
     "configFile": ""
   },
   "liveServer.settings.root": "/.vuepress/dist"
