@@ -36,6 +36,7 @@
     "postcss-pxtorem": "^5.1.1",
     "sass": "^1.26.5",
     "sass-loader": "^8.0.2",
+    "svg-sprite-loader": "^5.2.1",
     "typescript": "~3.9.3",
     "vue-template-compiler": "^2.6.11"
   }

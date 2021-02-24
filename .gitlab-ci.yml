@@ -25,6 +25,7 @@ tag:
   stage: tag
   script:
     - echo "打tag"
+    # gitlab中环境变量不要设置成受保护的，否则只能在受保护的分支、tag触发的流水线上获取到
     - git config user.name "${GITLAB_USER_FULL_NAME}"
     - git config user.email "${GITLAB_USER_EMAIL}"
     - git remote set-url origin https://$GITLAB_USER_NAME:$GITLAB_USER_PWD@gitlab.vmic.xyz/game-common/vui.git
@@ -42,11 +43,11 @@ publish-beta:
     - npm config set registry http://npm.vivo.com.cn/
     - npm i -g npm-cli-login
     # 这里仓库地址后面不能加/，否则登录失败
-    - npm-cli-login -u tanxin -p vivo -e xintan@vivo.com -r http://npm.vivo.com.cn
+    - npm-cli-login -u $NPM_USER_NAME -p $NPM_USER_PWD -e $NPM_USER_EMAIL -r http://npm.vivo.com.cn
     - npm i
     - npm publish --tag beta --unsafe-perm
     # 发布到cdn上，访问地址：https://game-cdnjs.vivo.com.cn/cdnjs/@game/vui/2.1.3/vui.js
-    - node ./publish.js ${GAIA_AK} ${GAIA_SK} ${GAIA_ENDPOINT}
+    - node ./publish.js $GAIA_AK $GAIA_SK $GAIA_ENDPOINT
   only:
     - tags
   except:
@@ -61,10 +62,10 @@ publish:
     - npm config set registry http://npm.vivo.com.cn/
     - npm i -g npm-cli-login
     # 这里仓库地址后面不能加/，否则登录失败
-    - npm-cli-login -u tanxin -p vivo -e xintan@vivo.com -r http://npm.vivo.com.cn
+    - npm-cli-login -u $NPM_USER_NAME -p $NPM_USER_PWD -e $NPM_USER_EMAIL -r http://npm.vivo.com.cn
     - npm i
     - npm publish --unsafe-perm
-    - node ./publish.js ${GAIA_AK} ${GAIA_SK} ${GAIA_ENDPOINT}
+    - node ./publish.js $GAIA_AK $GAIA_SK $GAIA_ENDPOINT
   only:
     - tags
   except:

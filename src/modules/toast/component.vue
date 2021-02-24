@@ -1,5 +1,6 @@
 <template>
   <vui-transition :class="['vui-toast', className]" appear>
+    <!-- eslint-disable-next-line vue/no-v-html -->
     <div v-if="visible && allowHtml" class="vui-toast__content" v-html="content"></div>
     <div v-else-if="visible" class="vui-toast__content">{{ content }}</div>
   </vui-transition>

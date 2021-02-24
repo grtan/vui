@@ -6,6 +6,7 @@ import Config from './config'
 import Dialog from './dialog'
 import Disappear from './disappear'
 import HistoryAction from './history-action'
+import Icon from './icon'
 import ImagePreviewer from './image-previewer'
 import Intersect from './intersect'
 import Link from './link'
@@ -31,6 +32,7 @@ function install(
     'Dialog',
     'Disappear',
     'HistoryAction',
+    'Icon',
     'ImagePreviewer',
     'Intersect',
     'Link',
@@ -52,6 +54,7 @@ function install(
     Dialog,
     Disappear,
     HistoryAction,
+    Icon,
     ImagePreviewer,
     Intersect,
     Link,
@@ -80,6 +83,7 @@ export {
   Dialog,
   Disappear,
   HistoryAction,
+  Icon,
   ImagePreviewer,
   Intersect,
   Link,
@@ -93,7 +97,7 @@ export {
   Transition
 }
 export default {
-  version: '2.2.0',
+  version: '2.3.0',
   install,
   config: Config
 }

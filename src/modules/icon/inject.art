@@ -1,0 +1,10 @@
+;(function inject(svg) {
+  if (document.body) {
+    document.body.insertAdjacentHTML('afterbegin', svg)
+  } else {
+    document.addEventListener('DOMContentLoaded', function onDOMContentLoaded() {
+      document.removeEventListener('DOMContentLoaded', onDOMContentLoaded)
+      inject(svg)
+    })
+  }
+})(`{{@ svg}}`)

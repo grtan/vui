@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.3.0](http://gitlab.vmic.xyz/game-common/vui/compare/v2.3.0-beta.4...v2.3.0) (2021-02-24)
+
+## [2.3.0-beta.4](http://gitlab.vmic.xyz/game-common/vui/compare/v2.3.0-beta.3...v2.3.0-beta.4) (2021-02-05)
+
+## [2.3.0-beta.3](http://gitlab.vmic.xyz/game-common/vui/compare/v2.3.0-beta.2...v2.3.0-beta.3) (2021-02-05)
+
+## [2.3.0-beta.2](http://gitlab.vmic.xyz/game-common/vui/compare/v2.3.0-beta.1...v2.3.0-beta.2) (2021-02-04)
+
+## [2.3.0-beta.1](http://gitlab.vmic.xyz/game-common/vui/compare/v2.3.0-beta.0...v2.3.0-beta.1) (2021-02-04)
+
+## [2.3.0-beta.0](http://gitlab.vmic.xyz/game-common/vui/compare/v2.2.0-beta.6...v2.3.0-beta.0) (2021-02-03)
+
+
+### Features
+
+* 新增Icon组件 ([5d0367a](http://gitlab.vmic.xyz/game-common/vui/commit/5d0367ac5f0dbc58f35308c3d76fd993eef43ea2))
+
 ## [2.2.0](http://gitlab.vmic.xyz/game-common/vui/compare/v2.2.0-beta.6...v2.2.0) (2021-01-30)
 
 ## [2.2.0-beta.6](http://gitlab.vmic.xyz/game-common/vui/compare/v2.2.0-beta.5...v2.2.0-beta.6) (2021-01-30)
