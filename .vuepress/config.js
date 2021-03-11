@@ -2,6 +2,7 @@
 const manifest = require('./manifest')
 
 module.exports = {
+  base: '/vui/.vuepress/dist/',
   title: 'Vui 2',
   description: 'vivo游戏事业部前端技术组vue组件库',
   patterns: ['src/**/*.md', 'docs/*.md', '*.md'],
@@ -17,8 +18,8 @@ module.exports = {
     sidebarDepth: 0,
     lastUpdated: '最近更新',
     smoothScroll: true,
-    repoLabel: 'GitLab',
-    repo: 'https://gitlab.vmic.xyz/game-common/vui'
+    repoLabel: 'Github',
+    repo: 'https://github.com/grtan/vui'
   },
   extraWatchFiles: ['dist/vui.css', 'dist/vui.js'],
   plugins: [
@@ -40,9 +41,9 @@ module.exports = {
              * 这里不能用document.createElement来动态添加script，因为是异步执行的，执行顺序不确定，而document.write是同步的
              * script结束标签必须要转义下，否则浏览器解析时标签会匹配错
              */
-            document.write("<link rel=\"stylesheet\" href=\"//" + location.hostname + ":3010/vui.css\" />")
+            document.write("<link rel=\"stylesheet\" href=\"../../dist/vui.css\" />")
             // eslint-disable-next-line no-useless-escape
-            document.write("<script src=\"//" + location.hostname + ":3010/vui.js\"><\/script>")
+            document.write("<script src=\"../../dist/vui.js\"><\/script>")
             document.write("<script>(" + (function () {
               // 设置vui为pc端样式
               document.documentElement.classList.add("vuipc")

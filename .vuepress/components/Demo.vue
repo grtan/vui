@@ -18,7 +18,7 @@ export default {
     '$route.path': 'postMessage'
   },
   beforeMount() {
-    this.src = `//${window.location.hostname}:3012`
+    this.src = `../../demo/dist/`
   },
   methods: {
     postMessage() {

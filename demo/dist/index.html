@@ -1,0 +1,22 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="favicon.ico"><title>demo</title><script>;(function () {
+        var scale = 1 / devicePixelRatio
+        var meta = document.querySelector('meta[name=viewport]')
+
+        !meta && (meta = document.createElement('meta'))
+        meta.setAttribute('name', 'viewport')
+        meta.setAttribute(
+          'content',
+          'width=device-width,initial-scale=' +
+            scale +
+            ',maximum-scale=' +
+            scale +
+            ',minimum-scale=' +
+            scale +
+            ',user-scalable=no'
+        )
+        document.head.appendChild(meta)
+        // 设置rem，当调整系统或者浏览器字体大小时，html元素的默认字体大小也会相应变化
+        var originalHtmlFontSize = parseFloat(getComputedStyle(document.documentElement, null).fontSize)
+        document.documentElement.style.fontSize =
+          (document.documentElement.clientWidth * 1000) / (108 * originalHtmlFontSize) + '%'
+      })()</script><link href="css/chunk-0c515ff3.7db84150.css" rel="prefetch"><link href="css/chunk-1e437492.f9b988ac.css" rel="prefetch"><link href="css/chunk-2a8322b8.0742a1b5.css" rel="prefetch"><link href="css/chunk-2a8d74b3.803256ea.css" rel="prefetch"><link href="css/chunk-2b2a9e2c.3b0cc87b.css" rel="prefetch"><link href="css/chunk-2c7c4373.3080166d.css" rel="prefetch"><link href="css/chunk-3298d943.1a20c076.css" rel="prefetch"><link href="css/chunk-375c0bab.d09ce432.css" rel="prefetch"><link href="css/chunk-39d34a4c.e932b810.css" rel="prefetch"><link href="css/chunk-40dbcc57.d32765aa.css" rel="prefetch"><link href="css/chunk-68c6c31b.942277cf.css" rel="prefetch"><link href="css/chunk-fd6e3b58.27c0c03d.css" rel="prefetch"><link href="css/chunk-ff3fe46c.a9a203eb.css" rel="prefetch"><link href="js/chunk-064e23a3.aaf6de0d.js" rel="prefetch"><link href="js/chunk-0c515ff3.f4734516.js" rel="prefetch"><link href="js/chunk-1e437492.2ab947b9.js" rel="prefetch"><link href="js/chunk-2a8322b8.cafb80cd.js" rel="prefetch"><link href="js/chunk-2a8d74b3.7134d5f8.js" rel="prefetch"><link href="js/chunk-2b2a9e2c.31ab8524.js" rel="prefetch"><link href="js/chunk-2c7c4373.b1a0f51c.js" rel="prefetch"><link href="js/chunk-2d0aa633.ea26cffb.js" rel="prefetch"><link href="js/chunk-2d0ae8d0.2dd89192.js" rel="prefetch"><link href="js/chunk-2d0c5ab8.1260b539.js" rel="prefetch"><link href="js/chunk-2d0dee57.ce053528.js" rel="prefetch"><link href="js/chunk-2d20fe8a.836ef46f.js" rel="prefetch"><link href="js/chunk-2d21eb95.c2fad9fe.js" rel="prefetch"><link href="js/chunk-2d229be3.a7520007.js" rel="prefetch"><link href="js/chunk-3298d943.1c33332f.js" rel="prefetch"><link href="js/chunk-375c0bab.a4c4ae73.js" rel="prefetch"><link href="js/chunk-39d34a4c.d04e51a5.js" rel="prefetch"><link href="js/chunk-40dbcc57.5e4a4502.js" rel="prefetch"><link href="js/chunk-68c6c31b.15d28a4b.js" rel="prefetch"><link href="js/chunk-fd6e3b58.ee607da4.js" rel="prefetch"><link href="js/chunk-ff3fe46c.41736d7c.js" rel="prefetch"><link href="css/app.3df443da.css" rel="preload" as="style"><link href="js/app.9c9598d2.js" rel="preload" as="script"><link href="js/chunk-vendors.00811821.js" rel="preload" as="script"><link href="css/app.3df443da.css" rel="stylesheet"></head><body><noscript><strong>We're sorry but demo doesn't work properly without JavaScript enabled. Please enable it to continue.</strong></noscript><div id="app"></div><script src="js/chunk-vendors.00811821.js"></script><script src="js/app.9c9598d2.js"></script></body></html>

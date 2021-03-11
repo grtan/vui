@@ -14,6 +14,7 @@ function getIconList() {
 }
 
 module.exports = {
+  publicPath: './',
   devServer: {
     port: 3012
   },
