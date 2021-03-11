@@ -18,7 +18,7 @@ export default {
     '$route.path': 'postMessage'
   },
   beforeMount() {
-    this.src = `../../demo/dist/`
+    this.src = `/vui/demo/dist/`
   },
   methods: {
     postMessage() {
