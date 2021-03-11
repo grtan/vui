@@ -17,7 +17,7 @@
     "build:component": "rollup -c build/rollup.config.js -f es && rollup -c build/rollup.config.js",
     "build": "npm run build:component && npm run build:skin",
     "docs:dev": "rollup -c build/rollup.config.js -w & gulp watch --gulpfile build/gulpfile.js & node .vuepress/server.js -d & vuepress dev .",
-    "docs:build": "rollup -c build/rollup.config.js && npm run build:skin && vuepress build .",
+    "docs:build": "rollup -c build/rollup.config.js && npm run build:skin && vuepress build . --no-cache",
     "server": "pm2 start .vuepress/server.js --name vui-server",
     "webhook": "pm2 start webhook.js --name vui-webhook",
     "lint": "eslint . && stylelint '?(.)**/*.{scss,css,vue,html}'",
