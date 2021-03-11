@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="117px" height="118px" viewBox="0 0 117 118" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 54.1 (76490) - https://sketchapp.com -->
+    <title>Group 19</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <filter x="-150.0%" y="-150.0%" width="400.0%" height="400.0%" filterUnits="objectBoundingBox" id="filter-1">
+            <feGaussianBlur stdDeviation="20" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+    </defs>
+    <g id="通用视频控件" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="半屏播放器" transform="translate(-36.000000, -582.000000)">
+            <g id="Group-19" transform="translate(48.000000, 591.000000)">
+                <rect id="Rectangle" fill-rule="nonzero" x="0" y="0" width="100" height="100"></rect>
+                <circle id="Oval" fill-opacity="0.2" fill="#000000" filter="url(#filter-1)" cx="45.5714286" cy="50" r="20"></circle>
+                <g id="Group" transform="translate(20.000000, 16.000000)" stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="6">
+                    <path d="M-1.56319402e-12,25.8294825 L-1.48947521e-12,43.3848025 C-1.48489094e-12,45.7990759 1.95715524,47.7562311 4.37142857,47.7562311 L14.313825,47.7562311 L25.3111519,58.5076523 C27.6129397,60.757971 31.3031511,60.716247 33.5534698,58.4144592 C34.6181564,57.3254212 35.2142857,55.8629074 35.2142857,54.3398968 L35.2142857,14.8743883 C35.2142857,11.6553572 32.6047454,9.04581685 29.3857143,9.04581685 C27.8627037,9.04581685 26.4001899,9.64194619 25.3111519,10.7066328 L14.313825,21.458054 L4.37142857,21.458054 C1.95715524,21.458054 -1.48888269e-12,23.4152092 -1.48858703e-12,25.8294825 Z" id="Path-15"></path>
+                    <path d="M49.828797,51 C57.500307,48.9704701 63.1428571,42.1308011 63.1428571,34.0056708 C63.1428571,25.8653378 57.4791722,19.0152812 49.7857143,17" id="Path"></path>
+                    <path d="M46.1428571,38.8571429 C48.2671287,38.1395268 49.7857143,36.2344799 49.7857143,33.9971762 C49.7857143,31.7657164 48.2750514,29.8647799 46.1594905,29.1428571" id="Path"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

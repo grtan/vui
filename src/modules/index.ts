@@ -18,6 +18,7 @@ import ScrollTop from './scroll-top'
 import Tag from './tag'
 import Toast from './toast'
 import Transition from './transition'
+import Video from './video'
 
 function install(
   vue: typeof Vue,
@@ -43,7 +44,8 @@ function install(
     'ScrollTop',
     'Tag',
     'Toast',
-    'Transition'
+    'Transition',
+    'Video'
   ]
 
   ;[
@@ -65,7 +67,8 @@ function install(
     ScrollTop,
     Tag,
     Toast,
-    Transition
+    Transition,
+    Video
   ].forEach(function (item, index) {
     if (typeof (item as any).install !== 'function') {
       return
@@ -94,7 +97,8 @@ export {
   ScrollTop,
   Tag,
   Toast,
-  Transition
+  Transition,
+  Video
 }
 export default {
   version: '2.3.0',

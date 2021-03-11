@@ -21,10 +21,11 @@ module.exports = {
     loaderOptions: {
       postcss: {
         plugins: [
-          require('postcss-pxtorem')({
-            rootValue: 100,
-            minPixelValue: 2,
-            propList: ['*']
+          require('postcss-px-to-viewport')({
+            viewportWidth: 1080,
+            viewportUnit: 'vmin',
+            fontViewportUnit: 'vmin',
+            minPixelValue: 2
           })
         ]
       }

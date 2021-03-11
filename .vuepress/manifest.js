@@ -29,7 +29,8 @@ module.exports = [
         "collapsable": false,
         "children": [
           "/src/modules/image-previewer/",
-          "/src/modules/tag/"
+          "/src/modules/tag/",
+          "/src/modules/video/"
         ]
       },
       {

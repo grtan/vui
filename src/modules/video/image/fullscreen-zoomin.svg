@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="118px" height="118px" viewBox="0 0 118 118" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 54.1 (76490) - https://sketchapp.com -->
+    <title>Group 18</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <filter x="-150.0%" y="-150.0%" width="400.0%" height="400.0%" filterUnits="objectBoundingBox" id="filter-1">
+            <feGaussianBlur stdDeviation="20" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+    </defs>
+    <g id="控件" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="q333" transform="translate(9.000000, 9.000000)">
+            <g id="Group-18">
+                <rect id="Rectangle" fill-rule="nonzero" x="0" y="0" width="100" height="100"></rect>
+                <circle id="Oval" fill-opacity="0.2" fill="#000000" filter="url(#filter-1)" cx="50" cy="50" r="20"></circle>
+                <g id="分组-7" transform="translate(65.637825, 34.637825) scale(1, -1) rotate(-45.000000) translate(-65.637825, -34.637825) translate(45.637825, 14.137825)" fill-rule="nonzero">
+                    <g id="Group" transform="translate(19.853553, 20.353553) rotate(-135.000000) translate(-19.853553, -20.353553) translate(5.853553, 6.353553)">
+                        <path d="M1.1536683,11.018121 L27.1536683,11.018121 C28.8105226,11.018121 30.1536683,12.3612668 30.1536683,14.018121 L30.1536683,14.018121 C30.1536683,15.6749752 28.8105226,17.018121 27.1536683,17.018121 L1.1536683,17.018121 C-0.503185947,17.018121 -1.8463317,15.6749752 -1.8463317,14.018121 L-1.8463317,14.018121 C-1.8463317,12.3612668 -0.503185947,11.018121 1.1536683,11.018121 Z" id="矩形" fill="#FFFFFF" transform="translate(14.153668, 14.018121) rotate(-315.000000) translate(-14.153668, -14.018121) "></path>
+                        <path d="M3,24 L3,8.04297446 C3,5.2867916 5.23040323,3.05039219 7.98657616,3.04299248 L24,3" id="Path" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" transform="translate(13.500000, 13.500000) scale(1, -1) rotate(-90.000000) translate(-13.500000, -13.500000) "></path>
+                    </g>
+                </g>
+                <g id="分组-7" transform="translate(34.637825, 65.637825) scale(1, -1) rotate(-225.000000) translate(-34.637825, -65.637825) translate(14.637825, 45.137825)" fill-rule="nonzero">
+                    <g id="Group" transform="translate(19.853553, 20.353553) rotate(-135.000000) translate(-19.853553, -20.353553) translate(5.853553, 6.353553)">
+                        <path d="M1.1536683,11.018121 L27.1536683,11.018121 C28.8105226,11.018121 30.1536683,12.3612668 30.1536683,14.018121 L30.1536683,14.018121 C30.1536683,15.6749752 28.8105226,17.018121 27.1536683,17.018121 L1.1536683,17.018121 C-0.503185947,17.018121 -1.8463317,15.6749752 -1.8463317,14.018121 L-1.8463317,14.018121 C-1.8463317,12.3612668 -0.503185947,11.018121 1.1536683,11.018121 Z" id="矩形" fill="#FFFFFF" transform="translate(14.153668, 14.018121) rotate(-315.000000) translate(-14.153668, -14.018121) "></path>
+                        <path d="M3,24 L3,8.04297446 C3,5.2867916 5.23040323,3.05039219 7.98657616,3.04299248 L24,3" id="Path" stroke="#FFFFFF" stroke-width="6" stroke-linecap="round" transform="translate(13.500000, 13.500000) scale(1, -1) rotate(-90.000000) translate(-13.500000, -13.500000) "></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -31,3 +31,19 @@ interface Window {
   oRequestAnimationFrame: (callback: FrameRequestCallback) => number
   msRequestAnimationFrame: (callback: FrameRequestCallback) => number
 }
+
+// 获取重载函数的返回值类型
+type OverloadReturnType<T> = T extends {
+  (...args: any[]): infer R
+  (...args: any[]): infer R
+  (...args: any[]): infer R
+  (...args: any[]): infer R
+}
+  ? R
+  : T extends { (...args: any[]): infer R; (...args: any[]): infer R; (...args: any[]): infer R }
+  ? R
+  : T extends { (...args: any[]): infer R; (...args: any[]): infer R }
+  ? R
+  : T extends (...args: any[]) => infer R
+  ? R
+  : any

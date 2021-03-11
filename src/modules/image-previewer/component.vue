@@ -288,7 +288,7 @@ export default class VComponent extends Vue {
 
     if (e.target.classList.contains('pswp__img')) {
       e.target.classList.remove('pswp__img')
-      // 等photoswipe事件回掉后、浏览器渲染前恢复pswp__img类
+      // 等photoswipe事件回调后、浏览器渲染前恢复pswp__img类
       raf(() => {
         e.target.classList.add('pswp__img')
       })

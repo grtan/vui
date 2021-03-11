@@ -125,6 +125,17 @@ export default [
             },
             "enName": "Tag",
             "lowerEnName": "tag"
+          },
+          {
+            "zhName": "视频播放器",
+            "type": "组件",
+            "category": "数据展示",
+            "author": {
+              "name": "谭新",
+              "email": "xin.tan@vivo.com"
+            },
+            "enName": "Video",
+            "lowerEnName": "video"
           }
         ]
       },
