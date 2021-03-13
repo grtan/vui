@@ -228,8 +228,14 @@ export default class VComponent extends Vue {
   }
 
   mounted() {
-    // 将根dom节点移到body下
-    document.body.appendChild(this.$el)
+    let target = (this.$attrs.target as 'string' | HTMLElement) || 'body'
+
+    if (typeof target === 'string') {
+      target = document.querySelector(target) as HTMLElement
+    }
+
+    // 将dom根节点移到target下
+    target.appendChild(this.$el)
   }
 
   beforeDestroy() {
