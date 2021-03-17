@@ -91,7 +91,7 @@ body {
 |    position    | `bottom` &#124; `top` &#124; `left` &#124; `right` | `N`  | `bottom` | 内容弹出位置 |
 | show-overlayer |                     `Boolean`                      | `N`  |  `true`  | 是否显示蒙层 |
 
-`light`、`push-state`、`close-on-click-overlayer`、`before-close`、`appear`属性与 [Overlayer 组件](../overlayer/#属性)一致
+`light`、`push-state`、`close-on-click-overlayer`、`before-close`、`appear`、`target`属性与 [Overlayer 组件](../overlayer/#属性)一致
 
 ## 插槽
 

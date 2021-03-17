@@ -133,7 +133,7 @@ body {
 | confirmButtonText |     `String`      |   `N`    |                        `确定`                         |              确定按钮文本              |
 |    beforeClose    | `(action: 'other' | 'cancel' | 'confirm', close: (close?: boolean) => void) => void` |                  `N`                   | `(action, close) => close()` | 关闭之前的回调，`action`为 cancel 表示点击了取消按钮，为 confirm 表示点击了确定按钮，other 为其他方式；`close()`回调将会关闭对话框，`close(false)`会阻止关闭 |
 
-`pushState`、`closeOnClickOverlayer`与[Overlayer](../overlayer/README.md)组件一致
+`pushState`、`closeOnClickOverlayer`、`target`与[Overlayer](../overlayer/README.md)组件一致
 
 ## 属性
 
