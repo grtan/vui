@@ -14,8 +14,10 @@ function getIconList() {
 }
 
 module.exports = {
+  publicPath: './',
   devServer: {
-    port: 3012
+    port: 3012,
+    disableHostCheck: true
   },
   css: {
     loaderOptions: {

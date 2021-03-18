@@ -4,6 +4,12 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import HistoryAction from '../../src/modules/history-action'
+import VConsole from 'vconsole'
+
+if (process.env.NODE_ENV === 'development') {
+  // eslint-disable-next-line no-new
+  new VConsole()
+}
 
 Vue.config.productionTip = false
 Vue.use(HistoryAction, router)

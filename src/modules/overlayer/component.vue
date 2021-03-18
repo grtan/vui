@@ -228,13 +228,17 @@ export default class VComponent extends Vue {
   }
 
   mounted() {
-    let target = (this.$attrs.target as 'string' | HTMLElement) || 'body'
+    let target = (this.$attrs.target as 'string' | Element) || 'body'
 
     if (typeof target === 'string') {
-      target = document.querySelector(target) as HTMLElement
+      target = document.querySelector(target)!
     }
 
-    // 将dom根节点移到target下
+    if (!target) {
+      throw new Error('target属性指定的元素不存在')
+    }
+
+    // 将根节点移到target下
     target.appendChild(this.$el)
   }
 
