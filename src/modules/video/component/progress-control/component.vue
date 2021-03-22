@@ -1,22 +1,25 @@
 <template>
   <div class="vui-video__progress-control">
-    <div class="vui-video__current-time">{{ formatTime(currentTime) }}</div>
-    <div ref="wrapper" class="vui-video__progress-bar-wrapper">
-      <div class="vui-video__progress-bar">
-        <div class="vui-video__progress"></div>
+    <div v-if="!isLive" class="vui-video__progress-control-current-time">{{ formatTime(currentTime) }}</div>
+    <!-- 这里不设置key的话，$refs.wrapper指向的元素会变化 -->
+    <div ref="wrapper" key="wrapper" class="vui-video__progress-control-progress-bar-wrapper">
+      <div class="vui-video__progress-control-progress-bar">
+        <div class="vui-video__progress-control-progress"></div>
         <div
-          class="vui-video__progress vui-video__progress--played"
-          :style="{ width: `${(currentTime / duration) * 100}%` }"
+          class="vui-video__progress-control-progress vui-video__progress-control-progress--played"
+          :style="{ width: `${percent * 100}%` }"
         ></div>
       </div>
     </div>
-    <div class="vui-video__remaining-time">{{ formatTime(duration - currentTime) }}</div>
+    <div v-if="!isLive" class="vui-video__progress-control-remaining-time">
+      {{ formatTime(duration - currentTime) }}
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop } from 'vue-property-decorator'
-import videojs, { VideoJsPlayer } from 'video.js'
+import { Vue, Component } from 'vue-property-decorator'
+import videojs from 'video.js'
 import Hammer from 'hammerjs'
 
 @Component({
@@ -24,48 +27,88 @@ import Hammer from 'hammerjs'
   components: {}
 })
 export default class VComponent extends Vue {
-  private player!: VideoJsPlayer
-  // private hammerManager!: InstanceType<typeof Hammer>
   private duration = 0
   private currentTime = 0
   // 是否正在拖拽定位
   private scrubbing = false
 
+  get isLive() {
+    return this.duration === Infinity
+  }
+
+  get percent() {
+    const player = this.$options.player!
+
+    if (this.isLive) {
+      // if (!this.scrubbing && player.liveTracker.atLiveEdge()) {
+      //   return 1
+      // }
+
+      /**
+       * currentTime返回当前播放的时间
+       * liveTracker.seekableStart()返回当前可播放的时间范围的起始时间
+       * liveTracker.liveWindow()返回当前可播放的时间范围长度
+       */
+      return Math.min((this.currentTime - player.liveTracker.seekableStart()) / player.liveTracker.liveWindow(), 1)
+    }
+
+    return Math.min(this.currentTime / this.duration, 1)
+  }
+
   created() {
-    this.$on('inited', (player: VideoJsPlayer) => {
-      this.player = player
-      this.onPlayerEvent()
-      this.onHammerEvent()
-    })
+    this.onPlayerEvent()
+    this.onHammerEvent()
   }
 
   onPlayerEvent() {
-    this.player.on('durationchange', () => {
-      this.duration = this.player.duration()
+    const player = this.$options.player!
+
+    player.on('durationchange', () => {
+      this.duration = player.duration()
     })
 
-    this.player.on(['timeupdate', 'ended'], () => {
+    player.on(['timeupdate', 'ended'], () => {
       if (this.scrubbing) {
         return
       }
 
-      this.currentTime = this.player.currentTime()
+      this.currentTime = player.currentTime()
     })
 
-    this.player.on('progress', () => {})
-
     // 监听是否正在快进、快退
-    this.player.on('v:scrubbing', (event, { scrubbing, time }: { scrubbing: boolean; time: number }) => {
+    player.on('v:scrubbing', (event, { scrubbing, time }: { scrubbing: boolean; time: number }) => {
+      // const total = this.isLive ? player.liveTracker.curr
+
       this.currentTime = time
+
+      console.log(
+        this.currentTime,
+        player.liveTracker.seekableStart(),
+        player.liveTracker.liveWindow(),
+        player.liveTracker.liveCurrentTime()
+      )
 
       // 停止快进、后退
       if (!scrubbing) {
-        this.player.currentTime(this.currentTime)
+        player.currentTime(
+          this.isLive
+            ? Math.min(this.currentTime, player.liveTracker.liveCurrentTime())
+            : Math.min(this.currentTime, this.duration)
+        )
       }
     })
+
+    // 直播时监听其他事件
+    // if (this.isLive) {
+    // player.liveTracker.on('liveedgechange', () => {
+    //   this.duration = player.liveTracker.liveCurrentTime()
+    //   console.log('live', this.duration)
+    // })
+    // }
   }
 
   onHammerEvent() {
+    const player = this.$options.player!
     const hammerManager = new Hammer.Manager(this.$refs.wrapper as EventTarget)
 
     hammerManager.add([
@@ -84,20 +127,24 @@ export default class VComponent extends Vue {
       const { left, width } = (this.$refs.wrapper as Element).getBoundingClientRect()
       const distance = Math.min(Math.max(event.center.x - left, 0), width)
 
-      this.player.trigger('v:scrubbing', {
+      player.trigger('v:scrubbing', {
         scrubbing: false,
-        time: (distance / width) * this.duration
+        time: this.isLive
+          ? (distance / width) * player.liveTracker.liveWindow() + player.liveTracker.seekableStart()
+          : (distance / width) * this.duration
       })
     })
 
     hammerManager.on('panstart', event => {
-      console.log(222, event)
-
-      if (![Hammer.DIRECTION_LEFT, Hammer.DIRECTION_RIGHT].includes(event.direction)) {
+      if (![Hammer.DIRECTION_LEFT, Hammer.DIRECTION_RIGHT].includes(event.direction as any)) {
         return
       }
 
       this.scrubbing = true
+      player.trigger('v:scrubbing', {
+        scrubbing: true,
+        time: this.currentTime
+      })
     })
 
     hammerManager.on('panmove', event => {
@@ -108,11 +155,11 @@ export default class VComponent extends Vue {
       const { left, width } = (this.$refs.wrapper as Element).getBoundingClientRect()
       const distance = Math.min(Math.max(event.center.x - left, 0), width)
 
-      // this.currentTime = (distance / width) * this.duration
-
-      this.player.trigger('v:scrubbing', {
-        scrubbing: this.scrubbing,
-        time: (distance / width) * this.duration
+      player.trigger('v:scrubbing', {
+        scrubbing: true,
+        time: this.isLive
+          ? (distance / width) * player.liveTracker.liveWindow() + player.liveTracker.seekableStart()
+          : (distance / width) * this.duration
       })
     })
 
@@ -122,10 +169,8 @@ export default class VComponent extends Vue {
       }
 
       this.scrubbing = false
-      // this.player.currentTime(this.currentTime)
-
-      this.player.trigger('v:scrubbing', {
-        scrubbing: this.scrubbing,
+      player.trigger('v:scrubbing', {
+        scrubbing: false,
         time: this.currentTime
       })
     })

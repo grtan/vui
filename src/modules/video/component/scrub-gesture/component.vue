@@ -1,40 +1,32 @@
 <template>
-  <vui-transition>
-    <div v-show="scrubbing" class="vui-video__scrub-gesture">
-      <div class="vui-video__time" :data-target="formatTime(value)" :data-total="formatTime(duration)">/</div>
-      <div class="vui-video__progress-bar">
-        <div class="vui-video__progress" :style="{ width: `${(value / duration) * 100}%` }"></div>
-      </div>
+  <div v-show="scrubbing" class="vui-video__scrub-gesture">
+    <div class="vui-video__scrub-gesture-time" :data-target="formatTime(value)" :data-total="formatTime(duration)">
+      /
     </div>
-  </vui-transition>
+    <div class="vui-video__scrub-gesture-progress-bar">
+      <div class="vui-video__scrub-gesture-progress" :style="{ width: `${(value / duration) * 100}%` }"></div>
+    </div>
+  </div>
 </template>
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
-import videojs, { VideoJsPlayer } from 'video.js'
+import videojs from 'video.js'
 import Hammer from 'hammerjs'
-import VuiTransition from '../../../transition'
 
 @Component({
-  name: 'VuiVideoScrubGesture',
-  components: {
-    VuiTransition
-  }
+  name: 'VuiVideoScrubGesture'
 })
 export default class VComponent extends Vue {
-  private player!: VideoJsPlayer
   private duration = 0
   private value = 0
   private prev = Infinity
   private scrubbing = false
 
   created() {
-    this.$on('inited', (player: VideoJsPlayer) => {
-      this.player = player
-      this.duration = player.duration()
-      this.onPlayerEvent()
-      this.setGesture()
-    })
+    this.duration = this.$options.player!.duration()
+    this.onPlayerEvent()
+    this.setGesture()
   }
 
   formatTime(seconds: number) {
@@ -42,23 +34,26 @@ export default class VComponent extends Vue {
   }
 
   onPlayerEvent() {
-    this.player.on('durationchange', () => {
-      this.duration = this.player.duration()
+    const player = this.$options.player!
+
+    player.on('durationchange', () => {
+      this.duration = player.duration()
     })
 
     // 监听是否在快进、快退
-    this.player.on('v:scrubbing', (event, { scrubbing, time }) => {
+    player.on('v:scrubbing', (event, { scrubbing, time }) => {
       this.scrubbing = scrubbing
       this.value = time
 
       if (!scrubbing) {
-        this.player.currentTime(this.value)
+        player.currentTime(this.value)
       }
     })
   }
 
   setGesture() {
-    const videoEl = this.player.$('video')
+    const player = this.$options.player!
+    const videoEl = player.$('video')
     const hammerManager = new Hammer.Manager(videoEl)
 
     hammerManager.add(
@@ -82,9 +77,9 @@ export default class VComponent extends Vue {
       }
 
       this.prev = event.center.x
-      this.player.trigger('v:scrubbing', {
+      player.trigger('v:scrubbing', {
         scrubbing: true,
-        time: this.player.currentTime()
+        time: player.currentTime()
       })
     })
 
@@ -99,7 +94,7 @@ export default class VComponent extends Vue {
       const currentValue = this.value + delta
 
       this.prev = current
-      this.player.trigger('v:scrubbing', {
+      player.trigger('v:scrubbing', {
         scrubbing: true,
         time: Math.min(Math.max(0, currentValue), this.duration)
       })
@@ -107,7 +102,7 @@ export default class VComponent extends Vue {
 
     hammerManager.on('panend', () => {
       this.prev = Infinity
-      this.player.trigger('v:scrubbing', {
+      player.trigger('v:scrubbing', {
         scrubbing: false,
         time: this.value
       })

@@ -1,40 +1,25 @@
 <template>
-  <vui-transition>
-    <div v-show="prev !== Infinity" class="vui-video__volume-gesture">
-      <div class="vui-video__progress-bar">
-        <div class="vui-video__progress" :style="{ width: `${value * 100}%` }"></div>
-      </div>
+  <div v-show="prev !== Infinity" class="vui-video__volume-gesture">
+    <div class="vui-video__volume-gesture-progress-bar">
+      <div class="vui-video__volume-gesture-progress" :style="{ width: `${value * 100}%` }"></div>
     </div>
-  </vui-transition>
+  </div>
 </template>
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
-import { VideoJsPlayer } from 'video.js'
 import Hammer from 'hammerjs'
-import VuiTransition from '../../../transition'
 
 @Component({
-  name: 'VuiVideoVolumeGesture',
-  components: {
-    VuiTransition
-  }
+  name: 'VuiVideoVolumeGesture'
 })
 export default class VComponent extends Vue {
-  private player!: VideoJsPlayer
   private value = 0
   private prev = Infinity
   private timeoutId!: number
 
   created() {
-    this.$on('inited', (player: VideoJsPlayer) => {
-      this.player = player
-      this.setGesture()
-    })
-  }
-
-  setGesture() {
-    const videoEl = this.player.$('video')
+    const videoEl = this.$options.player!.$('video')
     const hammerManager = new Hammer.Manager(videoEl)
 
     hammerManager.add(
@@ -69,7 +54,6 @@ export default class VComponent extends Vue {
         return
       }
 
-      // const videoHeight = this.player.videoHeight()
       const { height } = event.target.getBoundingClientRect()
       const current = event.center.y
       const delta = current - this.prev

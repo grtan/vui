@@ -1,27 +1,32 @@
 @use '../../../skin/var' as *;
 @use '../../../skin/common/mixin' as *;
 @use '../../../skin/common/function' as *;
+@use '../../button/style/index' as *;
+@use '../../toast/style/index' as *;
+@use '../../overlayer/style/index' as *;
+@use './image' as image;
 @import "~video.js/dist/video-js.css";
 
 @include b(video) {
+  padding: 28.15% 0;
   position: relative;
 
   // 过渡元素某些属性恢复初始值，防止对过渡元素样式造成影响
-  @include e(transition) {
-    > * {
-      box-sizing: content-box;
-      float: none;
-      width: auto;
+  // @include e(transition) {
+  //   > * {
+  //     box-sizing: content-box;
+  //     float: none;
+  //     width: auto;
 
-      &:first-child {
-        ~ * {
-          margin-left: 0;
-        }
-      }
-    }
-  }
+  //     &:first-child {
+  //       ~ * {
+  //         margin-left: 0;
+  //       }
+  //     }
+  //   }
+  // }
 
-  // 播放、暂停按钮
+  // play-control组件
   @include e(play-control) {
     align-items: center;
     display: flex;
@@ -31,29 +36,9 @@
     top: 50%;
     transform: translate(-50%, -50%);
 
-    @include e(icon) {
-      background: url("../image/play.svg") center / contain no-repeat;
-      height: 170px;
-      width: 170px;
-    }
-
-    @include e(size) {
-      color: #ff8a00;
-      display: none;
-      font-size: 42px;
-      line-height: 58px;
-      margin-left: 21px;
-
-      &::after {
-        color: #fff;
-        content: "流量播放";
-        margin-left: 6px;
-      }
-    }
-
     // 播放状态
     @include m(playing) {
-      @include e(icon) {
+      @include e(play-control-icon) {
         background-image: url("../image/pause.svg");
       }
     }
@@ -67,98 +52,85 @@
         height: 100px;
         width: 546px;
 
-        @include e(icon) {
+        @include e(play-control-icon) {
           height: 40px;
           width: 40px;
         }
 
-        @include e(size) {
+        @include e(play-control-size) {
           display: block;
         }
       }
     }
+
+    &-icon {
+      background: url("../image/play.svg") center / contain no-repeat;
+      height: 170px;
+      width: 170px;
+    }
+
+    &-size {
+      color: #ff8a00;
+      display: none;
+      font-size: 42px;
+      line-height: 58px;
+      margin-left: 21px;
+
+      &::after {
+        color: #fff;
+        content: "流量播放";
+        margin-left: 6px;
+      }
+    }
   }
 
-  // 进度条
-  // @include e(progress) {
-  //   background: #fff;
-  //   border-radius: 3px;
-  //   bottom: 0;
-  //   left: 0;
-  //   position: absolute;
-  //   top: 0;
-  //   width: 0;
+  // 全屏组件
+  @include e(fullscreen) {
+    background: url("../image/fullscreen-zoomin.svg") center / contain no-repeat;
+    height: 100px;
+    width: 100px;
 
-  //   @include m([play, seek]) {
-  //     background: #ff8a00;
-  //   }
+    @include m(full) {
+      background-image: url("../image/fullscreen-zoomout.svg");
+    }
 
-  //   &-wrapper {
-  //     align-items: center;
-  //     background: rgba(0, 0, 0, 0.6);
-  //     border-radius: 24px;
-  //     display: flex;
-  //     height: 84px;
-  //     justify-content: center;
-  //     left: 50%;
-  //     position: absolute;
-  //     top: $video-bar-top;
-  //     transform: translateX(-50%);
-  //     width: 600px;
+    &-overlayer {
+      display: none;
+    }
+  }
 
-  //     &::before {
-  //       background: url("../image/brightness.svg") center / contain no-repeat;
-  //       content: "";
-  //       display: block;
-  //       height: 60px;
-  //       margin-right: 24px;
-  //       width: 60px;
-  //     }
+  // loading组件
+  @include e(loading) {
+    background: url(image.$loading) center / contain no-repeat;
+    height: 150px;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 150px;
+  }
 
-  //     /* stylelint-disable-next-line order/order */
-  //     @include m(seek) {
-  //       background: transparent;
-  //       flex-direction: column;
-  //       height: auto;
-  //       top: 50%;
-  //       transform: translate(-50%, -50%);
-  //       width: auto;
+  // progress-bar组件
+  @include e(progress-bar) {
+    background: rgba(255, 255, 255, 0.25);
+    bottom: 0;
+    height: 6px;
+    left: 0;
+    position: absolute;
+    right: 0;
 
-  //       &::before {
-  //         content: none;
-  //       }
-  //     }
+    &-progress {
+      background: #ff8a00;
+      border-bottom-right-radius: 3px;
+      border-top-right-radius: 3px;
+      bottom: 0;
+      left: 0;
+      position: absolute;
+      top: 0;
+    }
+  }
 
-  //     /* stylelint-disable-next-line order/order */
-  //     @include m(volume) {
-  //       &::before {
-  //         background-image: url("../image/volume.svg");
-  //       }
-  //     }
-  //   }
-
-  //   &-bar {
-  //     background: rgba(255, 255, 255, 0.25);
-  //     border-radius: 4.5px;
-  //     height: 9px;
-  //     position: relative;
-  //     width: 390px;
-
-  //     @include m(seek) {
-  //       margin-top: 28px;
-  //     }
-
-  //     // 底部播放进度条
-  //     @include m(play) {
-  //       bottom: 0;
-  //       left: 0;
-  //       position: absolute;
-  //       width: 100%;
-  //     }
-  //   }
-  // }
-
-  // 新手引导，这里涉及到全屏
+  // guide组件
   @include e(guide) {
     background: rgba(0, 0, 0, 0.6);
     bottom: 0;
@@ -286,13 +258,190 @@
     }
   }
 
-  // 进度控制
+  // brightness-gesture组件
+  @include e(brightness-gesture) {
+    align-items: center;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 24px;
+    display: flex;
+    height: 84px;
+    justify-content: center;
+    left: 50%;
+    position: absolute;
+    top: 23px;
+    transform: translateX(-50%);
+    width: 600px;
+
+    &-progress {
+      background: #fff;
+      border-radius: 4.5px;
+      bottom: 0;
+      left: 0;
+      position: absolute;
+      top: 0;
+
+      &-bar {
+        background: rgba(255, 255, 255, 0.25);
+        border-radius: 4.5px;
+        height: 9px;
+        position: relative;
+        width: 390px;
+      }
+    }
+
+    &::before {
+      background: url("../image/brightness.svg") center / contain no-repeat;
+      content: "";
+      display: block;
+      height: 56px;
+      margin-right: 24px;
+      width: 56px;
+    }
+  }
+
+  // header组件
+  @include e(header) {
+    align-items: center;
+    background: linear-gradient(rgba(89, 89, 89, 0.74), transparent);
+    display: flex;
+    height: 171px;
+    left: 0;
+    padding: 0 48px;
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    &-back {
+      background: url("../image/back.svg") center / contain no-repeat;
+      height: 100px;
+      margin-right: 24px;
+      width: 100px;
+    }
+
+    &-title {
+      font-size: 48px;
+      line-height: 72px;
+    }
+  }
+
+  // volume-brightness
+  @include e(volume-gesture) {
+    align-items: center;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 24px;
+    display: flex;
+    height: 84px;
+    justify-content: center;
+    left: 50%;
+    position: absolute;
+    top: 23px;
+    transform: translateX(-50%);
+    width: 600px;
+
+    &-progress {
+      background: #fff;
+      border-radius: 4.5px;
+      bottom: 0;
+      left: 0;
+      position: absolute;
+      top: 0;
+
+      &-bar {
+        background: rgba(255, 255, 255, 0.25);
+        border-radius: 4.5px;
+        height: 9px;
+        position: relative;
+        width: 390px;
+      }
+    }
+
+    &::before {
+      background: url("../image/volume.svg") center / contain no-repeat;
+      content: "";
+      display: block;
+      height: 56px;
+      margin-right: 24px;
+      width: 56px;
+    }
+  }
+
+  // scrub-gesture组件
+  @include e(scrub-gesture) {
+    align-items: center;
+    background: transparent;
+    border-radius: 24px;
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    left: 50%;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: auto;
+
+    // 快进/快退提示时间
+    &-time {
+      align-items: center;
+      color: rgba(255, 255, 255, 0.5);
+      display: flex;
+      font-size: 47px;
+      justify-content: center;
+      line-height: 66px;
+
+      &::before {
+        color: #ff8a00;
+        content: attr(data-target);
+        font-size: 64px;
+        line-height: 90px;
+        margin-right: 25px;
+      }
+
+      &::after {
+        content: attr(data-total);
+        font-size: 64px;
+        line-height: 90px;
+        margin-left: 25px;
+      }
+    }
+
+    &-progress {
+      background: #ff8a00;
+      border-radius: 4.5px;
+      bottom: 0;
+      left: 0;
+      position: absolute;
+      top: 0;
+
+      &-bar {
+        background: rgba(255, 255, 255, 0.25);
+        border-radius: 4.5px;
+        height: 9px;
+        margin-top: 28px;
+        position: relative;
+        width: 390px;
+      }
+    }
+  }
+
+  // volume组件
+  @include e(volume) {
+    background: url("../image/volume.svg") center / contain no-repeat;
+    cursor: pointer;
+    height: 100px;
+    width: 100px;
+
+    @include m(muted) {
+      background-image: url("../image/volume-muted.svg");
+    }
+  }
+
+  // 进度控制组件
   @include e(progress-control) {
     align-items: center;
     display: flex;
     flex: auto;
 
-    @include e(progress) {
+    &-progress {
       background: rgba(255, 255, 255, 0.48);
       border-radius: 3px;
       bottom: 0;
@@ -333,14 +482,14 @@
       }
     }
 
-    @include e(current-time) {
+    &-current-time {
       color: #d8d8d8;
       font-size: 39px;
       opacity: 0.9;
       padding: 0 25px 0 48px;
     }
 
-    @include e(remaining-time) {
+    &-remaining-time {
       color: #d8d8d8;
       font-size: 39px;
       opacity: 0.9;
@@ -348,143 +497,38 @@
     }
   }
 
-  // 音量调节
-  @include e(volume-gesture) {
+  // 网络监控组件
+  @include e(net-monitor) {
     align-items: center;
     background: rgba(0, 0, 0, 0.6);
-    border-radius: 24px;
-    display: flex;
-    height: 84px;
-    justify-content: center;
-    left: 50%;
-    position: absolute;
-    top: 23px;
-    transform: translateX(-50%);
-    width: 600px;
-
-    @include e(progress) {
-      background: #fff;
-      border-radius: 4.5px;
-      bottom: 0;
-      left: 0;
-      position: absolute;
-      top: 0;
-
-      &-bar {
-        background: rgba(255, 255, 255, 0.25);
-        border-radius: 4.5px;
-        height: 9px;
-        position: relative;
-        width: 390px;
-      }
-    }
-
-    &::before {
-      background: url("../image/volume.svg") center / contain no-repeat;
-      content: "";
-      display: block;
-      height: 56px;
-      margin-right: 24px;
-      width: 56px;
-    }
-  }
-
-  // 亮度调节
-  @include e(brightness-gesture) {
-    align-items: center;
-    background: rgba(0, 0, 0, 0.6);
-    border-radius: 24px;
-    display: flex;
-    height: 84px;
-    justify-content: center;
-    left: 50%;
-    position: absolute;
-    top: 23px;
-    transform: translateX(-50%);
-    width: 600px;
-
-    @include e(progress) {
-      background: #fff;
-      border-radius: 4.5px;
-      bottom: 0;
-      left: 0;
-      position: absolute;
-      top: 0;
-
-      &-bar {
-        background: rgba(255, 255, 255, 0.25);
-        border-radius: 4.5px;
-        height: 9px;
-        position: relative;
-        width: 390px;
-      }
-    }
-
-    &::before {
-      background: url("../image/brightness.svg") center / contain no-repeat;
-      content: "";
-      display: block;
-      height: 56px;
-      margin-right: 24px;
-      width: 56px;
-    }
-  }
-
-  // 快进、快退
-  @include e(scrub-gesture) {
-    align-items: center;
-    background: transparent;
-    border-radius: 24px;
+    bottom: 0;
     display: flex;
     flex-direction: column;
-    height: auto;
-    left: 50%;
+    justify-content: center;
+    left: 0;
     position: absolute;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: auto;
+    right: 0;
+    top: 0;
 
-    // 快进/快退提示时间
-    @include e(time) {
-      align-items: center;
-      color: rgba(255, 255, 255, 0.5);
-      display: flex;
-      font-size: 47px;
-      justify-content: center;
-      line-height: 66px;
-
-      &::before {
-        color: #ff8a00;
-        content: attr(data-target);
-        font-size: 64px;
-        line-height: 90px;
-        margin-right: 25px;
-      }
-
-      &::after {
-        content: attr(data-total);
-        font-size: 64px;
-        line-height: 90px;
-        margin-left: 25px;
-      }
+    @include e(net-monitor-btn) {
+      border: $button-border-width solid transparent;
+      color: #fff;
+      font-size: $button-font-size-regular;
+      line-height: 1;
+      margin-top: 76px;
+      width: 372px;
     }
 
-    @include e(progress) {
-      background: #ff8a00;
-      border-radius: 4.5px;
-      bottom: 0;
-      left: 0;
-      position: absolute;
-      top: 0;
+    &-text {
+      color: #d8d8d8;
+      font-size: 39px;
+      line-height: 54px;
+    }
 
-      &-bar {
-        background: rgba(255, 255, 255, 0.25);
-        border-radius: 4.5px;
-        height: 9px;
-        margin-top: 28px;
-        position: relative;
-        width: 390px;
-      }
+    &-4g-prompt {
+      bottom: 50%;
+      position: absolute;
+      transform: translate(-50%, 50%);
     }
   }
 
@@ -493,149 +537,28 @@
     font-size: 12px;
   }
 
-  // 非直播状态
-  > :not(.vjs-live) {
-    // 显示已播放时间
-    .vjs-current-time {
-      display: block;
-    }
-  }
+  > .video-js {
+    height: 100%;
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 100%;
 
-  // 覆盖videojs默认样式
-  .video-js {
-    .vjs-loading-spinner {
-      background: url("../image/loading.gif") center / contain no-repeat;
-      // text-align: left;
-      border: 0;
-      border-radius: 0;
-      height: 150px;
-      // display: none;
-      // position: absolute;
-      // top: 50%;
-      // left: 50%;
-      margin: 0;
-      opacity: 1;
-      transform: translate(-50%, -50%);
-      visibility: visible;
-      // box-sizing: border-box;
-      // background-clip: padding-box;
-      width: 150px;
-    }
-
-    .vjs-seeking,
-    .vjs-waiting {
-      .vjs-loading-spinner {
-        animation: none;
+    // 非直播状态
+    &:not(.vjs-live) {
+      // 显示已播放时间
+      .vjs-current-time {
         display: block;
       }
     }
 
+    // 覆盖videojs默认样式
     .vjs-control-bar {
       align-items: center;
       background: transparent linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.36) 100%);
       height: 138px;
       padding: 0 48px;
       width: auto;
-
-      // 音量
-      .vjs-volume-panel {
-        height: 100px;
-        width: 100px;
-
-        .vjs-mute-control {
-          width: 100%;
-
-          .vjs-icon-placeholder {
-            &::before {
-              background: url("../image/volume.svg") center / contain no-repeat;
-              content: "";
-            }
-          }
-
-          // 静音状态
-          &.vjs-vol-0 {
-            .vjs-icon-placeholder {
-              &::before {
-                background-image: url("../image/volume-muted.svg");
-              }
-            }
-          }
-        }
-      }
-
-      // 已播放时间
-      .vjs-current-time {
-        color: #d8d8d8;
-        font-size: 36px;
-        height: auto;
-        line-height: 50px;
-        padding: 0 28px 0 36px;
-      }
-
-      // 进度条
-      .vjs-progress-control {
-        .vjs-progress-holder {
-          background: rgba(255, 255, 255, 0.15);
-          border-radius: 3px;
-          height: 6px;
-          margin: 0;
-
-          // 已加载进度
-          .vjs-load-progress {
-            div {
-              background-color: #e6e7e8;
-              border-radius: 3px;
-            }
-          }
-
-          // 已播放进度
-          .vjs-play-progress {
-            background-color: #ff8a00;
-            border-radius: 3px;
-
-            &::before {
-              font-size: 36px;
-              top: calc(-0.5em + 3px);
-            }
-          }
-        }
-      }
-
-      // 剩余时间
-      .vjs-remaining-time {
-        color: #fff;
-        font-size: 36px;
-        height: auto;
-        line-height: 50px;
-        padding: 0 36px 0 28px;
-
-        // 隐藏前面的负号
-        > :nth-child(2) {
-          display: none;
-        }
-      }
-
-      // 全屏
-      .vjs-fullscreen-control {
-        height: 100px;
-        width: 100px;
-
-        .vjs-icon-placeholder {
-          &::before {
-            background: url("../image/fullscreen-zoomin.svg") center / contain no-repeat;
-            content: "";
-          }
-        }
-      }
     }
   }
-
-  // 用户
-  // .vjs-has-started.vjs-user-inactive {
-  //   .vjs-control-bar {
-  //     opacity: 0;
-  //     transition: visibility 1s, opacity 1s;
-  //     visibility: visible;
-  //   }
-  // }
 }

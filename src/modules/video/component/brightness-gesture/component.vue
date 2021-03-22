@@ -1,40 +1,25 @@
 <template>
-  <vui-transition>
-    <div v-show="prev !== Infinity" class="vui-video__brightness-gesture">
-      <div class="vui-video__progress-bar">
-        <div class="vui-video__progress" :style="{ width: `${value * 100}%` }"></div>
-      </div>
+  <div v-show="prev !== Infinity" class="vui-video__brightness-gesture">
+    <div class="vui-video__brightness-gesture-progress-bar">
+      <div class="vui-video__brightness-gesture-progress" :style="{ width: `${value * 100}%` }"></div>
     </div>
-  </vui-transition>
+  </div>
 </template>
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
-import videojs, { VideoJsPlayer } from 'video.js'
 import Hammer from 'hammerjs'
-import VuiTransition from '../../../transition'
 
 @Component({
-  name: 'VuiVideoBrightnessGesture',
-  components: {
-    VuiTransition
-  }
+  name: 'VuiVideoBrightnessGesture'
 })
 export default class VComponent extends Vue {
-  private player!: VideoJsPlayer
   private value = 0
   private prev = Infinity
   private timeoutId!: number
 
   created() {
-    this.$on('inited', (player: VideoJsPlayer) => {
-      this.player = player
-      this.setGesture()
-    })
-  }
-
-  setGesture() {
-    const videoEl = this.player.$('video')
+    const videoEl = this.$options.player!.$('video')
     const hammerManager = new Hammer.Manager(videoEl)
 
     hammerManager.add(
