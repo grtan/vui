@@ -23,7 +23,7 @@ function getImporteeAbsolutePath(importer, importee) {
   }
 
   const importerDir = path.dirname(importer)
-  const importeePkgName = importee.replace(/^~([^/]+)\/.+$|.*/, '$1')
+  const importeePkgName = importee.replace(/^~((@[^/]+\/)?[^/]+)\/.+$|.*/, '$1')
 
   // 从npm模块导入
   if (importeePkgName) {
@@ -31,7 +31,7 @@ function getImporteeAbsolutePath(importer, importee) {
 
     process.chdir(importerDir)
     importee = importee.replace(
-      /^[^/]+/,
+      `~${importeePkgName}`,
       path.relative(importerDir, path.dirname(require.resolve(`${importeePkgName}/package.json`)))
     )
     process.chdir(cwd)

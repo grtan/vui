@@ -3,7 +3,7 @@ import Vue from 'vue'
 
 export default function (VComponent: typeof Vue) {
   return class extends videojs.getComponent('Component') {
-    private vm!: InstanceType<typeof VComponent>
+    vm!: InstanceType<typeof VComponent>
 
     createEl() {
       this.vm = new VComponent({

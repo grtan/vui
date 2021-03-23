@@ -55,10 +55,11 @@ async function getIconSvgSprite() {
   })
 
   return new Promise(resolve => {
-    // eslint-disable-next-line handle-callback-err
+    // eslint-disable-next-line node/handle-callback-err
     spriter.compile(function (error, result) {
-      for (var mode in result) {
-        for (var resource in result[mode]) {
+      for (const mode in result) {
+        // eslint-disable-next-line no-unreachable-loop
+        for (const resource in result[mode]) {
           resolve(result[mode][resource].contents)
           return
         }
@@ -134,16 +135,10 @@ export default args => {
        */
       external(id, parentId) {
         /**
-         * input文件本身、@/开头、后缀名为.mjs、.vue、vue处理后的模块不能外置
-         * 后缀名为.mjs、.vue的模块的路径经过alias插件处理后，alias插件又会调用this.resolve方法，最终又会调用该external判断，从而外置模块
+         * input文件本身、@/开头、后缀名为.vue、vue处理后的模块不能外置
+         * 后缀名为.vue的模块的路径经过alias插件处理后，alias插件又会调用this.resolve方法，最终又会调用该external判断，从而外置模块
          */
-        if (
-          !parentId ||
-          id.startsWith('@/') ||
-          id.endsWith('.mjs') ||
-          id.endsWith('.vue') ||
-          /\?rollup-plugin-vue=/.test(id)
-        ) {
+        if (!parentId || id.startsWith('@/') || id.endsWith('.vue') || /\?rollup-plugin-vue=/.test(id)) {
           return false
         }
 
@@ -161,15 +156,6 @@ export default args => {
             {
               find: /^(.*)\.vue$/,
               replacement: '$1'
-            },
-            /**
-             * 第三方包可能存在.mjs（比如vue-runtime-helpers），但.mjs可能是es6的语法
-             * 由于webpack默认的后缀名查找顺序为['.wasm', '.mjs', '.js', '.json']
-             * 所以需要明确指定.js后缀名
-             */
-            {
-              find: /^(.*)\.mjs$/,
-              replacement: '$1.js'
             }
           ]
         }),
@@ -260,10 +246,6 @@ export default args => {
           {
             find: /^@(\/.*)$/,
             replacement: `${src}$1`
-          },
-          {
-            find: /^(.*)\.mjs$/,
-            replacement: '$1.js'
           }
         ]
       }),
