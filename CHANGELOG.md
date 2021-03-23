@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.5.0-beta.1](http://gitlab.vmic.xyz/game-common/vui/compare/v2.5.0-beta.0...v2.5.0-beta.1) (2021-03-23)
+
+
+### Bug Fixes
+
+* 修复css构建时npm包名获取错误的问题；js构建时不将.mjs后缀改成.js后缀，因为有可能.mjs和.js的文件名都不一致；修复video组件的factory.ts构建时报错的问题 ([9a43a69](http://gitlab.vmic.xyz/game-common/vui/commit/9a43a696dd23ba4068e2b0bbf6cb70fb2b1e7728))
+* 添加模块ts声明 ([a156834](http://gitlab.vmic.xyz/game-common/vui/commit/a156834649460242b814ae2033f20f180fef13a3))
+* 给videojs-hls-quality-selector插件添加hlsQualitySelector属性声明 ([20f5d2b](http://gitlab.vmic.xyz/game-common/vui/commit/20f5d2b93370baa881332cc6786a75c1f3dd3690))
+
 ## [2.5.0-beta.0](http://gitlab.vmic.xyz/game-common/vui/compare/v2.4.0-beta.0...v2.5.0-beta.0) (2021-03-23)
 
 
