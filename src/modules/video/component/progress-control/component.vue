@@ -55,7 +55,7 @@ export default class VComponent extends Vue {
     return Math.min(this.currentTime / this.duration, 1)
   }
 
-  created() {
+  mounted() {
     this.onPlayerEvent()
     this.onHammerEvent()
   }

@@ -9,7 +9,9 @@
 <script lang="ts">
 import { Vue, Component, Prop, Watch } from 'vue-property-decorator'
 import videojs, { VideoJsPlayer } from 'video.js'
-// import qualitySelector from '@silvermine/videojs-quality-selector'
+import 'videojs-contrib-quality-levels'
+import qualitySelector from '@silvermine/videojs-quality-selector'
+import 'videojs-hls-quality-selector'
 import Header from './component/header'
 import Volume from './component/volume'
 import ProgressControl from './component/progress-control'
@@ -24,6 +26,7 @@ import VolumeGesture from './component/volume-gesture'
 import ScrubGesture from './component/scrub-gesture'
 import DoubleClickGesture from './component/double-click-gesture'
 
+qualitySelector(videojs)
 videojs.registerComponent('VHeader', Header)
 videojs.registerComponent('VVolume', Volume)
 videojs.registerComponent('VProgressControl', ProgressControl)
@@ -37,7 +40,6 @@ videojs.registerComponent('VBrightnessGesture', BrightnessGesture)
 videojs.registerComponent('VVolumeGesture', VolumeGesture)
 videojs.registerComponent('VScrubGesture', ScrubGesture)
 videojs.registerComponent('VDoubleClickGesture', DoubleClickGesture)
-// qualitySelector(videojs)
 
 @Component({
   name: 'VuiVideo',
@@ -90,23 +92,9 @@ export default class VComponent extends Vue {
 
   @Prop({
     type: Object,
-    default() {
-      return {
-        // width: 1200,
-        // preload: 'none',
-        // 直播时使用新风格UI
-        // liveui: true,
-        // userActions: {
-        //   doubleClick: false
-        //   // doubleClick(this: VComponent['player']) {
-        //   //   console.log(this.paused(), 22)
-        //   //   this[this.paused() ? 'play' : 'pause']()
-        //   // }
-        // }
-      }
-    }
+    required: false
   })
-  readonly options!: videojs.PlayerOptions
+  readonly options?: videojs.PlayerOptions
 
   @Prop({
     type: String,
@@ -205,6 +193,12 @@ export default class VComponent extends Vue {
             // 禁用双击全屏
             doubleClick: false
           },
+          html5: {
+            vhs: {
+              overrideNative: 'MediaSource' in window,
+              smoothQualityChange: true
+            }
+          },
           /**
            * 组件设置
            */
@@ -231,6 +225,7 @@ export default class VComponent extends Vue {
               // },
               'vVolume',
               'vProgressControl',
+              'qualitySelector',
               'playbackRateMenuButton',
               'chaptersButton',
               'descriptionsButton',
@@ -244,30 +239,20 @@ export default class VComponent extends Vue {
           }
         }
       },
-      function (this: any) {
-        this.off(this.tech_, 'mouseup', this.handleTechClick_)
+      () => {
+        this.player.off(this.player.tech(), 'mouseup', (this.player as any).handleTechClick_)
       }
     )
 
+    // console.log(this.player.getChild('posterImage'))
+    // ;(this.player.getChild('posterImage') as any).disable()
     this.player.src(this.src)
     this.player.trigger('v:title', this.title)
-
-    console.log('player', this.player)
-
-    // console.log(456, this.player.getVideoPlaybackQuality())
-
-    // this.setGesture()
-    // this.setBrightnessGesture()
-
-    // console.log(videojs.getComponent())
-    // console.log(this.player.getDescendant(['ControlBar', 'CurrentTimeDisplay']))
-
-    // this.player.getDescendant(['ControlBar', 'RemainingTimeDisplay'])
-
-    // const remainingTimeDisplay = this.player.getChild('ControlBar')?.getChild('RemainingTimeDisplay')!
-
-    // console.log(this.player.getChild('ControlBar')?.getChild('RemainingTimeDisplay')?.contentEl())
-    // console.log(remainingTimeDisplay.$(':nth-child(2)', remainingTimeDisplay.el()))
+    this.player.hlsQualitySelector()
+    // this.player.tech().on('usage', e => {
+    //   console.log('分辨率', this.player.tech().vhs.representations())
+    //   console.log('分辨率', this.player.qualityLevels())
+    // })
   }
 }
 </script>

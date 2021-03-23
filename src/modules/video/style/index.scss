@@ -6,6 +6,7 @@
 @use '../../overlayer/style/index' as *;
 @use './image' as image;
 @import "~video.js/dist/video-js.css";
+@import "~@silvermine/videojs-quality-selector/dist/css/quality-selector.css";
 
 @include b(video) {
   padding: 28.15% 0;
@@ -26,9 +27,124 @@
   //   }
   // }
 
+  // header组件
+  @include e(header) {
+    align-items: center;
+    background: linear-gradient(rgba(89, 89, 89, 0.74), transparent);
+    display: flex;
+    height: 171px;
+    left: 0;
+    padding: 0 48px;
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    &-back {
+      background: url("../image/back.svg") center / contain no-repeat;
+      height: 100px;
+      margin-right: 24px;
+      width: 100px;
+    }
+
+    &-title {
+      font-size: 48px;
+      line-height: 72px;
+    }
+  }
+
+  // volume组件
+  @include e(volume) {
+    background: url("../image/volume.svg") center / contain no-repeat;
+    cursor: pointer;
+    height: 100px;
+    width: 100px;
+
+    @include m(muted) {
+      background-image: url("../image/volume-muted.svg");
+    }
+  }
+
+  // 进度控制组件
+  @include e(progress-control) {
+    align-items: center;
+    display: flex;
+    flex: auto;
+
+    &-progress {
+      background: rgba(255, 255, 255, 0.48);
+      border-radius: 3px;
+      bottom: 0;
+      left: 0;
+      position: absolute;
+      top: 0;
+
+      @include m(played) {
+        background: #ff8a00;
+
+        &::after {
+          background: #fff;
+          border-radius: 50%;
+          content: "";
+          height: 36px;
+          position: absolute;
+          right: 0;
+          top: 50%;
+          transform: translate(50%, -50%);
+          width: 36px;
+        }
+      }
+
+      &-bar {
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 3px;
+        flex: auto;
+        height: 6px;
+        position: relative;
+
+        &-wrapper {
+          align-items: center;
+          cursor: pointer;
+          display: flex;
+          flex: auto;
+          height: 36px;
+        }
+      }
+    }
+
+    &-current-time {
+      color: #d8d8d8;
+      font-size: 39px;
+      opacity: 0.9;
+      padding: 0 25px 0 48px;
+    }
+
+    &-remaining-time {
+      color: #d8d8d8;
+      font-size: 39px;
+      opacity: 0.9;
+      padding: 0 48px 0 25px;
+    }
+  }
+
+  // 全屏组件
+  @include e(fullscreen) {
+    background: url("../image/fullscreen-zoomin.svg") center / contain no-repeat;
+    height: 100px;
+    width: 100px;
+
+    @include m(full) {
+      background-image: url("../image/fullscreen-zoomout.svg");
+    }
+
+    &-overlayer {
+      display: none;
+    }
+  }
+
   // play-control组件
   @include e(play-control) {
     align-items: center;
+    cursor: pointer;
     display: flex;
     justify-content: center;
     left: 50%;
@@ -43,23 +159,21 @@
       }
     }
 
-    // 4g网络且暂停状态
-    @include m(4g) {
-      @include m(paused) {
-        border: 2px solid #fff;
-        border-radius: 50px;
-        box-sizing: border-box;
-        height: 100px;
-        width: 546px;
+    // 显示还需消耗的流量
+    @include m(size) {
+      border: 2px solid #fff;
+      border-radius: 50px;
+      box-sizing: border-box;
+      height: 100px;
+      width: 546px;
 
-        @include e(play-control-icon) {
-          height: 40px;
-          width: 40px;
-        }
+      @include e(play-control-icon) {
+        height: 40px;
+        width: 40px;
+      }
 
-        @include e(play-control-size) {
-          display: block;
-        }
+      @include e(play-control-size) {
+        display: block;
       }
     }
 
@@ -81,21 +195,6 @@
         content: "流量播放";
         margin-left: 6px;
       }
-    }
-  }
-
-  // 全屏组件
-  @include e(fullscreen) {
-    background: url("../image/fullscreen-zoomin.svg") center / contain no-repeat;
-    height: 100px;
-    width: 100px;
-
-    @include m(full) {
-      background-image: url("../image/fullscreen-zoomout.svg");
-    }
-
-    &-overlayer {
-      display: none;
     }
   }
 
@@ -127,6 +226,41 @@
       left: 0;
       position: absolute;
       top: 0;
+    }
+  }
+
+  // 网络监控组件
+  @include e(net-monitor) {
+    align-items: center;
+    background: rgba(0, 0, 0, 0.6);
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+
+    @include e(net-monitor-btn) {
+      border: $button-border-width solid transparent;
+      color: #fff;
+      font-size: $button-font-size-regular;
+      line-height: 1;
+      margin-top: 76px;
+      width: 372px;
+    }
+
+    &-text {
+      color: #d8d8d8;
+      font-size: 39px;
+      line-height: 54px;
+    }
+
+    &-4g-prompt {
+      bottom: 50%;
+      position: absolute;
+      transform: translate(-50%, 50%);
     }
   }
 
@@ -299,31 +433,6 @@
     }
   }
 
-  // header组件
-  @include e(header) {
-    align-items: center;
-    background: linear-gradient(rgba(89, 89, 89, 0.74), transparent);
-    display: flex;
-    height: 171px;
-    left: 0;
-    padding: 0 48px;
-    position: absolute;
-    right: 0;
-    top: 0;
-
-    &-back {
-      background: url("../image/back.svg") center / contain no-repeat;
-      height: 100px;
-      margin-right: 24px;
-      width: 100px;
-    }
-
-    &-title {
-      font-size: 48px;
-      line-height: 72px;
-    }
-  }
-
   // volume-brightness
   @include e(volume-gesture) {
     align-items: center;
@@ -423,115 +532,6 @@
     }
   }
 
-  // volume组件
-  @include e(volume) {
-    background: url("../image/volume.svg") center / contain no-repeat;
-    cursor: pointer;
-    height: 100px;
-    width: 100px;
-
-    @include m(muted) {
-      background-image: url("../image/volume-muted.svg");
-    }
-  }
-
-  // 进度控制组件
-  @include e(progress-control) {
-    align-items: center;
-    display: flex;
-    flex: auto;
-
-    &-progress {
-      background: rgba(255, 255, 255, 0.48);
-      border-radius: 3px;
-      bottom: 0;
-      left: 0;
-      position: absolute;
-      top: 0;
-
-      @include m(played) {
-        background: #ff8a00;
-
-        &::after {
-          background: #fff;
-          border-radius: 50%;
-          content: "";
-          height: 36px;
-          position: absolute;
-          right: 0;
-          top: 50%;
-          transform: translate(50%, -50%);
-          width: 36px;
-        }
-      }
-
-      &-bar {
-        background: rgba(255, 255, 255, 0.15);
-        border-radius: 3px;
-        flex: auto;
-        height: 6px;
-        position: relative;
-
-        &-wrapper {
-          align-items: center;
-          cursor: pointer;
-          display: flex;
-          flex: auto;
-          height: 36px;
-        }
-      }
-    }
-
-    &-current-time {
-      color: #d8d8d8;
-      font-size: 39px;
-      opacity: 0.9;
-      padding: 0 25px 0 48px;
-    }
-
-    &-remaining-time {
-      color: #d8d8d8;
-      font-size: 39px;
-      opacity: 0.9;
-      padding: 0 48px 0 25px;
-    }
-  }
-
-  // 网络监控组件
-  @include e(net-monitor) {
-    align-items: center;
-    background: rgba(0, 0, 0, 0.6);
-    bottom: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    left: 0;
-    position: absolute;
-    right: 0;
-    top: 0;
-
-    @include e(net-monitor-btn) {
-      border: $button-border-width solid transparent;
-      color: #fff;
-      font-size: $button-font-size-regular;
-      line-height: 1;
-      margin-top: 76px;
-      width: 372px;
-    }
-
-    &-text {
-      color: #d8d8d8;
-      font-size: 39px;
-      line-height: 54px;
-    }
-
-    &-4g-prompt {
-      bottom: 50%;
-      position: absolute;
-      transform: translate(-50%, 50%);
-    }
-  }
-
   // pc端样式
   @include pc {
     font-size: 12px;
@@ -550,6 +550,11 @@
       .vjs-current-time {
         display: block;
       }
+    }
+
+    // PosterImage组件
+    .vjs-poster {
+      pointer-events: none;
     }
 
     // 覆盖videojs默认样式

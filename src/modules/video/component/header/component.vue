@@ -1,6 +1,6 @@
 <template>
-  <div class="vui-video__header">
-    <div v-if="fullscreen" class="vui-video__header-back" @click="back"></div>
+  <div v-if="fullscreen" class="vui-video__header">
+    <div class="vui-video__header-back" @click="back"></div>
     <div class="vui-video__header-title">{{ title }}</div>
   </div>
 </template>

@@ -5,13 +5,13 @@
       'vui-video__play-control',
       {
         'vui-video__play-control--playing': !paused,
-        'vui-video__play-control--paused': paused,
-        'vui-video__play-control--4g': is4G
+        'vui-video__play-control--size': paused && netType === 3 && size && !isLive
       }
     ]"
+    @click="$options.player[paused ? 'play' : 'pause']()"
   >
-    <span class="vui-video__play-control-icon" @click="player[paused ? 'play' : 'pause']()"></span>
-    <span class="vui-video__play-control-size">40M</span>
+    <span class="vui-video__play-control-icon"></span>
+    <span class="vui-video__play-control-size">{{ size }} bytes</span>
   </div>
 </template>
 
@@ -22,19 +22,32 @@ import { Vue, Component } from 'vue-property-decorator'
   name: 'VuiVideoPlayControl'
 })
 export default class VComponent extends Vue {
-  // 已暂停
+  // 视频时长
+  private duration = 0
+  // 是否暂停
   private paused = true
-  // 用户正在交互
+  // 是否正在交互
   private useractive = true
-  // 正在快进、快退
+  // 是否正在快进、快退
   private scrubbing = false
-  // 正在加载等待
+  // 是否正在加载等待
   private waiting = false
-  // 移动网络
-  private is4G = true
+  // 网络状态 0——未知 1——断网 2——wifi 3——流量
+  private netType = 0
+  // 视频尺寸
+  private size = 0
+
+  // 是否直播
+  get isLive() {
+    return this.duration === Infinity
+  }
 
   created() {
     const player = this.$options.player!
+
+    player.on('durationchange', () => {
+      this.duration = player.duration()
+    })
 
     player.on(['play', 'pause'], event => {
       this.paused = event.type === 'pause'
@@ -60,6 +73,10 @@ export default class VComponent extends Vue {
 
     player.on('v:scrubbing', (event, { scrubbing }: { scrubbing: boolean }) => {
       this.scrubbing = scrubbing
+    })
+
+    player!.on('v:nettype', (event, netType: number) => {
+      this.netType = netType
     })
   }
 }
