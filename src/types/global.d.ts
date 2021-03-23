@@ -2,6 +2,8 @@ declare module '*.vue' {
   import Vue from 'vue'
   export default Vue
 }
+declare module '@vivo/v-jsbridge'
+declare module '@silvermine/videojs-quality-selector'
 
 interface HTMLElement {
   _intersect?: {
