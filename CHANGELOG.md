@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.5.0-beta.0](http://gitlab.vmic.xyz/game-common/vui/compare/v2.4.0-beta.0...v2.5.0-beta.0) (2021-03-23)
+
+
+### Features
+
+* toast组件新增target属性；demo开发环境添加vconsole ([dfb9e3f](http://gitlab.vmic.xyz/game-common/vui/commit/dfb9e3f36593659d84d86fab8d7d506cfe1d482c))
+* 将demo中的单位改成vmin；初始化video组件 ([cf277f8](http://gitlab.vmic.xyz/game-common/vui/commit/cf277f858b5bd68bb331bbd05da8d6bb3a29d024))
+
+
+### Bug Fixes
+
+* 完善video组件 ([b39ffc7](http://gitlab.vmic.xyz/game-common/vui/commit/b39ffc76a64058369c5bc9d1dc491af5f01eec18))
+* 完善video组件 ([8646b3f](http://gitlab.vmic.xyz/game-common/vui/commit/8646b3fdb19be92936694ffc910779d93eb35db4))
+
 ## [2.4.0](http://gitlab.vmic.xyz/game-common/vui/compare/v2.4.0-beta.0...v2.4.0) (2021-03-17)
 
 ## [2.4.0-beta.0](http://gitlab.vmic.xyz/game-common/vui/compare/v2.3.0...v2.4.0-beta.0) (2021-03-13)
