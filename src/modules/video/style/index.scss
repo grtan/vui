@@ -126,6 +126,43 @@
     }
   }
 
+  // 清晰度选择组件
+  @include e(quality-selector) {
+    color: #d8d8d8;
+    font-size: 39px;
+
+    &-list {
+      align-items: center;
+      background: rgba(0, 0, 0, 0.5);
+      bottom: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      overflow: auto;
+      padding: 0 40px;
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+
+    &-item {
+      align-items: center;
+      border: 2px solid #fff;
+      border-radius: 0.75em;
+      box-sizing: border-box;
+      color: #fff;
+      display: flex;
+      font-size: 39px;
+      height: 1.5em;
+      margin: 0.5em 0;
+      padding: 0 0.8em;
+
+      @include m(selected) {
+        color: #f00;
+      }
+    }
+  }
+
   // 全屏组件
   @include e(fullscreen) {
     background: url("../image/fullscreen-zoomin.svg") center / contain no-repeat;

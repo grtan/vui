@@ -34,12 +34,6 @@ declare module 'vue/types/options' {
   }
 }
 
-declare module 'video.js' {
-  interface VideoJsPlayer {
-    hlsQualitySelector: () => any
-  }
-}
-
 export interface VuiComponent {
   install: PluginFunction<any>
 }

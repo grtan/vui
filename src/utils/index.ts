@@ -34,27 +34,41 @@ import { getNetType } from '@vivo/v-jsbridge'
 
 // 自定义setInterval和clearInterval
 const { setInterval, clearInterval } = (function () {
-  const intervalIds: Record<number, any> = {}
+  const intervalIds: Record<string, number> = {}
   let id = 0
 
   function setInterval(callback: (...args: any[]) => any, delay: number, ...args: any[]) {
     const intervalId = ++id
 
-    async function fn() {
-      // eslint-disable-next-line standard/no-callback-literal
-      await callback(...args)
+    function fn() {
       // eslint-disable-next-line @typescript-eslint/no-misused-promises
-      intervalIds[intervalId] = setTimeout(fn, delay)
+      intervalIds[intervalId] = window.setTimeout(async () => {
+        try {
+          // eslint-disable-next-line standard/no-callback-literal
+          await callback(...args)
+        } catch (e) {}
+
+        /**
+         * 上一个callback中没有调用clearInterval时才继续执行
+         *
+         * 这里将fn放在callback之后，特意等callback执行完后再延时delay时间才继续执行callback
+         * 防止callback执行时间超过delay时，callback被不间断地添加到任务队列中，从而导致js线程一直处于繁忙状态
+         */
+        if (intervalIds[intervalId] !== undefined) {
+          fn()
+        }
+      }, delay)
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-misused-promises
-    intervalIds[intervalId] = setTimeout(fn, delay)
+    fn()
 
     return intervalId
   }
 
   function clearInterval(intervalId: number) {
     clearTimeout(intervalIds[intervalId])
+    // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
+    delete intervalIds[intervalId]
   }
 
   return { setInterval, clearInterval }
@@ -128,36 +142,3 @@ export const monitorNetType = (function () {
     }
   }
 })()
-
-// 监控网络类型
-// export function monitorNetType(callbackFn: (netType: 0 | 1 | 2) => any) {
-//   const id = setInterval(async function () {
-//     const { code, value } = await Promise.race([
-//       getNetType(),
-//       // 平台不支持jsbridge
-//       new Promise(resolve => {
-//         setTimeout(() => {
-//           resolve({
-//             code: 404
-//           })
-//         }, 2000)
-//       })
-//     ])
-
-//     if (code) {
-//       // 获取失败
-//       callbackFn(0)
-//     } else if (value === 'WIFI') {
-//       // wifi
-//       callbackFn(1)
-//     } else {
-//       // 流量
-//       callbackFn(2)
-//     }
-//   }, 2000)
-
-//   // 停止监听
-//   return function () {
-//     clearInterval(id)
-//   }
-// }

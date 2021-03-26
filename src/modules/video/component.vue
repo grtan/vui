@@ -10,11 +10,11 @@
 import { Vue, Component, Prop, Watch } from 'vue-property-decorator'
 import videojs, { VideoJsPlayer } from 'video.js'
 import 'videojs-contrib-quality-levels'
-import qualitySelector from '@silvermine/videojs-quality-selector'
-import 'videojs-hls-quality-selector'
+import { SOURCES_CHANGED } from './event'
 import Header from './component/header'
 import Volume from './component/volume'
 import ProgressControl from './component/progress-control'
+import QualitySelector from './component/quality-selector'
 import Fullscreen from './component/fullscreen'
 import PlayControl from './component/play-control'
 import Loading from './component/loading'
@@ -26,10 +26,10 @@ import VolumeGesture from './component/volume-gesture'
 import ScrubGesture from './component/scrub-gesture'
 import DoubleClickGesture from './component/double-click-gesture'
 
-qualitySelector(videojs)
 videojs.registerComponent('VHeader', Header)
 videojs.registerComponent('VVolume', Volume)
 videojs.registerComponent('VProgressControl', ProgressControl)
+videojs.registerComponent('VQualitySelector', QualitySelector)
 videojs.registerComponent('VFullscreen', Fullscreen)
 videojs.registerComponent('VPlayControl', PlayControl)
 videojs.registerComponent('VLoading', Loading)
@@ -104,11 +104,13 @@ export default class VComponent extends Vue {
 
   @Watch('src')
   onSrcChange() {
+    const src = JSON.parse(JSON.stringify(this.src))
     const paused = this.player.paused()
 
-    this.player.src(this.src)
+    this.player.src(src)
     this.player.currentTime(0)
     this.player[paused ? 'pause' : 'play']()
+    this.player.trigger(SOURCES_CHANGED, src)
   }
 
   @Watch('autoplay')
@@ -225,14 +227,14 @@ export default class VComponent extends Vue {
               // },
               'vVolume',
               'vProgressControl',
-              'qualitySelector',
+              'vQualitySelector',
               'playbackRateMenuButton',
-              'chaptersButton',
-              'descriptionsButton',
-              'subtitlesButton',
-              'captionsButton',
-              'subsCapsButton',
-              'audioTrackButton',
+              // 'chaptersButton',
+              // 'descriptionsButton',
+              // 'subtitlesButton',
+              // 'captionsButton',
+              // 'subsCapsButton',
+              // 'audioTrackButton',
               // 'pictureInPictureToggle',
               'vFullscreen'
             ]
@@ -244,15 +246,10 @@ export default class VComponent extends Vue {
       }
     )
 
-    // console.log(this.player.getChild('posterImage'))
-    // ;(this.player.getChild('posterImage') as any).disable()
     this.player.src(this.src)
+    this.player.trigger(SOURCES_CHANGED, this.src)
     this.player.trigger('v:title', this.title)
     this.player.hlsQualitySelector()
-    // this.player.tech().on('usage', e => {
-    //   console.log('分辨率', this.player.tech().vhs.representations())
-    //   console.log('分辨率', this.player.qualityLevels())
-    // })
   }
 }
 </script>
