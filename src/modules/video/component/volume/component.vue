@@ -12,27 +12,29 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
+import { MUTED_CHANGED } from '../../event'
 
 @Component({
   name: 'VuiVideoVolume'
 })
 export default class VComponent extends Vue {
-  // 静音
-  private muted = true
+  private muted = this.$options.player!.muted()
 
   created() {
     const player = this.$options.player!
 
-    player.muted(this.muted)
     // 将video元素音量调到最大
     player.volume(1)
+    player.on(MUTED_CHANGED, (event, muted: boolean) => {
+      this.muted = muted
+      player.muted(muted)
+    })
   }
 
   onClick() {
     const player = this.$options.player!
 
-    this.muted = !player.muted()
-    player.muted(this.muted)
+    player.trigger(MUTED_CHANGED, !player.muted())
   }
 }
 </script>

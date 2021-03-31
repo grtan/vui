@@ -18,14 +18,15 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
-import { VideoJsPlayer } from 'video.js'
+
+const SHOW_GUIDE = 'vui-video_show-guide'
 
 @Component({
   name: 'VuiVideoGuide'
 })
 export default class VComponent extends Vue {
   // 已经显示过的引导
-  private shownGuides = ['brightness', 'volume', 'seek', 'play']
+  private shownGuides: string[] = []
   // 待显示的引导
   private unshownGuides: string[] = []
 
@@ -45,18 +46,18 @@ export default class VComponent extends Vue {
   }
 
   created() {
-    this.$on('inited', (player: VideoJsPlayer) => {
-      player.on('fullscreenchange', () => {
-        if (player.isFullscreen()) {
-          if (!localStorage.getItem('vui-video-guide')) {
-            this.shownGuides = []
-            this.unshownGuides = ['brightness', 'volume', 'seek', 'play']
-          }
-        } else {
-          // 退出全屏时需要关闭引导
-          this.unshownGuides = []
+    const player = this.$options.player!
+
+    player.on('fullscreenchange', () => {
+      if (player.isFullscreen()) {
+        if (!localStorage.getItem(SHOW_GUIDE)) {
+          this.shownGuides = []
+          this.unshownGuides = ['seek', 'play']
         }
-      })
+      } else {
+        // 退出全屏时需要关闭引导
+        this.unshownGuides = []
+      }
     })
   }
 
@@ -65,7 +66,7 @@ export default class VComponent extends Vue {
 
     // 引导显示完后标记下
     if (!this.unshownGuides.length) {
-      localStorage.setItem('vui-video-guide', 'true')
+      localStorage.setItem(SHOW_GUIDE, 'true')
     }
   }
 }

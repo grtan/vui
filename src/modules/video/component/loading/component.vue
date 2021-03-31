@@ -1,9 +1,11 @@
 <template>
-  <div v-show="waiting && !scrubbing && netType !== 1" class="vui-video__loading"></div>
+  <div v-show="show" class="vui-video__loading"></div>
 </template>
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
+import { SCRUBBING, NETWORK_CHANGED } from '../../event'
+import { NETWORK } from '@/utils/const'
 
 @Component({
   name: 'VuiVideoLoading'
@@ -11,10 +13,14 @@ import { Vue, Component } from 'vue-property-decorator'
 export default class VComponent extends Vue {
   // 正在加载等待
   private waiting = false
-  // 正在快进、快退
+  // 正在拖拽快进、快退
   private scrubbing = false
   // 网络状态
-  private netType = 0
+  private netType: typeof NETWORK[keyof typeof NETWORK] = NETWORK.UNKNOWN
+
+  get show() {
+    return this.waiting && !this.scrubbing && this.netType !== NETWORK.DISCONNECTED
+  }
 
   created() {
     const player = this.$options.player!
@@ -24,7 +30,7 @@ export default class VComponent extends Vue {
 
       const timeWhenWaiting = player.currentTime()
       const timeUpdateListener = () => {
-        if (Math.abs(player.currentTime() - timeWhenWaiting) < 0.1) {
+        if (Math.abs(player.currentTime() - timeWhenWaiting) < 0.2) {
           return
         }
 
@@ -35,11 +41,11 @@ export default class VComponent extends Vue {
       player.on('timeupdate', timeUpdateListener)
     })
 
-    player.on('v:scrubbing', (event, { scrubbing }: { scrubbing: boolean }) => {
+    player.on(SCRUBBING, (event, { scrubbing }: { scrubbing: boolean }) => {
       this.scrubbing = scrubbing
     })
 
-    player.on('v:nettype', (event, netType: number) => {
+    player.on(NETWORK_CHANGED, (event, netType: VComponent['netType']) => {
       this.netType = netType
     })
   }

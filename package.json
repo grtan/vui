@@ -44,7 +44,6 @@
   "homepage": "https://gitlab.vmic.xyz/game-common/vui#readme",
   "dependencies": {
     "@babel/runtime-corejs3": "^7.12.1",
-    "@silvermine/videojs-quality-selector": "^1.2.4",
     "@vivo/v-jsbridge": "^0.1.17",
     "hammerjs": "^2.0.8",
     "intersection-observer": "^0.12.0",
@@ -52,7 +51,6 @@
     "tslib": "^2.0.3",
     "video.js": "^7.11.4",
     "videojs-contrib-quality-levels": "^2.0.9",
-    "videojs-hls-quality-selector": "^1.1.4",
     "vue-class-component": "^7.2.6",
     "vue-property-decorator": "^9.0.2",
     "vue-runtime-helpers": "^1.1.2"
@@ -71,6 +69,7 @@
     "@types/hammerjs": "^2.0.39",
     "@types/photoswipe": "^4.1.1",
     "@types/video.js": "^7.3.14",
+    "@types/videojs-contrib-quality-levels": "^2.0.0",
     "@typescript-eslint/eslint-plugin": "^4.6.1",
     "@typescript-eslint/parser": "^4.6.1",
     "@vivo/ks3": "^0.4.1",

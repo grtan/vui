@@ -41,13 +41,19 @@ export default class VComponent extends Vue {
     const player = this.$options.player!
 
     if (this.fullscreen) {
-      player.requestFullscreen()
+      if (!player.isFullscreen()) {
+        player.requestFullscreen()
+      }
+
       // 0——横屏 1——竖屏
       requestedOrientation({
         orientation: this.isHorz ? 0 : 1
       })
     } else {
-      player.exitFullscreen()
+      if (player.isFullscreen()) {
+        player.exitFullscreen()
+      }
+
       requestedOrientation({
         orientation: 1
       })

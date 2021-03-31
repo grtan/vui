@@ -6,53 +6,73 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
+import { SCRUBBING } from '../../event'
+import { requestAnimationFrame, cancelAnimationFrame } from '@/utils/prefix'
 
 @Component({
   name: 'VuiVideoProgressBar'
 })
 export default class VComponent extends Vue {
   // 视频总时长
-  private duration = 0
+  private duration = this.$options.player!.duration()
+  // 直播时当前已解析的视频范围起点、终点位置时间
+  private liveSeekableStart = this.$options.player!.liveTracker.seekableStart()
+  private liveSeekableEnd = this.$options.player!.liveTracker.seekableEnd()
   // 当前显示时间
-  private currentTime = 0
-  // 已暂停
-  private paused = true
-  // 用户正在交互
-  private useractive = false
-  // 正在快进、快退
+  private currentTime = this.$options.player!.currentTime()
+  // 是否暂停
+  private paused = this.$options.player!.paused()
+  // 是否正在交互
+  private useractive = this.$options.player!.userActive()
+  // 是否正在拖拽快进、快退
   private scrubbing = false
+  // 动画帧id
+  private animationFrameId!: number
 
+  // 是否直播
   get isLive() {
     return this.duration === Infinity
   }
 
   get percent() {
-    const player = this.$options.player!
-
     if (this.isLive) {
-      if (player.liveTracker.atLiveEdge()) {
-        return 1
+      const player = this.$options.player!
+      // 这里必须引用到currentTime等变量，否则currentTime更新时不会触发该函数执行
+      let percent =
+        (Math.min(Math.max(this.liveSeekableStart, this.currentTime), this.liveSeekableEnd) - this.liveSeekableStart) /
+        (this.liveSeekableEnd - this.liveSeekableStart)
+
+      // 如果定位成实时直播，必须直接返回1，否则liveSeekableEnd>currentTime时就会有问题
+      if (!this.scrubbing && player.liveTracker.atLiveEdge()) {
+        percent = 1
       }
 
-      return Math.min(1, (this.currentTime - player.liveTracker.seekableStart()) / player.liveTracker.liveWindow())
+      return percent
     }
 
-    return Math.min(1, this.currentTime / this.duration)
+    return Math.min(Math.max(0, this.currentTime), this.duration) / this.duration
   }
 
   created() {
     const player = this.$options.player!
+    const fn = () => {
+      if (!this.scrubbing) {
+        this.currentTime = player.currentTime()
+      }
+
+      if (this.isLive) {
+        this.liveSeekableStart = player.liveTracker.seekableStart()
+        this.liveSeekableEnd = player.liveTracker.seekableEnd()
+      }
+
+      this.animationFrameId = requestAnimationFrame(fn)
+    }
+
+    // 用动画帧来更新当前时间，否则进度条动画会不流畅
+    this.animationFrameId = requestAnimationFrame(fn)
 
     player.on('durationchange', () => {
       this.duration = player.duration()
-    })
-
-    player.on(['timeupdate', 'ended'], () => {
-      if (this.scrubbing) {
-        return
-      }
-
-      this.currentTime = player.currentTime()
     })
 
     player.on(['play', 'pause'], event => {
@@ -63,10 +83,14 @@ export default class VComponent extends Vue {
       this.useractive = event.type === 'useractive'
     })
 
-    player.on('v:scrubbing', (event, { scrubbing, time }: { scrubbing: boolean; time: number }) => {
+    player.on(SCRUBBING, (event, { scrubbing, time }: { scrubbing: boolean; time: number }) => {
       this.scrubbing = scrubbing
       this.currentTime = time
     })
+  }
+
+  beforeDestroy() {
+    cancelAnimationFrame(this.animationFrameId)
   }
 }
 </script>

@@ -10,7 +10,7 @@
 import { Vue, Component, Prop, Watch } from 'vue-property-decorator'
 import videojs, { VideoJsPlayer } from 'video.js'
 import 'videojs-contrib-quality-levels'
-import { SOURCES_CHANGED } from './event'
+import { SOURCES_CHANGED, MUTED_CHANGED, TITLE_CHANGED } from './event'
 import Header from './component/header'
 import Volume from './component/volume'
 import ProgressControl from './component/progress-control'
@@ -104,76 +104,42 @@ export default class VComponent extends Vue {
 
   @Watch('src')
   onSrcChange() {
-    const src = JSON.parse(JSON.stringify(this.src))
-    const paused = this.player.paused()
-
-    this.player.src(src)
-    this.player.currentTime(0)
-    this.player[paused ? 'pause' : 'play']()
-    this.player.trigger(SOURCES_CHANGED, src)
+    this.player?.trigger(SOURCES_CHANGED, this.src)
   }
 
   @Watch('autoplay')
   onAutoplayChange() {
-    if (!this.player) {
-      return
-    }
-
-    this.player.autoplay(this.autoplay)
+    this.player?.autoplay(this.autoplay)
   }
 
   @Watch('loop')
   onLoopChange() {
-    if (!this.player) {
-      return
-    }
-
-    this.player.loop(this.loop)
+    this.player?.loop(this.loop)
   }
 
   @Watch('muted')
   onMutedChange() {
-    if (!this.player) {
-      return
-    }
-
-    this.player.muted(this.muted)
+    this.player?.trigger(MUTED_CHANGED, this.muted)
   }
 
   @Watch('preload')
   onPreloadChange() {
-    if (!this.player) {
-      return
-    }
-
-    this.player.preload(this.preload as any)
+    this.player?.preload(this.preload as any)
   }
 
   @Watch('poster')
   onPosterChange() {
-    if (!this.player) {
-      return
-    }
-
-    this.player.poster(this.poster!)
+    this.player?.poster(this.poster!)
   }
 
   @Watch('controls')
   onControlsChange() {
-    if (!this.player) {
-      return
-    }
-
-    this.player.controls(this.controls)
+    this.player?.controls(this.controls)
   }
 
   @Watch('title')
   onTitleChange() {
-    if (!this.player) {
-      return
-    }
-
-    this.player.trigger('v:title', this.title)
+    this.player?.trigger(TITLE_CHANGED, this.title)
   }
 
   mounted() {
@@ -197,7 +163,9 @@ export default class VComponent extends Vue {
           },
           html5: {
             vhs: {
+              // 当支持MediaSource时覆盖原生hls支持
               overrideNative: 'MediaSource' in window,
+              // 自适应多码率流清晰度无缝切换
               smoothQualityChange: true
             }
           },
@@ -221,20 +189,10 @@ export default class VComponent extends Vue {
           vHeader: true,
           controlBar: {
             children: [
-              // {
-              //   name: 'volumePanel',
-              //   inline: false
-              // },
               'vVolume',
               'vProgressControl',
               'vQualitySelector',
               'playbackRateMenuButton',
-              // 'chaptersButton',
-              // 'descriptionsButton',
-              // 'subtitlesButton',
-              // 'captionsButton',
-              // 'subsCapsButton',
-              // 'audioTrackButton',
               // 'pictureInPictureToggle',
               'vFullscreen'
             ]
@@ -246,10 +204,22 @@ export default class VComponent extends Vue {
       }
     )
 
-    this.player.src(this.src)
-    this.player.trigger(SOURCES_CHANGED, this.src)
-    this.player.trigger('v:title', this.title)
-    this.player.hlsQualitySelector()
+    // 用户点击改变了静音时，同步到父组件中
+    this.player.on(MUTED_CHANGED, (event, muted: boolean) => {
+      if (this.muted === muted) {
+        return
+      }
+
+      this.$emit('update:muted', muted)
+    })
+
+    this.onSrcChange()
+    this.onMutedChange()
+    this.onTitleChange()
+  }
+
+  beforeDestroy() {
+    this.player.dispose()
   }
 }
 </script>

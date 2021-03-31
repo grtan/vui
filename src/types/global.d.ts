@@ -29,9 +29,12 @@ interface HTMLElement {
 }
 
 interface Window {
-  mozRequestAnimationFrame: (callback: FrameRequestCallback) => number
-  oRequestAnimationFrame: (callback: FrameRequestCallback) => number
-  msRequestAnimationFrame: (callback: FrameRequestCallback) => number
+  mozRequestAnimationFrame: typeof requestAnimationFrame
+  oRequestAnimationFrame: typeof requestAnimationFrame
+  msRequestAnimationFrame: typeof requestAnimationFrame
+  mozCancelAnimationFrame: typeof cancelAnimationFrame
+  oCancelAnimationFrame: typeof cancelAnimationFrame
+  msCancelAnimationFrame: typeof cancelAnimationFrame
 }
 
 // 获取重载函数的返回值类型

@@ -1,4 +1,5 @@
 import { getNetType } from '@vivo/v-jsbridge'
+import { NETWORK } from './const'
 
 // 将图片生成blob
 // export function getImageDataURL(image: any) {
@@ -87,7 +88,7 @@ export { setInterval, clearInterval }
  */
 export const monitorNetType = (function () {
   let intervalId: number | undefined
-  const callbacks: Array<(netType: 0 | 1 | 2 | 3) => any> = []
+  const callbacks: Array<(netType: typeof NETWORK[keyof typeof NETWORK]) => any> = []
 
   return function (cbFn: typeof callbacks[0]) {
     if (!callbacks.includes(cbFn)) {
@@ -108,20 +109,18 @@ export const monitorNetType = (function () {
           })
         ])
 
-        // console.log('++', code, value)
-
         if (code) {
           // 获取失败
-          callbacks.forEach(cbFn => cbFn(0))
+          callbacks.forEach(cbFn => cbFn(NETWORK.UNKNOWN))
         } else if (!value) {
           // 断网
-          callbacks.forEach(cbFn => cbFn(1))
+          callbacks.forEach(cbFn => cbFn(NETWORK.DISCONNECTED))
         } else if (value === 'WIFI') {
           // wifi
-          callbacks.forEach(cbFn => cbFn(2))
+          callbacks.forEach(cbFn => cbFn(NETWORK.WIFI))
         } else {
           // 流量
-          callbacks.forEach(cbFn => cbFn(3))
+          callbacks.forEach(cbFn => cbFn(NETWORK.MOBILE))
         }
       }, 2000)
     }
@@ -142,3 +141,19 @@ export const monitorNetType = (function () {
     }
   }
 })()
+
+export function formatFileSize(size: number, digits = 0) {
+  if (size < 1024) {
+    return `${size.toFixed(digits)}B`
+  }
+
+  if (size < 1024 * 1024) {
+    return `${(size / 1024).toFixed(digits)}KB`
+  }
+
+  if (size < 1024 * 1024 * 1024) {
+    return `${(size / 1024 / 1024).toFixed(digits)}M`
+  }
+
+  return `${(size / 1024 / 1024 / 1024).toFixed(digits)}G`
+}

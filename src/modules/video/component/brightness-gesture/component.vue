@@ -16,11 +16,13 @@ import Hammer from 'hammerjs'
 export default class VComponent extends Vue {
   private value = 0
   private prev = Infinity
-  private timeoutId!: number
 
   created() {
-    const videoEl = this.$options.player!.$('video')
-    const hammerManager = new Hammer.Manager(videoEl)
+    /**
+     * 直接在video元素上监听事件时，在客户端、部分浏览器会有问题
+     * 这里改为在video父元素上监听事件
+     */
+    const hammerManager = new Hammer.Manager(this.$options.player!.el())
 
     hammerManager.add(
       new Hammer.Pan({
@@ -34,18 +36,22 @@ export default class VComponent extends Vue {
     )
 
     hammerManager.on('panstart', event => {
+      this.prev = Infinity
+
+      // 不是在video元素上滑动
+      if (event.target.tagName.toLowerCase() !== 'video') {
+        return
+      }
+
       const { left, width } = event.target.getBoundingClientRect()
       const isVertical = (event.angle > 60 && event.angle < 120) || (event.angle < -60 && event.angle > -120)
 
-      this.prev = Infinity
-
-      // 非有效区域
+      // 非有效区域，或者不是垂直方向滑动
       if (event.center.x > left + width * 0.33 || !isVertical) {
         return
       }
 
       this.prev = event.center.y
-      clearTimeout(this.timeoutId)
     })
 
     hammerManager.on('panmove', event => {
@@ -70,15 +76,7 @@ export default class VComponent extends Vue {
     })
 
     hammerManager.on('panend', () => {
-      if (this.prev === Infinity) {
-        return
-      }
-
-      // 延迟一段时间后隐藏UI
-      clearTimeout(this.timeoutId)
-      this.timeoutId = window.setTimeout(() => {
-        this.prev = Infinity
-      }, 2000)
+      this.prev = Infinity
     })
   }
 }

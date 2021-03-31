@@ -1,6 +1,16 @@
 <template>
   <div class="vui-video__progress-control">
-    <div v-if="!isLive" class="vui-video__progress-control-current-time">{{ formatTime(currentTime) }}</div>
+    <div class="vui-video__progress-control-current-time">
+      {{
+        formatTime(
+          isLive
+            ? $options.player.liveTracker.atLiveEdge()
+              ? liveSeekableEnd - liveSeekableStart
+              : Math.min(Math.max(liveSeekableStart, currentTime), liveSeekableEnd) - liveSeekableStart
+            : currentTime
+        )
+      }}
+    </div>
     <!-- 这里不设置key的话，$refs.wrapper指向的元素会变化 -->
     <div ref="wrapper" key="wrapper" class="vui-video__progress-control-progress-bar-wrapper">
       <div class="vui-video__progress-control-progress-bar">
@@ -11,8 +21,16 @@
         ></div>
       </div>
     </div>
-    <div v-if="!isLive" class="vui-video__progress-control-remaining-time">
-      {{ formatTime(duration - currentTime) }}
+    <div class="vui-video__progress-control-remaining-time">
+      {{
+        formatTime(
+          isLive
+            ? $options.player.liveTracker.atLiveEdge()
+              ? 0
+              : liveSeekableEnd - currentTime
+            : duration - currentTime
+        )
+      }}
     </div>
   </div>
 </template>
@@ -21,43 +39,47 @@
 import { Vue, Component } from 'vue-property-decorator'
 import videojs from 'video.js'
 import Hammer from 'hammerjs'
+import { SCRUBBING } from '../../event'
+import { requestAnimationFrame, cancelAnimationFrame } from '@/utils/prefix'
 
 @Component({
   name: 'VuiVideoProgressBar',
   components: {}
 })
 export default class VComponent extends Vue {
-  private duration = 0
-  private currentTime = 0
+  // 视频总时长
+  private duration = this.$options.player!.duration()
+  // 直播时当前已解析的视频范围起点、终点位置时间
+  private liveSeekableStart = this.$options.player!.liveTracker.seekableStart()
+  private liveSeekableEnd = this.$options.player!.liveTracker.seekableEnd()
+  // 当前播放或定位位置的时间
+  private currentTime = this.$options.player!.currentTime()
   // 是否正在拖拽定位
   private scrubbing = false
+  // 动画帧id
+  private animationFrameId!: number
 
   get isLive() {
     return this.duration === Infinity
   }
 
   get percent() {
-    const player = this.$options.player!
-
     if (this.isLive) {
-      // if (!this.scrubbing && player.liveTracker.atLiveEdge()) {
-      //   return 1
-      // }
+      const player = this.$options.player!
+      // 这里必须引用到currentTime等变量，否则currentTime更新时不会触发该函数执行
+      let percent =
+        (Math.min(Math.max(this.liveSeekableStart, this.currentTime), this.liveSeekableEnd) - this.liveSeekableStart) /
+        (this.liveSeekableEnd - this.liveSeekableStart)
 
-      /**
-       * currentTime返回当前播放的时间
-       * liveTracker.seekableStart()返回当前可播放的时间范围的起始时间
-       * liveTracker.liveWindow()返回当前可播放的时间范围长度
-       */
-      return Math.min((this.currentTime - player.liveTracker.seekableStart()) / player.liveTracker.liveWindow(), 1)
+      // 如果定位成实时直播，必须直接返回1，否则liveSeekableEnd>currentTime时就会有问题
+      if (!this.scrubbing && player.liveTracker.atLiveEdge()) {
+        percent = 1
+      }
+
+      return percent
     }
 
-    return Math.min(this.currentTime / this.duration, 1)
-  }
-
-  mounted() {
-    this.onPlayerEvent()
-    this.onHammerEvent()
+    return Math.min(Math.max(0, this.currentTime), this.duration) / this.duration
   }
 
   onPlayerEvent() {
@@ -67,49 +89,26 @@ export default class VComponent extends Vue {
       this.duration = player.duration()
     })
 
-    player.on(['timeupdate', 'ended'], () => {
-      if (this.scrubbing) {
-        return
-      }
-
-      this.currentTime = player.currentTime()
-    })
-
     // 监听是否正在快进、快退
-    player.on('v:scrubbing', (event, { scrubbing, time }: { scrubbing: boolean; time: number }) => {
-      // const total = this.isLive ? player.liveTracker.curr
-
+    player.on(SCRUBBING, (event, { scrubbing, time }: { scrubbing: boolean; time: number }) => {
+      this.scrubbing = scrubbing
       this.currentTime = time
 
-      console.log(
-        this.currentTime,
-        player.liveTracker.seekableStart(),
-        player.liveTracker.liveWindow(),
-        player.liveTracker.liveCurrentTime()
-      )
-
-      // 停止快进、后退
       if (!scrubbing) {
-        player.currentTime(
-          this.isLive
-            ? Math.min(this.currentTime, player.liveTracker.liveCurrentTime())
-            : Math.min(this.currentTime, this.duration)
-        )
+        // 直播时如果定位的位置距离seekable边缘在1s内，直接实时直播
+        if (this.isLive && Math.abs(this.liveSeekableEnd - time) <= 1) {
+          player.liveTracker.seekToLiveEdge()
+          return
+        }
+
+        player.currentTime(time)
       }
     })
-
-    // 直播时监听其他事件
-    // if (this.isLive) {
-    // player.liveTracker.on('liveedgechange', () => {
-    //   this.duration = player.liveTracker.liveCurrentTime()
-    //   console.log('live', this.duration)
-    // })
-    // }
   }
 
   onHammerEvent() {
     const player = this.$options.player!
-    const hammerManager = new Hammer.Manager(this.$refs.wrapper as EventTarget)
+    const hammerManager = new Hammer.Manager(this.$refs.wrapper as Element)
 
     hammerManager.add([
       new Hammer.Tap(),
@@ -125,23 +124,23 @@ export default class VComponent extends Vue {
 
     hammerManager.on('tap', event => {
       const { left, width } = (this.$refs.wrapper as Element).getBoundingClientRect()
-      const distance = Math.min(Math.max(event.center.x - left, 0), width)
+      const percent = Math.min(Math.max(event.center.x - left, 0), width) / width
 
-      player.trigger('v:scrubbing', {
+      player.trigger(SCRUBBING, {
         scrubbing: false,
         time: this.isLive
-          ? (distance / width) * player.liveTracker.liveWindow() + player.liveTracker.seekableStart()
-          : (distance / width) * this.duration
+          ? percent * (this.liveSeekableEnd - this.liveSeekableStart) + this.liveSeekableStart
+          : percent * this.duration
       })
     })
 
     hammerManager.on('panstart', event => {
+      // 非水平方向滑动
       if (![Hammer.DIRECTION_LEFT, Hammer.DIRECTION_RIGHT].includes(event.direction as any)) {
         return
       }
 
-      this.scrubbing = true
-      player.trigger('v:scrubbing', {
+      player.trigger(SCRUBBING, {
         scrubbing: true,
         time: this.currentTime
       })
@@ -153,13 +152,13 @@ export default class VComponent extends Vue {
       }
 
       const { left, width } = (this.$refs.wrapper as Element).getBoundingClientRect()
-      const distance = Math.min(Math.max(event.center.x - left, 0), width)
+      const percent = Math.min(Math.max(event.center.x - left, 0), width) / width
 
-      player.trigger('v:scrubbing', {
+      player.trigger(SCRUBBING, {
         scrubbing: true,
         time: this.isLive
-          ? (distance / width) * player.liveTracker.liveWindow() + player.liveTracker.seekableStart()
-          : (distance / width) * this.duration
+          ? percent * (this.liveSeekableEnd - this.liveSeekableStart) + this.liveSeekableStart
+          : percent * this.duration
       })
     })
 
@@ -168,16 +167,41 @@ export default class VComponent extends Vue {
         return
       }
 
-      this.scrubbing = false
-      player.trigger('v:scrubbing', {
+      player.trigger(SCRUBBING, {
         scrubbing: false,
-        time: this.currentTime
+        // 如果时直播场景，拖拽松开时需要考虑currentTime是否已越界
+        time: this.isLive ? Math.max(this.currentTime, this.liveSeekableStart) : this.currentTime
       })
     })
   }
 
   formatTime(seconds: number) {
     return videojs.formatTime(seconds, 600)
+  }
+
+  mounted() {
+    const player = this.$options.player!
+    const fn = () => {
+      if (!this.scrubbing) {
+        this.currentTime = player.currentTime()
+      }
+
+      if (this.isLive) {
+        this.liveSeekableStart = player.liveTracker.seekableStart()
+        this.liveSeekableEnd = player.liveTracker.seekableEnd()
+      }
+
+      this.animationFrameId = requestAnimationFrame(fn)
+    }
+
+    // 用动画帧来更新当前时间，否则进度条动画会不流畅
+    this.animationFrameId = requestAnimationFrame(fn)
+    this.onPlayerEvent()
+    this.onHammerEvent()
+  }
+
+  beforeDestroy() {
+    cancelAnimationFrame(this.animationFrameId)
   }
 }
 </script>
