@@ -17,7 +17,7 @@
 import { Vue, Component } from 'vue-property-decorator'
 import videojs from 'video.js'
 import Hammer from 'hammerjs'
-import { SCRUBBING } from '../../event'
+import { SEEK } from '../../event'
 
 @Component({
   name: 'VuiVideoScrubGesture'
@@ -71,7 +71,7 @@ export default class VComponent extends Vue {
     })
 
     // 监听是否在快进、快退
-    player.on(SCRUBBING, (event, { scrubbing, time }) => {
+    player.on(SEEK, (event, { scrubbing, time }) => {
       this.scrubbing = scrubbing
       this.currentTime = time
 
@@ -111,7 +111,7 @@ export default class VComponent extends Vue {
       }
 
       this.prev = event.center.x
-      player.trigger(SCRUBBING, {
+      player.trigger(SEEK, {
         scrubbing: true,
         time: player.currentTime()
       })
@@ -128,7 +128,7 @@ export default class VComponent extends Vue {
       const currentTime = this.currentTime + delta
 
       this.prev = current
-      player.trigger(SCRUBBING, {
+      player.trigger(SEEK, {
         scrubbing: true,
         time: Math.min(
           Math.max(this.isLive ? this.liveSeekableStart : 0, currentTime),
@@ -143,7 +143,7 @@ export default class VComponent extends Vue {
       }
 
       this.prev = Infinity
-      player.trigger(SCRUBBING, {
+      player.trigger(SEEK, {
         scrubbing: false,
         // 如果时直播场景，拖拽松开时需要考虑currentTime是否已越界
         time: this.isLive ? Math.max(this.currentTime, this.liveSeekableStart) : this.currentTime

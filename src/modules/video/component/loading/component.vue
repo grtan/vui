@@ -4,7 +4,7 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
-import { SCRUBBING, NETWORK_CHANGED } from '../../event'
+import { SEEK, NETWORK_CHANGED } from '../../event'
 import { NETWORK } from '@/utils/const'
 
 @Component({
@@ -41,7 +41,7 @@ export default class VComponent extends Vue {
       player.on('timeupdate', timeUpdateListener)
     })
 
-    player.on(SCRUBBING, (event, { scrubbing }: { scrubbing: boolean }) => {
+    player.on(SEEK, (event, { scrubbing }: { scrubbing: boolean }) => {
       this.scrubbing = scrubbing
     })
 

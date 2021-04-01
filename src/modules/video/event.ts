@@ -4,6 +4,6 @@ export const SOURCES_CHANGED = 'v:sources-changed'
 export const SOURCE_SWITCHED = 'v:source-switched'
 export const TITLE_CHANGED = 'v:title-changed'
 // 快进、快退
-export const SCRUBBING = 'v:scrubbing'
+export const SEEK = 'v:seek'
 export const NETWORK_CHANGED = 'v:network-changed'
 export const MUTED_CHANGED = 'v:muted-changed'

@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
-import { SCRUBBING } from '../../event'
+import { SEEK } from '../../event'
 import { requestAnimationFrame, cancelAnimationFrame } from '@/utils/prefix'
 
 @Component({
@@ -83,7 +83,7 @@ export default class VComponent extends Vue {
       this.useractive = event.type === 'useractive'
     })
 
-    player.on(SCRUBBING, (event, { scrubbing, time }: { scrubbing: boolean; time: number }) => {
+    player.on(SEEK, (event, { scrubbing, time }: { scrubbing: boolean; time: number }) => {
       this.scrubbing = scrubbing
       this.currentTime = time
     })

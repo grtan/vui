@@ -4,9 +4,9 @@
 @use '../../button/style/index' as *;
 @use '../../toast/style/index' as *;
 @use '../../overlayer/style/index' as *;
+@use '../../transition/style/index' as *;
 @use './image' as image;
 @import "~video.js/dist/video-js.css";
-@import "~@silvermine/videojs-quality-selector/dist/css/quality-selector.css";
 
 @include b(video) {
   padding: 28.15% 0;
@@ -122,48 +122,80 @@
       color: #d8d8d8;
       font-size: 39px;
       opacity: 0.9;
-      padding: 0 48px 0 25px;
+      padding: 0 25px;
     }
   }
 
   // 清晰度选择组件
   @include e(quality-selector) {
-    color: #d8d8d8;
-    font-size: 39px;
+    margin: 0 25px;
+
+    &-label {
+      color: #ff8a00;
+      cursor: pointer;
+      font-size: 42px;
+    }
 
     &-list {
-      align-items: center;
-      background: rgba(0, 0, 0, 0.5);
-      bottom: 0;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+      max-height: 100%;
       overflow: auto;
-      padding: 0 40px;
-      position: absolute;
-      right: 0;
-      top: 0;
+      padding: 0 99px;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+
+      &-wrapper {
+        background: rgba(0, 0, 0, 0.6);
+        border-bottom: 41px solid transparent;
+        border-top: 41px solid transparent;
+        bottom: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: auto;
+        z-index: 1;
+      }
     }
 
     &-item {
       align-items: center;
-      border: 2px solid #fff;
-      border-radius: 0.75em;
+      border: 3px solid transparent;
+      border-radius: 48px;
       box-sizing: border-box;
       color: #fff;
+      cursor: pointer;
       display: flex;
-      font-size: 39px;
-      height: 1.5em;
-      margin: 0.5em 0;
-      padding: 0 0.8em;
+      font-size: 48px;
+      height: 96px;
+      justify-content: center;
+      margin: 41px 0;
+      min-width: 207px;
+      padding: 0 48px;
 
       @include m(selected) {
-        color: #f00;
+        border-color: currentColor;
+        color: #ff8a00;
       }
     }
 
     &-toast {
+      align-items: center;
+      background: rgba(0, 0, 0, 0.6);
+      bottom: 0;
+      display: flex;
+      font-size: 42px;
+      height: 156px;
+      padding: 0 48px;
       position: absolute;
+      z-index: 1;
+    }
+
+    &-retry {
+      color: #ff8a00;
     }
   }
 
@@ -573,14 +605,10 @@
     }
   }
 
-  // pc端样式
-  @include pc {
-    font-size: 12px;
-  }
-
   > .video-js {
     height: 100%;
     left: 0;
+    overflow: hidden;
     position: absolute;
     top: 0;
     width: 100%;

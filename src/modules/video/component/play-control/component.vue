@@ -17,7 +17,7 @@
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
-import { SCRUBBING, NETWORK_CHANGED, SOURCE_SWITCHED } from '../../event'
+import { SEEK, NETWORK_CHANGED, SOURCE_SWITCHED } from '../../event'
 import { formatFileSize } from '@/utils/index'
 import { NETWORK } from '@/utils/const'
 
@@ -100,7 +100,7 @@ export default class VComponent extends Vue {
       player.on('timeupdate', timeUpdateListener)
     })
 
-    player.on(SCRUBBING, (event, { scrubbing, time }: { scrubbing: boolean; time: number }) => {
+    player.on(SEEK, (event, { scrubbing, time }: { scrubbing: boolean; time: number }) => {
       this.scrubbing = scrubbing
 
       if (this.paused) {
