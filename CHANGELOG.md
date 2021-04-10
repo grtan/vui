@@ -25,6 +25,15 @@ All notable changes to this project will be documented in this file. See [standa
 * 完善video组件 ([b39ffc7](http://gitlab.vmic.xyz/game-common/vui/commit/b39ffc76a64058369c5bc9d1dc491af5f01eec18))
 * 完善video组件 ([8646b3f](http://gitlab.vmic.xyz/game-common/vui/commit/8646b3fdb19be92936694ffc910779d93eb35db4))
 
+### [2.4.1](http://gitlab.vmic.xyz/game-common/vui/compare/v2.4.1-beta.0...v2.4.1) (2021-04-10)
+
+### [2.4.1-beta.0](http://gitlab.vmic.xyz/game-common/vui/compare/v2.4.0...v2.4.1-beta.0) (2021-04-10)
+
+
+### Bug Fixes
+
+* 修复Overlayer组件销毁时parentElement已经不存在导致报错的问题 ([9cd7954](http://gitlab.vmic.xyz/game-common/vui/commit/9cd7954e8cb034f76b4044bdc9ad6e87f558272a))
+
 ## [2.4.0](http://gitlab.vmic.xyz/game-common/vui/compare/v2.4.0-beta.0...v2.4.0) (2021-03-17)
 
 ## [2.4.0-beta.0](http://gitlab.vmic.xyz/game-common/vui/compare/v2.3.0...v2.4.0-beta.0) (2021-03-13)
