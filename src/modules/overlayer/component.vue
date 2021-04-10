@@ -240,7 +240,7 @@ export default class VComponent extends Vue {
 
   beforeDestroy() {
     this.show && this.onShowChange(false)
-    this.$el.parentNode!.removeChild(this.$el)
+    this.$el.parentElement?.removeChild(this.$el)
   }
 }
 </script>
