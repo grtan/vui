@@ -7,7 +7,7 @@ module.exports = {
   description: 'vivo游戏事业部前端技术组vue组件库',
   base: '/docs/vui/_docs/',
   dest: '_docs',
-  patterns: ['**/*.md', '!demo/**/*.md'],
+  patterns: ['src/**/*.md', 'docs/**/*.md', '*.md'],
   markdown: {
     lineNumbers: true
   },
