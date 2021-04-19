@@ -45,6 +45,7 @@
   "dependencies": {
     "@babel/runtime-corejs3": "^7.12.1",
     "@vivo/v-jsbridge": "^0.1.17",
+    "css-element-queries": "^1.2.3",
     "hammerjs": "^2.0.8",
     "intersection-observer": "^0.12.0",
     "photoswipe": "^4.1.3",

@@ -1,0 +1,14 @@
+@use '../../../skin/var' as *;
+@use '../../../skin/common/mixin' as *;
+
+@include b(ellipsis) {
+  overflow: hidden;
+
+  @include e(ellipsis) {
+    float: right;
+  }
+
+  @include e(content) {
+    overflow-wrap: break-word;
+  }
+}

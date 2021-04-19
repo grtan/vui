@@ -5,6 +5,7 @@ import Button from './button'
 import Config from './config'
 import Dialog from './dialog'
 import Disappear from './disappear'
+import Ellipsis from './ellipsis'
 import HistoryAction from './history-action'
 import Icon from './icon'
 import ImagePreviewer from './image-previewer'
@@ -32,6 +33,7 @@ function install(
     'Config',
     'Dialog',
     'Disappear',
+    'Ellipsis',
     'HistoryAction',
     'Icon',
     'ImagePreviewer',
@@ -55,6 +57,7 @@ function install(
     Config,
     Dialog,
     Disappear,
+    Ellipsis,
     HistoryAction,
     Icon,
     ImagePreviewer,
@@ -85,6 +88,7 @@ export {
   Config,
   Dialog,
   Disappear,
+  Ellipsis,
   HistoryAction,
   Icon,
   ImagePreviewer,
