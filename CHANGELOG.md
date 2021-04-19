@@ -2,6 +2,44 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.5.0-beta.2](http://gitlab.vmic.xyz/game-common/vui/compare/v2.4.1-beta.0...v2.5.0-beta.2) (2021-04-19)
+
+
+### Features
+
+* video组件新增quality-selector组件 ([fd3341a](http://gitlab.vmic.xyz/game-common/vui/commit/fd3341a031e30f3d6bfbdf2ad2f5809b69ff82c5))
+* 新增Ellipsis组件 ([ee7e63a](http://gitlab.vmic.xyz/game-common/vui/commit/ee7e63a44eb42853c8e925a509e45161256925c0))
+
+
+### Bug Fixes
+
+* video组件去掉亮度、音量手势调节功能；修复ts类型报错 ([e1661e3](http://gitlab.vmic.xyz/game-common/vui/commit/e1661e3c1927678d340cb50e2834d4e40ff6f105))
+* 优化、完善video组件 ([44f5f2b](http://gitlab.vmic.xyz/game-common/vui/commit/44f5f2bd775810ad04830b73c6900f5be29cc5bd))
+* 优化video组件 ([7dc298f](http://gitlab.vmic.xyz/game-common/vui/commit/7dc298fabb86a5f2cc88886eaa2816853bb03114))
+
+## [2.5.0-beta.1](http://gitlab.vmic.xyz/game-common/vui/compare/v2.5.0-beta.0...v2.5.0-beta.1) (2021-03-23)
+
+
+### Bug Fixes
+
+* 修复css构建时npm包名获取错误的问题；js构建时不将.mjs后缀改成.js后缀，因为有可能.mjs和.js的文件名都不一致；修复video组件的factory.ts构建时报错的问题 ([9a43a69](http://gitlab.vmic.xyz/game-common/vui/commit/9a43a696dd23ba4068e2b0bbf6cb70fb2b1e7728))
+* 添加模块ts声明 ([a156834](http://gitlab.vmic.xyz/game-common/vui/commit/a156834649460242b814ae2033f20f180fef13a3))
+* 给videojs-hls-quality-selector插件添加hlsQualitySelector属性声明 ([20f5d2b](http://gitlab.vmic.xyz/game-common/vui/commit/20f5d2b93370baa881332cc6786a75c1f3dd3690))
+
+## [2.5.0-beta.0](http://gitlab.vmic.xyz/game-common/vui/compare/v2.4.0...v2.5.0-beta.0) (2021-03-23)
+
+
+### Features
+
+* toast组件新增target属性；demo开发环境添加vconsole ([dfb9e3f](http://gitlab.vmic.xyz/game-common/vui/commit/dfb9e3f36593659d84d86fab8d7d506cfe1d482c))
+* 将demo中的单位改成vmin；初始化video组件 ([cf277f8](http://gitlab.vmic.xyz/game-common/vui/commit/cf277f858b5bd68bb331bbd05da8d6bb3a29d024))
+
+
+### Bug Fixes
+
+* 完善video组件 ([b39ffc7](http://gitlab.vmic.xyz/game-common/vui/commit/b39ffc76a64058369c5bc9d1dc491af5f01eec18))
+* 完善video组件 ([8646b3f](http://gitlab.vmic.xyz/game-common/vui/commit/8646b3fdb19be92936694ffc910779d93eb35db4))
+
 ## [2.5.0-beta.1](http://gitlab.vmic.xyz/game-common/vui/compare/v2.5.0-beta.0...v2.5.0-beta.1) (2021-03-23)
 
 
