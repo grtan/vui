@@ -1,9 +1,32 @@
 # 开发指南
 
+**强制**使用类似`npm`和`yarn`的包管理工具[pnpm](https://pnpm.js.org/en/)来进行依赖管理，需要执行`npm i -g pnpm`进行全局安装。`pnpm`有如下优点
+
+1. 相比于 npm、yarn 尽可能的将 package 放到 root level，pnpm 则是只将显式写明的依赖写入 root-level 的 node_modules，这避免了业务里错误的引入隐式依赖的问题
+2. 不会存在依赖的模块相同版本被安装多份的问题，避免了相同版本模块的单例模式被破坏的问题
+3. 同一个版本的依赖包在电脑上只会全局存在一份，其他地方全部采用硬链接的方式实现访问，大大节省了磁盘空间
+
+参考
+
+- [为什么我们应该使用 pnpm](https://segmentfault.com/a/1190000013214927)
+- [node_modules 困境](https://zhuanlan.zhihu.com/p/137535779)
+
+## clone 仓库
+
+```bash
+git clone git@gitlab.vmic.xyz:game-common/vui.git
+```
+
+## 安装依赖
+
+```bash
+pnpm i
+```
+
 ## 创建模块
 
 ```bash
-npm run create
+pnpm run create
 ```
 
 ![create](./image/create.png)
@@ -13,7 +36,7 @@ npm run create
 ## 删除模块
 
 ```bash
-npm run delete
+pnpm run delete
 ```
 
 ![delete](./image/delete.png)
@@ -22,6 +45,7 @@ npm run delete
 
 ```bash
 cd demo
+npm i
 npm run serve
 ```
 
@@ -30,7 +54,7 @@ npm run serve
 ## 预览文档
 
 ```bash
-npm run docs:dev
+pnpm run docs:dev
 ```
 
 开发者创建模块后，可以编辑对应目录下的`README.md`，文档预览会实时同步
@@ -38,7 +62,7 @@ npm run docs:dev
 ## 构建
 
 ```bash
-npm run build
+pnpm run build
 ```
 
 代码构建会生成`es`和`umd`两种风格的代码，`es`代码存放在`lib`目录中，`umd`代码存放在`dist`目录中。

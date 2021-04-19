@@ -1,10 +1,16 @@
 /* eslint-disable prettier/prettier */
+const isProd = process.env.NODE_ENV === 'production'
 const manifest = require('./manifest')
 
 module.exports = {
   title: 'Vui 2',
   description: 'vivo游戏事业部前端技术组vue组件库',
-  patterns: ['src/**/*.md', 'docs/*.md', '*.md'],
+  base: '/docs/vui/_docs/',
+  dest: '_docs',
+  patterns: ['**/*.md', '!demo/**/*.md'],
+  markdown: {
+    lineNumbers: true
+  },
   themeConfig: {
     nav: [
       {
@@ -40,9 +46,9 @@ module.exports = {
              * 这里不能用document.createElement来动态添加script，因为是异步执行的，执行顺序不确定，而document.write是同步的
              * script结束标签必须要转义下，否则浏览器解析时标签会匹配错
              */
-            document.write("<link rel=\"stylesheet\" href=\"//" + location.hostname + ":3010/vui.css\" />")
+            document.write("<link rel=\"stylesheet\" href=\"{{path}}/vui.css\" />")
             // eslint-disable-next-line no-useless-escape
-            document.write("<script src=\"//" + location.hostname + ":3010/vui.js\"><\/script>")
+            document.write("<script src=\"{{path}}/vui.js\"><\/script>")
             document.write("<script>(" + (function () {
               // 设置vui为pc端样式
               document.documentElement.classList.add("vuipc")
@@ -54,7 +60,7 @@ module.exports = {
               })
             // eslint-disable-next-line no-useless-escape
             }).toString() + ")()<\/script>")
-          }).toString()})()`
+          }).toString().replace(/{{path}}/g, isProd ? '/docs/vui/dist' : `//" + location.hostname + ":3010`)})()`
         ]
       }
     ]

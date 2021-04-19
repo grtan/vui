@@ -54,6 +54,10 @@ export default {
 </script>
 
 <style>
+body {
+  min-height: 100px;
+}
+
 .root {
   text-align: justify;
 }

@@ -12,6 +12,8 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
+    // 为了兼容编译js，需要设置输出目录，否则输出文件默认跟源文件同目录，会出现重名错误，vscode也会报错
+    "outDir": "dist",
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"]

@@ -2,7 +2,7 @@ node_modules
 dist
 !**/vue-run-sfc/dist
 /lib
-/pnpm-lock.yaml
+/_docs
 /package-lock.json
 /yarn.lock
 

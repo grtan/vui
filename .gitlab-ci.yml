@@ -30,7 +30,7 @@ tag:
     - git config user.email "${GITLAB_USER_EMAIL}"
     - git remote set-url origin https://$GITLAB_USER_NAME:$GITLAB_USER_PWD@gitlab.vmic.xyz/game-common/vui.git
     - npm config set registry http://npm.vivo.com.cn/
-    - npm i -D standard-version
+    - npm i --no-save standard-version
     - npm run tag
   only:
     - 2.x
@@ -41,10 +41,10 @@ publish-beta:
   script:
     - echo "发布beta版本包到公司内部npm"
     - npm config set registry http://npm.vivo.com.cn/
-    - npm i -g npm-cli-login
+    - npm i -g npm-cli-login pnpm
     # 这里仓库地址后面不能加/，否则登录失败
     - npm-cli-login -u $NPM_USER_NAME -p $NPM_USER_PWD -e $NPM_USER_EMAIL -r http://npm.vivo.com.cn
-    - npm i
+    - pnpm i --frozen-lockfile
     - npm publish --tag beta --unsafe-perm
     # 发布到cdn上，访问地址：https://game-cdnjs.vivo.com.cn/cdnjs/@game/vui/2.1.3/vui.js
     - node ./publish.js $GAIA_AK $GAIA_SK $GAIA_ENDPOINT
@@ -60,10 +60,10 @@ publish:
   script:
     - echo "发布正式版本包到公司内部npm"
     - npm config set registry http://npm.vivo.com.cn/
-    - npm i -g npm-cli-login
+    - npm i -g npm-cli-login pnpm
     # 这里仓库地址后面不能加/，否则登录失败
     - npm-cli-login -u $NPM_USER_NAME -p $NPM_USER_PWD -e $NPM_USER_EMAIL -r http://npm.vivo.com.cn
-    - npm i
+    - pnpm i --frozen-lockfile
     - npm publish --unsafe-perm
     - node ./publish.js $GAIA_AK $GAIA_SK $GAIA_ENDPOINT
   only:

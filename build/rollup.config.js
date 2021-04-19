@@ -269,7 +269,10 @@ export default args => {
         babelHelpers: 'runtime'
       }),
       replace({
-        'process.env.NODE_ENV': JSON.stringify('production')
+        preventAssignment: true,
+        values: {
+          'process.env.NODE_ENV': JSON.stringify('production')
+        }
       }),
       del({
         targets: 'dist/*.js'
