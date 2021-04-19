@@ -288,7 +288,7 @@ export default class VComponent extends Vue {
     })
 
     // 自适应hls流新增分辨率
-    qualityLevels.on('addqualitylevel', ({ qualityLevel }: { qualityLevel: any }) => {
+    qualityLevels.on('addqualitylevel', ({ qualityLevel }) => {
       const source = this.sources.find(({ selected }) => selected)!
       const quality = Math.min(qualityLevel.width, qualityLevel.height)
 

@@ -21,8 +21,6 @@ import Loading from './component/loading'
 import ProgressBar from './component/progress-bar'
 import NetMonitor from './component/net-monitor'
 import Guide from './component/guide'
-import BrightnessGesture from './component/brightness-gesture'
-import VolumeGesture from './component/volume-gesture'
 import ScrubGesture from './component/scrub-gesture'
 import DoubleClickGesture from './component/double-click-gesture'
 
@@ -36,8 +34,6 @@ videojs.registerComponent('VLoading', Loading)
 videojs.registerComponent('VProgressBar', ProgressBar)
 videojs.registerComponent('VNetMonitor', NetMonitor)
 videojs.registerComponent('VGuide', Guide)
-videojs.registerComponent('VBrightnessGesture', BrightnessGesture)
-videojs.registerComponent('VVolumeGesture', VolumeGesture)
 videojs.registerComponent('VScrubGesture', ScrubGesture)
 videojs.registerComponent('VDoubleClickGesture', DoubleClickGesture)
 
@@ -182,8 +178,6 @@ export default class VComponent extends Vue {
           vProgressBar: true,
           vNetMonitor: true,
           vGuide: true,
-          vBrightnessGesture: true,
-          vVolumeGesture: true,
           vScrubGesture: true,
           vDoubleClickGesture: true,
           vHeader: true,
