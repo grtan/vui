@@ -39,5 +39,5 @@
   "eslint.options": {
     "configFile": ""
   },
-  "liveServer.settings.root": "/.vuepress/dist"
+  "liveServer.settings.root": "/_docs"
 }
