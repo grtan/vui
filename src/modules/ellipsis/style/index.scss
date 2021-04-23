@@ -2,6 +2,7 @@
 @use '../../../skin/common/mixin' as *;
 
 @include b(ellipsis) {
+  box-sizing: content-box;
   overflow: hidden;
 
   @include e(ellipsis) {

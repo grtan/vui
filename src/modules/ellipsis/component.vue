@@ -124,7 +124,6 @@ export default class VComponent extends Vue {
     /**
      * lineIndex为第一行时，paddingTop设置为0
      * 否则，需要将lineIndex之前的行往上移出contentWrapper，这样浮动的ellipsis元素才不会挤开他们的文本
-     * 注意：这里要考虑精度问题，需要往上取整
      */
     const paddingTop = lineIndex ? lineRightRects[lineIndex].top - contentWrapperBoundingRect.top : 0
     // 内容元素原始的完整高度
