@@ -1,6 +1,6 @@
 #!/bin/bash
 
-pnpm i -g pnpm
+npm i -g pnpm
 
 # 文档、dist构建
 pnpm i --frozen-lockfile --registry http://npm.vivo.com.cn/
