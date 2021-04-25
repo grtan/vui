@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.5.0-beta.3](http://gitlab.vmic.xyz/game-common/vui/compare/v2.5.0-beta.2...v2.5.0-beta.3) (2021-04-25)
+
+
+### Bug Fixes
+
+* babel转码时用core-js替换core-js-pure，以便与项目中的core-js复用；优化rollup构建配置；更新@vivo/v-jsbridge版本 ([c8c7317](http://gitlab.vmic.xyz/game-common/vui/commit/c8c7317e7bc424157067e53094856299e82bece2))
+* ellipsis组件根结点设置box-sizing: content-box，防止使用方无意中修改，导致样式错乱 ([ace6fb6](http://gitlab.vmic.xyz/game-common/vui/commit/ace6fb68fa1362875424785d2b7e995c5ea6d82c))
+
 ## [2.5.0-beta.2](http://gitlab.vmic.xyz/game-common/vui/compare/v2.4.1-beta.0...v2.5.0-beta.2) (2021-04-19)
 
 
