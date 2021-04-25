@@ -191,6 +191,12 @@ export default args => {
             }
           ]
         }),
+        // 必须放在babel前，否则babel处理后会添加import bael-helper语句，导致该插件无法识别代码为commonjs模块
+        commonjs({
+          extensions: ['.js', '.jsx']
+        }),
+        // 修改图标组件代码
+        modify,
         vue(),
         typescript({
           typescript: require('ttypescript'),
@@ -205,12 +211,6 @@ export default args => {
               ]
             }
           }
-        }),
-        // 修改图标组件代码
-        modify,
-        // 必须放在babel前，否则babel处理后会添加import bael-helper语句，导致该插件无法识别代码为commonjs模块
-        commonjs({
-          extensions: ['.js', '.jsx']
         }),
         babel({
           /**
@@ -279,6 +279,10 @@ export default args => {
       nodeResolve({
         extensions
       }),
+      commonjs({
+        extensions: ['.js', '.jsx']
+      }),
+      modify,
       vue(),
       typescript({
         tsconfigOverride: {
@@ -287,14 +291,13 @@ export default args => {
           }
         }
       }),
-      modify,
-      commonjs({
-        extensions: ['.js', '.jsx']
-      }),
       babel({
         extensions,
-        // 不排除npm包，防止有些npm包存在const等es6语法
-        // exclude: 'node_modules/**',
+        /**
+         * 不排除npm包，防止有些npm包存在const等es6语法
+         * 但必须排除core-js或者core-js-pure，否则babel转码这些库时会循环依赖自身，导致打包后的代码异常
+         */
+        exclude: /\/node_modules\/core-js(-pure)?\//,
         babelHelpers: 'runtime'
       }),
       replace({
