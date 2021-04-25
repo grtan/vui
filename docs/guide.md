@@ -375,4 +375,46 @@ export default __vue_component__
 
 ### 解决方案
 
-由于依赖的第三方 npm 包可能不仅仅只包含较新的 es api，还可能包含有较新的 es 语法。所以通过在@game/vui 中引入使用到的 es polyfill 仍然解决不了问题，因为 polyfill 只能解决 api 的问题，无法解决新语法的问题。但我们又不想放弃外置第三方 npm 依赖包带来的优点，同时联想到使用方项目本身代码也可能会引入一些存在兼容性问题的第三方 npm 包，所以**这个问题只能由使用方自身来处理比较合适，即项目代码生产环境构建时对于 node_modules 中的文件全部要用 babel 进行转码**。
+由于依赖的第三方 npm 包可能不仅仅只包含较新的 es api，还可能包含有较新的 es 语法。所以通过在@game/vui 中引入使用到的 es polyfill 仍然解决不了问题，因为 polyfill 只能解决 api 的问题，无法解决新语法的问题。但我们又不想放弃外置第三方 npm 依赖包带来的优点，同时联想到使用方项目本身代码也可能会引入一些存在兼容性问题的第三方 npm 包，所以**这个问题只能由使用方自身来处理比较合适，即项目代码生产环境构建时对于 node_modules 中的文件全部要用 babel 进行转码。注意：core-js 和 core-js-pure 这两个 npm 包必须要排除在外，不能用 babel 转码。因为这两个包本身就是用来进行 polyfill 的，已经不存在兼容性问题，如果还用 babel 进行转码，会造成其循环引用自身，导致项目构建后的代码出现异常。**
+
+`webpack.config.js`配置如下
+
+```js
+module.exports = {
+  module: {
+    rules: [
+      {
+        test: /\.jsx?$/,
+        // 排除core-js和core-js-pure
+        exclude: /\/node_modules\/core-js(-pure)?\//,
+        use: {
+          loader: 'babel-loader',
+          options: {
+            presets: [
+              [
+                '@babel/preset-env',
+                {
+                  // 按需用core-js polyfill代码
+                  useBuiltIns: 'usage',
+                  corejs: '3.10'
+                }
+              ],
+              // 编译jsx
+              '@vue/babel-preset-jsx'
+            ],
+            plugins: [
+              [
+                '@babel/plugin-transform-runtime',
+                {
+                  // 使用es模块的runtime helpers
+                  useESModules: true
+                }
+              ]
+            ]
+          }
+        }
+      }
+    ]
+  }
+}
+```

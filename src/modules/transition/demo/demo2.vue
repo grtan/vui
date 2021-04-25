@@ -34,6 +34,7 @@ export default class VComponent extends Vue {
 .wrapper {
   height: 300px;
   margin-bottom: 30px;
+  overflow: hidden;
   width: 100%;
 }
 
