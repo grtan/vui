@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="170px" height="170px" viewBox="0 0 170 170" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 54.1 (76490) - https://sketchapp.com -->
+    <title>Group 27</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <filter x="-84.7%" y="-84.7%" width="269.4%" height="269.4%" filterUnits="objectBoundingBox" id="filter-1">
+            <feGaussianBlur stdDeviation="20" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <path d="M79.7041858,57.4135825 C81.7618496,54.0864371 80.7327315,49.7211868 77.4055861,47.6635229 L24.97573,15.2384237 C23.856328,14.5461327 22.5661791,14.17942 21.25,14.17942 C17.337983,14.17942 14.1666667,17.3507363 14.1666667,21.2627533 L14.1666667,85.1865204 C14.1666667,86.4717057 14.5163231,87.7326758 15.178175,88.8343351 C17.1928074,92.1877114 21.5444383,93.2729778 24.8978147,91.2583454 L77.3276708,59.7596776 C78.2955012,59.178227 79.1103158,58.3738423 79.7041858,57.4135825 Z M32.1934441,103.401995 C22.133315,109.445893 9.07842221,106.190094 3.03452494,96.1299645 C1.0489692,92.8249866 0,89.0420762 0,85.1865204 L8.38835174e-15,21.2627533 C8.38835174e-15,9.52670239 9.51394907,0.0127533239 21.25,0.0127533239 C25.1985374,0.0127533239 29.0689841,1.11289139 32.4271899,3.18976446 L84.857046,35.6148637 C94.8384821,41.7878552 97.9258365,54.8836063 91.752845,64.8650424 C89.971235,67.7458218 87.5267914,70.158976 84.6233002,71.9033276 L32.1934441,103.401995 Z" id="path-2"></path>
+        <filter x="-35.8%" y="-30.1%" width="171.6%" height="163.9%" filterUnits="objectBoundingBox" id="filter-3">
+            <feMorphology radius="2" operator="dilate" in="SourceAlpha" result="shadowSpreadOuter1"></feMorphology>
+            <feOffset dx="0" dy="2" in="shadowSpreadOuter1" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="9" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 1   0 0 0 0 1   0 0 0 0 1  0 0 0 0.4 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="通用视频控件" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.9">
+        <g id="全屏-暂停" transform="translate(-1085.000000, -455.000000)">
+            <g id="Group-27">
+                <g id="编组" transform="translate(1085.000000, 455.000000)">
+                    <g id="icon/播放控件/播放">
+                        <g id="Group-17" transform="translate(44.861111, 31.875000)">
+                            <circle id="Oval" fill-opacity="0.2" fill="#000000" filter="url(#filter-1)" cx="40.1388889" cy="53.125" r="35.4166667"></circle>
+                            <g id="Triangle-Copy-2" fill-rule="nonzero">
+                                <use fill="black" fill-opacity="1" filter="url(#filter-3)" xlink:href="#path-2"></use>
+                                <use fill="#FFFFFF" xlink:href="#path-2"></use>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

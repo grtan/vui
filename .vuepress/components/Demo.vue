@@ -18,7 +18,8 @@ export default {
     '$route.path': 'postMessage'
   },
   beforeMount() {
-    this.src = `//${window.location.hostname}:3012`
+    this.src =
+      process.env.NODE_ENV === 'production' ? '/docs/vui/demo/dist/index.html' : `//${window.location.hostname}:3012`
   },
   methods: {
     postMessage() {

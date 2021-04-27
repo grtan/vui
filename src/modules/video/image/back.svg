@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="118px" height="118px" viewBox="0 0 118 118" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 54.1 (76490) - https://sketchapp.com -->
+    <title>icon/back copy</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <filter x="-150.0%" y="-150.0%" width="400.0%" height="400.0%" filterUnits="objectBoundingBox" id="filter-1">
+            <feGaussianBlur stdDeviation="20" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+    </defs>
+    <g id="控件" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="q45" transform="translate(9.000000, 9.000000)">
+            <g id="icon/back-copy">
+                <g id="Back">
+                    <rect id="矩形" fill="#D8D8D8" opacity="0" x="0" y="0" width="100" height="100"></rect>
+                    <circle id="Oval" fill-opacity="0.2" fill="#000000" filter="url(#filter-1)" cx="50" cy="50" r="20"></circle>
+                    <path d="M35.6758203,60.7838677 L66.5007096,30.5570707 C67.6011046,29.4780266 69.3629829,29.4790741 70.462094,30.559426 C71.5354248,31.6144375 71.5502755,33.3397998 70.495264,34.4131306 C70.4835455,34.4250526 70.4717176,34.4368664 70.4597817,34.4485707 L39.4719112,64.8351866 C39.7984365,64.9111322 40.1372796,64.955146 40.4849761,64.9637661 L64.2532386,65.5530296 C65.7917461,65.5530296 67.0389529,66.7682567 67.0389529,68.2673153 C67.0389529,69.7663739 65.7917461,70.981601 64.2532386,70.981601 L36.8704621,70.4136672 C33.1197474,70.3358754 30.0971743,67.3150563 30.0172053,63.5643873 L29.4531665,37.1101003 C29.4531665,35.6110417 30.7003732,34.3958146 32.2388807,34.3958146 C33.7773883,34.3958146 35.024595,35.6110417 35.024595,37.1101003 L35.6105223,60.0927324 C35.6165079,60.3275144 35.6386295,60.5582482 35.6758203,60.7838677 Z" id="路径" fill="#FFFFFF" fill-rule="nonzero" transform="translate(50.365038, 50.365038) rotate(-315.000000) translate(-50.365038, -50.365038) "></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

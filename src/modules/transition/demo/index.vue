@@ -28,4 +28,3 @@ export default class VComponent extends Vue {
 </script>
 
 <style lang="scss" src="../../button/style/index.scss"></style>
-<style lang="scss" src="../style/index.scss"></style>

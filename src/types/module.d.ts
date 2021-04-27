@@ -4,6 +4,7 @@ import { DirectiveOptions, DirectiveFunction, PluginObject, PluginFunction } fro
  * 最佳实践是扩展哪个模块，就手动import该模块
  */
 import 'vue/types/vue'
+import { VideoJsPlayer } from 'video.js'
 
 interface Plugin {
   install: PluginFunction<any>
@@ -22,11 +23,16 @@ declare module 'vue/types/vue' {
   }
 }
 
-// declare module 'vue/types/options' {
-//   interface DirectiveOptions {
-//     install: Install
-//   }
-// }
+declare module 'vue/types/options' {
+  // interface DirectiveOptions {
+  //   install: Install
+  // }
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  interface ComponentOptions<V extends Vue> {
+    player?: VideoJsPlayer
+  }
+}
 
 export interface VuiComponent {
   install: PluginFunction<any>

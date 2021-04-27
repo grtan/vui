@@ -105,6 +105,17 @@ export default [
         "category": "数据展示",
         "list": [
           {
+            "zhName": "文本超长省略",
+            "type": "组件",
+            "category": "数据展示",
+            "author": {
+              "name": "谭新",
+              "email": "xin.tan@vivo.com"
+            },
+            "enName": "Ellipsis",
+            "lowerEnName": "ellipsis"
+          },
+          {
             "zhName": "图片预览",
             "type": "组件",
             "category": "数据展示",
@@ -125,6 +136,17 @@ export default [
             },
             "enName": "Tag",
             "lowerEnName": "tag"
+          },
+          {
+            "zhName": "视频播放器",
+            "type": "组件",
+            "category": "数据展示",
+            "author": {
+              "name": "谭新",
+              "email": "xin.tan@vivo.com"
+            },
+            "enName": "Video",
+            "lowerEnName": "video"
           }
         ]
       },

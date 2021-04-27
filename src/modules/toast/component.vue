@@ -36,9 +36,5 @@ export default class VComponent extends Vue {
       this.visible = false
     }, duration || 3000)
   }
-
-  mounted() {
-    document.body.appendChild(this.$el)
-  }
 }
 </script>

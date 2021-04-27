@@ -2,6 +2,8 @@ declare module '*.vue' {
   import Vue from 'vue'
   export default Vue
 }
+declare module '@vivo/v-jsbridge'
+declare module '@silvermine/videojs-quality-selector'
 
 interface HTMLElement {
   _intersect?: {
@@ -27,7 +29,26 @@ interface HTMLElement {
 }
 
 interface Window {
-  mozRequestAnimationFrame: (callback: FrameRequestCallback) => number
-  oRequestAnimationFrame: (callback: FrameRequestCallback) => number
-  msRequestAnimationFrame: (callback: FrameRequestCallback) => number
+  mozRequestAnimationFrame: typeof requestAnimationFrame
+  oRequestAnimationFrame: typeof requestAnimationFrame
+  msRequestAnimationFrame: typeof requestAnimationFrame
+  mozCancelAnimationFrame: typeof cancelAnimationFrame
+  oCancelAnimationFrame: typeof cancelAnimationFrame
+  msCancelAnimationFrame: typeof cancelAnimationFrame
 }
+
+// 获取重载函数的返回值类型
+type OverloadReturnType<T> = T extends {
+  (...args: any[]): infer R
+  (...args: any[]): infer R
+  (...args: any[]): infer R
+  (...args: any[]): infer R
+}
+  ? R
+  : T extends { (...args: any[]): infer R; (...args: any[]): infer R; (...args: any[]): infer R }
+  ? R
+  : T extends { (...args: any[]): infer R; (...args: any[]): infer R }
+  ? R
+  : T extends (...args: any[]) => infer R
+  ? R
+  : any

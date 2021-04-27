@@ -28,8 +28,10 @@ module.exports = [
         "title": "数据展示",
         "collapsable": false,
         "children": [
+          "/src/modules/ellipsis/",
           "/src/modules/image-previewer/",
-          "/src/modules/tag/"
+          "/src/modules/tag/",
+          "/src/modules/video/"
         ]
       },
       {

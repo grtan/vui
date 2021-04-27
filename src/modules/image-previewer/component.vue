@@ -80,7 +80,7 @@ import PhotoSwipe from 'photoswipe'
 import PhotoSwipeUI from 'photoswipe/dist/photoswipe-ui-default'
 import VuiOverlayer from '../overlayer/component.vue'
 import VuiButton from '../button/component.vue'
-import { raf } from '../../utils/prefix'
+import { requestAnimationFrame } from '../../utils/prefix'
 
 @Component({
   name: 'VuiImagePreviewer',
@@ -288,8 +288,8 @@ export default class VComponent extends Vue {
 
     if (e.target.classList.contains('pswp__img')) {
       e.target.classList.remove('pswp__img')
-      // 等photoswipe事件回掉后、浏览器渲染前恢复pswp__img类
-      raf(() => {
+      // 等photoswipe事件回调后、浏览器渲染前恢复pswp__img类
+      requestAnimationFrame(() => {
         e.target.classList.add('pswp__img')
       })
     }

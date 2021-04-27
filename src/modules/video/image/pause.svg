@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="170px" height="170px" viewBox="0 0 170 170" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 54.1 (76490) - https://sketchapp.com -->
+    <title>Group 27</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <filter x="-83.3%" y="-83.3%" width="266.7%" height="266.7%" filterUnits="objectBoundingBox" id="filter-1">
+            <feGaussianBlur stdDeviation="20" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <rect id="path-2" x="0.63683239" y="0" width="15.6714593" height="94.0287559" rx="7.14788732"></rect>
+        <filter x="-255.2%" y="-40.4%" width="610.5%" height="185.1%" filterUnits="objectBoundingBox" id="filter-3">
+            <feMorphology radius="2" operator="dilate" in="SourceAlpha" result="shadowSpreadOuter1"></feMorphology>
+            <feOffset dx="0" dy="2" in="shadowSpreadOuter1" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="11" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 1   0 0 0 0 1   0 0 0 0 1  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+        <rect id="path-4" x="53.6786947" y="0" width="15.6714593" height="94.0287559" rx="7.14788732"></rect>
+        <filter x="-255.2%" y="-40.4%" width="610.5%" height="185.1%" filterUnits="objectBoundingBox" id="filter-5">
+            <feMorphology radius="2" operator="dilate" in="SourceAlpha" result="shadowSpreadOuter1"></feMorphology>
+            <feOffset dx="0" dy="2" in="shadowSpreadOuter1" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="11" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 1   0 0 0 0 1   0 0 0 0 1  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="通用视频控件" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.900000036">
+        <g id="全屏-继续" transform="translate(-1085.000000, -455.000000)">
+            <g id="Group-27">
+                <g id="编组" transform="translate(1085.000000, 455.000000)">
+                    <g id="q33">
+                        <g id="Group-35">
+                            <rect id="Rectangle" fill-rule="nonzero" x="0" y="0" width="170" height="170"></rect>
+                            <g id="Group" transform="translate(49.583333, 37.777778)">
+                                <g id="Group-33">
+                                    <circle id="Oval" fill-opacity="0.2" fill="#000000" filter="url(#filter-1)" cx="36" cy="47.8055556" r="36"></circle>
+                                    <g id="分组-5" transform="translate(1.010123, 0.157962)" fill-rule="nonzero" opacity="0.949999988">
+                                        <g id="矩形">
+                                            <use fill="black" fill-opacity="1" filter="url(#filter-3)" xlink:href="#path-2"></use>
+                                            <use fill="#FFFFFF" xlink:href="#path-2"></use>
+                                        </g>
+                                        <g id="矩形">
+                                            <use fill="black" fill-opacity="1" filter="url(#filter-5)" xlink:href="#path-4"></use>
+                                            <use fill="#FFFFFF" xlink:href="#path-4"></use>
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

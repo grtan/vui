@@ -71,7 +71,7 @@ body {
 |        push-state        |                    `Boolean`                    | `N`  |            `true`            | 显示组件时是否新建历史记录，这样可通过返回键关闭蒙层 |
 | close-on-click-overlayer |                    `Boolean`                    | `N`  |            `true`            |                点击蒙层时是否自动关闭                |
 |       before-close       | `(callback: (close?: boolean) => void) => void` | `N`  | `callback => callback(true)` | 蒙层关闭前的回调方法，`callback(false)`将会阻止关闭  |
-|   target **(v2.4.0+)**   |          `String` &#124; `HTMLElement`          | `N`  |            `body`            |      组件节点挂载的地方，默认会挂载到 body 尾部      |
+|   target **(v2.4.0+)**   |            `String` &#124; `Element`            | `N`  |            `body`            |      组件节点挂载的地方，默认会挂载到 body 尾部      |
 
 `appear`属性与 vue 原生 transition 组件的[appear 属性](https://cn.vuejs.org/v2/guide/transitions.html#%E5%88%9D%E5%A7%8B%E6%B8%B2%E6%9F%93%E7%9A%84%E8%BF%87%E6%B8%A1)一致
 

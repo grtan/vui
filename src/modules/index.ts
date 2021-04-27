@@ -5,6 +5,7 @@ import Button from './button'
 import Config from './config'
 import Dialog from './dialog'
 import Disappear from './disappear'
+import Ellipsis from './ellipsis'
 import HistoryAction from './history-action'
 import Icon from './icon'
 import ImagePreviewer from './image-previewer'
@@ -18,6 +19,7 @@ import ScrollTop from './scroll-top'
 import Tag from './tag'
 import Toast from './toast'
 import Transition from './transition'
+import Video from './video'
 
 function install(
   vue: typeof Vue,
@@ -31,6 +33,7 @@ function install(
     'Config',
     'Dialog',
     'Disappear',
+    'Ellipsis',
     'HistoryAction',
     'Icon',
     'ImagePreviewer',
@@ -43,7 +46,8 @@ function install(
     'ScrollTop',
     'Tag',
     'Toast',
-    'Transition'
+    'Transition',
+    'Video'
   ]
 
   ;[
@@ -53,6 +57,7 @@ function install(
     Config,
     Dialog,
     Disappear,
+    Ellipsis,
     HistoryAction,
     Icon,
     ImagePreviewer,
@@ -65,7 +70,8 @@ function install(
     ScrollTop,
     Tag,
     Toast,
-    Transition
+    Transition,
+    Video
   ].forEach(function (item, index) {
     if (typeof (item as any).install !== 'function') {
       return
@@ -82,6 +88,7 @@ export {
   Config,
   Dialog,
   Disappear,
+  Ellipsis,
   HistoryAction,
   Icon,
   ImagePreviewer,
@@ -94,10 +101,11 @@ export {
   ScrollTop,
   Tag,
   Toast,
-  Transition
+  Transition,
+  Video
 }
 export default {
-  version: '2.4.1',
+  version: '2.5.0',
   install,
   config: Config
 }
