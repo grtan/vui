@@ -157,3 +157,82 @@ export function formatFileSize(size: number, digits = 0) {
 
   return `${(size / 1024 / 1024 / 1024).toFixed(digits)}G`
 }
+
+// 获取页面viewport缩放比例
+export function getViewportScale() {
+  const viewport = document.querySelector('meta[name=viewport]')
+
+  if (viewport) {
+    const content = viewport.getAttribute('content')
+
+    // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
+    return parseFloat(content?.replace(/^.*\binitial-scale\s*=\s*([\d.]+).*$|^.*$/, '$1') || '1')
+  }
+
+  return 1
+}
+
+// 获取页面滚动距离
+export function getPageScroll() {
+  return {
+    left: window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft || 0,
+    top: window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0
+  }
+}
+
+/**
+ * 获取元素相对viewport视口的位置
+ * 因为getBoundingClientRect会受transform的影响，所以不能直接用getBoundingClientRect获取
+ */
+export function getRectToViewport(el: HTMLElement) {
+  if ([document.documentElement, document.body].includes(el)) {
+    const { left, top, width, height } = el.getBoundingClientRect()
+
+    return {
+      left,
+      top,
+      width,
+      height
+    }
+  }
+
+  let left = el.offsetLeft
+  let top = el.offsetTop
+  const width = el.offsetWidth
+  const height = el.offsetHeight
+
+  // 到body结束
+  while (el.offsetParent) {
+    const prev = el
+
+    el = el.offsetParent as HTMLElement
+    /**
+     * 元素到body的offsetLeft/Top已经包含了border和margin
+     * 所以需要去掉body的clientLeft/Top
+     */
+
+    if (el === document.body) {
+      const pageScroll = getPageScroll()
+
+      left += el.offsetLeft - pageScroll.left
+      top += el.offsetTop - pageScroll.top
+
+      if (['static', 'relative'].includes(window.getComputedStyle(prev).position)) {
+        const { marginLeft, marginTop } = window.getComputedStyle(document.documentElement)
+
+        left += parseFloat(marginLeft)
+        top += parseFloat(marginTop)
+      }
+    } else {
+      left += el.offsetLeft + el.clientLeft
+      top += el.offsetTop + el.clientTop
+    }
+  }
+
+  return {
+    left,
+    top,
+    width,
+    height
+  }
+}

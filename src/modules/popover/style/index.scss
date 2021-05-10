@@ -1,0 +1,134 @@
+@use '../../../skin/var' as *;
+@use '../../../skin/common/mixin' as *;
+@use '../../../skin/common/function' as *;
+@use '../../transition/style/index' as *;
+
+@include b(popover) {
+  display: inline-block;
+  position: relative;
+
+  @include e(placeholder) {
+    align-items: flex-start;
+    display: flex;
+    position: absolute;
+    z-index: $popover-z-index;
+
+    @include m(top top-start top-end) {
+      align-items: flex-end;
+      bottom: 100%;
+      height: 0;
+      left: 0;
+      right: 0;
+
+      > #{get-bem-selector(transition)} {
+        margin-bottom: $popover-content-margin;
+      }
+    }
+
+    @include m(bottom bottom-start bottom-end) {
+      height: 0;
+      left: 0;
+      right: 0;
+      top: 100%;
+
+      > #{get-bem-selector(transition)} {
+        margin-top: $popover-content-margin;
+      }
+    }
+
+    @include m(left left-start left-end) {
+      bottom: 0;
+      justify-content: flex-end;
+      right: 100%;
+      top: 0;
+      width: 0;
+
+      > #{get-bem-selector(transition)} {
+        margin-right: $popover-content-margin;
+      }
+    }
+
+    @include m(right right-start right-end) {
+      bottom: 0;
+      left: 100%;
+      top: 0;
+      width: 0;
+
+      > #{get-bem-selector(transition)} {
+        margin-left: $popover-content-margin;
+      }
+    }
+
+    @include m(top bottom) {
+      justify-content: center;
+    }
+
+    @include m(top-end bottom-end) {
+      justify-content: flex-end;
+    }
+
+    @include m(left right) {
+      align-items: center;
+    }
+
+    @include m(left-end right-end) {
+      align-items: flex-end;
+    }
+
+    > #{get-bem-selector(transition)} {
+      flex: none;
+    }
+  }
+
+  @include e(content) {
+    color: $popover-content-color;
+    font-size: $popover-content-font-size;
+    line-height: $popover-content-line-height;
+    padding: $popover-content-padding;
+    position: relative;
+  }
+
+  @include e(svg) {
+    left: 50%;
+    pointer-events: none;
+    position: absolute;
+    top: 50%;
+    transform: translate3d(-50%, -50%, 0);
+    z-index: -1;
+  }
+
+  // pc端
+  @include pc {
+    @include e(placeholder) {
+      @include m(top top-start top-end) {
+        > #{get-bem-selector(transition)} {
+          margin-bottom: $popover-content-margin-pc;
+        }
+      }
+
+      @include m(bottom bottom-start bottom-end) {
+        > #{get-bem-selector(transition)} {
+          margin-top: $popover-content-margin-pc;
+        }
+      }
+
+      @include m(left left-start left-end) {
+        > #{get-bem-selector(transition)} {
+          margin-right: $popover-content-margin-pc;
+        }
+      }
+
+      @include m(right right-start right-end) {
+        > #{get-bem-selector(transition)} {
+          margin-left: $popover-content-margin-pc;
+        }
+      }
+    }
+
+    @include e(content) {
+      font-size: $popover-content-font-size-pc;
+      line-height: $popover-content-line-height-pc;
+      padding: $popover-content-padding-pc;
+    }
+  }
+}
