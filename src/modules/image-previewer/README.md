@@ -92,7 +92,12 @@ export default {
 <template>
   <div class="root">
     <div>点击小图进行预览</div>
-    <vui-image-previewer v-model="index" :list="list" :get-thumbnail="getThumbnail"></vui-image-previewer>
+    <vui-image-previewer
+      v-model="index"
+      :list="list"
+      :get-thumbnail="getThumbnail"
+      :options="{ history: false }"
+    ></vui-image-previewer>
     <div class="list">
       <img v-for="(item, i) in list" :key="i" ref="item" class="item" :src="item.msrc" @click="index = i" />
     </div>
@@ -170,17 +175,18 @@ export default {
 
 ## 属性
 
-|     名称      |               类型               | 必填 | 默认值 |                                                                                                                                描述                                                                                                                                |
-| :-----------: | :------------------------------: | :--: | :----: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-|    v-model    |             `Number`             | `Y`  |  `-`   |                                                                                                                 当前预览图的位置，-1 表示关闭预览                                                                                                                  |
-|     list      |             `Array`              | `Y`  |  `-`   |                                                                                                                             预览图列表                                                                                                                             |
-|  list[{src}]  |             `String`             | `Y`  |  `-`   |                                                                                                                          预览图 url 地址                                                                                                                           |
-| list[{msrc}]  |             `String`             | `N`  |  `-`   |                                                                                             预览图对应缩略图 url 地址，提供缩略图时可让预览图有渐进式加载、显示的效果                                                                                              |
-|   list[{w}]   |             `Number`             | `N`  |  `-`   |                                                                           预览图的宽度，单位为`px`。如果知道图片尺寸，请尽量设置，否则可能影响首次预览速度和缩略图位置跟踪效果，高度同理                                                                           |
-|   list[{h}]   |             `Number`             | `N`  |  `-`   |                                                                                                                      预览图的高度，单位为`px`                                                                                                                      |
-| list[{title}] |             `String`             | `N`  |  `-`   |                                                                                                                    预览图的描述文本，支持 html                                                                                                                     |
-|    options    |             `Object`             | `N`  |  `-`   | `PhotoSwipe`的[Options](https://photoswipe.com/documentation/options.html)。不过对其做了一些修改，`showHideOpacity`、`tapToClose`、`history`默认值为`true`；`pinchToClose`、`closeOnVerticalDrag`默认值为`false`；而`index`、`getThumbBoundsFn`、`shareEl`已被废弃 |
-| get-thumbnail | `(index: number) => HTMLElement` | `N`  |  `-`   |                                                                                     获取预览图对应的缩略图元素。如果设置，打开、关闭图片预览时会有缩略图位置跟踪效果，否则没有                                                                                     |
+|         名称         |               类型               | 必填 | 默认值 |                                                                                                                                描述                                                                                                                                |
+| :------------------: | :------------------------------: | :--: | :----: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+|       v-model        |             `Number`             | `Y`  |  `-`   |                                                                                                                 当前预览图的位置，-1 表示关闭预览                                                                                                                  |
+|         list         |             `Array`              | `Y`  |  `-`   |                                                                                                                             预览图列表                                                                                                                             |
+|     list[{src}]      |             `String`             | `Y`  |  `-`   |                                                                                                                          预览图 url 地址                                                                                                                           |
+|     list[{msrc}]     |             `String`             | `N`  |  `-`   |                                                                                             预览图对应缩略图 url 地址，提供缩略图时可让预览图有渐进式加载、显示的效果                                                                                              |
+|      list[{w}]       |             `Number`             | `N`  |  `-`   |                                                                           预览图的宽度，单位为`px`。如果知道图片尺寸，请尽量设置，否则可能影响首次预览速度和缩略图位置跟踪效果，高度同理                                                                           |
+|      list[{h}]       |             `Number`             | `N`  |  `-`   |                                                                                                                      预览图的高度，单位为`px`                                                                                                                      |
+|    list[{title}]     |             `String`             | `N`  |  `-`   |                                                                                                                    预览图的描述文本，支持 html                                                                                                                     |
+|       options        |             `Object`             | `N`  |  `-`   | `PhotoSwipe`的[Options](https://photoswipe.com/documentation/options.html)。不过对其做了一些修改，`showHideOpacity`、`tapToClose`、`history`默认值为`true`；`pinchToClose`、`closeOnVerticalDrag`默认值为`false`；而`index`、`getThumbBoundsFn`、`shareEl`已被废弃 |
+|    get-thumbnail     | `(index: number) => HTMLElement` | `N`  |  `-`   |                                                                                     获取预览图对应的缩略图元素。如果设置，打开、关闭图片预览时会有缩略图位置跟踪效果，否则没有                                                                                     |
+| target **(v2.6.0+)** |    `String` &#124; `Element`     | `N`  | `body` |                                                                                                            组件根节点挂载的地方，默认会挂载到 body 尾部                                                                                                            |
 
 ## 插槽
 
@@ -194,4 +200,5 @@ export default {
 
 ## 更新日志
 
+- v2.6.0 新增`target`属性
 - v2.2.0 发布
