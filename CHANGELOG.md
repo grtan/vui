@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.6.0-beta.1](http://gitlab.vmic.xyz/game-common/vui/compare/v2.6.0-beta.0...v2.6.0-beta.1) (2021-05-11)
+
+
+### Bug Fixes
+
+* image-preivewer组件新增target属性，修复在微前端方案中样式错误的问题；修复组件销毁后dom还残留的问题 ([3162707](http://gitlab.vmic.xyz/game-common/vui/commit/31627070581eec1fff5309354fd586080d6d5c37))
+
 ## [2.6.0-beta.0](http://gitlab.vmic.xyz/game-common/vui/compare/v2.5.0-beta.3...v2.6.0-beta.0) (2021-05-10)
 
 

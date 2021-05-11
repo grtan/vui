@@ -109,7 +109,7 @@ export {
   Video
 }
 export default {
-  version: '2.6.0-beta.0',
+  version: '2.6.0-beta.1',
   install,
   config: Config
 }
