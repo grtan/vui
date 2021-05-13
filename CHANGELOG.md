@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.6.0](http://gitlab.vmic.xyz/game-common/vui/compare/v2.6.0-beta.1...v2.6.0) (2021-05-13)
+
 ## [2.6.0-beta.1](http://gitlab.vmic.xyz/game-common/vui/compare/v2.6.0-beta.0...v2.6.0-beta.1) (2021-05-11)
 
 

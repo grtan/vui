@@ -11,6 +11,7 @@ import Icon from './icon'
 import ImagePreviewer from './image-previewer'
 import Intersect from './intersect'
 import Link from './link'
+import Marquee from './marquee'
 import Overlayer from './overlayer'
 import Popover from './popover'
 import Popup from './popup'
@@ -40,6 +41,7 @@ function install(
     'ImagePreviewer',
     'Intersect',
     'Link',
+    'Marquee',
     'Overlayer',
     'Popover',
     'Popup',
@@ -65,6 +67,7 @@ function install(
     ImagePreviewer,
     Intersect,
     Link,
+    Marquee,
     Overlayer,
     Popover,
     Popup,
@@ -97,6 +100,7 @@ export {
   ImagePreviewer,
   Intersect,
   Link,
+  Marquee,
   Overlayer,
   Popover,
   Popup,
@@ -109,7 +113,7 @@ export {
   Video
 }
 export default {
-  version: '2.6.0-beta.1',
+  version: '2.6.0',
   install,
   config: Config
 }
