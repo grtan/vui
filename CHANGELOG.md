@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.7.0-beta.0](http://gitlab.vmic.xyz/game-common/vui/compare/v2.6.0-beta.1...v2.7.0-beta.0) (2021-05-17)
+
+
+### Features
+
+* 新增Marquee组件，优化getViewportScale方法 ([edd0efa](http://gitlab.vmic.xyz/game-common/vui/commit/edd0efa6d9abaaac839a33608a83df0450602f2a))
+
+
+### Bug Fixes
+
+* 修复video组件导致页面无法垂直滚动的问题；优化手势快进/快退的速度 ([9bec2b2](http://gitlab.vmic.xyz/game-common/vui/commit/9bec2b210b7348a3d9352222db9ff940ac160500))
+
 ## [2.6.0](http://gitlab.vmic.xyz/game-common/vui/compare/v2.6.0-beta.1...v2.6.0) (2021-05-13)
 
 ## [2.6.0-beta.1](http://gitlab.vmic.xyz/game-common/vui/compare/v2.6.0-beta.0...v2.6.0-beta.1) (2021-05-11)
