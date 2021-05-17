@@ -1,0 +1,54 @@
+@use '../../../skin/var' as *;
+@use '../../../skin/common/config' as *;
+@use '../../../skin/common/mixin' as *;
+
+$_directions: left right up down;
+
+@each $direction in $_directions {
+  @keyframes #{$namespace}-marquee--#{$direction} {
+    @if $direction == left {
+      to {
+        transform: translate3d(-50%, 0, 0);
+      }
+    } @else if $direction == right {
+      from {
+        transform: translate3d(-50%, 0, 0);
+      }
+    } @else if $direction == up {
+      to {
+        transform: translate3d(0, -50%, 0);
+      }
+    } @else {
+      from {
+        transform: translate3d(0, -50%, 0);
+      }
+    }
+  }
+}
+
+@include b(marquee) {
+  display: flex;
+  overflow: hidden;
+
+  @include m(up down) {
+    flex-direction: column;
+
+    @include e(wrapper) {
+      flex-direction: column;
+    }
+  }
+
+  @include e(wrapper) {
+    animation: linear infinite;
+    display: flex;
+    flex: none;
+  }
+
+  @each $direction in $_directions {
+    @include m($direction) {
+      @include e(wrapper) {
+        animation-name: #{$namespace}-marquee--#{$direction};
+      }
+    }
+  }
+}

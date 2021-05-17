@@ -30,6 +30,7 @@ module.exports = [
         "children": [
           "/src/modules/ellipsis/",
           "/src/modules/image-previewer/",
+          "/src/modules/marquee/",
           "/src/modules/popover/",
           "/src/modules/tag/",
           "/src/modules/video/"

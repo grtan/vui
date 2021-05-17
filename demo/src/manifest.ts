@@ -127,6 +127,17 @@ export default [
             "lowerEnName": "image-previewer"
           },
           {
+            "zhName": "跑马灯",
+            "type": "组件",
+            "category": "数据展示",
+            "author": {
+              "name": "谭新",
+              "email": "xin.tan@vivo.com"
+            },
+            "enName": "Marquee",
+            "lowerEnName": "marquee"
+          },
+          {
             "zhName": "弹出框",
             "type": "组件",
             "category": "数据展示",

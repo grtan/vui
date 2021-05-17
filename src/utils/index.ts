@@ -161,15 +161,33 @@ export function formatFileSize(size: number, digits = 0) {
 // 获取页面viewport缩放比例
 export function getViewportScale() {
   const viewport = document.querySelector('meta[name=viewport]')
+  let scale = 1
 
   if (viewport) {
     const content = viewport.getAttribute('content')
 
     // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing
-    return parseFloat(content?.replace(/^.*\binitial-scale\s*=\s*([\d.]+).*$|^.*$/, '$1') || '1')
+    scale = parseFloat(content?.replace(/^.*\binitial-scale\s*=\s*([\d.]+).*$|^.*$/, '$1') || '1')
   }
 
-  return 1
+  /**
+   * 当在根元素(<html>元素)上使用clientWidth时，将返回viewport的宽度，不管html元素宽度是大于还是小于视口宽度
+   * innerWidth获取的宽度包含了垂直滚动条的宽度，documentElement.clientWidth则不包含
+   * 不过移动端滚动条几乎都是悬浮的，不占宽度，可以忽略
+   */
+  const viewportWidth = document.documentElement.clientWidth || window.innerWidth
+
+  /**
+   * outerWidth获取浏览器窗口外部的宽度
+   * screen.availWidth返回浏览器窗口最大可占用的水平宽度（并不是当前实际窗口宽度）
+   * screen.width返回的始终是整个屏幕的宽度（哪怕浏览器不是全屏，返回的也是整个屏幕的宽度）
+   *
+   * 这三个宽度不受缩放影响，可以理解成scale=1时的大小
+   */
+  const windowWidth = window.outerWidth || window.screen.availWidth || window.screen.width
+
+  // pc端viewport没作用，所以还需要判断实际缩放情况
+  return windowWidth / viewportWidth - scale < 0.1 ? scale : 1
 }
 
 // 获取页面滚动距离
