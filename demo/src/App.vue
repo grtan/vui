@@ -48,7 +48,8 @@ body {
 
 body {
   background: #fff;
-  margin: 0;
+  margin: 0 auto;
+  max-width: 1080px;
 }
 
 .demo {

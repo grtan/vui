@@ -8,26 +8,64 @@
     <title><%= htmlWebpackPlugin.options.title %></title>
     <script>
       ;(function () {
-        var scale = 1 / devicePixelRatio
-        var meta = document.querySelector('meta[name=viewport]')
+        // 是否横屏
+        function isScreenLandscape() {
+          if (screen.availWidth && screen.availHeight) {
+            return screen.availWidth > screen.availHeight
+          }
 
-        !meta && (meta = document.createElement('meta'))
-        meta.setAttribute('name', 'viewport')
-        meta.setAttribute(
-          'content',
-          'width=device-width,initial-scale=' +
-            scale +
-            ',maximum-scale=' +
-            scale +
-            ',minimum-scale=' +
-            scale +
-            ',user-scalable=no'
-        )
-        document.head.appendChild(meta)
-        // 设置rem，当调整系统或者浏览器字体大小时，html元素的默认字体大小也会相应变化
-        var originalHtmlFontSize = parseFloat(getComputedStyle(document.documentElement, null).fontSize)
-        document.documentElement.style.fontSize =
-          (document.documentElement.clientWidth * 1000) / (108 * originalHtmlFontSize) + '%'
+          return screen.width > screen.height
+        }
+
+        function setRem() {
+          var scale = 1 / devicePixelRatio
+          var meta = document.querySelector('head > meta[name=viewport]')
+
+          if (!meta) {
+            meta = document.createElement('meta')
+            meta.setAttribute('name', 'viewport')
+            document.head.appendChild(meta)
+          }
+
+          meta.setAttribute(
+            'content',
+            'width=device-width,initial-scale=' +
+              scale +
+              ',maximum-scale=' +
+              scale +
+              ',minimum-scale=' +
+              scale +
+              ',user-scalable=no'
+          )
+
+          var viewportWidth = document.documentElement.clientWidth
+          var viewportHeight = document.documentElement.clientHeight
+          /**
+           * 竖屏时页面宽度始终为viewport width
+           * 横屏时，防止设置rem时已经弹出了软键盘等导致viewport高度变小的情况，所以设置最小viewport height为360 / scale
+           */
+          var pageWidth = !isLandscape ? viewportWidth : Math.min(viewportWidth, Math.max(viewportHeight, 360 / scale))
+
+          // 设计稿为1080P，px2rem时除以100
+          document.documentElement.style.fontSize = ((100 / 10.8) * pageWidth) / viewportWidth + 'vw'
+        }
+
+        // 记录当前屏幕方向
+        var isLandscape = isScreenLandscape()
+
+        setRem()
+        window.addEventListener('resize', function () {
+          var nowIslandscape = isScreenLandscape()
+
+          // 方向未变
+          if (nowIslandscape === isLandscape) {
+            return
+          }
+
+          // 方向改变后重新设置rem
+          isLandscape = nowIslandscape
+          setRem()
+        })
       })()
     </script>
   </head>

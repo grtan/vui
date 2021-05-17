@@ -127,6 +127,17 @@ export default [
             "lowerEnName": "image-previewer"
           },
           {
+            "zhName": "弹出框",
+            "type": "组件",
+            "category": "数据展示",
+            "author": {
+              "name": "谭新",
+              "email": "xin.tan@vivo.com"
+            },
+            "enName": "Popover",
+            "lowerEnName": "popover"
+          },
+          {
             "zhName": "标签",
             "type": "组件",
             "category": "数据展示",

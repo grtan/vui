@@ -343,15 +343,31 @@ export default class VComponent extends Vue {
   }
 
   async mounted() {
-    // 将根dom节点移到body下，防止业务方样式干扰
-    document.body.appendChild(this.$el)
+    let target = (this.$attrs.target as string | Element) || 'body'
+
+    if (typeof target === 'string') {
+      target = document.querySelector(target)!
+    }
+
+    if (!target) {
+      throw new Error('target属性指定的元素不存在')
+    }
+
+    // 将根dom节点移到target下，防止业务方样式干扰
+    target.appendChild(this.$el)
     // 等子组件都挂载完成后再显示，否则errorMsg的html可能获取不全
     await this.$nextTick()
     await this.show()
   }
 
   beforeDestroy() {
-    this.previewer && this.previewer.destroy()
+    /**
+     * close后会自动调用destroy方法
+     * 不能直接调用destroy，因为调用destroy后还是会触发onShowOverlayerChange中的close调用，导致报错
+     * 而close后再触发close调用时，不会报错
+     */
+    this.previewer?.close()
+    this.$el.parentElement?.removeChild(this.$el)
   }
 }
 </script>

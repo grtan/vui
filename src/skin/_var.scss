@@ -253,7 +253,7 @@ $link-spacing-regular-pc: 6px !default;
 $link-spacing-small-pc: 2px !default;
 $link-spacing-mini-pc: 2px !default;
 
-// 图片预览
+/* ------------------- 图片预览 ------------------- */
 $image-previewer-error-padding-top: 335px;
 $image-previewer-reload-margin-top: 66px;
 $image-previewer-button-scale: 2.5;
@@ -271,8 +271,21 @@ $image-previewer-counter-line-height-pc: normal;
 $image-previewer-download-width-pc: 25px;
 $image-previewer-download-height-pc: 25px;
 
-// 视频播放器
+/* ------------------- 视频播放器 ------------------- */
 $video-bar-background: rgba(0, 0, 0, 0.6);
 $video-bar-width: 600px;
 $video-bar-height: 84px;
 $video-bar-top: 23px;
+
+/* ------------------- popover弹出框 ------------------- */
+$popover-z-index: $toast-z-index - 100;
+$popover-content-margin: 39px;
+$popover-content-padding: 26px 36px;
+$popover-content-color: $color-white;
+$popover-content-font-size: 42px;
+$popover-content-line-height: 54px;
+// pc样式
+$popover-content-margin-pc: 12px;
+$popover-content-padding-pc: 12px;
+$popover-content-font-size-pc: 14px;
+$popover-content-line-height-pc: normal;

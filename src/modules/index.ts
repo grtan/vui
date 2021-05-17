@@ -12,6 +12,7 @@ import ImagePreviewer from './image-previewer'
 import Intersect from './intersect'
 import Link from './link'
 import Overlayer from './overlayer'
+import Popover from './popover'
 import Popup from './popup'
 import Scroll from './scroll'
 import ScrollBottom from './scroll-bottom'
@@ -40,6 +41,7 @@ function install(
     'Intersect',
     'Link',
     'Overlayer',
+    'Popover',
     'Popup',
     'Scroll',
     'ScrollBottom',
@@ -64,6 +66,7 @@ function install(
     Intersect,
     Link,
     Overlayer,
+    Popover,
     Popup,
     Scroll,
     ScrollBottom,
@@ -95,6 +98,7 @@ export {
   Intersect,
   Link,
   Overlayer,
+  Popover,
   Popup,
   Scroll,
   ScrollBottom,
@@ -105,7 +109,7 @@ export {
   Video
 }
 export default {
-  version: '2.5.0',
+  version: '2.6.0',
   install,
   config: Config
 }

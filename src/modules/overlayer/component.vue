@@ -228,7 +228,7 @@ export default class VComponent extends Vue {
   }
 
   mounted() {
-    let target = (this.$attrs.target as 'string' | Element) || 'body'
+    let target = (this.$attrs.target as string | Element) || 'body'
 
     if (typeof target === 'string') {
       target = document.querySelector(target)!
