@@ -18,6 +18,9 @@ import { Vue, Component } from 'vue-property-decorator'
 import videojs from 'video.js'
 import Hammer from 'hammerjs'
 import { SEEK } from '../../event'
+import { getViewportScale } from '@/utils/index'
+
+const viewportScale = getViewportScale()
 
 @Component({
   name: 'VuiVideoScrubGesture'
@@ -90,9 +93,11 @@ export default class VComponent extends Vue {
         /**
          * 当设置成Hammer.DIRECTION_HORIZONTAL时，只有触摸在水平方向上产生移动后才触发panstart事件
          * 如果用户先垂直滑动再水平滑动，可能就会有一些bug
-         * 所以这里使用全部方向，自行在panstart中判断方向
+         * 这里不能使用Hammer.DIRECTION_ALL，因为会阻止移动端页面垂直滚动
          */
-        direction: Hammer.DIRECTION_ALL
+        direction: Hammer.DIRECTION_HORIZONTAL,
+        // 将方向识别阈值设置得比较小，防止触发页面垂直滚动后还能识别成水平滑动
+        threshold: 1
       })
     )
 
@@ -104,7 +109,13 @@ export default class VComponent extends Vue {
         return
       }
 
-      const isHorizontal = (event.angle > -30 && event.angle < 30) || event.angle > 150 || event.angle < -150
+      /**
+       * 如果用户先垂直滑动再水平滑动，则panstart event中的angle是从最初的起始触点到第一次触发水平滑动的点的角度
+       * 所以这里仍然需要判断角度，排除掉上述情况
+       */
+      const isHorizontal =
+        ((event.angle > -30 && event.angle < 30) || event.angle > 150 || event.angle < -150) &&
+        [Hammer.DIRECTION_LEFT, Hammer.DIRECTION_RIGHT].includes(event.offsetDirection as any)
 
       if (!isHorizontal) {
         return
@@ -124,7 +135,8 @@ export default class VComponent extends Vue {
       }
 
       const current = event.center.x
-      const delta = current - this.prev
+      // 按照viewport scale=1的场景来算，1px距离代表1s
+      const delta = (current - this.prev) * viewportScale
       const currentTime = this.currentTime + delta
 
       this.prev = current
