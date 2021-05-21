@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.7.0-beta.1](http://gitlab.vmic.xyz/game-common/vui/compare/v2.7.0-beta.0...v2.7.0-beta.1) (2021-05-21)
+
+
+### Bug Fixes
+
+* video组件全屏时去掉人为创建历史记录的操作，因为浏览器默认支持返回键退出全屏 ([e0f8887](http://gitlab.vmic.xyz/game-common/vui/commit/e0f888722b4144aceee3dcfe7ee6d9bb5e624795))
+
 ## [2.7.0-beta.0](http://gitlab.vmic.xyz/game-common/vui/compare/v2.6.0-beta.1...v2.7.0-beta.0) (2021-05-17)
 
 
