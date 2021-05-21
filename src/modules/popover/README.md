@@ -28,10 +28,21 @@ export default {
 
 ```vue
 <template>
-  <vui-popover :show="show" type="zoom">
-    <vui-button @mouseenter.native="show = true" @mouseleave.native="show = false">鼠标移上来</vui-button>
-    <template #popover>这是自定义的<br />弹框内容</template>
-  </vui-popover>
+  <div>
+    <!-- 自定义背景 -->
+    <svg style="height: 0; position: absolute; width: 0" version="1.1" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="popover-background" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" style="stop-color: #f00; stop-opacity: 0.5" />
+          <stop offset="100%" style="stop-color: #00f; stop-opacity: 1" />
+        </radialGradient>
+      </defs>
+    </svg>
+    <vui-popover :show="show" type="zoom">
+      <vui-button @mouseenter.native="show = true" @mouseleave.native="show = false">鼠标移上来</vui-button>
+      <template #popover>这是自定义的<br />弹框内容</template>
+    </vui-popover>
+  </div>
 </template>
 
 <script>
@@ -51,6 +62,11 @@ export default {
 
 .vui-popover__content {
   transform-origin: center top;
+}
+
+/* 应用自定义背景 */
+.vui-popover__path {
+  fill: url('#popover-background');
 }
 </style>
 ```

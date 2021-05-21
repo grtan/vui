@@ -8,8 +8,16 @@
     <title><%= htmlWebpackPlugin.options.title %></title>
     <script>
       ;(function () {
-        // 是否横屏
+        // 当前是否横屏
         function isScreenLandscape() {
+          if (screen.orientation && typeof screen.orientation.angle === 'number') {
+            return Math.abs(screen.orientation.angle) === 90
+          }
+
+          if (typeof window.orientation === 'number') {
+            return Math.abs(window.orientation) === 90
+          }
+
           if (screen.availWidth && screen.availHeight) {
             return screen.availWidth > screen.availHeight
           }
@@ -17,8 +25,101 @@
           return screen.width > screen.height
         }
 
-        function setRem() {
-          var scale = 1 / devicePixelRatio
+        // 监控屏幕方向变化
+        function onOrientationChange(options) {
+          var callback = options.callback
+          var immediate = !!options.immediate
+          var isLandscape = isScreenLandscape()
+          var supportOrientationchange = 'onorientationchange' in window
+
+          function listener() {
+            var currentIslandscape = isScreenLandscape()
+
+            if (supportOrientationchange) {
+              var viewportWidth = document.documentElement.clientWidth
+              var viewportHeight = document.documentElement.clientHeight
+
+              // 解决游戏中心webview中横竖屏切换时，要延迟一段时间才能正确获取viewport尺寸的bug
+              if (
+                (currentIslandscape && viewportWidth <= viewportHeight) ||
+                (!currentIslandscape && viewportWidth > viewportHeight)
+              ) {
+                window.addEventListener('resize', function listener() {
+                  window.removeEventListener('resize', listener)
+                  callback(currentIslandscape)
+                })
+                return
+              }
+
+              callback(currentIslandscape)
+              return
+            }
+
+            // 方向未变
+            if (currentIslandscape === isLandscape) {
+              return
+            }
+
+            isLandscape = currentIslandscape
+            callback(isLandscape)
+          }
+
+          // 立即获取
+          if (immediate) {
+            callback(isLandscape)
+          }
+
+          window.addEventListener(supportOrientationchange ? 'orientationchange' : 'resize', listener)
+
+          return function () {
+            window.removeEventListener(supportOrientationchange ? 'orientationchange' : 'resize', listener)
+          }
+        }
+
+        // 获取页面viewport实际缩放比例
+        function getViewportScale() {
+          var viewport = document.querySelector('meta[name=viewport]')
+          var scale = 1
+
+          if (viewport) {
+            var content = viewport.getAttribute('content')
+
+            scale = parseFloat((content && content.replace(/^.*\binitial-scale\s*=\s*([\d.]+).*$|^.*$/, '$1')) || '1')
+          }
+
+          /**
+           * 当在根元素(<html>元素)上使用clientWidth时，将返回viewport的宽度，不管html元素宽度是大于还是小于视口宽度
+           * innerWidth获取的宽度包含了垂直滚动条的宽度，documentElement.clientWidth则不包含
+           * 不过移动端滚动条几乎都是悬浮的，不占宽度，可以忽略
+           */
+          var viewportWidth = document.documentElement.clientWidth || window.innerWidth
+
+          /**
+           * outerWidth获取浏览器窗口外部的宽度
+           * screen.availWidth返回浏览器窗口最大可占用的水平宽度（并不是当前实际窗口宽度）
+           * screen.width返回的始终是整个屏幕的宽度（哪怕浏览器不是全屏，返回的也是整个屏幕的宽度）
+           *
+           * 这三个宽度不受缩放影响，可以理解成scale=1时的大小
+           */
+          var windowWidth = window.outerWidth || window.screen.availWidth || window.screen.width
+
+          /**
+           * 移动端全屏时或者pc端viewport scale没作用，始终为1
+           * 所以还需要判断实际缩放情况
+           */
+          return windowWidth / viewportWidth - scale < 0.1 ? scale : 1
+        }
+
+        // 设置rem，isLandscape表示是否横屏
+        function setRem(isLandscape) {
+          /**
+           * 是否缩放取决于具体场景，如果存在视频全屏的场景，建议不缩放页面，原因如下
+           *
+           * 如果scale不是1，视频全屏后再退出全屏时，页面滚动位置可能会变化
+           * 原因是视频全屏后scale始终会重置成1，页面不缩放，退出全屏后又恢复缩放，
+           * 这里可能因为浏览器的某种机制导致页面定位发生变化
+           */
+          var scale = 1 / window.devicePixelRatio
           var meta = document.querySelector('head > meta[name=viewport]')
 
           if (!meta) {
@@ -44,27 +145,17 @@
            * 竖屏时页面宽度始终为viewport width
            * 横屏时，防止设置rem时已经弹出了软键盘等导致viewport高度变小的情况，所以设置最小viewport height为360 / scale
            */
-          var pageWidth = !isLandscape ? viewportWidth : Math.min(viewportWidth, Math.max(viewportHeight, 360 / scale))
+          var pageWidth = !isLandscape
+            ? viewportWidth
+            : Math.min(viewportWidth, Math.max(viewportHeight, 360 / getViewportScale()))
 
           // 设计稿为1080P，px2rem时除以100
           document.documentElement.style.fontSize = ((100 / 10.8) * pageWidth) / viewportWidth + 'vw'
         }
 
-        // 记录当前屏幕方向
-        var isLandscape = isScreenLandscape()
-
-        setRem()
-        window.addEventListener('resize', function () {
-          var nowIslandscape = isScreenLandscape()
-
-          // 方向未变
-          if (nowIslandscape === isLandscape) {
-            return
-          }
-
-          // 方向改变后重新设置rem
-          isLandscape = nowIslandscape
-          setRem()
+        onOrientationChange({
+          immediate: true,
+          callback: setRem
         })
       })()
     </script>
