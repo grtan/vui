@@ -7,21 +7,15 @@
       }
     ]"
     @click="fullscreen = !fullscreen"
-  >
-    <vui-overlayer v-model="fullscreen" class="vui-video__fullscreen-overlayer"></vui-overlayer>
-  </div>
+  ></div>
 </template>
 
 <script lang="ts">
 import { Vue, Component, Watch } from 'vue-property-decorator'
 import { requestedOrientation } from '@vivo/v-jsbridge'
-import VuiOverlayer from '../../../overlayer'
 
 @Component({
-  name: 'VuiVideoFullscreen',
-  components: {
-    VuiOverlayer
-  }
+  name: 'VuiVideoFullscreen'
 })
 export default class VComponent extends Vue {
   // 是否全屏

@@ -3,7 +3,6 @@
 @use '../../../skin/common/function' as *;
 @use '../../button/style/index' as *;
 @use '../../toast/style/index' as *;
-@use '../../overlayer/style/index' as *;
 @use '../../transition/style/index' as *;
 @use './image' as image;
 @import "~video.js/dist/video-js.css";
@@ -207,10 +206,6 @@
 
     @include m(full) {
       background-image: url("../image/fullscreen-zoomout.svg");
-    }
-
-    &-overlayer {
-      display: none;
     }
   }
 
