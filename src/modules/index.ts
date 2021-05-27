@@ -8,6 +8,7 @@ import Disappear from './disappear'
 import Ellipsis from './ellipsis'
 import HistoryAction from './history-action'
 import Icon from './icon'
+import Image from './image'
 import ImagePreviewer from './image-previewer'
 import Intersect from './intersect'
 import Link from './link'
@@ -38,6 +39,7 @@ function install(
     'Ellipsis',
     'HistoryAction',
     'Icon',
+    'Image',
     'ImagePreviewer',
     'Intersect',
     'Link',
@@ -64,6 +66,7 @@ function install(
     Ellipsis,
     HistoryAction,
     Icon,
+    Image,
     ImagePreviewer,
     Intersect,
     Link,
@@ -97,6 +100,7 @@ export {
   Ellipsis,
   HistoryAction,
   Icon,
+  Image,
   ImagePreviewer,
   Intersect,
   Link,

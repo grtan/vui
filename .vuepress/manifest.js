@@ -11,6 +11,7 @@ module.exports = [
           "/src/modules/avatar/",
           "/src/modules/button/",
           "/src/modules/icon/",
+          "/src/modules/image/",
           "/src/modules/link/"
         ]
       },

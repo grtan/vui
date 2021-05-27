@@ -59,5 +59,73 @@ module.exports = {
       args[0].ICONS = JSON.stringify(getIconList())
       return args
     })
+
+    /**
+     * 常规图片缩略图
+     * 先抽取缩略图再使用后续loader进行处理
+     */
+    config.module
+      .rule('image-thumb')
+      .test(/\.(png|jpe?g|webp)$/)
+      .resourceQuery(/thumb/)
+      .use('@vivo/image-thumbnail-loader')
+      .loader('@vivo/image-thumbnail-loader')
+      .options({
+        percentage: 10
+      })
+
+    // gif缩略图
+    config.module
+      .rule('gif-thumb')
+      .test(/\.gif$/)
+      .resourceQuery(/thumb/)
+      .use('@vivo/image-thumbnail-loader')
+      .loader('@vivo/image-thumbnail-loader')
+      .options({
+        percentage: 100
+      })
+
+    // 重置图片loader
+    const oldUrlLoader = config.module.rule('images').use('url-loader')
+
+    config.module
+      .rule('images')
+      // 内联图片
+      .oneOf('inline')
+      .resourceQuery(/inline/)
+      .use('url-loader')
+      .loader(oldUrlLoader.get('loader'))
+      .options({
+        limit: Number.MAX_VALUE
+      })
+      .end()
+      .end()
+      // 外置图片
+      .oneOf('external')
+      .resourceQuery(/external/)
+      .use('file-loader')
+      .loader(oldUrlLoader.get('options').fallback.loader)
+      .options(oldUrlLoader.get('options').fallback.options)
+      .end()
+      .end()
+      // 生成图片并获取相关信息
+      .oneOf('info')
+      .resourceQuery(/info/)
+      .use('sizeof-loader')
+      .loader('sizeof-loader')
+      .options({
+        useFileLoader: true,
+        name: oldUrlLoader.get('options').fallback.options.name
+      })
+      .end()
+      .end()
+      // 常规处理
+      .oneOf('default')
+      .use('url-loader')
+      .loader(oldUrlLoader.get('loader'))
+      .options(oldUrlLoader.get('options'))
+      .end()
+      .end()
+      .uses.clear()
   }
 }

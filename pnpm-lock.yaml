@@ -20,6 +20,7 @@ specifiers:
   '@typescript-eslint/parser': ^4.6.1
   '@vivo/ks3': ^0.4.1
   '@vivo/v-jsbridge': ^0.1.18-beta.4
+  '@vue/babel-helper-vue-jsx-merge-props': ^1.2.1
   '@vue/babel-preset-jsx': ^1.2.4
   '@vuepress/plugin-back-to-top': ^1.7.1
   art-template: ^4.13.2
@@ -82,6 +83,7 @@ specifiers:
   videojs-contrib-quality-levels: ^2.0.9
   vue: ^2.6.12
   vue-class-component: ^7.2.6
+  vue-loading-template: ^1.3.2
   vue-property-decorator: ^9.0.2
   vue-router: ^3.4.8
   vue-run-sfc: file:.vuepress/plugins/vue-run-sfc
@@ -124,6 +126,7 @@ devDependencies:
   '@typescript-eslint/eslint-plugin': 4.23.0_7cfaee78cda985ff9bc3d8b5cb92a136
   '@typescript-eslint/parser': 4.23.0_eslint@7.26.0+typescript@4.2.4
   '@vivo/ks3': 0.4.1
+  '@vue/babel-helper-vue-jsx-merge-props': 1.2.1
   '@vue/babel-preset-jsx': 1.2.4_@babel+core@7.14.2
   '@vuepress/plugin-back-to-top': 1.8.2
   art-template: 4.13.2
@@ -177,6 +180,7 @@ devDependencies:
   typescript: 4.2.4
   typescript-transform-paths: 2.2.3_typescript@4.2.4
   vue: 2.6.12
+  vue-loading-template: 1.3.2
   vue-router: 3.5.1
   vue-run-sfc: link:.vuepress/plugins/vue-run-sfc
   vue-template-compiler: 2.6.12
@@ -11249,6 +11253,10 @@ packages:
       object-keys: 1.1.1
     dev: true
 
+  /reflect-metadata/0.1.13:
+    resolution: {integrity: sha1-Z648pXyXKiqhZCsQ/jY/4y1J3Ag=}
+    dev: true
+
   /regenerate-unicode-properties/8.2.0:
     resolution: {integrity: sha1-5d5xEdZV57pgwFfb6f83yH5lzew=}
     engines: {node: '>=4'}
@@ -13804,6 +13812,10 @@ packages:
     dev: true
     optional: true
 
+  /vue-class-component/6.3.2:
+    resolution: {integrity: sha1-5gN+hNHfKvO95PRV5Qyhue7AK+Y=}
+    dev: true
+
   /vue-class-component/7.2.6_vue@2.6.12:
     resolution: {integrity: sha1-hHHgN7jkdi9aRkaG4Z5a/HCFAuQ=}
     peerDependencies:
@@ -13871,9 +13883,24 @@ packages:
       webpack: 4.46.0
     dev: true
 
+  /vue-loading-template/1.3.2:
+    resolution: {integrity: sha1-L3vXrlc1xHAp6PHtd07UWXCJd3U=}
+    dependencies:
+      vue: 2.6.12
+      vue-class-component: 6.3.2
+      vue-property-decorator: 6.1.0
+    dev: true
+
   /vue-multipane/0.9.5:
     resolution: {integrity: sha1-EN2vkJLgqedh7f0NHx24u7VLPpw=}
     engines: {node: '>=6.0.0'}
+    dev: true
+
+  /vue-property-decorator/6.1.0:
+    resolution: {integrity: sha1-75e8wb/nlOwGATPKBKWsoC6AiCg=}
+    dependencies:
+      reflect-metadata: 0.1.13
+      vue-class-component: 6.3.2
     dev: true
 
   /vue-property-decorator/9.1.2_2dc4252c5371093c9ebcca71536ac4e9:

@@ -2,12 +2,34 @@ declare module '*.vue' {
   import Vue from 'vue'
   export default Vue
 }
+declare module '*?inline' {
+  const content: string
+  export default content
+}
+declare module '*?external' {
+  const content: string
+  export default content
+}
+declare module '*?info' {
+  const content: {
+    src: string
+    bytes: number
+  }
+  export default content
+}
+declare module '*?thumb' {
+  const content: string
+  export default content
+}
+declare module '*?thumb&inline' {
+  const content: string
+  export default content
+}
 declare module '@vivo/v-jsbridge'
 declare module '@silvermine/videojs-quality-selector'
 
 interface HTMLElement {
   _intersect?: {
-    init: boolean
     observer: IntersectionObserver
   }
   _appear?: {

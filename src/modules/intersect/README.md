@@ -10,16 +10,17 @@
 
 ```html
 <v-app>
-    <v-component v-vui-interspect="onInterspcet"></v-component>
+  <v-component v-vui-interspect="onInterspcet"></v-component>
 </v-app>
 ```
+
 ```js
 import Vue from 'vue'
 
 export default Vue.extend({
   name: 'App',
   methods: {
-    onInterspcet (entries, observer, isIntersecting) {
+    onInterspcet(entries, observer, isIntersecting) {
       console.log('onInterspcet')
       // do your business
     }
@@ -29,33 +30,35 @@ export default Vue.extend({
 
 当 `v-component` 可视性发生变化时会触发 `onInterspcet`。
 
-* `v-vui-appear` 和 `v-vui-disappear` 事件处理函数没有参数。就纯粹的表示显示和消失的行为。
-* `v-vui-interspect` 是通用的只要交差出现变化时就会触发回调，扩展能力更强，所以回调里的参数包括 entries、observer、 isIntersecting。其中 entries 和 observer 是 [Intersection Observer API](https://developer.mozilla.org/zh-CN/docs/Web/API/Intersection_Observer_API) 原生的回调参数，isIntersecting 表示要检测的组件是否有交差（可见）
-
+- `v-vui-appear` 和 `v-vui-disappear` 事件处理函数没有参数。就纯粹的表示显示和消失的行为。
+- `v-vui-interspect` 是通用的只要交差出现变化时就会触发回调，扩展能力更强，所以回调里的参数包括 entries、observer、 isIntersecting。其中 entries 和 observer 是 [Intersection Observer API](https://developer.mozilla.org/zh-CN/docs/Web/API/Intersection_Observer_API) 原生的回调参数，isIntersecting 表示要检测的组件是否有交差（可见）
 
 ## API
 
 ### 指令的值
 
-| 类型 | 说明 |
-| :---: | :-------: |
+|   类型    |                            说明                            |
+| :-------: | :--------------------------------------------------------: | ------------------------------------------------------------------------ |
 | `Function | { handler: Function, options?: IntersectionObserverInit }` | 要么直接是一个函数，要么是一个对象，对象包括 handler 和 options 两个参数 |
 
 ```html
 <v-app>
-    <v-component v-vui-interspect="{
+  <v-component
+    v-vui-interspect="{
         handler:onInterspcet,
         options: {threshold:[0.5]}
-    }"></v-component>
+    }"
+  ></v-component>
 </v-app>
 ```
+
 ```js
 import Vue from 'vue'
 
 export default Vue.extend({
   name: 'App',
   methods: {
-    onInterspcet () {
+    onInterspcet() {
       console.log('onInterspcet')
       // do your business
     }
@@ -68,24 +71,23 @@ export default Vue.extend({
 
 ### 指令的参数
 
-
-| 名称 | 类型 | 说明 |
-| :---: | :---: | :-------: |
+| 名称 |   类型    |    说明    |
+| :--: | :-------: | :--------: |
 | once | `boolean` | 只回调一次 |
 
-
 ```html
-  <v-app>
-    <v-component v-vui-interspect.once="onInterspcet"></v-component>
-  </v-app>
+<v-app>
+  <v-component v-vui-interspect.once="onInterspcet"></v-component>
+</v-app>
 ```
+
 ```js
 import Vue from 'vue'
 
 export default Vue.extend({
   name: 'App',
   methods: {
-    onInterspcet () {
+    onInterspcet() {
       console.log('onInterspcet')
       // do your business。 只会触发一次。
     }
@@ -99,6 +101,5 @@ morrain
 
 ## 更新日志
 
-- v1.0.0 发布
-
-
+- v2.7.0 修复指令初始化时不执行回调的问题
+- v2.0.0 发布

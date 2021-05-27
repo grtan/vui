@@ -18,7 +18,7 @@
     box-sizing: border-box;
     float: left;
     // 任何情况下过渡，transition组件都会将enter元素添加到尾部，这里利用opacity不为1时形成层叠上下文，保证层叠顺序跟元素dom顺序一致
-    opacity: 0.99;
+    opacity: 0.9999999;
     width: 100%;
 
     /*

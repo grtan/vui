@@ -42,7 +42,7 @@ module.exports = {
         parser: require.resolve('@typescript-eslint/parser'),
         extraFileExtensions: ['.vue'],
         // @typescript-eslint/parser使用
-        project: './tsconfig.json'
+        project: './tsconfig.eslint.json'
       },
       extends: [
         'standard',

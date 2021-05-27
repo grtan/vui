@@ -1,0 +1,28 @@
+@use '../../../skin/common/mixin' as *;
+@use '../../transition/style/index' as *;
+
+@include b(image) {
+  display: inline-block;
+
+  @include e(transition wrapper content) {
+    height: 100%;
+  }
+
+  @include e(loading error) {
+    display: block;
+    height: 100%;
+    width: 100%;
+  }
+
+  @include e(helper) {
+    display: block;
+    height: 0;
+
+    /* 
+      img标签加载失败时，浏览器会自动插入shadowdom 
+      防止shadowdom影响其他元素的布局，必须使用overflow: hidden
+    */
+    overflow: hidden;
+    width: 0;
+  }
+}
