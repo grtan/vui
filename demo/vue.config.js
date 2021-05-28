@@ -38,6 +38,9 @@ module.exports = {
     config.resolve.modules.prepend(path.resolve(__dirname, 'node_modules'))
     // @符号指向vui/src目录
     config.resolve.alias.set('@', path.resolve(__dirname, '../src'))
+    // 不识别sideEffects标记，防止demo中丢失style内容
+    config.optimization.sideEffects(false)
+    // 不对src中的内容进行eslint校验
     config.module.rule('eslint').exclude.add(path.resolve(__dirname, '../src'))
     // 内置svg处理排除icon图标
     config.module.rule('svg').exclude.add(path.resolve(__dirname, '../src/modules/icon/image'))

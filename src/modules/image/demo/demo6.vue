@@ -13,7 +13,6 @@
     </vui-image>
   </div>
 </template>
-ss
 
 <script lang="ts">
 import { Vue, Component } from 'vue-property-decorator'
